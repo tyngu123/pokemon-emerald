@@ -1,0 +1,64 @@
+[
+  {
+    "type": "FACE_PLAYER"
+  },
+  {
+    "type": "SET_MOVEMENT",
+    "movementType": "STATIONARY"
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "PROF. BIRCH: Eai,mano. Suave? "
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "Vou te mostrar tudo que eu posso fazer..."
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "Vou mudar meu estilo de movimento para andar de um lado pro outro na horizontal."
+  },
+  {
+    "type": "SET_MOVEMENT",
+    "movementType": "PACE_HORIZONTAL",
+    "movementRange": 4
+  },
+  {
+    "type": "WAIT",
+    "duration": 2
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "Agora vertical!"
+  },
+  {
+    "type": "SET_MOVEMENT",
+    "movementType": "PACE_VERTICAL",
+    "movementRange": 4
+  },
+  {
+    "type": "WAIT",
+    "duration": 2
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "AGORA..... vou ficar olhando para todos os 4 lados igual um doidin... "
+  },
+  {
+    "type": "SET_MOVEMENT",
+    "movementType": "SPIN_STATIONARY"
+  },
+  {
+    "type": "WAIT",
+    "duration": 2
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "Me procure se tiver duvida de qualquer coisa... "
+  },
+  {
+    "type": "SET_MOVEMENT",
+    "movementType": "WANDER",
+    "movementRange": 2
+  }
+]

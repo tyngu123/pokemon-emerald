@@ -1,0 +1,13 @@
+[
+  {
+    "type": "FACE_PLAYER"
+  },
+  {
+    "type": "SET_MOVEMENT",
+    "movementType": "STATIONARY"
+  },
+  {
+    "type": "SHOW_DIALOGUE",
+    "text": "PROF. BIRCH: Pode entrar ai nao... Nem programei essa parada ainda. "
+  }
+]

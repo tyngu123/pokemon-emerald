@@ -1,0 +1,55 @@
+NPC possui alguns tipos de movimentacao enquanto estao rodando no mapa
+STATIONARY - fica parado
+WANDER - anda dentro de um raio de movement_range
+SPIN_STATIONARY - fica girando parado encarando as 4 direcoes
+PACE_HORIZONTAL E PACE_VERTICAL - o npc anda dentro de um limite de movement_range
+tanto para horizontal ou vertical.
+
+exemplo de propriedades dentro do Tiled de um npc:
+[
+    {
+        "name": "dialogueKey",
+        "propertytype": "",
+        "type": "string",
+        "value": "MOM_GREETING"
+    },
+    {
+        "name": "id",
+        "propertytype": "",
+        "type": "string",
+        "value": "npc_mom1"
+    },
+    {
+        "name": "initialDirection",
+        "propertytype": "",
+        "type": "string",
+        "value": "DOWN"
+    },
+    {
+        "name": "movementRange",
+        "propertytype": "",
+        "type": "int",
+        "value": 2
+    },
+    {
+        "name": "movementType",
+        "propertytype": "",
+        "type": "string",
+        "value": "PACE_VERTICAL"
+    },
+    {
+        "name": "npcType",
+        "propertytype": "",
+        "type": "string",
+        "value": "professor_birch"
+    },
+    {
+        "name": "scriptFile",
+        "propertytype": "",
+        "type": "string",
+        "value": "mom_greeting.json"
+    }
+]
+
+TODO
+npc

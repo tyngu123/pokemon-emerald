@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="5">
+ <tileset firstgid="1" source="exterior.tsx"/>
+ <layer id="1" name="floor" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENwCAMRNET0LJGYH0WAUaKJ6BwYZToF18un05OklJwM0vL2jnexsfHx8fHx8fH/6Y/6vlG7PfYf9p/8//4+Pi+niI1q1svZeFcIA==
+  </data>
+ </layer>
+ <layer id="2" name="collision" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1jEOABAQRNHZ0v0vrFGJgg2G5P9k6letkO4Uba7w8X/x4+Bm/d3h42f8Mhi+x5fy/krOdxr/rfvHx3f4zv/XqfDx+ypUCwEb
+  </data>
+ </layer>
+ <layer id="4" name="buildings" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzrERQEAYROE9NIHIibQnQ3XIZNeRDa8A84/gfTMv3pUAAPif011Vd/B+n6Shakyx+7mRZje54tbg/d2bh9vc0kqP97vYCwAA4GMvWqsIcw==
+  </data>
+ </layer>
+ <layer id="7" name="trees" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt1ksKgDAMRdHQLdht+dmlblDr0BR0EuggEgM170LI+GBbLAPRyVOctmzOREv22zIvN/z9+I8P3LvCP/GsPJvhHpV+67R+6+CHP7L/eQdkXv5WXv5W8Mc4/3+5/+kebVb+9GJqPX3/6P+/8MfxX5kzgOg=
+  </data>
+ </layer>
+ <layer id="3" name="foreground" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJzt0jEKACAMQ9HcoadUD6VH1UUQukgpdPkPQtYMkQAA8NpJfzJq5wAImCYtq14B/Ll/zWoA3gZe0BFq
+  </data>
+ </layer>
+ <objectgroup id="5" name="npcs">
+  <object id="1" x="176" y="272" width="16" height="16">
+   <properties>
+    <property name="dialogueKey" value="MOM_GREETING"/>
+    <property name="id" value="npc_mom1"/>
+    <property name="initialDirection" value="DOWN"/>
+    <property name="movementRange" type="int" value="2"/>
+    <property name="movementType" value="SPIN_STATIONARY"/>
+    <property name="npcType" value="professor_birch"/>
+    <property name="scriptFile" value="you_cant_pass.json"/>
+   </properties>
+  </object>
+  <object id="2" x="240" y="304" width="16" height="16">
+   <properties>
+    <property name="dialogueKey" value="MOM_GREETING"/>
+    <property name="id" value="npc_mom1"/>
+    <property name="initialDirection" value="DOWN"/>
+    <property name="movementRange" type="int" value="5"/>
+    <property name="movementType" value="PACE_HORIZONTAL"/>
+    <property name="npcType" value="youngster"/>
+   </properties>
+  </object>
+  <object id="3" x="480" y="288" width="16" height="16">
+   <properties>
+    <property name="dialogueKey" value="MOM_GREETING"/>
+    <property name="id" value="npc_mom1"/>
+    <property name="initialDirection" value="DOWN"/>
+    <property name="movementRange" type="int" value="1"/>
+    <property name="movementType" value="PACE_VERTICAL"/>
+    <property name="npcType" value="youngster"/>
+    <property name="scriptFile" value="mom_greeting.json"/>
+   </properties>
+  </object>
+  <object id="4" x="208" y="256" width="16" height="16" visible="0">
+   <properties>
+    <property name="dialogueKey" value="MOM_GREETING"/>
+    <property name="id" value="npc_mom1"/>
+    <property name="initialDirection" value="DOWN"/>
+    <property name="movementRange" type="int" value="2"/>
+    <property name="movementType" value="SPIN_STATIONARY"/>
+    <property name="npcType" value="professor_birch"/>
+    <property name="scriptFile" value="sign_player_house.json"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
