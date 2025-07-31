@@ -38,7 +38,9 @@ public class ScriptLoader {
             case "FACE_PLAYER":     return new FacePlayerCommand();
             case "WAIT":            return new WaitCommand();
             case "SHOW_DIALOGUE":   return new DialogueCommand();
-            case "SET_MOVEMENT":    return new SetMovementCommand();  // <–– adicionado
+            case "SET_MOVEMENT":    return new SetMovementCommand();
+            // ## ADICIONAR ESTA LINHA ##
+            case "MOVE_TO":         return new MoveToCommand();
             default:
                 Gdx.app.error("ScriptLoader", "Tipo desconhecido: " + type);
                 return null;

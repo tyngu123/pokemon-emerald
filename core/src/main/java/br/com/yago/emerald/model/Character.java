@@ -28,10 +28,16 @@ public abstract class Character extends Entity {
     protected TiledMapTileLayer collisionLayer;
     protected Array<Entity> allEntities;
 
-    // ## NOVO: Flag para controlar se o personagem obedece a input/IA ##
     private boolean controlEnabled = true;
-
     protected boolean isLocked = false;
+    private boolean justFinishedMoving = false;
+
+    // === Continuous multi-tile movement for scripts ===
+    private boolean continuousMoving = false;
+    private final Vector2 continuousStartPosition = new Vector2();
+    private final Vector2 continuousTargetPosition = new Vector2();
+    private float continuousProgress = 0f;
+    private float continuousDuration = 0f;
 
     public Character(TextureAtlas atlas, TiledMapTileLayer collisionLayer, Array<Entity> allEntities, float startX, float startY) {
         super(startX, startY, GameConfig.PLAYER_WIDTH, GameConfig.PLAYER_HEIGHT);
@@ -58,25 +64,55 @@ public abstract class Character extends Entity {
         }
     }
 
-    // Modificar o início do método update()
+    /**
+     * ## MÉTODO CORRIGIDO ##
+     * A lógica foi reestruturada para permitir o movimento contínuo e também respeitar travas.
+     */
     @Override
     public void update(float delta) {
-        // Se o personagem está travado por um script, sua lógica de movimento/IA é ignorada.
-        // A animação de idle continua rodando.
-        if (isLocked) {
-            stateTimer += delta;
+        stateTimer += delta;
+
+        // tratamento de movimento contínuo (multi-tile) para scripts
+        if (continuousMoving) {
+            continuousProgress += delta;
+            float t = Math.min(continuousProgress / continuousDuration, 1f);
+            worldPosition.x = Interpolation.linear.apply(continuousStartPosition.x, continuousTargetPosition.x, t);
+            worldPosition.y = Interpolation.linear.apply(continuousStartPosition.y, continuousTargetPosition.y, t);
+            if (t >= 1f) {
+                continuousMoving = false;
+                currentState = State.IDLE;
+                this.justFinishedMoving = true;
+                // sincroniza as posições base/tile para refletir o fim do movimento contínuo
+                startPosition.set(worldPosition);
+                targetPosition.set(worldPosition);
+            }
+            // enquanto estiver em movimento contínuo, não processa input normal
             return;
         }
 
-        stateTimer += delta;
+        // A interpolação do movimento tile a tile
         if (currentState == State.WALKING) {
             updateMovement(delta);
-        } else if (currentState == State.IDLE) {
+        }
+
+        // Se o personagem está travado, não processa novos inputs/IA.
+        if (isLocked) {
+            return;
+        }
+
+        // Limpa a flag no início do frame se estiver parado.
+        if (currentState == State.IDLE) {
+            justFinishedMoving = false;
+        }
+
+        // Processa a IA/Input do jogador somente se estiver parado e não travado.
+        if (currentState == State.IDLE) {
             handleIdleInput();
         }
     }
 
     private void handleIdleInput() {
+        if (!controlEnabled) return; // Checa o controle da IA/mov encadeado
         Direction desiredDirection = getDesiredDirection();
         if (desiredDirection == null) return;
 
@@ -97,15 +133,26 @@ public abstract class Character extends Entity {
         if (movementProgress >= 1f) {
             worldPosition.set(targetPosition);
             currentState = State.IDLE;
-            handleIdleInputChained();
+            this.justFinishedMoving = true; // Sinaliza que um passo foi concluído
+
+            // Sincroniza os pontos base para o próximo movimento
+            startPosition.set(worldPosition);
+            targetPosition.set(worldPosition);
+
+            // Não encadeia mais movimento aqui, a lógica de update cuida disso.
+            // Isso evita movimentos indesejados após um script.
+            if (!isLocked) {
+                handleIdleInputChained();
+            }
         }
     }
 
     private void handleIdleInputChained() {
-        if (!controlEnabled) return; // Não encadeia movimentos se o controle estiver desativado
+        if (!controlEnabled) return;
         Direction desiredDirection = getDesiredDirection();
         if (desiredDirection == null) return;
 
+        // Tenta se mover imediatamente. Se não, apenas vira.
         if (desiredDirection == facingDirection) {
             tryToMove(desiredDirection);
         } else {
@@ -153,7 +200,6 @@ public abstract class Character extends Entity {
 
     @Override
     public TextureRegion getCurrentFrame() {
-        // Se não há animações (NPC invisível), retorna nulo.
         if (animations.isEmpty()) {
             return null;
         }
@@ -161,11 +207,9 @@ public abstract class Character extends Entity {
         return animations.get(animationKey).getKeyFrame(stateTimer, true);
     }
 
-    // --- MÉTODOS PARA CONTROLE E INTERAÇÃO ---
     public void setControlEnabled(boolean enabled) {
         this.controlEnabled = enabled;
         if (!enabled) {
-            // Se o controle for desativado, garante que o personagem pare de tentar se mover
             if (this instanceof Player) {
                 ((Player) this).setNextDirection(null);
             }
@@ -191,16 +235,53 @@ public abstract class Character extends Entity {
 
     public boolean isControlEnabled() { return controlEnabled; }
 
-    public void setLocked(boolean locked) {
-        this.isLocked = locked;
-    }
-
-    public State getCurrentState() {
-        return currentState;
-    }
-
+    public void setLocked(boolean locked) { this.isLocked = locked; }
+    public State getCurrentState() { return currentState; }
     public int getGridX() { return (int)(worldPosition.x / GameConfig.TILE_SIZE); }
     public int getGridY() { return (int)(worldPosition.y / GameConfig.TILE_SIZE); }
-
     protected abstract Direction getDesiredDirection();
+
+    // --- MÉTODOS PARA SCRIPTING ---
+    public void clearJustFinishedMovingFlag() { this.justFinishedMoving = false; }
+    public boolean isJustFinishedMoving() { return justFinishedMoving; }
+    public boolean isContinuousMoving() { return continuousMoving; }
+
+    public void forceMove(Direction direction) {
+        if (currentState == State.IDLE) {
+            this.facingDirection = direction;
+            this.stateTimer = 0;
+            tryToMove(direction);
+        }
+    }
+
+    /**
+     * Retorna a maior distância (em tiles) que pode andar nessa direção sem colidir.
+     */
+    public int maxWalkableDistance(Direction dir, int desiredDistance) {
+        for (int i = 1; i <= desiredDistance; i++) {
+            int checkX = getGridX() + dir.getDx() * i;
+            int checkY = getGridY() + dir.getDy() * i;
+            if (!isWalkable(checkX, checkY) || isOccupied(checkX, checkY)) {
+                return i - 1;
+            }
+        }
+        return desiredDistance;
+    }
+
+    /**
+     * Inicia um movimento contínuo de vários tiles em uma direção.
+     */
+    public void startContinuousMove(Direction dir, int distance) {
+        int actualDistance = maxWalkableDistance(dir, distance);
+        if (actualDistance <= 0) return;
+        float dx = dir.getDx() * actualDistance * GameConfig.TILE_SIZE;
+        float dy = dir.getDy() * actualDistance * GameConfig.TILE_SIZE;
+        continuousStartPosition.set(worldPosition);
+        continuousTargetPosition.set(worldPosition.x + dx, worldPosition.y + dy);
+        continuousProgress = 0f;
+        continuousDuration = actualDistance * GameConfig.PLAYER_MOVE_DURATION;
+        this.facingDirection = dir;
+        this.currentState = State.WALKING;
+        this.continuousMoving = true;
+    }
 }
