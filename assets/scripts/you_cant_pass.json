@@ -1,34 +1,18 @@
-[
-	{
+{
+  "runMode": "ONCE",
+  "nextScript": "you_cant_pass2.json",
+  "commands": [
+  {
 		"type": "FACE_PLAYER"
 	},
 	{
 		"type": "SET_MOVEMENT",
 		"movementType": "STATIONARY"
 	},
-	{
-		"type": "SHOW_DIALOGUE",
-		"text": "PROF. BIRCH: Ih.. foi mal ai.. to bloqueando a passagem. "
-	},
-	{
-		"type": "MOVE_TO",
-		"direction": "RIGHT",
-		"distance": 3
-	},
-	{
-		"type": "MOVE_TO",
-		"direction": "UP",
-		"distance": 3
-	},
-	{
-		"type": "SHOW_DIALOGUE",
-		"text": "PROF. BIRCH: Pode passar. "
-	},
-	{
+	{ "type": "SHOW_DIALOGUE", "text": "PROF BIRCH: Ih foi mal, to atrapalhando sua passagem...." },
+    { "type": "MOVE_TO", "direction": "RIGHT", "distance": 3 },
+    {
 		"type": "FACE_PLAYER"
-	},
-	{
-    "type": "SET_MOVEMENT",
-    "movementType": "SPIN_STATIONARY"
-  }
-]
+	}
+  ]
+}

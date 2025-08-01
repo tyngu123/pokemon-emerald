@@ -1,4 +1,6 @@
-[{
-  "type": "SHOW_DIALOGUE",
-  "text": "CASA DO CARALHO "
-}]
+{
+  "runMode": "ALWAYS",
+  "commands": [
+	{ "type": "SHOW_DIALOGUE", "text": "SOMEONE`S HOUSE" }
+  ]
+}

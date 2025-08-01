@@ -8,6 +8,9 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Classe NPC com patrulha PACE, WANDER limitado por range, SPIN e STATIONARY.
  */
@@ -34,7 +37,10 @@ public class NPC extends Character {
     private int paceSteps = 0;
     private boolean isPacingForward = true;
 
-    private final String scriptFile;
+    private String scriptFile;
+
+    // controle de scripts ONCE já rodados (normalized to lowercase)
+    private final Set<String> consumedOnceScripts = new HashSet<>();
 
     public NPC(String id,
                String npcType,
@@ -190,5 +196,30 @@ public class NPC extends Character {
 
     public String getDialogueKey() {
         return dialogueKey;
+    }
+
+    // permite troca dinâmica do script
+    public void setScriptFile(String scriptFile) {
+        if (scriptFile != null) {
+            this.scriptFile = scriptFile.trim();
+        } else {
+            this.scriptFile = null;
+        }
+    }
+
+    // --- controle de run-once ---
+    public boolean hasConsumedScript(String scriptName) {
+        if (scriptName == null) return false;
+        return consumedOnceScripts.contains(scriptName.toLowerCase());
+    }
+
+    public void markScriptConsumed(String scriptName) {
+        if (scriptName == null) return;
+        consumedOnceScripts.add(scriptName.toLowerCase());
+    }
+
+    // utilitário de debug
+    public Set<String> getConsumedOnceScripts() {
+        return new HashSet<>(consumedOnceScripts);
     }
 }

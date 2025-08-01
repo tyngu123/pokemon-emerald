@@ -172,13 +172,15 @@ public class GameScreen extends ScreenAdapter {
                 if (npc.getGridX() == tx
                     && npc.getGridY() == ty
                     && npc.getCurrentState() == Character.State.IDLE) {
-                    Array<ScriptCommand> cmds = scriptLoader.loadScript(npc.getScriptFile());
-                    scriptRunner.runScript(cmds, npc, null);
+                    // MUDANÇA PRINCIPAL AQUI:
+                    scriptRunner.triggerNpcScript(npc);
                     break;
                 }
             }
         }
     }
+    
+    
 
     @Override
     public void render(float delta) {
