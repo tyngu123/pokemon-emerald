@@ -26,6 +26,7 @@ public class AssetsLoader {
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
     public final String PROF_BIRCH_ATLAS  = "sprites_overworld/professor_birch.atlas";
     public final String YOUNGSTER_ATLAS   = "sprites_overworld/youngster.atlas";
+    public final String MOM_ATLAS   = "sprites_overworld/mom.atlas";
     public final String NPC1 = "sprites_overworld/npc1.atlas";
 
     public void load() {
@@ -54,6 +55,7 @@ public class AssetsLoader {
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);
         manager.load(PROF_BIRCH_ATLAS, TextureAtlas.class);
         manager.load(YOUNGSTER_ATLAS,  TextureAtlas.class);
+        manager.load(MOM_ATLAS,  TextureAtlas.class);
         manager.load(NPC1,  TextureAtlas.class);
     }
 

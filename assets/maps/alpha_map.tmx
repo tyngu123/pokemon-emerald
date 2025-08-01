@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="exterior.tsx"/>
  <layer id="1" name="floor" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt0r0RQEAYhOEdBAQS1IBWUCEiVKARtIIGbCL1cw4zfME7F908s3NnADAerjOBng3m87b44osvvvjf8r2f71/LbaBgpf2OP9Kd2HyDf+SNEwdIWeZc80efOzQ1++f9JOAOTWXBeb/inVpTjYK/V+tun1vp+v8q9pf2qya++OK/54cWELGYLZfmi3c=
+   eJzt0rERgjAYxfF3wSIUNsAM6CrIDuyFVsIELKKugizgK6BNgiZwwlf8L1Xud+8SBUAt3CMCnuwVLW+LL7744ou/LT/Z+f6pWgNXdtPr+D3dNxsC+C5vXMTAhZXxb36fcoenhnS+X2Tc4akym+/feafxVPuFb6s7mk9Tvv6/za7GQvi2/VVg36W1/dDvL774/+jnB+DEzuwDADuN+w==
   </data>
  </layer>
  <layer id="2" name="collision" width="32" height="32">
@@ -45,10 +45,10 @@
     <property name="initialDirection" value="DOWN"/>
     <property name="movementRange" type="int" value="5"/>
     <property name="movementType" value="PACE_HORIZONTAL"/>
-    <property name="npcType" value="youngster"/>
+    <property name="npcType" value="mom"/>
    </properties>
   </object>
-  <object id="3" x="480" y="288" width="16" height="16">
+  <object id="3" x="368" y="240" width="16" height="16">
    <properties>
     <property name="dialogueKey" value="MOM_GREETING"/>
     <property name="id" value="npc_mom1"/>

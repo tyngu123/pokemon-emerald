@@ -1,18 +1,35 @@
 {
-  "runMode": "ONCE",
-  "nextScript": "you_cant_pass2.json",
-  "commands": [
-  {
-		"type": "FACE_PLAYER"
-	},
-	{
-		"type": "SET_MOVEMENT",
-		"movementType": "STATIONARY"
-	},
-	{ "type": "SHOW_DIALOGUE", "text": "PROF BIRCH: Ih foi mal, to atrapalhando sua passagem...." },
-    { "type": "MOVE_TO", "direction": "RIGHT", "distance": 3 },
-    {
-		"type": "FACE_PLAYER"
-	}
-  ]
+	"runMode": "ONCE",
+	"nextScript": "you_cant_pass2.json",
+	"commands": [
+		{
+			"type": "FACE_PLAYER"
+		},
+		{
+			"type": "SET_MOVEMENT",
+			"movementType": "STATIONARY"
+		},
+		{
+			"type": "SHOW_DIALOGUE",
+			"text": "PROF BIRCH: Ih foi mal, to atrapalhando sua passagem...."
+		},
+		{
+			"type": "MOVE_TO",
+			"target": "player",
+			"direction": "DOWN",
+			"distance": 1
+		},
+		{
+			"type": "MOVE_TO",
+			"direction": "RIGHT",
+			"distance": 3
+		},
+		{
+			"type": "FACE_PLAYER"
+		},
+		{
+			"type": "SHOW_DIALOGUE",
+			"text": "PROF BIRCH: Ih foi mal, to atrapalhando sua passagem...."
+		}
+	]
 }
