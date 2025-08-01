@@ -1,0 +1,18 @@
+{
+  "runMode": "ALWAYS",
+  "commands": [
+  {
+		"type": "FACE_PLAYER"
+	},
+	{
+		"type": "SET_MOVEMENT",
+		"movementType": "STATIONARY"
+	},
+	{ "type": "SHOW_DIALOGUE", "text": "Eu espero que um dia esse jogo fique pronto." },
+	{
+		"type": "SET_MOVEMENT",
+		"movementType": "WANDER",
+		"movementRange": 3
+	}
+  ]
+}

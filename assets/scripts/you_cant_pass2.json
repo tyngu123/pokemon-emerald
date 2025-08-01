@@ -1,0 +1,13 @@
+{
+  "runMode": "ALWAYS",
+  "commands": [
+  {
+		"type": "FACE_PLAYER"
+	},
+	{
+		"type": "SET_MOVEMENT",
+		"movementType": "STATIONARY"
+	},
+	{ "type": "SHOW_DIALOGUE", "text": "PROF BIRCH: Agora voce pode entrar na casa." }
+  ]
+}
