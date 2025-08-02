@@ -2,13 +2,22 @@
 	"runMode": "ONCE",
 	"nextScript": "you_cant_pass2.json",
 	"commands": [
+	{
+			"type": "SET_MOVEMENT",
+			"movementType": "STATIONARY"
+		},
 		{
 			"type": "FACE_PLAYER"
 		},
 		{
-			"type": "SET_MOVEMENT",
-			"movementType": "STATIONARY"
-		},
+      "type": "WAIT",
+      "duration": 3
+    },
+		{
+      "type": "TURN_TO",
+      "direction": "UP"
+    },
+
 		{
 			"type": "SHOW_DIALOGUE",
 			"text": "PROF BIRCH: Ih foi mal, to atrapalhando sua passagem...."
