@@ -1,6 +1,8 @@
 package br.com.yago.emerald.view;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -14,7 +16,9 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -23,10 +27,12 @@ import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.config.GameConfig;
 import br.com.yago.emerald.controller.PlayerInputHandler;
 import br.com.yago.emerald.model.Character;
+import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Entity;
 import br.com.yago.emerald.model.NPC;
 import br.com.yago.emerald.model.Player;
 import br.com.yago.emerald.model.Trigger;
+import br.com.yago.emerald.model.pathfinding.Pathfinder;
 import br.com.yago.emerald.script.ScriptRunner;
 import br.com.yago.emerald.ui.DialogueBox;
 import br.com.yago.emerald.world.NpcLoader;
@@ -51,6 +57,7 @@ public class GameScreen extends ScreenAdapter {
 	private final Array<Trigger> triggers = new Array<>();
 	private final ScriptRunner scriptRunner;
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
+	private final Pathfinder pathfinder;
 
 	public GameScreen() {
 		assetLoader = new AssetsLoader();
@@ -76,6 +83,9 @@ public class GameScreen extends ScreenAdapter {
 		mapForegroundLayers = new int[] { map.getLayers().getIndex("foreground") };
 
 		TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
+		
+		this.pathfinder = new Pathfinder(collisionLayer);
+		
 		entities = new Array<>();
 		player = new Player(assetLoader.manager.get(assetLoader.PLAYER_ATLAS), collisionLayer, entities, 10 * GameConfig.TILE_SIZE, 8 * GameConfig.TILE_SIZE);
 		entities.add(player);
@@ -96,42 +106,26 @@ public class GameScreen extends ScreenAdapter {
 		uiViewport.update(width, height, true);
 	}
 
-	/**
-	 * ## MÉTODO UPDATE TOTALMENTE REESTRUTURADO ##
-	 * Esta é a correção principal que garante a ordem correta das operações.
-	 */
 	private void update(float delta) {
-        // 1. Atualiza a lógica de TODAS as entidades (Jogador, NPCs).
-        // Isso atualiza suas posições, animações, etc.
 		for (Entity entity : entities) {
 			entity.update(delta);
 		}
-        dialogueBox.update(delta); // Atualiza a caixa de diálogo (ex: efeito de digitação)
+        dialogueBox.update(delta);
 
-		// 2. ATUALIZA O ESTADO INTERNO DE TODOS OS GATILHOS.
-		// Esta etapa agora acontece INCONDICIONALMENTE, a cada frame.
-		// Isso garante que o jogo sempre saiba se o jogador entrou ou saiu de uma área,
-		// mesmo que um script esteja rodando.
 		for (Trigger trigger : triggers) {
 			trigger.updateState(player);
 		}
 
-        // 3. Atualiza o script em execução OU checa por novos eventos.
         if (scriptRunner.isActive()) {
-			// Se um script está ativo, apenas o atualizamos para que ele possa continuar.
             scriptRunner.update(delta);
         } else {
-            // Se NENHUM script estiver ativo, o jogo está "livre" para iniciar novas ações.
-            // a. Checa se o jogador tentou interagir com um NPC.
 			handleInteraction();
 			
-			// b. Pede para cada gatilho TENTAR disparar. A lógica interna do gatilho decidirá se pode.
 			for (Trigger trigger : triggers) {
 				trigger.attemptToFire(player, scriptRunner);
 			}
         }
 
-        // 4. Atualiza a câmera para seguir o jogador.
         gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
         gameCamera.update();
         mapRenderer.setView(gameCamera);
@@ -174,6 +168,53 @@ public class GameScreen extends ScreenAdapter {
 		batch.setProjectionMatrix(uiCamera.combined);
 		dialogueBox.render(batch, uiViewport.getWorldWidth());
 	}
+	
+    public NPC getNpcById(String npcId) {
+        if (npcId == null || npcId.trim().isEmpty()) return null;
+        for (NPC npc : npcs) {
+            if (npcId.equals(npc.getId())) {
+                return npc;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * ## MÉTODO CORRIGIDO E FINAL ##
+     * Encontra um caminho para um tile adjacente ao alvo, informando ao pathfinder
+     * a posição de TODAS as outras entidades para que ele desvie delas.
+     */
+    public Queue<Direction> findPathFor(Character from, Character to) {
+        Vector2 startTile = new Vector2(from.getGridX(), from.getGridY());
+        int targetX = to.getGridX();
+        int targetY = to.getGridY();
+
+        // Cria uma lista de todos os tiles ocupados por entidades.
+        Set<Vector2> occupiedTiles = new HashSet<>();
+        for (Entity entity : this.entities) {
+            // Ignora o próprio personagem que está se movendo.
+            if (entity == from) {
+                continue;
+            }
+            // Adiciona a posição de todos os outros personagens.
+            if (entity instanceof Character) {
+                occupiedTiles.add(new Vector2(((Character) entity).getGridX(), ((Character) entity).getGridY()));
+            }
+        }
+
+        // Pede ao pathfinder o melhor tile adjacente ao alvo, evitando os tiles já ocupados.
+        Vector2 adjacentTarget = pathfinder.findBestAdjacent(from.getGridX(), from.getGridY(), targetX, targetY, occupiedTiles);
+
+        if (adjacentTarget == null) {
+            Gdx.app.log("GameScreen", "Nenhum tile adjacente caminhável encontrado para o alvo.");
+            return new Queue<>();
+        }
+
+        // Encontra o caminho para o tile adjacente, ainda evitando os tiles ocupados.
+        // Adiciona a posição final do alvo aqui também para garantir que não tente entrar nele.
+        occupiedTiles.add(new Vector2(targetX, targetY));
+        return pathfinder.findPath(startTile, adjacentTarget, occupiedTiles);
+    }
 
 	public DialogueBox getDialogueBox() { return dialogueBox; }
 	public ScriptRunner getScriptRunner() { return scriptRunner; }

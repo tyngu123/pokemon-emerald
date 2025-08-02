@@ -1,10 +1,5 @@
 package br.com.yago.emerald.model;
 
-/**
- * Enumeração para representar as quatro direções de movimento possíveis.
- * Isso evita o uso de "magic numbers" ou strings, tornando o código mais limpo e seguro.
- * Cada direção tem um deslocamento correspondente em X e Y no grid.
- */
 public enum Direction {
     UP(0, 1),
     DOWN(0, -1),
@@ -25,5 +20,18 @@ public enum Direction {
 
     public int getDy() {
         return dy;
+    }
+
+    /**
+     * Retorna a direção oposta.
+     */
+    public Direction getOpposite() {
+        switch (this) {
+            case UP:    return DOWN;
+            case DOWN:  return UP;
+            case LEFT:  return RIGHT;
+            case RIGHT: return LEFT;
+            default:    return null; // Nunca acontece
+        }
     }
 }

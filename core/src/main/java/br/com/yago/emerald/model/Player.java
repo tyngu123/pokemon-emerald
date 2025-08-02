@@ -16,6 +16,12 @@ public class Player extends Character {
 
 	@Override
 	protected Direction getDesiredDirection() {
+		// Primeiro, checa se há um caminho a seguir (pathfinding).
+		Direction pathDirection = super.getDesiredDirection();
+		if (pathDirection != null) {
+			return pathDirection;
+		}
+		// Se não, usa o input do jogador.
 		return this.nextDirection;
 	}
 

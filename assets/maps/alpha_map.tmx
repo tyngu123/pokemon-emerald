@@ -3,12 +3,12 @@
  <tileset firstgid="1" source="exterior.tsx"/>
  <layer id="1" name="floor" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt0rERgjAYxfF3wSIUNsAM6CrIDuyFVsIELKKugizgK6BNgiZwwlf8L1Xud+8SBUAt3CMCnuwVLW+LL7744ou/LT/Z+f6pWgNXdtPr+D3dNxsC+C5vXMTAhZXxb36fcoenhnS+X2Tc4akym+/feafxVPuFb6s7mk9Tvv6/za7GQvi2/VVg36W1/dDvL774/+jnB+DEzuwDADuN+w==
+   eJzt080RQDAQhuFvMOHiogi0gh7SF6lCI2gFDdgDFwe/SUzGHt7J8dlNJh4Az3KdD/TU4Nu32WefffbZP/ZHAczCHT/5+f5bdQQ0lIq+8UdyJ2rW4E9UoyElnvs62t+jC34RAqWmqvC+f1YbH59v/9+bGbbkmgn/bH9p2L/S177p92effRf9NAAyKqcW9wumvA==
   </data>
  </layer>
  <layer id="2" name="collision" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1jsOwCAMA1AzduT+l+3SoSAkIAmEjy155SHED5iT8NUr9Onv4oeBbfWtc7Lfst6n+7V5SP2n0N7c7v/noPEBud8Tz3uafurHQqVjSvafha85fyv5wHzfIl6+5v3x/H+NCn36eV7avAJ9
+   eJzt1cEKgCAMBuDt2LH3f9kuHWLM5n6ni+UPoxDcJ6lE9B6+qzcsnmifCj6L8ZW+9p7ht77HCl/2QHw5v7WvluHxtZ4ev2ee5Uensu/Zp6q+tQ7UP5Ty5u/+cw0jPhHuezLj/m8f80+l0J7I+YvwR+7fl3yi9X5EsvyR/8+sysz2ty9zAbqyAp8=
   </data>
  </layer>
  <layer id="4" name="buildings" width="32" height="32">
@@ -18,19 +18,19 @@
  </layer>
  <layer id="7" name="trees" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1s8KgCAMBvDh1WO+Vn/esl6w7NiEghA8TNZGug8+dpQf2igOACc2Cs08cwBYgtzMI+U2/3/8xwfuneCfsCt2Y5wj0c8dqp875tfx+7ua/nS+5v1r+1OePZBH6v2XIuUvxfzt77/Wvn9XcT6X31VUa//5Vyn+3v9/zd+P/wJOLIFf
+   eJztlk0KgCAQhSXcucxrRZ2nqOvUfYJu0s8ygwQzBmekEtIHj7cRx2+mxDVnbFNeHYkVdZ9SMlZJd2JF3cd13sQfH/9C6Ae2fzPAX/O7G+VenXWQcGq51uksAP6WX90pjxzfb6wgfns+00v1IX57Tm/Vj5VfnA7Jf9QPOf/Q/Ifse0Prq+8f0lf8kBL//++/v/3/mUf9p/gzD4e6/4RhKj/2XUdNLD/2XUzNxJ/4Te3Wb1d/
   </data>
  </layer>
  <layer id="3" name="foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt08ENABAQBdHtQXWoAEVRKheJhOOKYF4ycf2HJQIA97Itt8ifHPWI0IpD6ewc4Cta/y8bkWLUZgFb9XvVegHMKgtfFfI=
+   eJxjYBgFo2Dwg/nCDAwLhBE0IfGhAgba/d+Bdv4QRtBDEUQCcRQWHD2QjhomIBOIs5Bw9sA6ZxSMghEFqJX/hmr9SAnYBsUDZfdA6aeGn4kJu21EYkrsR28fIdOE7B3K7cJRMAroAQDD6i6z
   </data>
  </layer>
  <objectgroup id="5" name="npcs">
   <object id="1" x="176" y="272" width="16" height="16">
    <properties>
     <property name="dialogueKey" value="MOM_GREETING"/>
-    <property name="id" value="npc_mom1"/>
+    <property name="id" value="birch"/>
     <property name="initialDirection" value="DOWN"/>
     <property name="movementRange" type="int" value="2"/>
     <property name="movementType" value="SPIN_STATIONARY"/>
@@ -38,14 +38,15 @@
     <property name="scriptFile" value="you_cant_pass.json"/>
    </properties>
   </object>
-  <object id="2" x="240" y="304" width="16" height="16">
+  <object id="2" x="240" y="288" width="16" height="16">
    <properties>
     <property name="dialogueKey" value="MOM_GREETING"/>
-    <property name="id" value="npc_mom1"/>
+    <property name="id" value="mom"/>
     <property name="initialDirection" value="DOWN"/>
-    <property name="movementRange" type="int" value="5"/>
-    <property name="movementType" value="PACE_HORIZONTAL"/>
+    <property name="movementRange" type="int" value="1"/>
+    <property name="movementType" value="WANDER"/>
     <property name="npcType" value="mom"/>
+    <property name="scriptFile" value="npc1_alpha.json"/>
    </properties>
   </object>
   <object id="3" x="336" y="240" width="16" height="16">
@@ -53,7 +54,7 @@
     <property name="dialogueKey" value="MOM_GREETING"/>
     <property name="id" value="npc_mom1"/>
     <property name="initialDirection" value="DOWN"/>
-    <property name="movementRange" type="int" value="2"/>
+    <property name="movementRange" type="int" value="1"/>
     <property name="movementType" value="WANDER"/>
     <property name="npcType" value="youngster"/>
     <property name="scriptFile" value="mom_greeting.json"/>
@@ -75,15 +76,15 @@
     <property name="dialogueKey" value="MOM_GREETING"/>
     <property name="id" value="npc_mom1"/>
     <property name="initialDirection" value="DOWN"/>
-    <property name="movementRange" type="int" value="3"/>
-    <property name="movementType" value="WANDER"/>
+    <property name="movementRange" type="int" value="1"/>
+    <property name="movementType" value="PACE_HORIZONTAL"/>
     <property name="npcType" value="npc1"/>
     <property name="scriptFile" value="npc1_alpha.json"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup id="9" name="triggers">
-  <object id="7" x="416" y="256" width="16" height="64">
+  <object id="7" x="224" y="96" width="32" height="16">
    <properties>
     <property name="runMode" value="ALWAYS"/>
     <property name="scriptFile" value="trigger1.json"/>

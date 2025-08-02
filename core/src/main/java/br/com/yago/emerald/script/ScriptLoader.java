@@ -8,18 +8,12 @@ import com.badlogic.gdx.utils.JsonValue;
 public class ScriptLoader {
 	private final Json json = new Json();
 
-	/**
-	 * Verifica se o arquivo de script existe fisicamente dentro de scripts/.
-	 */
 	public boolean scriptFileExists(String scriptFileName) {
 		if (scriptFileName == null || scriptFileName.trim().isEmpty())
 			return false;
 		return Gdx.files.internal("scripts/" + scriptFileName.trim()).exists();
 	}
 
-	/**
-	 * Carrega só os comandos (compatível legado).
-	 */
 	public Array<ScriptCommand> loadScript(String scriptFileName) {
 		Array<ScriptCommand> commands = new Array<>();
 		try {
@@ -28,14 +22,10 @@ public class ScriptLoader {
 				Gdx.app.error("ScriptLoader", "Script vazio: " + scriptFileName);
 				return commands;
 			}
-
-			// se for objeto com metadata, delega à ScriptDefinition e pega os comandos
 			if (!root.isArray()) {
 				ScriptDefinition def = ScriptDefinition.fromJson(scriptFileName, root, this);
 				return def.getCommands();
 			}
-
-			// array simples
 			for (JsonValue entry : root) {
 				String type = entry.getString("type", "").toUpperCase();
 				ScriptCommand cmd = createCommand(type);
@@ -50,9 +40,6 @@ public class ScriptLoader {
 		return commands;
 	}
 
-	/**
-	 * Carrega a definição completa (com runMode/nextScript).
-	 */
 	public ScriptDefinition loadScriptDefinition(String scriptFileName) {
 		try {
 			JsonValue root = json.fromJson(null, Gdx.files.internal("scripts/" + scriptFileName));
@@ -76,7 +63,12 @@ public class ScriptLoader {
 		case "MOVE_TO":
 			return new MoveToCommand();
 		case "TURN_TO":
-			return new TurnToCommand(); // Nossa nova adição
+			return new TurnToCommand();
+		case "PATHFIND_TO_PLAYER":
+		    return new PathfindToPlayerCommand();
+		// ## NOVO COMANDO REGISTRADO ##
+		case "FACE_NPC":
+			return new FaceNpcCommand();
 		default:
 			Gdx.app.error("ScriptLoader", "Tipo desconhecido: " + type);
 			return null;
