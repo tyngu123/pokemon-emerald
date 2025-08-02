@@ -1,17 +1,7 @@
 package br.com.yago.emerald.view;
 
-import br.com.yago.emerald.assets.AssetsLoader;
-import br.com.yago.emerald.config.GameConfig;
-import br.com.yago.emerald.controller.PlayerInputHandler;
-import br.com.yago.emerald.model.Character;
-import br.com.yago.emerald.model.Entity;
-import br.com.yago.emerald.model.NPC;
-import br.com.yago.emerald.model.Player;
-import br.com.yago.emerald.script.ScriptCommand;
-import br.com.yago.emerald.script.ScriptLoader;
-import br.com.yago.emerald.script.ScriptRunner;
-import br.com.yago.emerald.ui.DialogueBox;
-import br.com.yago.emerald.world.NpcLoader;
+import java.util.Comparator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,7 +10,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -30,200 +19,171 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.Comparator;
+import br.com.yago.emerald.assets.AssetsLoader;
+import br.com.yago.emerald.config.GameConfig;
+import br.com.yago.emerald.controller.PlayerInputHandler;
+import br.com.yago.emerald.model.Character;
+import br.com.yago.emerald.model.Entity;
+import br.com.yago.emerald.model.NPC;
+import br.com.yago.emerald.model.Player;
+import br.com.yago.emerald.model.Trigger;
+import br.com.yago.emerald.script.ScriptRunner;
+import br.com.yago.emerald.ui.DialogueBox;
+import br.com.yago.emerald.world.NpcLoader;
+import br.com.yago.emerald.world.TriggerLoader;
 
 public class GameScreen extends ScreenAdapter {
 
-    private final SpriteBatch batch;
-    private final BitmapFont uiFont;
-    private final OrthographicCamera gameCamera;
-    private final Viewport gameViewport;
+	private final SpriteBatch batch;
+	private final BitmapFont uiFont;
+	private final OrthographicCamera gameCamera;
+	private final Viewport gameViewport;
+	private final OrthographicCamera uiCamera;
+	private final Viewport uiViewport;
+	private final DialogueBox dialogueBox;
+	private final TiledMap map;
+	private final OrthogonalTiledMapRenderer mapRenderer;
+	private final int[] mapBackgroundLayers, mapForegroundLayers;
+	private final AssetsLoader assetLoader;
+	private final Player player;
+	private final Array<Entity> entities;
+	private final Array<NPC> npcs = new Array<>();
+	private final Array<Trigger> triggers = new Array<>();
+	private final ScriptRunner scriptRunner;
+	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 
-    // UI
-    private final OrthographicCamera uiCamera;
-    private final Viewport uiViewport;
-    private final ShapeRenderer shapeRenderer;
-    private final DialogueBox dialogueBox;
+	public GameScreen() {
+		assetLoader = new AssetsLoader();
+		assetLoader.load();
+		assetLoader.manager.finishLoading();
 
-    // Mundo
-    private final TiledMap map;
-    private final OrthogonalTiledMapRenderer mapRenderer;
-    private final int[] mapBackgroundLayers, mapForegroundLayers;
-    private final AssetsLoader assetLoader;
-    private final Player player;
-    private final Array<Entity> entities;
-    private final Array<NPC> npcs = new Array<>();
+		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
+		Texture box9 = assetLoader.manager.get(assetLoader.DIALOGUE_BOX, Texture.class);
+		Texture arr = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
 
-    // Scripts
-    private final ScriptLoader scriptLoader;
-    private final ScriptRunner scriptRunner;
+		gameCamera = new OrthographicCamera();
+		gameViewport = new FitViewport(320, 240, gameCamera);
+		uiCamera = new OrthographicCamera();
+		uiViewport = new ScreenViewport(uiCamera);
 
-    private final Comparator<Entity> yComparator =
-        (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
+		dialogueBox = new DialogueBox(uiFont, box9, arr);
+		scriptRunner = new ScriptRunner(this);
+		batch = new SpriteBatch();
 
-    public GameScreen() {
-        assetLoader = new AssetsLoader();
-        assetLoader.load();
-        assetLoader.manager.finishLoading();
+		map = new TmxMapLoader().load("maps/alpha_map.tmx");
+		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
+		mapBackgroundLayers = new int[] { map.getLayers().getIndex("floor"), map.getLayers().getIndex("buildings"), map.getLayers().getIndex("trees") };
+		mapForegroundLayers = new int[] { map.getLayers().getIndex("foreground") };
 
-        // Fonte UI
-        uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
+		TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
+		entities = new Array<>();
+		player = new Player(assetLoader.manager.get(assetLoader.PLAYER_ATLAS), collisionLayer, entities, 10 * GameConfig.TILE_SIZE, 8 * GameConfig.TILE_SIZE);
+		entities.add(player);
 
-        // Texturas UI
-        Texture box9 = assetLoader.manager.get(assetLoader.DIALOGUE_BOX, Texture.class);
-        Texture arr  = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
-
-        // Cameras
-        gameCamera  = new OrthographicCamera();
-        gameViewport= new FitViewport(320, 240, gameCamera);
-        uiCamera    = new OrthographicCamera();
-        uiViewport  = new ScreenViewport(uiCamera);
-
-        // DialogueBox
-        shapeRenderer = new ShapeRenderer();
-        dialogueBox   = new DialogueBox(uiFont, box9, arr);
-
-        // Scripts
-        scriptLoader = new ScriptLoader();
-        scriptRunner = new ScriptRunner(this);
-
-        // Batch
-        batch = new SpriteBatch();
-
-        // Carrega mapa
-        map = new TmxMapLoader().load("maps/alpha_map.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
-        mapBackgroundLayers = new int[]{
-            map.getLayers().getIndex("floor"),
-            map.getLayers().getIndex("buildings"),
-            map.getLayers().getIndex("trees")
-        };
-        mapForegroundLayers = new int[]{
-            map.getLayers().getIndex("foreground")
-        };
-
-        // Entidades
-        TiledMapTileLayer collisionLayer =
-            (TiledMapTileLayer) map.getLayers().get("collision");
-        entities = new Array<>();
-        player = new Player(
-            assetLoader.manager.get(assetLoader.PLAYER_ATLAS),
-            collisionLayer, entities,
-            10 * GameConfig.TILE_SIZE,
-            8  * GameConfig.TILE_SIZE
-        );
-        entities.add(player);
-
-        // NPCs
-        NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
+		NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
         for (Entity e : entities) {
             if (e instanceof NPC) npcs.add((NPC)e);
         }
+		
+        TriggerLoader.loadTriggers(map, triggers);
 
-        // Input
-        Gdx.input.setInputProcessor(new PlayerInputHandler(player, this));
-    }
+		Gdx.input.setInputProcessor(new PlayerInputHandler(player, this));
+	}
+	
+	@Override
+	public void resize(int width, int height) {
+		gameViewport.update(width, height, true);
+		uiViewport.update(width, height, true);
+	}
 
-    @Override
-    public void resize(int width, int height) {
-        gameViewport.update(width, height, true);
-        uiViewport.update(width, height, true);
-    }
+	/**
+	 * ## MÉTODO UPDATE TOTALMENTE REESTRUTURADO ##
+	 * Esta é a correção principal que garante a ordem correta das operações.
+	 */
+	private void update(float delta) {
+        // 1. Atualiza a lógica de TODAS as entidades (Jogador, NPCs).
+        // Isso atualiza suas posições, animações, etc.
+		for (Entity entity : entities) {
+			entity.update(delta);
+		}
+        dialogueBox.update(delta); // Atualiza a caixa de diálogo (ex: efeito de digitação)
 
-    /**
-     * Aqui está o pulo de update das entidades corrigido:
-     * — primeiro sempre atualizamos todas as entidades,
-     * — depois rodamos o script (se ativo) ou a lógica normal de interação.
-     */
-    private void update(float delta) {
-        // 1) UI de diálogo
-        dialogueBox.update(delta);
+		// 2. ATUALIZA O ESTADO INTERNO DE TODOS OS GATILHOS.
+		// Esta etapa agora acontece INCONDICIONALMENTE, a cada frame.
+		// Isso garante que o jogo sempre saiba se o jogador entrou ou saiu de uma área,
+		// mesmo que um script esteja rodando.
+		for (Trigger trigger : triggers) {
+			trigger.updateState(player);
+		}
 
-        // 2) SEMPRE atualizar entidades (player, npc, etc),
-        //    para que qualquer WALKING progrida.
-        for (int i = 0; i < entities.size; i++) {
-            entities.get(i).update(delta);
-        }
-
-        // 3) Se há script ativo, atualiza o runner;
-        //    senão processa tentativa de interação.
+        // 3. Atualiza o script em execução OU checa por novos eventos.
         if (scriptRunner.isActive()) {
+			// Se um script está ativo, apenas o atualizamos para que ele possa continuar.
             scriptRunner.update(delta);
         } else {
-            handleInteraction();
+            // Se NENHUM script estiver ativo, o jogo está "livre" para iniciar novas ações.
+            // a. Checa se o jogador tentou interagir com um NPC.
+			handleInteraction();
+			
+			// b. Pede para cada gatilho TENTAR disparar. A lógica interna do gatilho decidirá se pode.
+			for (Trigger trigger : triggers) {
+				trigger.attemptToFire(player, scriptRunner);
+			}
         }
 
-        // 4) Atualiza câmera do jogo
-        gameCamera.position.set(
-            player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f,
-            player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f,
-            0f
-        );
+        // 4. Atualiza a câmera para seguir o jogador.
+        gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
         gameCamera.update();
         mapRenderer.setView(gameCamera);
     }
 
-    private void handleInteraction() {
-        if (player.isInteractionRequested()) {
-            player.clearInteractionRequest();
-            int tx = player.getFacingGridX();
-            int ty = player.getFacingGridY();
-            for (NPC npc : npcs) {
-                if (npc.getGridX() == tx
-                    && npc.getGridY() == ty
-                    && npc.getCurrentState() == Character.State.IDLE) {
-                    // MUDANÇA PRINCIPAL AQUI:
-                    scriptRunner.triggerNpcScript(npc);
-                    break;
-                }
-            }
-        }
-    }
-    
-    
+	private void handleInteraction() {
+		if (player.isInteractionRequested()) {
+			player.clearInteractionRequest();
+			int tx = player.getFacingGridX();
+			int ty = player.getFacingGridY();
+			for (NPC npc : npcs) {
+				if (npc.getGridX() == tx && npc.getGridY() == ty && npc.getCurrentState() == Character.State.IDLE) {
+					scriptRunner.triggerNpcScript(npc);
+					break;
+				}
+			}
+		}
+	}
 
-    @Override
-    public void render(float delta) {
-        update(delta);
+	@Override
+	public void render(float delta) {
+		update(delta);
 
-        Gdx.gl.glClearColor(0,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Render do mundo
-        mapRenderer.render(mapBackgroundLayers);
-        batch.setProjectionMatrix(gameCamera.combined);
-        batch.begin();
-        entities.sort(yComparator);
-        for (Entity e : entities) {
-            TextureRegion frame = e.getCurrentFrame();
-            if (frame == null) continue;      // pula NPCs invisíveis ou sem atlas
-            batch.draw(
-                frame,
-                e.getWorldPosition().x,
-                e.getWorldPosition().y,
-                e.getWidth(),
-                e.getHeight()
-            );
-        }
-        batch.end();
-        mapRenderer.render(mapForegroundLayers);
+		mapRenderer.render(mapBackgroundLayers);
+		batch.setProjectionMatrix(gameCamera.combined);
+		batch.begin();
+		entities.sort(yComparator);
+		for (Entity e : entities) {
+			TextureRegion frame = e.getCurrentFrame();
+			if (frame == null) continue;
+			batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
+		}
+		batch.end();
+		mapRenderer.render(mapForegroundLayers);
 
-        // Render da UI
-        uiViewport.apply();
-        batch.setProjectionMatrix(uiCamera.combined);
-        dialogueBox.render(batch, uiViewport.getWorldWidth());
-    }
+		uiViewport.apply();
+		batch.setProjectionMatrix(uiCamera.combined);
+		dialogueBox.render(batch, uiViewport.getWorldWidth());
+	}
 
-    public DialogueBox getDialogueBox() { return dialogueBox; }
-    public ScriptRunner getScriptRunner() { return scriptRunner; }
-    public Player getPlayer() { return player; }
-
-    @Override
-    public void dispose() {
-        batch.dispose();
-        assetLoader.dispose();
-        map.dispose();
-        mapRenderer.dispose();
-        shapeRenderer.dispose();
-    }
+	public DialogueBox getDialogueBox() { return dialogueBox; }
+	public ScriptRunner getScriptRunner() { return scriptRunner; }
+	public Player getPlayer() { return player; }
+	
+	@Override
+	public void dispose() {
+		batch.dispose();
+		assetLoader.dispose();
+		map.dispose();
+		mapRenderer.dispose();
+	}
 }

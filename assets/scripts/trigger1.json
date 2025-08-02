@@ -1,0 +1,21 @@
+{
+	"commands": [
+		{
+			"type": "FACE_PLAYER"
+		},
+		{
+			"type": "SHOW_DIALOGUE",
+			"text": "Você só verá esta mensagem uma única vez. Se me ver de novo, é um bug!"
+		},
+		{
+			"type": "WAIT",
+			"duration": 0.5
+		},
+		{
+			"type": "MOVE_TO",
+			"target": "player",
+			"direction": "LEFT",
+			"distance": 1
+		}
+	]
+}

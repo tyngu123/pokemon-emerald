@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="6">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="12">
  <tileset firstgid="1" source="exterior.tsx"/>
  <layer id="1" name="floor" width="32" height="32">
   <data encoding="base64" compression="zlib">
@@ -48,13 +48,13 @@
     <property name="npcType" value="mom"/>
    </properties>
   </object>
-  <object id="3" x="368" y="240" width="16" height="16">
+  <object id="3" x="336" y="240" width="16" height="16">
    <properties>
     <property name="dialogueKey" value="MOM_GREETING"/>
     <property name="id" value="npc_mom1"/>
     <property name="initialDirection" value="DOWN"/>
-    <property name="movementRange" type="int" value="1"/>
-    <property name="movementType" value="PACE_VERTICAL"/>
+    <property name="movementRange" type="int" value="2"/>
+    <property name="movementType" value="WANDER"/>
     <property name="npcType" value="youngster"/>
     <property name="scriptFile" value="mom_greeting.json"/>
    </properties>
@@ -79,6 +79,15 @@
     <property name="movementType" value="WANDER"/>
     <property name="npcType" value="npc1"/>
     <property name="scriptFile" value="npc1_alpha.json"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="9" name="triggers">
+  <object id="7" x="416" y="256" width="16" height="64">
+   <properties>
+    <property name="runMode" value="ALWAYS"/>
+    <property name="scriptFile" value="trigger1.json"/>
+    <property name="triggerOn" value="ON_ENTER"/>
    </properties>
   </object>
  </objectgroup>

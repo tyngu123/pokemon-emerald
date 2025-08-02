@@ -175,6 +175,11 @@ public class ScriptRunner {
             currentDefinition = null;
         }
     }
+    
+ // Em ScriptRunner.java
+    public ScriptLoader getLoader() {
+        return loader;
+    }
 
     public boolean isActive() {
         return currentCommand != null;
