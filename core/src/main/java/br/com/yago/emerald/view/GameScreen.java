@@ -8,6 +8,8 @@ import java.util.Set;
 
 import br.com.yago.emerald.EmeraldGame;
 import br.com.yago.emerald.model.Warp;
+import br.com.yago.emerald.script.MoveToCommand;
+import br.com.yago.emerald.script.ScriptCommand;
 import br.com.yago.emerald.world.WarpLoader;
 
 import com.badlogic.gdx.Gdx;
@@ -26,6 +28,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -50,7 +53,7 @@ import br.com.yago.emerald.world.TriggerLoader;
 public class GameScreen extends ScreenAdapter {
 
 	private final EmeraldGame game;
-	private final SpriteBatch batch; // A tela ainda tem a referência, mas não a controla.
+	private final SpriteBatch batch;
 	private final BitmapFont uiFont;
 	private final OrthographicCamera gameCamera;
 	private final Viewport gameViewport;
@@ -76,11 +79,11 @@ public class GameScreen extends ScreenAdapter {
 	private final boolean isInterior;
 
 	// ## CONSTRUTOR ATUALIZADO ##
-	// Agora recebe o SpriteBatch em vez de criar um novo.
-	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing) {
+	// Agora recebe o booleano 'isWarpIn'.
+	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing, boolean isWarpIn) {
 		this.game = game;
 		this.assetLoader = assetLoader;
-		this.batch = batch; // Armazena a referência do Batch central.
+		this.batch = batch;
 		this.fadeManager = new FadeManager();
 		
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
@@ -102,7 +105,6 @@ public class GameScreen extends ScreenAdapter {
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
 
-		// O renderer agora usa o batch central que foi passado.
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
 		
 		List<Integer> backgroundIndexes = new ArrayList<>();
@@ -149,6 +151,27 @@ public class GameScreen extends ScreenAdapter {
 		if (!this.isInterior) {
 			mapNameBox.show(this.mapName);
 		}
+
+		// ## LÓGICA DO PASSO PARA FORA ##
+		// Se esta tela foi criada a partir de um warp, executa a animação.
+		if (isWarpIn) {
+			runStepOutAnimation(playerFacing);
+		}
+	}
+
+	/**
+	 * ## NOVO MÉTODO ##
+	 * Cria e executa um script simples para fazer o jogador dar um passo à frente.
+	 */
+	private void runStepOutAnimation(Direction direction) {
+		Array<ScriptCommand> stepOutSequence = new Array<>();
+		MoveToCommand move = new MoveToCommand();
+		move.initialize(new JsonValue(JsonValue.ValueType.object)); // Inicializa vazio
+		move.setTarget("player");
+		move.setDirection(direction);
+		move.setDistance(1);
+		stepOutSequence.add(move);
+		scriptRunner.run(player, stepOutSequence);
 	}
 	
 	@Override
@@ -237,14 +260,19 @@ public class GameScreen extends ScreenAdapter {
     }
 	
 	public void initiateWarp(Warp warp) {
-		player.setLocked(true);
-		fadeManager.fadeOut(0.5f, () -> {
-			game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
-		});
+		game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
 	}
 	
 	public void startFadeIn() {
 		fadeManager.fadeIn(0.5f);
+	}
+	
+	public void startFadeOut(float duration, Runnable onComplete) {
+		fadeManager.fadeOut(duration, onComplete);
+	}
+
+	public boolean isFading() {
+		return fadeManager.isFading();
 	}
 	
     public NPC getNpcById(String npcId) {
@@ -287,7 +315,6 @@ public class GameScreen extends ScreenAdapter {
 	
 	@Override
 	public void dispose() {
-		// ## CORREÇÃO ##: A tela NÃO destrói mais o batch nem o assetLoader.
 		map.dispose();
 		mapRenderer.dispose();
 		fadeManager.dispose();

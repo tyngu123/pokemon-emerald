@@ -6,9 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 
-/**
- * Gerencia o efeito de fade in/out da tela.
- */
 public class FadeManager {
 
     private enum State { FADING_IN, FADING_OUT, IDLE }
@@ -17,11 +14,10 @@ public class FadeManager {
     private float timer = 0f;
     private float duration = 0f;
     private float alpha = 0f;
-    private final Texture blackPixel; // Uma textura simples de 1x1 pixel preto
-    private Runnable onFadeOutComplete; // Callback para executar ao final do fade out
+    private final Texture blackPixel;
+    private Runnable onFadeOutComplete;
 
     public FadeManager() {
-        // Cria uma textura preta programaticamente para o fade
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.BLACK);
         pixmap.fill();
@@ -33,14 +29,14 @@ public class FadeManager {
         this.currentState = State.FADING_IN;
         this.duration = duration;
         this.timer = 0f;
-        this.alpha = 1f; // Começa totalmente preto
+        this.alpha = 1f;
     }
 
     public void fadeOut(float duration, Runnable onComplete) {
         this.currentState = State.FADING_OUT;
         this.duration = duration;
         this.timer = 0f;
-        this.alpha = 0f; // Começa totalmente visível
+        this.alpha = 0f;
         this.onFadeOutComplete = onComplete;
     }
 
@@ -51,16 +47,16 @@ public class FadeManager {
         float progress = Math.min(1f, timer / duration);
 
         if (currentState == State.FADING_IN) {
-            alpha = Interpolation.fade.apply(1f, 0f, progress); // De preto para transparente
+            alpha = Interpolation.fade.apply(1f, 0f, progress);
             if (progress >= 1f) {
                 currentState = State.IDLE;
             }
         } else if (currentState == State.FADING_OUT) {
-            alpha = Interpolation.fade.apply(0f, 1f, progress); // De transparente para preto
+            alpha = Interpolation.fade.apply(0f, 1f, progress);
             if (progress >= 1f) {
                 currentState = State.IDLE;
                 if (onFadeOutComplete != null) {
-                    onFadeOutComplete.run(); // Executa o callback
+                    onFadeOutComplete.run();
                 }
             }
         }
@@ -68,10 +64,18 @@ public class FadeManager {
 
     public void render(SpriteBatch batch, float width, float height) {
         if (alpha > 0) {
-            batch.setColor(1, 1, 1, alpha); // Define a transparência
+            batch.setColor(1, 1, 1, alpha);
             batch.draw(blackPixel, 0, 0, width, height);
-            batch.setColor(1, 1, 1, 1); // Reseta a cor para o normal
+            batch.setColor(1, 1, 1, 1);
         }
+    }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Retorna true se a tela está atualmente em processo de fade (in ou out).
+     */
+    public boolean isFading() {
+        return currentState != State.IDLE;
     }
 
     public void dispose() {

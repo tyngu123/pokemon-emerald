@@ -5,12 +5,12 @@ import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.view.GameScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch; // Importe o SpriteBatch
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class EmeraldGame extends Game {
 
     private AssetsLoader assetLoader;
-    private SpriteBatch batch; // ## O SPRITEBATCH AGORA É CENTRALIZADO AQUI ##
+    private SpriteBatch batch;
 
     @Override
     public void create () {
@@ -20,12 +20,12 @@ public class EmeraldGame extends Game {
         assetLoader.load();
         assetLoader.manager.finishLoading();
         
-        batch = new SpriteBatch(); // Cria o batch UMA ÚNICA VEZ.
+        batch = new SpriteBatch();
 
         Gdx.app.log("EmeraldGame", "Assets carregados. Configurando GameScreen inicial.");
         
-        // Passa o assetLoader e o batch para a tela inicial.
-        GameScreen initialScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", 10, 8, Direction.DOWN);
+        // ## MUDANÇA AQUI: Passa 'false' para o novo parâmetro 'isWarpIn' ##
+        GameScreen initialScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", 10, 8, Direction.DOWN, false);
         setScreen(initialScreen);
         initialScreen.startFadeIn();
     }
@@ -35,8 +35,8 @@ public class EmeraldGame extends Game {
         
         GameScreen oldScreen = (GameScreen) getScreen();
         
-        // Cria a nova tela, passando as referências centrais.
-        GameScreen newScreen = new GameScreen(this, assetLoader, batch, mapFileName, playerStartX, playerStartY, playerFacing);
+        // ## MUDANÇA AQUI: Passa 'true' para o novo parâmetro 'isWarpIn' ##
+        GameScreen newScreen = new GameScreen(this, assetLoader, batch, mapFileName, playerStartX, playerStartY, playerFacing, true);
         setScreen(newScreen);
         
         newScreen.startFadeIn();
@@ -49,7 +49,6 @@ public class EmeraldGame extends Game {
     @Override
     public void dispose() {
         super.dispose();
-        // Libera os recursos centrais quando o jogo fecha.
         if (assetLoader != null) {
             assetLoader.dispose();
         }

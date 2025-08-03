@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="10" height="9" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="6">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="10" height="10" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="6">
  <properties>
   <property name="isInterior" type="bool" value="true"/>
  </properties>
  <tileset firstgid="1" source="../tilesets/interior.tsx"/>
- <layer id="1" name="floor" width="10" height="9">
+ <layer id="1" name="floor" width="10" height="10">
   <data encoding="base64" compression="zlib">
-   eJydzksOgkAQhOHaioJbAxhISLgLDMi5QDgVbMDHmfxHdg4L4uJLdTqVTrex1OGOHgPOEZlITbiyc3GVShhUqG1mZLr2re98+U+Rc/+HyTd6/FPCoEKNW+j2Dvzj4YgTfASR25vZLXjgiRfeG729RkmT3P0H3swcxw==
+   eJydzkkKg0AUhOHaatRsxQEDAe+i7XAuNTmV2WQ8k3/HXdqFpOGjHo+ieUMmjZhwwRXHlCykPlnZucqlGgYNWptn8rT2re8c/6cq+f+HKTd63FPDoEGLLnF7Hvf4OCBAiCh1e3d2Dzzxwhufjd5es6Sb3P3etwBeLxzH
   </data>
  </layer>
- <layer id="3" name="collision" width="10" height="9" visible="0">
+ <layer id="3" name="collision" width="10" height="10">
   <data encoding="base64" compression="zlib">
-   eJzjZGBg4CQTM+AQowdghGJqqaM1AADbrACw
+   eJzjZGBg4CQTM+AQowdghGJqqaM1YCQSAwD4CAC6
   </data>
  </layer>
  <objectgroup id="4" name="warps">
-  <object id="4" x="64" y="128" width="32" height="16">
+  <object id="4" x="64" y="144" width="32" height="16">
    <properties>
     <property name="targetFacing" value="DOWN"/>
     <property name="targetMap" value="maps/alpha_map.tmx"/>

@@ -5,15 +5,10 @@ import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.view.GameScreen;
 import com.badlogic.gdx.utils.JsonValue;
 
-/**
- * Comando que move um personagem (seja o 'initiator' ou o 'player')
- * uma certa quantidade de tiles em uma direção de forma contínua.
- */
 public class MoveToCommand implements ScriptCommand {
 
-    // NOVOS CAMPOS
-    private Character characterToMove; // Armazena quem será movido
-    private String target;             // "player" ou "initiator"
+    private Character characterToMove;
+    private String target;
 
     private Direction direction;
     private int distance;
@@ -22,7 +17,6 @@ public class MoveToCommand implements ScriptCommand {
 
     @Override
     public void initialize(JsonValue data) {
-        // LÊ O NOVO PARÂMETRO "target". O padrão é "initiator".
         this.target = data.getString("target", "initiator").toLowerCase();
 
         String dirStr = data.getString("direction", "DOWN").toUpperCase();
@@ -34,18 +28,21 @@ public class MoveToCommand implements ScriptCommand {
         this.distance = data.getInt("distance", 1);
     }
 
+    // ## MÉTODOS SETTER ADICIONADOS ##
+    public void setTarget(String target) { this.target = target; }
+    public void setDirection(Direction direction) { this.direction = direction; }
+    public void setDistance(int distance) { this.distance = distance; }
+
     @Override
     public void start(GameScreen screen, Character initiator) {
         this.started = true;
 
-        // LÓGICA PRINCIPAL: Decide quem mover com base no parâmetro "target"
         if ("player".equals(target)) {
             this.characterToMove = screen.getPlayer();
         } else {
             this.characterToMove = initiator;
         }
 
-        // Se por algum motivo o personagem não for encontrado, não faz nada.
         if (this.characterToMove == null) {
             return;
         }
@@ -67,12 +64,10 @@ public class MoveToCommand implements ScriptCommand {
 
     @Override
     public boolean isFinished() {
-        // Se o personagem alvo nem existia, termina imediatamente.
         if (started && characterToMove == null) {
             return true;
         }
         
-        // Se o personagem não podia se mover, termina e reabilita o controle.
         if (started && actualDistance == 0) {
             if (characterToMove != null) {
                 characterToMove.setControlEnabled(true);
@@ -80,7 +75,6 @@ public class MoveToCommand implements ScriptCommand {
             return true;
         }
         
-        // A condição normal de término: o movimento contínuo acabou.
         boolean done = started
                 && !characterToMove.isContinuousMoving()
                 && characterToMove.getCurrentState() == Character.State.IDLE;

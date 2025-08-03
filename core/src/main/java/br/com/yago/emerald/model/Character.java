@@ -71,15 +71,21 @@ public abstract class Character extends Entity {
     public void update(float delta) {
         stateTimer += delta;
 
+        // ## LÓGICA CORRIGIDA E FINAL ##
+        // A atualização de um movimento em progresso (seja contínuo ou passo-a-passo)
+        // agora acontece INDEPENDENTEMENTE da trava 'isLocked'.
+
         if (continuousMoving) {
             updateContinuousMove(delta);
-            return;
+            return; // Se está em movimento contínuo, não faz mais nada neste frame.
         }
 
         if (currentState == State.WALKING) {
             updateMovement(delta);
         }
         
+        // A trava 'isLocked' agora só impede o personagem de iniciar NOVAS ações
+        // por conta própria (input do jogador ou IA do NPC).
         if (isLocked) {
             return;
         }
@@ -217,9 +223,7 @@ public abstract class Character extends Entity {
             return dy > 0 ? Direction.UP : Direction.DOWN;
         }
     }
-
-    // ## CORREÇÃO DEFINITIVA AQUI ##
-    // A classe Queue do LibGDX usa o campo público 'size', e não o método 'size()'.
+    
     public boolean isFollowingPath() { return currentPath.size > 0; }
     
     public int maxWalkableDistance(Direction dir, int desiredDistance) {

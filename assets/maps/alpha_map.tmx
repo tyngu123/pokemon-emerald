@@ -2,7 +2,7 @@
 <map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="13">
  <properties>
   <property name="isInterior" type="bool" value="false"/>
-  <property name="name" value="CIDADE ALPHA"/>
+  <property name="name" value="ALPHA TOWN"/>
  </properties>
  <tileset firstgid="1" source="exterior.tsx"/>
  <layer id="1" name="floor" width="32" height="32">
@@ -16,7 +16,7 @@
     <property name="targetFacing" value="UP"/>
     <property name="targetMap" value="maps/alpha_interior_map.tmx"/>
     <property name="targetX" type="int" value="5"/>
-    <property name="targetY" type="int" value="1"/>
+    <property name="targetY" type="int" value="0"/>
    </properties>
   </object>
  </objectgroup>
