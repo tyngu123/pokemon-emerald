@@ -6,7 +6,6 @@ import br.com.yago.emerald.model.Warp;
 import br.com.yago.emerald.view.GameScreen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,10 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (player.isLocked()) { // Se o jogador está travado (ex: durante um fade), ignora input de movimento
+            return false;
+        }
+
         if (keycode == Input.Keys.Z) {
             if (!screen.getScriptRunner().isActive()) {
                 player.requestInteraction();
@@ -35,40 +38,32 @@ public class PlayerInputHandler extends InputAdapter {
             if (!pressedDirections.contains(dir)) {
                 pressedDirections.add(dir);
             }
-            // ## LÓGICA DE WARP ATIVADA AQUI ##
-            // Antes de tentar mover, checa se o destino é um warp
+            
+            // Checa por warp antes de mover
             if (checkForWarp(dir)) {
-                // Se for um warp, a transição já foi iniciada, então não move o jogador.
                 return true;
             }
+
             updatePlayerDirection();
             return true;
         }
         return false;
     }
 
-    /**
-     * ## NOVO MÉTODO ##
-     * Verifica se o movimento na direção 'dir' levaria o jogador a um tile de warp.
-     * @return true se um warp foi ativado, false caso contrário.
-     */
     private boolean checkForWarp(Direction dir) {
-        if (player.getCurrentState() != Player.State.IDLE) return false;
-
+        // ## CORREÇÃO ##: A trava do estado IDLE foi removida daqui.
         int targetX = player.getGridX() + dir.getDx();
         int targetY = player.getGridY() + dir.getDy();
 
-        // Reutiliza a lógica de GameScreen para encontrar o warp no tile alvo.
-        // Isso evita duplicar código.
         Warp targetWarp = screen.getWarpAt(targetX, targetY);
 
         if (targetWarp != null) {
-            // Encontrou um warp! Inicia a transição.
+            // Encontrou um warp! Inicia a transição com fade.
             screen.initiateWarp(targetWarp);
-            return true; // Informa que um warp foi ativado.
+            return true;
         }
         
-        return false; // Nenhum warp encontrado.
+        return false;
     }
 
     @Override

@@ -120,15 +120,10 @@ public abstract class Character extends Entity {
             startPosition.set(worldPosition);
             targetPosition.set(worldPosition);
             
-            // ## NOVO MÉTODO CHAMADO ##
             onMovementComplete();
         }
     }
 
-    /**
-     * Chamado quando um passo de movimento de um tile para o outro termina.
-     * Classes filhas podem sobrescrever para adicionar lógica (como o PACE do NPC).
-     */
     protected void onMovementComplete() {
         // Por padrão, não faz nada.
     }
@@ -175,7 +170,6 @@ public abstract class Character extends Entity {
         this.setControlEnabled(false);
     }
     
-    // --- Outros Métodos ---
     private void updateContinuousMove(float delta) {
         continuousProgress += delta;
         float t = Math.min(continuousProgress / continuousDuration, 1f);
@@ -188,7 +182,7 @@ public abstract class Character extends Entity {
             startPosition.set(worldPosition);
             targetPosition.set(worldPosition);
             stateTimer = 0;
-            onMovementComplete(); // Chama aqui também para consistência.
+            onMovementComplete();
         }
     }
     public boolean isOccupied(int gridX, int gridY) {
@@ -223,7 +217,11 @@ public abstract class Character extends Entity {
             return dy > 0 ? Direction.UP : Direction.DOWN;
         }
     }
+
+    // ## CORREÇÃO DEFINITIVA AQUI ##
+    // A classe Queue do LibGDX usa o campo público 'size', e não o método 'size()'.
     public boolean isFollowingPath() { return currentPath.size > 0; }
+    
     public int maxWalkableDistance(Direction dir, int desiredDistance) {
         for (int i = 1; i <= desiredDistance; i++) {
             int checkX = getGridX() + dir.getDx() * i;
@@ -245,6 +243,11 @@ public abstract class Character extends Entity {
         this.currentState = State.WALKING;
         this.continuousMoving = true;
     }
+    
+    public boolean isLocked() {
+        return this.isLocked;
+    }
+
     public void setControlEnabled(boolean enabled) { this.controlEnabled = enabled; }
     public void setLocked(boolean locked) { this.isLocked = locked; }
     public State getCurrentState() { return currentState; }

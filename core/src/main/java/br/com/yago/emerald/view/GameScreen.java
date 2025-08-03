@@ -50,7 +50,7 @@ import br.com.yago.emerald.world.TriggerLoader;
 public class GameScreen extends ScreenAdapter {
 
 	private final EmeraldGame game;
-	private final SpriteBatch batch;
+	private final SpriteBatch batch; // A tela ainda tem a referência, mas não a controla.
 	private final BitmapFont uiFont;
 	private final OrthographicCamera gameCamera;
 	private final Viewport gameViewport;
@@ -70,16 +70,19 @@ public class GameScreen extends ScreenAdapter {
 	private final ScriptRunner scriptRunner;
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
+	private final FadeManager fadeManager;
 	
 	private final String mapName;
 	private final boolean isInterior;
 
-	public GameScreen(EmeraldGame game, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing) {
+	// ## CONSTRUTOR ATUALIZADO ##
+	// Agora recebe o SpriteBatch em vez de criar um novo.
+	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing) {
 		this.game = game;
-		assetLoader = new AssetsLoader();
-		assetLoader.load();
-		assetLoader.manager.finishLoading();
-
+		this.assetLoader = assetLoader;
+		this.batch = batch; // Armazena a referência do Batch central.
+		this.fadeManager = new FadeManager();
+		
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
 		Texture box9 = assetLoader.manager.get(assetLoader.DIALOGUE_BOX, Texture.class);
 		Texture arr = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
@@ -93,34 +96,27 @@ public class GameScreen extends ScreenAdapter {
 		dialogueBox = new DialogueBox(uiFont, box9, arr);
 		mapNameBox = new MapNameBox(townBoxTexture, uiFont);
 		scriptRunner = new ScriptRunner(this);
-		batch = new SpriteBatch();
 
 		map = new TmxMapLoader().load(mapFileName);
 		
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
 
+		// O renderer agora usa o batch central que foi passado.
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
 		
-		// ## LÓGICA DE CAMADAS CORRIGIDA E FINAL ##
-		// Cria listas temporárias para os índices das camadas.
 		List<Integer> backgroundIndexes = new ArrayList<>();
 		List<Integer> foregroundIndexes = new ArrayList<>();
-		// Define os nomes das camadas que você usa.
 		String[] backgroundLayerNames = {"floor", "buildings", "trees"};
 		String[] foregroundLayerNames = {"foreground"};
 
-		// Itera sobre todas as camadas do mapa carregado.
 		for (MapLayer layer : map.getLayers()) {
-			// Verifica se a camada é uma camada de tiles (e não de objetos).
 			if (layer instanceof TiledMapTileLayer) {
-				// Checa se o nome da camada está na nossa lista de camadas de fundo.
 				for (String name : backgroundLayerNames) {
 					if (layer.getName().equalsIgnoreCase(name)) {
 						backgroundIndexes.add(map.getLayers().getIndex(layer));
 					}
 				}
-				// Checa se o nome da camada está na nossa lista de camadas de frente.
 				for (String name : foregroundLayerNames) {
 					if (layer.getName().equalsIgnoreCase(name)) {
 						foregroundIndexes.add(map.getLayers().getIndex(layer));
@@ -128,10 +124,8 @@ public class GameScreen extends ScreenAdapter {
 				}
 			}
 		}
-		// Converte as listas para arrays de inteiros, que é o que o renderizador espera.
 		mapBackgroundLayers = backgroundIndexes.stream().mapToInt(i -> i).toArray();
 		mapForegroundLayers = foregroundIndexes.stream().mapToInt(i -> i).toArray();
-
 
 		TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
 		
@@ -164,6 +158,8 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void update(float delta) {
+		fadeManager.update(delta);
+		
 		for (Entity entity : entities) {
 			entity.update(delta);
 		}
@@ -226,6 +222,7 @@ public class GameScreen extends ScreenAdapter {
 		batch.begin();
 		mapNameBox.render(batch);
 		dialogueBox.render(batch, uiViewport.getWorldWidth());
+		fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
 		batch.end();
 	}
 	
@@ -240,7 +237,14 @@ public class GameScreen extends ScreenAdapter {
     }
 	
 	public void initiateWarp(Warp warp) {
-		game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
+		player.setLocked(true);
+		fadeManager.fadeOut(0.5f, () -> {
+			game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
+		});
+	}
+	
+	public void startFadeIn() {
+		fadeManager.fadeIn(0.5f);
 	}
 	
     public NPC getNpcById(String npcId) {
@@ -283,9 +287,9 @@ public class GameScreen extends ScreenAdapter {
 	
 	@Override
 	public void dispose() {
-		batch.dispose();
-		assetLoader.dispose();
+		// ## CORREÇÃO ##: A tela NÃO destrói mais o batch nem o assetLoader.
 		map.dispose();
 		mapRenderer.dispose();
+		fadeManager.dispose();
 	}
 }
