@@ -98,37 +98,28 @@ public class DialogueBox {
         if (currentState == State.HIDDEN) return;
 
         float boxX = 10f, boxY = 10f;
-        float boxW = viewportWidth - 20f, boxH = 180f; // Altura da caixa ajustada
+        float boxW = viewportWidth - 20f, boxH = 180f;
 
-        batch.begin();
+        // ## CORREÇÃO: REMOVIDO batch.begin() e batch.end() DAQUI ##
+        
         background.draw(batch, boxX, boxY, boxW, boxH);
 
-        // Define as coordenadas e a área de desenho do texto
         float textX = boxX + 96f;
         float textY = boxY + boxH - 15f;
         float textWidth = boxW - 180f;
 
-        // ## MUDANÇA IMPORTANTE: Usamos o GlyphLayout para desenhar e medir ##
-        // Isso nos dá as coordenadas exatas do texto após a quebra de linha.
         layout.setText(font, visibleText, Color.WHITE, textWidth, Align.left, true);
         font.draw(batch, layout, textX, textY);
 
         if (currentState == State.WAITING) {
-            if ((int)(indicatorTimer * 4) % 2 == 0) { // Aumentei a velocidade da piscada
-
-                // Pega a última linha de texto renderizada
+            if ((int)(indicatorTimer * 4) % 2 == 0) {
                 GlyphLayout.GlyphRun lastRun = layout.runs.get(layout.runs.size - 1);
-
-                // Calcula a posição da seta com base no final da última linha
-                float arrowX = textX + lastRun.width + 5f; // 5 pixels de espaço
-                float arrowY = textY - layout.height - 2f; // Alinha com a base do texto
-
-                // ## MUDANÇA IMPORTANTE: Aumenta o tamanho da seta no 'draw' ##
+                float arrowX = textX + lastRun.width + 5f;
+                float arrowY = textY - layout.height - 2f;
                 float arrowSize = 32f;
                 batch.draw(arrow, arrowX, arrowY, arrowSize, arrowSize);
             }
         }
-        batch.end();
     }
 
     public boolean isFinished() {
@@ -137,9 +128,8 @@ public class DialogueBox {
 
     private void paginateText(String fullText) {
         pages.clear();
-        // A largura e altura útil para o texto dentro da caixa
         float usableWidth = Gdx.graphics.getWidth() - 40f;
-        float usableHeight = 100f; // Altura interna útil para o texto
+        float usableHeight = 100f;
 
         String[] words = fullText.split(" ");
         StringBuilder currentPage = new StringBuilder();

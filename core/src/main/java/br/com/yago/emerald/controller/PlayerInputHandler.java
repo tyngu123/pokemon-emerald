@@ -2,19 +2,20 @@ package br.com.yago.emerald.controller;
 
 import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Player;
-import br.com.yago.emerald.view.GameScreen; // Importar
+import br.com.yago.emerald.model.Warp;
+import br.com.yago.emerald.view.GameScreen;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerInputHandler extends InputAdapter {
 
     private final Player player;
-    private final GameScreen screen; // ## NOVA REFERÊNCIA ##
+    private final GameScreen screen;
     private final List<Direction> pressedDirections = new ArrayList<>();
 
-    // O construtor agora recebe a GameScreen
     public PlayerInputHandler(Player player, GameScreen screen) {
         this.player = player;
         this.screen = screen;
@@ -22,23 +23,23 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
-        // Checa a interação com 'Z'
         if (keycode == Input.Keys.Z) {
-            // ## MUDANÇA PRINCIPAL AQUI ##
-            // Só permite pedir uma nova interação se um script NÃO estiver rodando.
-            // A DialogueBox ainda vai capturar este input para se fechar, mas uma
-            // nova interação não será solicitada.
             if (!screen.getScriptRunner().isActive()) {
                 player.requestInteraction();
             }
             return true;
         }
 
-        // Lógica de movimento (sem alterações)
         Direction dir = getDirectionFromKeycode(keycode);
         if (dir != null) {
             if (!pressedDirections.contains(dir)) {
                 pressedDirections.add(dir);
+            }
+            // ## LÓGICA DE WARP ATIVADA AQUI ##
+            // Antes de tentar mover, checa se o destino é um warp
+            if (checkForWarp(dir)) {
+                // Se for um warp, a transição já foi iniciada, então não move o jogador.
+                return true;
             }
             updatePlayerDirection();
             return true;
@@ -46,7 +47,30 @@ public class PlayerInputHandler extends InputAdapter {
         return false;
     }
 
-    // ... (resto da classe sem alterações) ...
+    /**
+     * ## NOVO MÉTODO ##
+     * Verifica se o movimento na direção 'dir' levaria o jogador a um tile de warp.
+     * @return true se um warp foi ativado, false caso contrário.
+     */
+    private boolean checkForWarp(Direction dir) {
+        if (player.getCurrentState() != Player.State.IDLE) return false;
+
+        int targetX = player.getGridX() + dir.getDx();
+        int targetY = player.getGridY() + dir.getDy();
+
+        // Reutiliza a lógica de GameScreen para encontrar o warp no tile alvo.
+        // Isso evita duplicar código.
+        Warp targetWarp = screen.getWarpAt(targetX, targetY);
+
+        if (targetWarp != null) {
+            // Encontrou um warp! Inicia a transição.
+            screen.initiateWarp(targetWarp);
+            return true; // Informa que um warp foi ativado.
+        }
+        
+        return false; // Nenhum warp encontrado.
+    }
+
     @Override
     public boolean keyUp(int keycode) {
         Direction dir = getDirectionFromKeycode(keycode);
@@ -57,6 +81,7 @@ public class PlayerInputHandler extends InputAdapter {
         }
         return false;
     }
+
     private void updatePlayerDirection() {
         if (pressedDirections.isEmpty()) {
             player.setNextDirection(null);
@@ -65,6 +90,7 @@ public class PlayerInputHandler extends InputAdapter {
             player.setNextDirection(latestDirection);
         }
     }
+
     private Direction getDirectionFromKeycode(int keycode) {
         switch (keycode) {
             case Input.Keys.W: case Input.Keys.UP: return Direction.UP;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="12">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="13">
  <properties>
   <property name="isInterior" type="bool" value="false"/>
   <property name="name" value="CIDADE ALPHA"/>
@@ -10,9 +10,19 @@
    eJzt080RQDAQhuFvMOHiogi0gh7SF6lCI2gFDdgDFwe/SUzGHt7J8dlNJh4Az3KdD/TU4Nu32WefffbZP/ZHAczCHT/5+f5bdQQ0lIq+8UdyJ2rW4E9UoyElnvs62t+jC34RAqWmqvC+f1YbH59v/9+bGbbkmgn/bH9p2L/S177p92effRf9NAAyKqcW9wumvA==
   </data>
  </layer>
+ <objectgroup id="10" name="warps">
+  <object id="12" x="176" y="368" width="16" height="16">
+   <properties>
+    <property name="targetFacing" value="UP"/>
+    <property name="targetMap" value="maps/alpha_interior_map.tmx"/>
+    <property name="targetX" type="int" value="5"/>
+    <property name="targetY" type="int" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer id="2" name="collision" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt1cEKgCAMBuDt2LH3f9kuHWLM5n6ni+UPoxDcJ6lE9B6+qzcsnmifCj6L8ZW+9p7ht77HCl/2QHw5v7WvluHxtZ4ev2ee5Uensu/Zp6q+tQ7UP5Ty5u/+cw0jPhHuezLj/m8f80+l0J7I+YvwR+7fl3yi9X5EsvyR/8+sysz2ty9zAbqyAp8=
+   eJzt1cEKgCAMBuDt2LH3f9kuHWLM5v6pC9sPoxDcJ6lE9B6+qzcsnmifHXwW4yt97T3Db32PFb7sgfhyfmtfLcPjaz09fs88yx+dnX3PPu3qW+tA/UMpb/7uP9cQ8Ylw35MZ9798zD+VQnsi52+EH7l/X/I5wR+RLD/y/5lVmSm/fJkLvwYCoA==
   </data>
  </layer>
  <layer id="4" name="buildings" width="32" height="32">

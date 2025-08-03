@@ -1,8 +1,14 @@
 package br.com.yago.emerald.view;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import br.com.yago.emerald.EmeraldGame;
+import br.com.yago.emerald.model.Warp;
+import br.com.yago.emerald.world.WarpLoader;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -12,10 +18,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
@@ -35,12 +43,13 @@ import br.com.yago.emerald.model.Trigger;
 import br.com.yago.emerald.model.pathfinding.Pathfinder;
 import br.com.yago.emerald.script.ScriptRunner;
 import br.com.yago.emerald.ui.DialogueBox;
-import br.com.yago.emerald.ui.MapNameBox; // ## IMPORTA A NOVA CLASSE ##
+import br.com.yago.emerald.ui.MapNameBox;
 import br.com.yago.emerald.world.NpcLoader;
 import br.com.yago.emerald.world.TriggerLoader;
 
 public class GameScreen extends ScreenAdapter {
 
+	private final EmeraldGame game;
 	private final SpriteBatch batch;
 	private final BitmapFont uiFont;
 	private final OrthographicCamera gameCamera;
@@ -48,7 +57,7 @@ public class GameScreen extends ScreenAdapter {
 	private final OrthographicCamera uiCamera;
 	private final Viewport uiViewport;
 	private final DialogueBox dialogueBox;
-	private final MapNameBox mapNameBox; // ## NOVA INSTÂNCIA DA UI ##
+	private final MapNameBox mapNameBox;
 	private final TiledMap map;
 	private final OrthogonalTiledMapRenderer mapRenderer;
 	private final int[] mapBackgroundLayers, mapForegroundLayers;
@@ -57,14 +66,16 @@ public class GameScreen extends ScreenAdapter {
 	private final Array<Entity> entities;
 	private final Array<NPC> npcs = new Array<>();
 	private final Array<Trigger> triggers = new Array<>();
+	private final Array<Warp> warps = new Array<>();
 	private final ScriptRunner scriptRunner;
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
 	
-	private final String mapName; // ## ARMAZENA O NOME DO MAPA ##
-	private final boolean isInterior; // ## ARMAZENA SE O MAPA É INTERIOR ##
+	private final String mapName;
+	private final boolean isInterior;
 
-	public GameScreen() {
+	public GameScreen(EmeraldGame game, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing) {
+		this.game = game;
 		assetLoader = new AssetsLoader();
 		assetLoader.load();
 		assetLoader.manager.finishLoading();
@@ -72,7 +83,7 @@ public class GameScreen extends ScreenAdapter {
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
 		Texture box9 = assetLoader.manager.get(assetLoader.DIALOGUE_BOX, Texture.class);
 		Texture arr = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
-		Texture townBoxTexture = assetLoader.manager.get(assetLoader.TOWN_BOX, Texture.class); // ## CARREGA A TEXTURA DA CAIXA ##
+		Texture townBoxTexture = assetLoader.manager.get(assetLoader.TOWN_BOX, Texture.class);
 
 		gameCamera = new OrthographicCamera();
 		gameViewport = new FitViewport(320, 240, gameCamera);
@@ -80,26 +91,55 @@ public class GameScreen extends ScreenAdapter {
 		uiViewport = new ScreenViewport(uiCamera);
 
 		dialogueBox = new DialogueBox(uiFont, box9, arr);
-		mapNameBox = new MapNameBox(townBoxTexture, uiFont); // ## INICIALIZA A CAIXA ##
+		mapNameBox = new MapNameBox(townBoxTexture, uiFont);
 		scriptRunner = new ScriptRunner(this);
 		batch = new SpriteBatch();
 
-		map = new TmxMapLoader().load("maps/alpha_map.tmx");
+		map = new TmxMapLoader().load(mapFileName);
 		
-		// ## LÊ AS PROPRIEDADES DO MAPA ##
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
 
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
-		mapBackgroundLayers = new int[] { map.getLayers().getIndex("floor"), map.getLayers().getIndex("buildings"), map.getLayers().getIndex("trees") };
-		mapForegroundLayers = new int[] { map.getLayers().getIndex("foreground") };
+		
+		// ## LÓGICA DE CAMADAS CORRIGIDA E FINAL ##
+		// Cria listas temporárias para os índices das camadas.
+		List<Integer> backgroundIndexes = new ArrayList<>();
+		List<Integer> foregroundIndexes = new ArrayList<>();
+		// Define os nomes das camadas que você usa.
+		String[] backgroundLayerNames = {"floor", "buildings", "trees"};
+		String[] foregroundLayerNames = {"foreground"};
+
+		// Itera sobre todas as camadas do mapa carregado.
+		for (MapLayer layer : map.getLayers()) {
+			// Verifica se a camada é uma camada de tiles (e não de objetos).
+			if (layer instanceof TiledMapTileLayer) {
+				// Checa se o nome da camada está na nossa lista de camadas de fundo.
+				for (String name : backgroundLayerNames) {
+					if (layer.getName().equalsIgnoreCase(name)) {
+						backgroundIndexes.add(map.getLayers().getIndex(layer));
+					}
+				}
+				// Checa se o nome da camada está na nossa lista de camadas de frente.
+				for (String name : foregroundLayerNames) {
+					if (layer.getName().equalsIgnoreCase(name)) {
+						foregroundIndexes.add(map.getLayers().getIndex(layer));
+					}
+				}
+			}
+		}
+		// Converte as listas para arrays de inteiros, que é o que o renderizador espera.
+		mapBackgroundLayers = backgroundIndexes.stream().mapToInt(i -> i).toArray();
+		mapForegroundLayers = foregroundIndexes.stream().mapToInt(i -> i).toArray();
+
 
 		TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
 		
 		this.pathfinder = new Pathfinder(collisionLayer);
 		
 		entities = new Array<>();
-		player = new Player(assetLoader.manager.get(assetLoader.PLAYER_ATLAS), collisionLayer, entities, 10 * GameConfig.TILE_SIZE, 8 * GameConfig.TILE_SIZE);
+		player = new Player(assetLoader.manager.get(assetLoader.PLAYER_ATLAS), collisionLayer, entities, playerStartX * GameConfig.TILE_SIZE, playerStartY * GameConfig.TILE_SIZE);
+		player.setFacingDirection(playerFacing);
 		entities.add(player);
 
 		NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
@@ -108,10 +148,10 @@ public class GameScreen extends ScreenAdapter {
         }
 		
         TriggerLoader.loadTriggers(map, triggers);
+		WarpLoader.loadWarps(map, warps);
 
 		Gdx.input.setInputProcessor(new PlayerInputHandler(player, this));
 
-		// ## ATIVA A CAIXA SE O MAPA FOR EXTERIOR ##
 		if (!this.isInterior) {
 			mapNameBox.show(this.mapName);
 		}
@@ -128,7 +168,7 @@ public class GameScreen extends ScreenAdapter {
 			entity.update(delta);
 		}
         dialogueBox.update(delta);
-		mapNameBox.update(delta, uiViewport); // ## ATUALIZA A CAIXA ##
+		mapNameBox.update(delta, uiViewport);
 
 		for (Trigger trigger : triggers) {
 			trigger.updateState(player);
@@ -138,7 +178,6 @@ public class GameScreen extends ScreenAdapter {
             scriptRunner.update(delta);
         } else {
 			handleInteraction();
-			
 			for (Trigger trigger : triggers) {
 				trigger.attemptToFire(player, scriptRunner);
 			}
@@ -184,13 +223,24 @@ public class GameScreen extends ScreenAdapter {
 
 		uiViewport.apply();
 		batch.setProjectionMatrix(uiCamera.combined);
-		
-		// ## RENDERIZA A CAIXA DE NOME DO MAPA ##
 		batch.begin();
 		mapNameBox.render(batch);
-		batch.end();
-
 		dialogueBox.render(batch, uiViewport.getWorldWidth());
+		batch.end();
+	}
+	
+    public Warp getWarpAt(int gridX, int gridY) {
+        Rectangle targetArea = new Rectangle(gridX * GameConfig.TILE_SIZE, gridY * GameConfig.TILE_SIZE, 1, 1);
+        for (Warp warp : warps) {
+            if (warp.getBounds().overlaps(targetArea)) {
+                return warp;
+            }
+        }
+        return null;
+    }
+	
+	public void initiateWarp(Warp warp) {
+		game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
 	}
 	
     public NPC getNpcById(String npcId) {
@@ -210,9 +260,7 @@ public class GameScreen extends ScreenAdapter {
 
         Set<Vector2> occupiedTiles = new HashSet<>();
         for (Entity entity : this.entities) {
-            if (entity == from) {
-                continue;
-            }
+            if (entity == from) continue;
             if (entity instanceof Character) {
                 occupiedTiles.add(new Vector2(((Character) entity).getGridX(), ((Character) entity).getGridY()));
             }
