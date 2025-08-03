@@ -35,6 +35,7 @@ import br.com.yago.emerald.model.Trigger;
 import br.com.yago.emerald.model.pathfinding.Pathfinder;
 import br.com.yago.emerald.script.ScriptRunner;
 import br.com.yago.emerald.ui.DialogueBox;
+import br.com.yago.emerald.ui.MapNameBox; // ## IMPORTA A NOVA CLASSE ##
 import br.com.yago.emerald.world.NpcLoader;
 import br.com.yago.emerald.world.TriggerLoader;
 
@@ -47,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
 	private final OrthographicCamera uiCamera;
 	private final Viewport uiViewport;
 	private final DialogueBox dialogueBox;
+	private final MapNameBox mapNameBox; // ## NOVA INSTÂNCIA DA UI ##
 	private final TiledMap map;
 	private final OrthogonalTiledMapRenderer mapRenderer;
 	private final int[] mapBackgroundLayers, mapForegroundLayers;
@@ -58,6 +60,9 @@ public class GameScreen extends ScreenAdapter {
 	private final ScriptRunner scriptRunner;
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
+	
+	private final String mapName; // ## ARMAZENA O NOME DO MAPA ##
+	private final boolean isInterior; // ## ARMAZENA SE O MAPA É INTERIOR ##
 
 	public GameScreen() {
 		assetLoader = new AssetsLoader();
@@ -67,6 +72,7 @@ public class GameScreen extends ScreenAdapter {
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
 		Texture box9 = assetLoader.manager.get(assetLoader.DIALOGUE_BOX, Texture.class);
 		Texture arr = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
+		Texture townBoxTexture = assetLoader.manager.get(assetLoader.TOWN_BOX, Texture.class); // ## CARREGA A TEXTURA DA CAIXA ##
 
 		gameCamera = new OrthographicCamera();
 		gameViewport = new FitViewport(320, 240, gameCamera);
@@ -74,10 +80,16 @@ public class GameScreen extends ScreenAdapter {
 		uiViewport = new ScreenViewport(uiCamera);
 
 		dialogueBox = new DialogueBox(uiFont, box9, arr);
+		mapNameBox = new MapNameBox(townBoxTexture, uiFont); // ## INICIALIZA A CAIXA ##
 		scriptRunner = new ScriptRunner(this);
 		batch = new SpriteBatch();
 
 		map = new TmxMapLoader().load("maps/alpha_map.tmx");
+		
+		// ## LÊ AS PROPRIEDADES DO MAPA ##
+		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
+		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
+
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
 		mapBackgroundLayers = new int[] { map.getLayers().getIndex("floor"), map.getLayers().getIndex("buildings"), map.getLayers().getIndex("trees") };
 		mapForegroundLayers = new int[] { map.getLayers().getIndex("foreground") };
@@ -98,6 +110,11 @@ public class GameScreen extends ScreenAdapter {
         TriggerLoader.loadTriggers(map, triggers);
 
 		Gdx.input.setInputProcessor(new PlayerInputHandler(player, this));
+
+		// ## ATIVA A CAIXA SE O MAPA FOR EXTERIOR ##
+		if (!this.isInterior) {
+			mapNameBox.show(this.mapName);
+		}
 	}
 	
 	@Override
@@ -111,6 +128,7 @@ public class GameScreen extends ScreenAdapter {
 			entity.update(delta);
 		}
         dialogueBox.update(delta);
+		mapNameBox.update(delta, uiViewport); // ## ATUALIZA A CAIXA ##
 
 		for (Trigger trigger : triggers) {
 			trigger.updateState(player);
@@ -166,6 +184,12 @@ public class GameScreen extends ScreenAdapter {
 
 		uiViewport.apply();
 		batch.setProjectionMatrix(uiCamera.combined);
+		
+		// ## RENDERIZA A CAIXA DE NOME DO MAPA ##
+		batch.begin();
+		mapNameBox.render(batch);
+		batch.end();
+
 		dialogueBox.render(batch, uiViewport.getWorldWidth());
 	}
 	
@@ -179,30 +203,21 @@ public class GameScreen extends ScreenAdapter {
         return null;
     }
 
-    /**
-     * ## MÉTODO CORRIGIDO E FINAL ##
-     * Encontra um caminho para um tile adjacente ao alvo, informando ao pathfinder
-     * a posição de TODAS as outras entidades para que ele desvie delas.
-     */
     public Queue<Direction> findPathFor(Character from, Character to) {
         Vector2 startTile = new Vector2(from.getGridX(), from.getGridY());
         int targetX = to.getGridX();
         int targetY = to.getGridY();
 
-        // Cria uma lista de todos os tiles ocupados por entidades.
         Set<Vector2> occupiedTiles = new HashSet<>();
         for (Entity entity : this.entities) {
-            // Ignora o próprio personagem que está se movendo.
             if (entity == from) {
                 continue;
             }
-            // Adiciona a posição de todos os outros personagens.
             if (entity instanceof Character) {
                 occupiedTiles.add(new Vector2(((Character) entity).getGridX(), ((Character) entity).getGridY()));
             }
         }
 
-        // Pede ao pathfinder o melhor tile adjacente ao alvo, evitando os tiles já ocupados.
         Vector2 adjacentTarget = pathfinder.findBestAdjacent(from.getGridX(), from.getGridY(), targetX, targetY, occupiedTiles);
 
         if (adjacentTarget == null) {
@@ -210,8 +225,6 @@ public class GameScreen extends ScreenAdapter {
             return new Queue<>();
         }
 
-        // Encontra o caminho para o tile adjacente, ainda evitando os tiles ocupados.
-        // Adiciona a posição final do alvo aqui também para garantir que não tente entrar nele.
         occupiedTiles.add(new Vector2(targetX, targetY));
         return pathfinder.findPath(startTile, adjacentTarget, occupiedTiles);
     }

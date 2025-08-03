@@ -19,8 +19,9 @@ public class AssetsLoader {
     // UI
     public final String FONT_FILE    = "ui/font.otf";
     public final String FONT_NAME    = "gameFont";
-    public final String DIALOGUE_BOX = "ui/dialoguebox.png"; // seu 9-patch
+    public final String DIALOGUE_BOX = "ui/dialoguebox.png";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
+    public final String TOWN_BOX = "ui/townbox.png"; // ## NOVO ASSET ##
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -50,6 +51,7 @@ public class AssetsLoader {
         // UI Textures
         manager.load(DIALOGUE_BOX,   Texture.class);
         manager.load(DIALOGUE_ARROW, Texture.class);
+        manager.load(TOWN_BOX,       Texture.class); // ## CARREGA A NOVA TEXTURA ##
 
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);
