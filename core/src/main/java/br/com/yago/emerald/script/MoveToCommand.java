@@ -9,15 +9,16 @@ public class MoveToCommand implements ScriptCommand {
 
     private Character characterToMove;
     private String target;
-
     private Direction direction;
     private int distance;
+    private boolean ignoreCollision; // ## NOVA PROPRIEDADE ##
     private boolean started = false;
-    private int actualDistance = 0;
 
     @Override
     public void initialize(JsonValue data) {
         this.target = data.getString("target", "initiator").toLowerCase();
+        this.distance = data.getInt("distance", 1);
+        this.ignoreCollision = data.getBoolean("ignoreCollision", false); // Lê do JSON
 
         String dirStr = data.getString("direction", "DOWN").toUpperCase();
         try {
@@ -25,13 +26,13 @@ public class MoveToCommand implements ScriptCommand {
         } catch (IllegalArgumentException e) {
             this.direction = Direction.DOWN;
         }
-        this.distance = data.getInt("distance", 1);
     }
 
-    // ## MÉTODOS SETTER ADICIONADOS ##
+    // Setters para criação dinâmica
     public void setTarget(String target) { this.target = target; }
     public void setDirection(Direction direction) { this.direction = direction; }
     public void setDistance(int distance) { this.distance = distance; }
+    public void setIgnoreCollision(boolean ignoreCollision) { this.ignoreCollision = ignoreCollision; }
 
     @Override
     public void start(GameScreen screen, Character initiator) {
@@ -48,13 +49,9 @@ public class MoveToCommand implements ScriptCommand {
         }
 
         characterToMove.setControlEnabled(false);
-
-        actualDistance = characterToMove.maxWalkableDistance(direction, distance);
-        if (actualDistance <= 0) {
-            return;
-        }
-
-        characterToMove.startContinuousMove(direction, actualDistance);
+        // ## CHAMADA ATUALIZADA ##
+        // Passa o booleano 'ignoreCollision' para o método do Character.
+        characterToMove.startContinuousMove(direction, distance, ignoreCollision);
     }
 
     @Override
@@ -64,26 +61,16 @@ public class MoveToCommand implements ScriptCommand {
 
     @Override
     public boolean isFinished() {
-        if (started && characterToMove == null) {
-            return true;
-        }
+        if (!started) return false;
+        if (characterToMove == null) return true;
         
-        if (started && actualDistance == 0) {
-            if (characterToMove != null) {
-                characterToMove.setControlEnabled(true);
-            }
-            return true;
-        }
-        
-        boolean done = started
-                && !characterToMove.isContinuousMoving()
+        boolean done = !characterToMove.isContinuousMoving()
                 && characterToMove.getCurrentState() == Character.State.IDLE;
 
         if (done) {
             characterToMove.setControlEnabled(true);
-            return true;
         }
         
-        return false;
+        return done;
     }
 }

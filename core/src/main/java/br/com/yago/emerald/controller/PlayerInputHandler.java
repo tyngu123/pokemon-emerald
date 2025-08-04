@@ -1,10 +1,12 @@
 package br.com.yago.emerald.controller;
 
+import br.com.yago.emerald.model.Character;
 import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Player;
 import br.com.yago.emerald.model.Warp;
-import br.com.yago.emerald.script.MoveToCommand;
+import br.com.yago.emerald.script.AnimateDoorCommand;
 import br.com.yago.emerald.script.FadeOutCommand;
+import br.com.yago.emerald.script.MoveToCommand;
 import br.com.yago.emerald.script.ScriptCommand;
 import br.com.yago.emerald.script.WarpCommand;
 import br.com.yago.emerald.view.GameScreen;
@@ -12,7 +14,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,14 @@ public class PlayerInputHandler extends InputAdapter {
     public PlayerInputHandler(Player player, GameScreen screen) {
         this.player = player;
         this.screen = screen;
+    }
+
+    public void update(float delta) {
+        if (player.isLocked() || !pressedDirections.isEmpty()) {
+            updatePlayerDirection();
+        } else {
+            player.setNextDirection(null);
+        }
     }
 
     @Override
@@ -46,48 +55,69 @@ public class PlayerInputHandler extends InputAdapter {
                 pressedDirections.add(dir);
             }
             
+            if (player.getCurrentState() == Character.State.IDLE) {
+                player.setFacingDirection(dir);
+            }
+            
             if (checkForWarp(dir)) {
                 return true;
             }
 
-            updatePlayerDirection();
             return true;
         }
         return false;
     }
 
     private boolean checkForWarp(Direction dir) {
-        // ## CORREÇÃO: REMOVIDA A TRAVA DE ESTADO IDLE ##
+        if (player.getCurrentState() != Character.State.IDLE) return false;
+
         int targetX = player.getGridX() + dir.getDx();
         int targetY = player.getGridY() + dir.getDy();
 
         Warp targetWarp = screen.getWarpAt(targetX, targetY);
 
         if (targetWarp != null) {
-            // ## LÓGICA REFEITA: CRIA UM SCRIPT DINÂMICO ##
-            player.setNextDirection(null); // Limpa o input para o jogador não sair andando
+            player.setNextDirection(null); // Impede o jogador de continuar andando
             
-            // Cria a sequência de comandos para a animação de warp
             Array<ScriptCommand> warpSequence = new Array<>();
 
-            // 1. Comando para andar 1 passo para dentro do portal
-            MoveToCommand move = new MoveToCommand();
-            move.initialize(new JsonValue(JsonValue.ValueType.object)); // Inicializa vazio
-            move.setTarget("player");
-            move.setDirection(dir);
-            move.setDistance(1);
-            warpSequence.add(move);
-            
-            // 2. Comando para escurecer a tela
-            FadeOutCommand fade = new FadeOutCommand();
-            fade.initialize(new JsonValue(JsonValue.ValueType.object)); // Inicializa com valores padrão
-            warpSequence.add(fade);
+            // ## LÓGICA CONDICIONAL PARA O TIPO DE WARP ##
+            if (targetWarp.isDoor()) {
+                // Se for uma PORTA, monta a sequência completa com o passo e a animação.
+                // Passo 1: Animar a porta
+                AnimateDoorCommand animateDoor = new AnimateDoorCommand(targetWarp);
+                warpSequence.add(animateDoor);
+                
+                // Passo 2: Mover o jogador para dentro do portal
+                MoveToCommand move = new MoveToCommand();
+                move.initialize(new JsonValue(JsonValue.ValueType.object));
+                move.setTarget("player");
+                move.setDirection(dir);
+                move.setDistance(1);
+                move.setIgnoreCollision(true);
+                warpSequence.add(move);
+                
+                // Passo 3: Fade Out
+                FadeOutCommand fade = new FadeOutCommand();
+                fade.initialize(new JsonValue(JsonValue.ValueType.object));
+                warpSequence.add(fade);
 
-            // 3. Comando para efetivamente trocar de mapa
-            WarpCommand warp = new WarpCommand(targetWarp);
-            warpSequence.add(warp);
+                // Passo 4: Trocar de mapa
+                WarpCommand warp = new WarpCommand(targetWarp);
+                warpSequence.add(warp);
+                
+            } else {
+                // Se NÃO for uma porta (ex: transição de mapa), monta uma sequência simples.
+                // Passo 1: Fade Out
+                FadeOutCommand fade = new FadeOutCommand();
+                fade.initialize(new JsonValue(JsonValue.ValueType.object));
+                warpSequence.add(fade);
+
+                // Passo 2: Trocar de mapa
+                WarpCommand warp = new WarpCommand(targetWarp);
+                warpSequence.add(warp);
+            }
             
-            // Executa a sequência usando o ScriptRunner
             screen.getScriptRunner().run(player, warpSequence);
             
             return true;
@@ -101,7 +131,6 @@ public class PlayerInputHandler extends InputAdapter {
         Direction dir = getDirectionFromKeycode(keycode);
         if (dir != null) {
             pressedDirections.remove(dir);
-            updatePlayerDirection();
             return true;
         }
         return false;

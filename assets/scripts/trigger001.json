@@ -1,0 +1,32 @@
+{
+
+	"commands": [
+		{
+			"type": "WAIT",
+			"duration": 0.5
+		},
+		
+		{
+			"type": "PATHFIND_TO_PLAYER",
+			"npcId": "npc001"
+		},
+		{
+			"type": "FACE_NPC",
+			"npcId": "npc001"
+		},
+		
+		{
+			"type": "FACE_PLAYER",
+			"target": "npc001"
+		},
+		{
+			"type": "SHOW_DIALOGUE",
+			"text": "Bem-vindo a minha casa. Fique a vontade. "
+		},
+		{
+			"type": "WAIT",
+			"duration": 0.5
+		}
+		
+	]
+}

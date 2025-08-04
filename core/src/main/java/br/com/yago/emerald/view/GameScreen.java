@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.yago.emerald.EmeraldGame;
+import br.com.yago.emerald.model.Door; // Importa a Door
 import br.com.yago.emerald.model.Warp;
 import br.com.yago.emerald.script.MoveToCommand;
 import br.com.yago.emerald.script.ScriptCommand;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas; // Importa o TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -66,10 +68,12 @@ public class GameScreen extends ScreenAdapter {
 	private final int[] mapBackgroundLayers, mapForegroundLayers;
 	private final AssetsLoader assetLoader;
 	private final Player player;
+	private final PlayerInputHandler playerInputHandler;
 	private final Array<Entity> entities;
 	private final Array<NPC> npcs = new Array<>();
 	private final Array<Trigger> triggers = new Array<>();
 	private final Array<Warp> warps = new Array<>();
+	private final Array<Door> doors = new Array<>(); // ## LISTA PARA AS PORTAS ##
 	private final ScriptRunner scriptRunner;
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
@@ -78,8 +82,6 @@ public class GameScreen extends ScreenAdapter {
 	private final String mapName;
 	private final boolean isInterior;
 
-	// ## CONSTRUTOR ATUALIZADO ##
-	// Agora recebe o booleano 'isWarpIn'.
 	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing, boolean isWarpIn) {
 		this.game = game;
 		this.assetLoader = assetLoader;
@@ -145,28 +147,33 @@ public class GameScreen extends ScreenAdapter {
 		
         TriggerLoader.loadTriggers(map, triggers);
 		WarpLoader.loadWarps(map, warps);
+        
+        // ## LÓGICA PARA CRIAR AS ENTIDADES DE PORTA ##
+        TextureAtlas doorAtlas = assetLoader.manager.get(assetLoader.DOOR_ATLAS, TextureAtlas.class);
+        for (Warp warp : warps) {
+            if (warp.isDoor()) {
+                Door door = new Door(doorAtlas, warp.getDoorType(), warp.getDoorX(), warp.getDoorY());
+                entities.add(door); // Adiciona na lista principal para ser renderizada
+                doors.add(door);    // Adiciona na lista específica para ser encontrada depois
+            }
+        }
 
-		Gdx.input.setInputProcessor(new PlayerInputHandler(player, this));
+		this.playerInputHandler = new PlayerInputHandler(player, this);
+		Gdx.input.setInputProcessor(this.playerInputHandler);
 
 		if (!this.isInterior) {
 			mapNameBox.show(this.mapName);
 		}
 
-		// ## LÓGICA DO PASSO PARA FORA ##
-		// Se esta tela foi criada a partir de um warp, executa a animação.
 		if (isWarpIn) {
 			runStepOutAnimation(playerFacing);
 		}
 	}
-
-	/**
-	 * ## NOVO MÉTODO ##
-	 * Cria e executa um script simples para fazer o jogador dar um passo à frente.
-	 */
+	
 	private void runStepOutAnimation(Direction direction) {
 		Array<ScriptCommand> stepOutSequence = new Array<>();
 		MoveToCommand move = new MoveToCommand();
-		move.initialize(new JsonValue(JsonValue.ValueType.object)); // Inicializa vazio
+		move.initialize(new JsonValue(JsonValue.ValueType.object));
 		move.setTarget("player");
 		move.setDirection(direction);
 		move.setDistance(1);
@@ -182,6 +189,7 @@ public class GameScreen extends ScreenAdapter {
 
 	private void update(float delta) {
 		fadeManager.update(delta);
+		playerInputHandler.update(delta);
 		
 		for (Entity entity : entities) {
 			entity.update(delta);
@@ -258,6 +266,19 @@ public class GameScreen extends ScreenAdapter {
         }
         return null;
     }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Procura por uma entidade de porta em uma coordenada específica.
+     */
+    public Door getDoorAt(int gridX, int gridY) {
+        for (Door door : doors) {
+            if (door.getGridX() == gridX && door.getGridY() == gridY) {
+                return door;
+            }
+        }
+        return null;
+    }
 	
 	public void initiateWarp(Warp warp) {
 		game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
@@ -274,6 +295,22 @@ public class GameScreen extends ScreenAdapter {
 	public boolean isFading() {
 		return fadeManager.isFading();
 	}
+    
+    public void addEntity(Entity entity) {
+        if (entity != null && !entities.contains(entity, true)) {
+            entities.add(entity);
+        }
+    }
+
+    public void removeEntity(Entity entity) {
+        if (entity != null) {
+            entities.removeValue(entity, true);
+        }
+    }
+
+    public AssetsLoader getAssetLoader() {
+        return assetLoader;
+    }
 	
     public NPC getNpcById(String npcId) {
         if (npcId == null || npcId.trim().isEmpty()) return null;

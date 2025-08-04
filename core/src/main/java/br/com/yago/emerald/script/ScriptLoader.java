@@ -68,11 +68,13 @@ public class ScriptLoader {
 		    return new PathfindToPlayerCommand();
 		case "FACE_NPC":
 			return new FaceNpcCommand();
-        // ## NOVOS COMANDOS REGISTRADOS ##
         case "FADE_OUT":
             return new FadeOutCommand();
         case "WARP":
-            return new WarpCommand(null); // Usado apenas para registro, será criado dinamicamente
+            return new WarpCommand(null);
+        // ## NOVO COMANDO REGISTRADO ##
+        case "ANIMATE_DOOR":
+            return new AnimateDoorCommand(null);
 		default:
 			Gdx.app.error("ScriptLoader", "Tipo desconhecido: " + type);
 			return null;

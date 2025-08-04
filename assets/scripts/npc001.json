@@ -1,0 +1,14 @@
+{
+	"commands": [
+		
+		{
+			"type": "FACE_PLAYER",
+			"target": "npc001"
+		},
+		{
+			"type": "SHOW_DIALOGUE",
+			"text": "To cheio de coisa pra fazer hoje. "
+		}
+
+	]
+}

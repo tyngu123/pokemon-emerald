@@ -71,21 +71,15 @@ public abstract class Character extends Entity {
     public void update(float delta) {
         stateTimer += delta;
 
-        // ## LÓGICA CORRIGIDA E FINAL ##
-        // A atualização de um movimento em progresso (seja contínuo ou passo-a-passo)
-        // agora acontece INDEPENDENTEMENTE da trava 'isLocked'.
-
         if (continuousMoving) {
             updateContinuousMove(delta);
-            return; // Se está em movimento contínuo, não faz mais nada neste frame.
+            return;
         }
 
         if (currentState == State.WALKING) {
             updateMovement(delta);
         }
         
-        // A trava 'isLocked' agora só impede o personagem de iniciar NOVAS ações
-        // por conta própria (input do jogador ou IA do NPC).
         if (isLocked) {
             return;
         }
@@ -234,9 +228,21 @@ public abstract class Character extends Entity {
         }
         return desiredDistance;
     }
-    public void startContinuousMove(Direction dir, int distance) {
-        int actualDistance = maxWalkableDistance(dir, distance);
+
+    /**
+     * ## MÉTODO ATUALIZADO ##
+     * Inicia um movimento contínuo, com a opção de ignorar colisões.
+     */
+    public void startContinuousMove(Direction dir, int distance, boolean ignoreCollision) {
+        int actualDistance;
+        if (ignoreCollision) {
+            actualDistance = distance;
+        } else {
+            actualDistance = maxWalkableDistance(dir, distance);
+        }
+
         if (actualDistance <= 0) return;
+        
         float dx = dir.getDx() * actualDistance * GameConfig.TILE_SIZE;
         float dy = dir.getDy() * actualDistance * GameConfig.TILE_SIZE;
         continuousStartPosition.set(worldPosition);
@@ -255,7 +261,5 @@ public abstract class Character extends Entity {
     public void setControlEnabled(boolean enabled) { this.controlEnabled = enabled; }
     public void setLocked(boolean locked) { this.isLocked = locked; }
     public State getCurrentState() { return currentState; }
-    public int getGridX() { return (int)(worldPosition.x / GameConfig.TILE_SIZE); }
-    public int getGridY() { return (int)(worldPosition.y / GameConfig.TILE_SIZE); }
     public boolean isContinuousMoving() { return continuousMoving; }
 }

@@ -8,22 +8,31 @@ public class Warp extends Entity {
     private final int targetX;
     private final int targetY;
     private final Direction targetFacing;
+    // ## NOVAS PROPRIEDADES PARA PORTAS ##
+    private final boolean isDoor;
+    private final String doorType;
+    private final int doorX;
+    private final int doorY;
 
-    public Warp(float x, float y, float width, float height, String targetMap, int targetX, int targetY, String targetFacingStr) {
+    public Warp(float x, float y, float width, float height, String targetMap, int targetX, int targetY, String targetFacingStr,
+                boolean isDoor, String doorType, int doorX, int doorY) {
         super(x, y, width, height);
         this.targetMap = targetMap;
         this.targetX = targetX;
         this.targetY = targetY;
         
-        // ## CORREÇÃO ##
-        // A conversão da string para o enum é feita de forma segura aqui.
         Direction tempFacing;
         try {
             tempFacing = Direction.valueOf(targetFacingStr.toUpperCase());
         } catch (Exception e) {
-            tempFacing = Direction.DOWN; // Padrão seguro
+            tempFacing = Direction.DOWN;
         }
-        this.targetFacing = tempFacing; // Atribuição única ao campo final.
+        this.targetFacing = tempFacing;
+        
+        this.isDoor = isDoor;
+        this.doorType = doorType;
+        this.doorX = doorX;
+        this.doorY = doorY;
     }
 
     // Getters para as propriedades do warp
@@ -31,15 +40,16 @@ public class Warp extends Entity {
     public int getTargetX() { return targetX; }
     public int getTargetY() { return targetY; }
     public Direction getTargetFacing() { return targetFacing; }
+    
+    // ## GETTERS PARA AS NOVAS PROPRIEDADES ##
+    public boolean isDoor() { return isDoor; }
+    public String getDoorType() { return doorType; }
+    public int getDoorX() { return doorX; }
+    public int getDoorY() { return doorY; }
 
     @Override
-    public void update(float delta) {
-        // Warps são estáticos, não precisam de lógica de update.
-    }
+    public void update(float delta) { /* Warps são estáticos */ }
 
     @Override
-    public TextureRegion getCurrentFrame() {
-        // Warps são invisíveis.
-        return null;
-    }
+    public TextureRegion getCurrentFrame() { /* Warps são invisíveis */ return null; }
 }

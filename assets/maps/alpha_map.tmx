@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="13">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="14">
  <properties>
   <property name="isInterior" type="bool" value="false"/>
   <property name="name" value="ALPHA TOWN"/>
@@ -11,8 +11,12 @@
   </data>
  </layer>
  <objectgroup id="10" name="warps">
-  <object id="12" x="176" y="368" width="16" height="16">
+  <object id="12" x="176" y="361.5" width="16" height="22">
    <properties>
+    <property name="doorType" value="wood_door"/>
+    <property name="doorX" type="int" value="11"/>
+    <property name="doorY" type="int" value="8"/>
+    <property name="isDoor" type="bool" value="true"/>
     <property name="targetFacing" value="UP"/>
     <property name="targetMap" value="maps/alpha_interior_map.tmx"/>
     <property name="targetX" type="int" value="5"/>
@@ -27,7 +31,7 @@
  </layer>
  <layer id="4" name="buildings" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRQC7YCMSbsODNdLKfk5GBgQuIY4HsGAYEzc1IH/sTgfYkAfFWIHsLA4JOpoL9B4H4EBI+TLmRJAFJoB+kkLA0ncIUBpSYGBiUgVgRiC8CcRGd7a8C2lkNxJVArMnMwHAKaD8LfZ0wCgYQjOa/wZf/RsEoGAWjgBoAAKILG00=
+   eJxjYBgFo2AUjIJRQC7YCMSbsODNdLKfk5GBgQuIY4HsGAYEzc1IH/sTgfYkAfFWIHsLA4JOpoL9B4H4EBI+TLmRJAFJoB+kkLA0ncIUBpSYGBiUgVgRiC8CcRGd7a8C2lkNxJVArMnMwHAKaD8LfZ0wCgYQjOa/wZP/QOAUne0fBaNgFAxfAADjjxsh
   </data>
  </layer>
  <layer id="7" name="trees" width="32" height="32">
