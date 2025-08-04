@@ -72,9 +72,11 @@ public class ScriptLoader {
             return new FadeOutCommand();
         case "WARP":
             return new WarpCommand(null);
-        // ## NOVO COMANDO REGISTRADO ##
         case "ANIMATE_DOOR":
             return new AnimateDoorCommand(null);
+        // ## NOVO COMANDO REGISTRADO ##
+        case "SET_VISIBILITY":
+            return new SetVisibilityCommand();
 		default:
 			Gdx.app.error("ScriptLoader", "Tipo desconhecido: " + type);
 			return null;

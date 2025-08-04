@@ -1,5 +1,13 @@
 package br.com.yago.emerald.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
+
 import br.com.yago.emerald.model.Character;
 import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Player;
@@ -8,14 +16,10 @@ import br.com.yago.emerald.script.AnimateDoorCommand;
 import br.com.yago.emerald.script.FadeOutCommand;
 import br.com.yago.emerald.script.MoveToCommand;
 import br.com.yago.emerald.script.ScriptCommand;
+import br.com.yago.emerald.script.SetVisibilityCommand;
+import br.com.yago.emerald.script.WaitCommand;
 import br.com.yago.emerald.script.WarpCommand;
 import br.com.yago.emerald.view.GameScreen;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonValue;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerInputHandler extends InputAdapter {
 
@@ -96,6 +100,20 @@ public class PlayerInputHandler extends InputAdapter {
                 move.setDistance(1);
                 move.setIgnoreCollision(true);
                 warpSequence.add(move);
+                
+             // 3. Esperar um pouco
+                WaitCommand wait = new WaitCommand();
+                JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
+                waitData.addChild("duration", new JsonValue(0.2f));
+                wait.initialize(waitData);
+                warpSequence.add(wait);
+                
+             // 4. Tornar o jogador invisível
+                SetVisibilityCommand setInvisible = new SetVisibilityCommand();
+                setInvisible.initialize(new JsonValue(JsonValue.ValueType.object));
+                setInvisible.setTarget("player");
+                setInvisible.setVisible(false);
+                warpSequence.add(setInvisible);
                 
                 // Passo 3: Fade Out
                 FadeOutCommand fade = new FadeOutCommand();

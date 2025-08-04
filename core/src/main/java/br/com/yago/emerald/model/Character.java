@@ -15,7 +15,7 @@ import java.util.Map;
 
 public abstract class Character extends Entity {
 
-    public enum State { IDLE, WALKING }
+    public enum State { IDLE, WALKING, FREEZE_WALK } // ## NOVO ESTADO ##
 
     protected State currentState;
     protected Direction facingDirection;
@@ -31,10 +31,10 @@ public abstract class Character extends Entity {
 
     private boolean controlEnabled = true;
     protected boolean isLocked = false;
+    private boolean visible = true; // ## CONTROLE DE VISIBILIDADE ##
 
     private final Queue<Direction> currentPath = new Queue<>();
 
-    // Campos para o movimento contínuo de scripts
     private boolean continuousMoving = false;
     private final Vector2 continuousStartPosition = new Vector2();
     private final Vector2 continuousTargetPosition = new Vector2();
@@ -76,7 +76,7 @@ public abstract class Character extends Entity {
             return;
         }
 
-        if (currentState == State.WALKING) {
+        if (currentState == State.WALKING || currentState == State.FREEZE_WALK) {
             updateMovement(delta);
         }
         
@@ -153,19 +153,21 @@ public abstract class Character extends Entity {
 
     @Override
     public TextureRegion getCurrentFrame() {
-        if (animations.isEmpty()) return null;
+        if (!visible || animations.isEmpty()) return null;
+
+        if (currentState == State.FREEZE_WALK) {
+            String animationKey = "walk_" + facingDirection.name().toLowerCase();
+            return animations.get(animationKey).getKeyFrames()[0]; // Sempre o primeiro frame
+        }
+
         String animationKey = (currentState == State.WALKING ? "walk_" : "idle_") + facingDirection.name().toLowerCase();
         return animations.get(animationKey).getKeyFrame(stateTimer, true);
     }
     
     public void followPath(Queue<Direction> path) {
         this.currentPath.clear();
-        for(Direction dir : path) {
-            this.currentPath.addLast(dir);
-        }
-        if (this instanceof NPC) {
-            ((NPC) this).interruptAiMovement();
-        }
+        for(Direction dir : path) this.currentPath.addLast(dir);
+        if (this instanceof NPC) ((NPC) this).interruptAiMovement();
         this.setLocked(false);
         this.setControlEnabled(false);
     }
@@ -185,6 +187,31 @@ public abstract class Character extends Entity {
             onMovementComplete();
         }
     }
+
+    public void startContinuousMove(Direction dir, int distance, boolean ignoreCollision) {
+        int actualDistance = ignoreCollision ? distance : maxWalkableDistance(dir, distance);
+        if (actualDistance <= 0) return;
+        
+        float dx = dir.getDx() * actualDistance * GameConfig.TILE_SIZE;
+        float dy = dir.getDy() * actualDistance * GameConfig.TILE_SIZE;
+        continuousStartPosition.set(worldPosition);
+        continuousTargetPosition.set(worldPosition.x + dx, worldPosition.y + dy);
+        continuousProgress = 0f;
+        continuousDuration = actualDistance * GameConfig.PLAYER_MOVE_DURATION;
+        this.facingDirection = dir;
+        
+        // ## LÓGICA DO FREEZE_WALK ##
+        // Se for um movimento que ignora colisão (warp de porta), congela a animação.
+        if (ignoreCollision) {
+            this.currentState = State.FREEZE_WALK;
+            this.stateTimer = 0; // Reseta o timer para pegar o primeiro frame
+        } else {
+            this.currentState = State.WALKING;
+        }
+        
+        this.continuousMoving = true;
+    }
+    
     public boolean isOccupied(int gridX, int gridY) {
         for (int i = 0; i < allEntities.size; i++) {
             Entity other = allEntities.get(i);
@@ -219,7 +246,6 @@ public abstract class Character extends Entity {
     }
     
     public boolean isFollowingPath() { return currentPath.size > 0; }
-    
     public int maxWalkableDistance(Direction dir, int desiredDistance) {
         for (int i = 1; i <= desiredDistance; i++) {
             int checkX = getGridX() + dir.getDx() * i;
@@ -228,36 +254,9 @@ public abstract class Character extends Entity {
         }
         return desiredDistance;
     }
-
-    /**
-     * ## MÉTODO ATUALIZADO ##
-     * Inicia um movimento contínuo, com a opção de ignorar colisões.
-     */
-    public void startContinuousMove(Direction dir, int distance, boolean ignoreCollision) {
-        int actualDistance;
-        if (ignoreCollision) {
-            actualDistance = distance;
-        } else {
-            actualDistance = maxWalkableDistance(dir, distance);
-        }
-
-        if (actualDistance <= 0) return;
-        
-        float dx = dir.getDx() * actualDistance * GameConfig.TILE_SIZE;
-        float dy = dir.getDy() * actualDistance * GameConfig.TILE_SIZE;
-        continuousStartPosition.set(worldPosition);
-        continuousTargetPosition.set(worldPosition.x + dx, worldPosition.y + dy);
-        continuousProgress = 0f;
-        continuousDuration = actualDistance * GameConfig.PLAYER_MOVE_DURATION;
-        this.facingDirection = dir;
-        this.currentState = State.WALKING;
-        this.continuousMoving = true;
-    }
     
-    public boolean isLocked() {
-        return this.isLocked;
-    }
-
+    public boolean isLocked() { return this.isLocked; }
+    public void setVisible(boolean visible) { this.visible = visible; } // ## NOVO MÉTODO ##
     public void setControlEnabled(boolean enabled) { this.controlEnabled = enabled; }
     public void setLocked(boolean locked) { this.isLocked = locked; }
     public State getCurrentState() { return currentState; }
