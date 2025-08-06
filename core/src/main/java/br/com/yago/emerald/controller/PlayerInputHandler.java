@@ -8,6 +8,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 
+import br.com.yago.emerald.EmeraldGame;
 import br.com.yago.emerald.model.Character;
 import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Player;
@@ -27,10 +28,12 @@ public class PlayerInputHandler extends InputAdapter {
     private final Player player;
     private final GameScreen screen;
     private final List<Direction> pressedDirections = new ArrayList<>();
+    private final EmeraldGame game; // ## REFERÊNCIA AO JOGO PRINCIPAL ##
 
-    public PlayerInputHandler(Player player, GameScreen screen) {
+    public PlayerInputHandler(Player player, GameScreen screen, EmeraldGame game) { // ## CONSTRUTOR ATUALIZADO ##
         this.player = player;
         this.screen = screen;
+        this.game = game;
     }
 
     public void update(float delta) {
@@ -67,16 +70,20 @@ public class PlayerInputHandler extends InputAdapter {
                     break;
                 case Input.Keys.Z: // Botão de Ação/Seleção
                     String selectedOption = menu.getSelectedOption();
-                    if ("EXIT".equals(selectedOption)) {
+                    
+                    // ## LÓGICA PARA ABRIR A MOCHILA ##
+                    if ("BAG".equals(selectedOption)) {
+                        game.openBagScreen();
+                    } 
+                    else if ("EXIT".equals(selectedOption)) {
                         menu.toggle();
                         player.setLocked(menu.isVisible());
                     }
-                    // Adicionar lógica para outras opções (BAG, etc.) aqui no futuro
                     break;
                 case Input.Keys.ENTER:
-                case Input.Keys.X: // Botão de Cancelar
+                case Input.Keys.X:
                     menu.toggle();
-                    player.setLocked(menu.isVisible()); // Desbloqueia o jogador
+                    player.setLocked(menu.isVisible());
                     break;
             }
             return true; // Consome o input para que não afete o jogo

@@ -82,6 +82,7 @@ public class GameScreen extends ScreenAdapter {
 	private final Pathfinder pathfinder;
 	private final FadeManager fadeManager;
 	
+	
 	private final String mapName;
 	private final boolean isInterior;
 
@@ -99,9 +100,9 @@ public class GameScreen extends ScreenAdapter {
 		Texture menuArrowTexture = assetLoader.manager.get(assetLoader.HORIZONTAL_ARROW, Texture.class);
 
 		gameCamera = new OrthographicCamera();
-		gameViewport = new FitViewport(320, 240, gameCamera);
+		gameViewport = new FitViewport(320 , 240, gameCamera);
 		uiCamera = new OrthographicCamera();
-		uiViewport = new FitViewport(320, 240, uiCamera);
+		uiViewport = new FitViewport(320 / 2, 240 / 2, uiCamera);
 
 		NinePatch mapNameBoxNinePatch = new NinePatch(menuBoxTexture, 8, 8, 8, 8);
 		
@@ -167,8 +168,8 @@ public class GameScreen extends ScreenAdapter {
             }
         }
 
-		this.playerInputHandler = new PlayerInputHandler(player, this);
-		Gdx.input.setInputProcessor(this.playerInputHandler);
+        this.playerInputHandler = new PlayerInputHandler(player, this, game);
+        Gdx.input.setInputProcessor(this.playerInputHandler);
 
 		if (!this.isInterior) {
 			mapNameBox.show(this.mapName);
@@ -358,7 +359,9 @@ public class GameScreen extends ScreenAdapter {
 	public MenuBox getMenuBox() { return menuBox; }
 	public ScriptRunner getScriptRunner() { return scriptRunner; }
 	public Player getPlayer() { return player; }
-	
+	public PlayerInputHandler getInputHandler() {
+        return playerInputHandler;
+    }
 	@Override
 	public void dispose() {
 		map.dispose();

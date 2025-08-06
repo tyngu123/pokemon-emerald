@@ -22,11 +22,13 @@ public class AssetsLoader {
     public final String FONT_FILE    = "ui/font.otf";
     public final String FONT_NAME    = "gameFont";
     public final String DIALOGUE_FONT_NAME = "dialogueFont";
+    public final String BAG_FONT_NAME = "bagFont"; // ## LINHA QUE FALTAVA ADICIONADA ##
     public final String DIALOGUE_BOX = "ui/dialoguebox.png";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
     public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
     public final String TOWN_BOX = "ui/townbox.png";
-    public final String BOX = "ui/box2.png";
+    public final String BOX = "ui/box.png";
+    public final String BAG_UI = "ui/bag_ui.png";
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -42,34 +44,50 @@ public class AssetsLoader {
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
 
-        // ## FONTE 1: gameFont (COM SOMBRA) - Para Menus e UI geral ##
+        // FONTE PRINCIPAL (gameFont)
         FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams =
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         menuFontParams.fontFileName = FONT_FILE;
-        menuFontParams.fontParameters.size = 32; // Tamanho final nítido para menus
-        menuFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f); 
-        // Cor da sombra #D0D0C8
-        menuFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f); 
+        menuFontParams.fontParameters.size = 16;
+        //menuFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
+        menuFontParams.fontParameters.color = Color.WHITE;
+        //menuFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
+        menuFontParams.fontParameters.shadowColor = Color.DARK_GRAY;
         menuFontParams.fontParameters.shadowOffsetX = 1;
         menuFontParams.fontParameters.shadowOffsetY = 1;
         menuFontParams.fontParameters.minFilter = TextureFilter.Nearest;
         menuFontParams.fontParameters.magFilter = TextureFilter.Nearest;
-        menuFontParams.fontParameters.hinting = Hinting.Full; // ## A SOLUÇÃO DEFINITIVA ##
+        menuFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(FONT_NAME + ".otf", BitmapFont.class, menuFontParams);
 
-        // ## FONTE 2: dialogueFont (SEM SOMBRA) - Exclusiva para a caixa de diálogo ##
+        // FONTE DO DIÁLOGO (dialogueFont)
         FreetypeFontLoader.FreeTypeFontLoaderParameter dialogueFontParams =
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         dialogueFontParams.fontFileName = FONT_FILE;
-        dialogueFontParams.fontParameters.size = 16; // Mesmo tamanho final
-        dialogueFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f); // Usando a mesma cor principal
-        dialogueFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f); 
-        dialogueFontParams.fontParameters.shadowOffsetX = 1; // Sem sombra
+        dialogueFontParams.fontParameters.size = 16;
+        //dialogueFontParams.fontParameters.color = new Color(0.1f, 0.1f, 0.1f, 1f);
+        dialogueFontParams.fontParameters.color = Color.WHITE;
+        menuFontParams.fontParameters.shadowColor = Color.DARK_GRAY;
+        dialogueFontParams.fontParameters.shadowOffsetX = 1;
         dialogueFontParams.fontParameters.shadowOffsetY = 1;
         dialogueFontParams.fontParameters.minFilter = TextureFilter.Nearest;
         dialogueFontParams.fontParameters.magFilter = TextureFilter.Nearest;
-        dialogueFontParams.fontParameters.hinting = Hinting.Full; // ## A SOLUÇÃO DEFINITIVA ##
+        dialogueFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(DIALOGUE_FONT_NAME + ".otf", BitmapFont.class, dialogueFontParams);
+
+        // NOVA FONTE DA MOCHILA (bagFont) - TAMANHO MENOR
+        FreetypeFontLoader.FreeTypeFontLoaderParameter bagFontParams =
+            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        bagFontParams.fontFileName = FONT_FILE;
+        bagFontParams.fontParameters.size = 16;
+        bagFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
+        bagFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
+        bagFontParams.fontParameters.shadowOffsetX = 1;
+        bagFontParams.fontParameters.shadowOffsetY = 1;
+        bagFontParams.fontParameters.minFilter = TextureFilter.Nearest;
+        bagFontParams.fontParameters.magFilter = TextureFilter.Nearest;
+        bagFontParams.fontParameters.hinting = Hinting.Full;
+        manager.load(BAG_FONT_NAME + ".otf", BitmapFont.class, bagFontParams);
 
         // Parâmetros para carregar texturas com filtro NEAREST
         TextureLoader.TextureParameter textureParams = new TextureLoader.TextureParameter();
@@ -82,6 +100,7 @@ public class AssetsLoader {
         manager.load(HORIZONTAL_ARROW, Texture.class, textureParams);
         manager.load(TOWN_BOX,       Texture.class, textureParams);
         manager.load(BOX, Texture.class, textureParams);
+        manager.load(BAG_UI, Texture.class, textureParams);
 
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);

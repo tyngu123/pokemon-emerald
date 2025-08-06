@@ -38,15 +38,15 @@ public class MapNameBox {
 
         // Calcula o tamanho da caixa dinamicamente com base no texto
         layout.setText(font, mapName);
-        this.width = layout.width + 80f; // Adiciona margem horizontal
+        this.width = layout.width + 50f; // Adiciona margem horizontal
         this.height = layout.height + 20f; // Adiciona margem vertical
     }
 
     public void update(float delta, Viewport uiViewport) {
         // Posiciona a caixa no canto superior esquerdo na primeira vez que for ativada
         if (initialY == 0 && currentState != State.HIDDEN) {
-            this.x = 20f;
-            this.initialY = uiViewport.getWorldHeight() - this.height - 20f;
+            this.x = 5f;
+            this.initialY = uiViewport.getWorldHeight() - this.height - 5f;
             this.y = initialY;
         }
 

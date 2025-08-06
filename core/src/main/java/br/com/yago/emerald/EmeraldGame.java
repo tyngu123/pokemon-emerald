@@ -2,15 +2,18 @@ package br.com.yago.emerald;
 
 import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.model.Direction;
+import br.com.yago.emerald.view.BagScreen;
 import br.com.yago.emerald.view.GameScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class EmeraldGame extends Game {
 
     private AssetsLoader assetLoader;
     private SpriteBatch batch;
+    private GameScreen gameScreen; // ## MANTÉM UMA REFERÊNCIA À TELA DO JOGO ##
 
     @Override
     public void create () {
@@ -24,10 +27,27 @@ public class EmeraldGame extends Game {
 
         Gdx.app.log("EmeraldGame", "Assets carregados. Configurando GameScreen inicial.");
         
-        // ## MUDANÇA AQUI: Passa 'false' para o novo parâmetro 'isWarpIn' ##
-        GameScreen initialScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", 10, 8, Direction.DOWN, false);
-        setScreen(initialScreen);
-        initialScreen.startFadeIn();
+        gameScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", 10, 8, Direction.DOWN, false);
+        setScreen(gameScreen);
+        gameScreen.startFadeIn();
+    }
+
+    // ## NOVO MÉTODO PARA ABRIR A MOCHILA ##
+    public void openBagScreen() {
+        if (gameScreen != null) {
+            // Cria a tela da mochila, passando a tela do jogo para que ela possa voltar.
+            setScreen(new BagScreen(this, gameScreen, batch, assetLoader));
+        }
+    }
+    
+    // ## NOVO MÉTODO PARA FECHAR A MOCHILA ##
+    public void closeBagScreen() {
+        Screen oldScreen = getScreen();
+        if (oldScreen instanceof BagScreen) {
+            // Volta para a tela do jogo que estava ativa.
+            setScreen(gameScreen);
+            oldScreen.dispose();
+        }
     }
 
     public void warpTo(String mapFileName, int playerStartX, int playerStartY, Direction playerFacing) {
@@ -35,11 +55,10 @@ public class EmeraldGame extends Game {
         
         GameScreen oldScreen = (GameScreen) getScreen();
         
-        // ## MUDANÇA AQUI: Passa 'true' para o novo parâmetro 'isWarpIn' ##
-        GameScreen newScreen = new GameScreen(this, assetLoader, batch, mapFileName, playerStartX, playerStartY, playerFacing, true);
-        setScreen(newScreen);
+        gameScreen = new GameScreen(this, assetLoader, batch, mapFileName, playerStartX, playerStartY, playerFacing, true);
+        setScreen(gameScreen);
         
-        newScreen.startFadeIn();
+        gameScreen.startFadeIn();
         
         if (oldScreen != null) {
             oldScreen.dispose();

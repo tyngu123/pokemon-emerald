@@ -34,12 +34,11 @@ public class DialogueBox {
     public DialogueBox(BitmapFont font, Texture bg9, Texture arrow) {
         this.font  = font;
         this.arrow = arrow;
-        // ## ALTERAÇÃO AQUI: Garante que o NinePatch use as bordas corretas (8px) ##
         this.background = new NinePatch(bg9, 8, 8, 8, 8);
     }
 
     public void showText(String fullText) {
-        paginateText(fullText, 320 - 30);
+        paginateText(fullText, 200f - 10f - 20f);
         currentPageIndex = 0;
         startNewPage();
     }
@@ -116,10 +115,24 @@ public class DialogueBox {
         font.draw(batch, layout, textX, textY);
         
         if (currentState == State.WAITING) {
-            if ((int)(indicatorTimer * 4) % 2 == 0) {
-                float arrowSize = 8f;
-                float arrowX = boxX + boxWidth - arrowSize - 10f;
-                float arrowY = boxY + 10f;
+            if (layout.runs.size > 0) {
+                GlyphLayout.GlyphRun lastRun = layout.runs.get(layout.runs.size - 1);
+                
+                float arrowSize = font.getCapHeight();
+                float arrowX = textX + lastRun.width + 3f;
+                float baseY = (textY - layout.height + font.getCapHeight() / 2f) - (arrowSize / 2f);
+
+                // ## LÓGICA DA ANIMAÇÃO SUAVE ##
+                // 1. Define a velocidade e a altura da oscilação.
+                float speed = 8f;
+                float amplitude = 2f;
+                
+                // 2. Calcula o deslocamento vertical usando a função seno.
+                float yOffset = (float) Math.sin(indicatorTimer * speed) * amplitude;
+
+                // 3. Aplica o deslocamento à posição Y base da seta.
+                float arrowY = baseY + yOffset;
+
                 batch.draw(arrow, arrowX, arrowY, arrowSize, arrowSize);
             }
         }
@@ -129,31 +142,24 @@ public class DialogueBox {
         return currentState == State.HIDDEN;
     }
 
-    private void paginateText(String fullText, float boxWidth) {
+    private void paginateText(String fullText, float usableWidth) {
         pages.clear();
-        
-        float usableWidth = boxWidth - 20f; 
 
         String[] words = fullText.split(" ");
         StringBuilder currentPage = new StringBuilder();
-        int lineCount = 1;
-
+        
         for (String word : words) {
-            layout.setText(font, currentPage.toString() + " " + word);
-            if (layout.width > usableWidth) {
-                lineCount++;
-                currentPage.append("\n");
-            }
-            
-            if (lineCount > 2) {
+            String testString = currentPage.length() > 0 ? currentPage.toString() + " " + word : word;
+            layout.setText(font, testString, font.getColor(), usableWidth, Align.left, true);
+
+            if (layout.runs.size > 2) {
                 pages.add(currentPage.toString().trim());
                 currentPage = new StringBuilder(word).append(" ");
-                lineCount = 1;
             } else {
-                 currentPage.append(word).append(" ");
+                currentPage.append(word).append(" ");
             }
         }
-
+        
         if (currentPage.toString().trim().length() > 0) {
             pages.add(currentPage.toString().trim());
         }
