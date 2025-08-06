@@ -2,15 +2,17 @@ package br.com.yago.emerald.assets;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.Hinting;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
-import com.badlogic.gdx.graphics.Color;
 
 public class AssetsLoader {
 
@@ -19,9 +21,12 @@ public class AssetsLoader {
     // UI
     public final String FONT_FILE    = "ui/font.otf";
     public final String FONT_NAME    = "gameFont";
+    public final String DIALOGUE_FONT_NAME = "dialogueFont";
     public final String DIALOGUE_BOX = "ui/dialoguebox.png";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
+    public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
     public final String TOWN_BOX = "ui/townbox.png";
+    public final String BOX = "ui/box2.png";
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -30,30 +35,53 @@ public class AssetsLoader {
     public final String MOM_ATLAS   = "sprites_overworld/mom.atlas";
     public final String NPC1 = "sprites_overworld/npc1.atlas";
     public final String NPC2 = "sprites_overworld/npc001.atlas";
-    public final String DOOR_ATLAS = "sprites_overworld/doors.atlas"; // ## NOVO ASSET ##
+    public final String DOOR_ATLAS = "sprites_overworld/doors.atlas";
 
     public void load() {
-        FileHandleResolver resolver = new InternalFileHandleResolver();
+    	FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
 
-        // Fonte
-        FreetypeFontLoader.FreeTypeFontLoaderParameter fontParams =
+        // ## FONTE 1: gameFont (COM SOMBRA) - Para Menus e UI geral ##
+        FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams =
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        fontParams.fontFileName = FONT_FILE;
-        fontParams.fontParameters.size = 64;
-        fontParams.fontParameters.color = new Color(0.22f, 0.22f, 0.22f, 1f);
-        fontParams.fontParameters.shadowColor = new Color(0.9f, 0.9f, 0.9f, 1f);
-        fontParams.fontParameters.shadowOffsetX = 5;
-        fontParams.fontParameters.shadowOffsetY = 5;
-        fontParams.fontParameters.minFilter = TextureFilter.Nearest;
-        fontParams.fontParameters.magFilter = TextureFilter.Nearest;
-        manager.load(FONT_NAME + ".otf", BitmapFont.class, fontParams);
+        menuFontParams.fontFileName = FONT_FILE;
+        menuFontParams.fontParameters.size = 32; // Tamanho final nítido para menus
+        menuFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f); 
+        // Cor da sombra #D0D0C8
+        menuFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f); 
+        menuFontParams.fontParameters.shadowOffsetX = 1;
+        menuFontParams.fontParameters.shadowOffsetY = 1;
+        menuFontParams.fontParameters.minFilter = TextureFilter.Nearest;
+        menuFontParams.fontParameters.magFilter = TextureFilter.Nearest;
+        menuFontParams.fontParameters.hinting = Hinting.Full; // ## A SOLUÇÃO DEFINITIVA ##
+        manager.load(FONT_NAME + ".otf", BitmapFont.class, menuFontParams);
+
+        // ## FONTE 2: dialogueFont (SEM SOMBRA) - Exclusiva para a caixa de diálogo ##
+        FreetypeFontLoader.FreeTypeFontLoaderParameter dialogueFontParams =
+            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        dialogueFontParams.fontFileName = FONT_FILE;
+        dialogueFontParams.fontParameters.size = 16; // Mesmo tamanho final
+        dialogueFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f); // Usando a mesma cor principal
+        dialogueFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f); 
+        dialogueFontParams.fontParameters.shadowOffsetX = 1; // Sem sombra
+        dialogueFontParams.fontParameters.shadowOffsetY = 1;
+        dialogueFontParams.fontParameters.minFilter = TextureFilter.Nearest;
+        dialogueFontParams.fontParameters.magFilter = TextureFilter.Nearest;
+        dialogueFontParams.fontParameters.hinting = Hinting.Full; // ## A SOLUÇÃO DEFINITIVA ##
+        manager.load(DIALOGUE_FONT_NAME + ".otf", BitmapFont.class, dialogueFontParams);
+
+        // Parâmetros para carregar texturas com filtro NEAREST
+        TextureLoader.TextureParameter textureParams = new TextureLoader.TextureParameter();
+        textureParams.minFilter = TextureFilter.Nearest;
+        textureParams.magFilter = TextureFilter.Nearest;
 
         // UI Textures
-        manager.load(DIALOGUE_BOX,   Texture.class);
-        manager.load(DIALOGUE_ARROW, Texture.class);
-        manager.load(TOWN_BOX,       Texture.class);
+        manager.load(DIALOGUE_BOX,   Texture.class, textureParams);
+        manager.load(DIALOGUE_ARROW, Texture.class, textureParams);
+        manager.load(HORIZONTAL_ARROW, Texture.class, textureParams);
+        manager.load(TOWN_BOX,       Texture.class, textureParams);
+        manager.load(BOX, Texture.class, textureParams);
 
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);
@@ -62,7 +90,7 @@ public class AssetsLoader {
         manager.load(MOM_ATLAS,  TextureAtlas.class);
         manager.load(NPC1,  TextureAtlas.class);
         manager.load(NPC2,  TextureAtlas.class);
-        manager.load(DOOR_ATLAS, TextureAtlas.class); // ## CARREGA O NOVO ATLAS ##
+        manager.load(DOOR_ATLAS, TextureAtlas.class);
     }
 
     public void dispose() {

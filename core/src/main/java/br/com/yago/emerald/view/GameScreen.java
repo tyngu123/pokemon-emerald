@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import br.com.yago.emerald.EmeraldGame;
-import br.com.yago.emerald.model.Door; // Importa a Door
+import br.com.yago.emerald.model.Door;
 import br.com.yago.emerald.model.Warp;
 import br.com.yago.emerald.script.MoveToCommand;
 import br.com.yago.emerald.script.ScriptCommand;
@@ -19,8 +19,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas; // Importa o TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -33,7 +34,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import br.com.yago.emerald.assets.AssetsLoader;
@@ -49,6 +49,7 @@ import br.com.yago.emerald.model.pathfinding.Pathfinder;
 import br.com.yago.emerald.script.ScriptRunner;
 import br.com.yago.emerald.ui.DialogueBox;
 import br.com.yago.emerald.ui.MapNameBox;
+import br.com.yago.emerald.ui.MenuBox;
 import br.com.yago.emerald.world.NpcLoader;
 import br.com.yago.emerald.world.TriggerLoader;
 
@@ -57,12 +58,14 @@ public class GameScreen extends ScreenAdapter {
 	private final EmeraldGame game;
 	private final SpriteBatch batch;
 	private final BitmapFont uiFont;
+	private final BitmapFont dialogueFont;
 	private final OrthographicCamera gameCamera;
 	private final Viewport gameViewport;
 	private final OrthographicCamera uiCamera;
 	private final Viewport uiViewport;
 	private final DialogueBox dialogueBox;
 	private final MapNameBox mapNameBox;
+	private final MenuBox menuBox;
 	private final TiledMap map;
 	private final OrthogonalTiledMapRenderer mapRenderer;
 	private final int[] mapBackgroundLayers, mapForegroundLayers;
@@ -73,7 +76,7 @@ public class GameScreen extends ScreenAdapter {
 	private final Array<NPC> npcs = new Array<>();
 	private final Array<Trigger> triggers = new Array<>();
 	private final Array<Warp> warps = new Array<>();
-	private final Array<Door> doors = new Array<>(); // ## LISTA PARA AS PORTAS ##
+	private final Array<Door> doors = new Array<>();
 	private final ScriptRunner scriptRunner;
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
@@ -89,17 +92,24 @@ public class GameScreen extends ScreenAdapter {
 		this.fadeManager = new FadeManager();
 		
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
-		Texture box9 = assetLoader.manager.get(assetLoader.DIALOGUE_BOX, Texture.class);
-		Texture arr = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
-		Texture townBoxTexture = assetLoader.manager.get(assetLoader.TOWN_BOX, Texture.class);
+		dialogueFont = assetLoader.manager.get(assetLoader.DIALOGUE_FONT_NAME + ".otf", BitmapFont.class);
+		
+		Texture menuBoxTexture = assetLoader.manager.get(assetLoader.BOX, Texture.class);
+		Texture dialogueArrowTexture = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
+		Texture menuArrowTexture = assetLoader.manager.get(assetLoader.HORIZONTAL_ARROW, Texture.class);
 
 		gameCamera = new OrthographicCamera();
 		gameViewport = new FitViewport(320, 240, gameCamera);
 		uiCamera = new OrthographicCamera();
-		uiViewport = new ScreenViewport(uiCamera);
+		uiViewport = new FitViewport(320, 240, uiCamera);
 
-		dialogueBox = new DialogueBox(uiFont, box9, arr);
-		mapNameBox = new MapNameBox(townBoxTexture, uiFont);
+		NinePatch mapNameBoxNinePatch = new NinePatch(menuBoxTexture, 8, 8, 8, 8);
+		
+        // ## ALTERAÇÃO AQUI: Passando a 'menuBoxTexture' para a DialogueBox ##
+		dialogueBox = new DialogueBox(dialogueFont, menuBoxTexture, dialogueArrowTexture);
+		mapNameBox = new MapNameBox(mapNameBoxNinePatch, uiFont);
+		menuBox = new MenuBox(uiFont, menuBoxTexture, menuArrowTexture);
+		
 		scriptRunner = new ScriptRunner(this);
 
 		map = new TmxMapLoader().load(mapFileName);
@@ -148,13 +158,12 @@ public class GameScreen extends ScreenAdapter {
         TriggerLoader.loadTriggers(map, triggers);
 		WarpLoader.loadWarps(map, warps);
         
-        // ## LÓGICA PARA CRIAR AS ENTIDADES DE PORTA ##
         TextureAtlas doorAtlas = assetLoader.manager.get(assetLoader.DOOR_ATLAS, TextureAtlas.class);
         for (Warp warp : warps) {
             if (warp.isDoor()) {
                 Door door = new Door(doorAtlas, warp.getDoorType(), warp.getDoorX(), warp.getDoorY());
-                entities.add(door); // Adiciona na lista principal para ser renderizada
-                doors.add(door);    // Adiciona na lista específica para ser encontrada depois
+                entities.add(door);
+                doors.add(door);
             }
         }
 
@@ -191,24 +200,26 @@ public class GameScreen extends ScreenAdapter {
 		fadeManager.update(delta);
 		playerInputHandler.update(delta);
 		
-		for (Entity entity : entities) {
-			entity.update(delta);
+		if (!menuBox.isVisible()) {
+			for (Entity entity : entities) {
+				entity.update(delta);
+			}
+			for (Trigger trigger : triggers) {
+				trigger.updateState(player);
+			}
+
+			if (scriptRunner.isActive()) {
+				scriptRunner.update(delta);
+			} else {
+				handleInteraction();
+				for (Trigger trigger : triggers) {
+					trigger.attemptToFire(player, scriptRunner);
+				}
+			}
 		}
+
         dialogueBox.update(delta);
 		mapNameBox.update(delta, uiViewport);
-
-		for (Trigger trigger : triggers) {
-			trigger.updateState(player);
-		}
-
-        if (scriptRunner.isActive()) {
-            scriptRunner.update(delta);
-        } else {
-			handleInteraction();
-			for (Trigger trigger : triggers) {
-				trigger.attemptToFire(player, scriptRunner);
-			}
-        }
 
         gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
         gameCamera.update();
@@ -231,30 +242,31 @@ public class GameScreen extends ScreenAdapter {
 
 	@Override
 	public void render(float delta) {
-		update(delta);
+	    update(delta);
 
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	    Gdx.gl.glClearColor(0, 0, 0, 1);
+	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		mapRenderer.render(mapBackgroundLayers);
-		batch.setProjectionMatrix(gameCamera.combined);
-		batch.begin();
-		entities.sort(yComparator);
-		for (Entity e : entities) {
-			TextureRegion frame = e.getCurrentFrame();
-			if (frame == null) continue;
-			batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
-		}
-		batch.end();
-		mapRenderer.render(mapForegroundLayers);
+	    mapRenderer.render(mapBackgroundLayers);
+	    batch.setProjectionMatrix(gameCamera.combined);
+	    batch.begin();
+	    entities.sort(yComparator);
+	    for (Entity e : entities) {
+	        TextureRegion frame = e.getCurrentFrame();
+	        if (frame == null) continue;
+	        batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
+	    }
+	    batch.end();
+	    mapRenderer.render(mapForegroundLayers);
 
-		uiViewport.apply();
-		batch.setProjectionMatrix(uiCamera.combined);
-		batch.begin();
-		mapNameBox.render(batch);
-		dialogueBox.render(batch, uiViewport.getWorldWidth());
-		fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
-		batch.end();
+	    uiViewport.apply();
+	    batch.setProjectionMatrix(uiCamera.combined);
+	    batch.begin();
+	    mapNameBox.render(batch);
+	    dialogueBox.render(batch, uiViewport); 
+	    menuBox.render(batch, uiViewport);
+	    fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
+	    batch.end();
 	}
 	
     public Warp getWarpAt(int gridX, int gridY) {
@@ -267,10 +279,6 @@ public class GameScreen extends ScreenAdapter {
         return null;
     }
     
-    /**
-     * ## NOVO MÉTODO ##
-     * Procura por uma entidade de porta em uma coordenada específica.
-     */
     public Door getDoorAt(int gridX, int gridY) {
         for (Door door : doors) {
             if (door.getGridX() == gridX && door.getGridY() == gridY) {
@@ -347,6 +355,7 @@ public class GameScreen extends ScreenAdapter {
     }
 
 	public DialogueBox getDialogueBox() { return dialogueBox; }
+	public MenuBox getMenuBox() { return menuBox; }
 	public ScriptRunner getScriptRunner() { return scriptRunner; }
 	public Player getPlayer() { return player; }
 	

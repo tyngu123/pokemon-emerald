@@ -19,6 +19,7 @@ import br.com.yago.emerald.script.ScriptCommand;
 import br.com.yago.emerald.script.SetVisibilityCommand;
 import br.com.yago.emerald.script.WaitCommand;
 import br.com.yago.emerald.script.WarpCommand;
+import br.com.yago.emerald.ui.MenuBox;
 import br.com.yago.emerald.view.GameScreen;
 
 public class PlayerInputHandler extends InputAdapter {
@@ -33,6 +34,15 @@ public class PlayerInputHandler extends InputAdapter {
     }
 
     public void update(float delta) {
+        // Se o menu estiver visível, não faz nada relacionado ao movimento.
+        if (screen.getMenuBox().isVisible()) {
+            // Limpa as direções pressionadas para evitar movimento "preso" ao fechar o menu.
+            pressedDirections.clear();
+            player.setNextDirection(null);
+            return;
+        }
+
+        // Lógica de movimento original
         if (player.isLocked() || !pressedDirections.isEmpty()) {
             updatePlayerDirection();
         } else {
@@ -42,34 +52,74 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (player.isLocked()) {
-            return false;
-        }
+        MenuBox menu = screen.getMenuBox();
 
-        if (keycode == Input.Keys.Z) {
-            if (!screen.getScriptRunner().isActive()) {
-                player.requestInteraction();
+        // Se o menu estiver visível, os inputs controlam apenas o menu.
+        if (menu.isVisible()) {
+            switch (keycode) {
+                case Input.Keys.UP:
+                case Input.Keys.W:
+                    menu.moveSelectionUp();
+                    break;
+                case Input.Keys.DOWN:
+                case Input.Keys.S:
+                    menu.moveSelectionDown();
+                    break;
+                case Input.Keys.Z: // Botão de Ação/Seleção
+                    String selectedOption = menu.getSelectedOption();
+                    if ("EXIT".equals(selectedOption)) {
+                        menu.toggle();
+                        player.setLocked(menu.isVisible());
+                    }
+                    // Adicionar lógica para outras opções (BAG, etc.) aqui no futuro
+                    break;
+                case Input.Keys.ENTER:
+                case Input.Keys.X: // Botão de Cancelar
+                    menu.toggle();
+                    player.setLocked(menu.isVisible()); // Desbloqueia o jogador
+                    break;
             }
-            return true;
-        }
+            return true; // Consome o input para que não afete o jogo
+        } else {
+            // Se o menu NÃO estiver visível, a lógica de jogo normal se aplica.
+            if (player.isLocked()) {
+                return false;
+            }
 
-        Direction dir = getDirectionFromKeycode(keycode);
-        if (dir != null) {
-            if (!pressedDirections.contains(dir)) {
-                pressedDirections.add(dir);
+            if (keycode == Input.Keys.ENTER) {
+                // Só abre o menu se nenhum script ou diálogo estiver ativo
+                if (!screen.getScriptRunner().isActive() && screen.getDialogueBox().isFinished()) {
+                    menu.toggle();
+                    player.setLocked(menu.isVisible()); // Bloqueia o jogador
+                    return true;
+                }
             }
-            
-            if (player.getCurrentState() == Character.State.IDLE) {
-                player.setFacingDirection(dir);
-            }
-            
-            if (checkForWarp(dir)) {
+
+            if (keycode == Input.Keys.Z) {
+                if (!screen.getScriptRunner().isActive()) {
+                    player.requestInteraction();
+                }
                 return true;
             }
 
-            return true;
+            Direction dir = getDirectionFromKeycode(keycode);
+            if (dir != null) {
+                if (!pressedDirections.contains(dir)) {
+                    pressedDirections.add(dir);
+                }
+                
+                if (player.getCurrentState() == Character.State.IDLE) {
+                    player.setFacingDirection(dir);
+                }
+                
+                if (checkForWarp(dir)) {
+                    return true;
+                }
+
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     private boolean checkForWarp(Direction dir) {
@@ -81,18 +131,14 @@ public class PlayerInputHandler extends InputAdapter {
         Warp targetWarp = screen.getWarpAt(targetX, targetY);
 
         if (targetWarp != null) {
-            player.setNextDirection(null); // Impede o jogador de continuar andando
+            player.setNextDirection(null);
             
             Array<ScriptCommand> warpSequence = new Array<>();
 
-            // ## LÓGICA CONDICIONAL PARA O TIPO DE WARP ##
             if (targetWarp.isDoor()) {
-                // Se for uma PORTA, monta a sequência completa com o passo e a animação.
-                // Passo 1: Animar a porta
                 AnimateDoorCommand animateDoor = new AnimateDoorCommand(targetWarp);
                 warpSequence.add(animateDoor);
                 
-                // Passo 2: Mover o jogador para dentro do portal
                 MoveToCommand move = new MoveToCommand();
                 move.initialize(new JsonValue(JsonValue.ValueType.object));
                 move.setTarget("player");
@@ -101,37 +147,30 @@ public class PlayerInputHandler extends InputAdapter {
                 move.setIgnoreCollision(true);
                 warpSequence.add(move);
                 
-             // 3. Esperar um pouco
                 WaitCommand wait = new WaitCommand();
                 JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
                 waitData.addChild("duration", new JsonValue(0.2f));
                 wait.initialize(waitData);
                 warpSequence.add(wait);
                 
-             // 4. Tornar o jogador invisível
                 SetVisibilityCommand setInvisible = new SetVisibilityCommand();
                 setInvisible.initialize(new JsonValue(JsonValue.ValueType.object));
                 setInvisible.setTarget("player");
                 setInvisible.setVisible(false);
                 warpSequence.add(setInvisible);
                 
-                // Passo 3: Fade Out
                 FadeOutCommand fade = new FadeOutCommand();
                 fade.initialize(new JsonValue(JsonValue.ValueType.object));
                 warpSequence.add(fade);
 
-                // Passo 4: Trocar de mapa
                 WarpCommand warp = new WarpCommand(targetWarp);
                 warpSequence.add(warp);
                 
             } else {
-                // Se NÃO for uma porta (ex: transição de mapa), monta uma sequência simples.
-                // Passo 1: Fade Out
                 FadeOutCommand fade = new FadeOutCommand();
                 fade.initialize(new JsonValue(JsonValue.ValueType.object));
                 warpSequence.add(fade);
 
-                // Passo 2: Trocar de mapa
                 WarpCommand warp = new WarpCommand(targetWarp);
                 warpSequence.add(warp);
             }
@@ -146,10 +185,13 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        Direction dir = getDirectionFromKeycode(keycode);
-        if (dir != null) {
-            pressedDirections.remove(dir);
-            return true;
+        // Só processa o keyUp se o menu estiver fechado
+        if (!screen.getMenuBox().isVisible()) {
+            Direction dir = getDirectionFromKeycode(keycode);
+            if (dir != null) {
+                pressedDirections.remove(dir);
+                return true;
+            }
         }
         return false;
     }

@@ -20,9 +20,9 @@
 			"target": "npc001"
 		},
 		{
-			"type": "SHOW_DIALOGUE",
-			"text": "Bem-vindo a minha casa. Fique a vontade. "
-		},
+	"type": "SHOW_DIALOGUE",
+	"text": "Whoa there! Watch your step, young one! These floorboards have seen more springs than I have, and trust me, that's quite a few...\nAh, forgive me. I'm not used to having visitors. I can tell by your determination, and that Pokédex on your belt... You're a Trainer, aren't you? Setting out on your journey.\n(sigh) It reminds me of a time... I wasn't a Gym Trainer, like the ones you'll be facing. I was a Ranger. I'd spend weeks in the forests, in the deserts... just observing.\nPeople these days are so focused on catching, on battling to be the strongest. They forget to... listen. Every Pokémon has a story, a song that only a patient heart can hear.\nOnce, in the middle of a distant desert, I spent a whole month just to get a glimpse of a Flygon up close. The locals called it 'The Spirit of the Desert'.\nThey say the sound of its wings beating against the sand creates a magical melody... and it's true. It was the most incredible moment of my life. No battle, no capture. Just... a connection.\n(chuckles) Forgive an old man for rambling. It's just that I see the same spark in you that I once had. The curiosity, the desire for adventure.\nContinue your journey, challenge the leaders, but never forget to stop and listen to the song of your partners. That is the secret to becoming a true Pokémon Master.\nNow, go on. The world out there is much bigger than the four walls of this old house. And a whole lot noisier, that's for sure!"
+},
 		{
 			"type": "WAIT",
 			"duration": 0.5
