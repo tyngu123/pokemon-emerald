@@ -27,7 +27,7 @@ public class AssetsLoader {
     public final String DIALOGUE_ARROW = "ui/arrow.png";
     public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
     public final String TOWN_BOX = "ui/townbox.png";
-    public final String BOX = "ui/box.png";
+    public final String BOX = "ui/box2.png";
     public final String BAG_UI = "ui/bag_ui.png";
 
     // Atlases
@@ -49,10 +49,8 @@ public class AssetsLoader {
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         menuFontParams.fontFileName = FONT_FILE;
         menuFontParams.fontParameters.size = 16;
-        //menuFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
-        menuFontParams.fontParameters.color = Color.WHITE;
-        //menuFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
-        menuFontParams.fontParameters.shadowColor = Color.DARK_GRAY;
+        menuFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
+        menuFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
         menuFontParams.fontParameters.shadowOffsetX = 1;
         menuFontParams.fontParameters.shadowOffsetY = 1;
         menuFontParams.fontParameters.minFilter = TextureFilter.Nearest;
@@ -65,9 +63,8 @@ public class AssetsLoader {
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         dialogueFontParams.fontFileName = FONT_FILE;
         dialogueFontParams.fontParameters.size = 16;
-        //dialogueFontParams.fontParameters.color = new Color(0.1f, 0.1f, 0.1f, 1f);
-        dialogueFontParams.fontParameters.color = Color.WHITE;
-        menuFontParams.fontParameters.shadowColor = Color.DARK_GRAY;
+        dialogueFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
+        dialogueFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
         dialogueFontParams.fontParameters.shadowOffsetX = 1;
         dialogueFontParams.fontParameters.shadowOffsetY = 1;
         dialogueFontParams.fontParameters.minFilter = TextureFilter.Nearest;
@@ -80,7 +77,7 @@ public class AssetsLoader {
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         bagFontParams.fontFileName = FONT_FILE;
         bagFontParams.fontParameters.size = 16;
-        bagFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
+        bagFontParams.fontParameters.color = Color.BLACK;
         bagFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
         bagFontParams.fontParameters.shadowOffsetX = 1;
         bagFontParams.fontParameters.shadowOffsetY = 1;

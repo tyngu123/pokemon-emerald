@@ -12,7 +12,7 @@ public class Lwjgl3Launcher {
         config.setTitle("Project Emerald Alpha");
         config.setWindowIcon("icon.png");
         // Configura o tamanho inicial da janela para ser um múltiplo do tamanho da viewport
-        config.setWindowedMode(320 * 3, 240 * 3);
+        config.setWindowedMode(240 * 5, 160 * 5);
         config.setResizable(false);
         new Lwjgl3Application(new EmeraldGame(), config);
     }

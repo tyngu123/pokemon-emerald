@@ -70,8 +70,8 @@ public class MenuBox {
         if (currentState == State.HIDDEN) return;
 
         // Mantendo os tamanhos da caixa, você pode ajustá-los se necessário
-        float boxWidth = 60f;
-        float boxHeight = 120f; // Altura ajustada para o novo espaçamento
+        float boxWidth = 80f;
+        float boxHeight = 160f; // Altura ajustada para o novo espaçamento
         float boxX = viewport.getWorldWidth() - boxWidth ;
         float boxY = viewport.getWorldHeight() - boxHeight;
 

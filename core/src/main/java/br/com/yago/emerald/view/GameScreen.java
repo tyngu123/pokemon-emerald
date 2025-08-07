@@ -33,6 +33,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -81,8 +82,8 @@ public class GameScreen extends ScreenAdapter {
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
 	private final FadeManager fadeManager;
-	
-	
+
+
 	private final String mapName;
 	private final boolean isInterior;
 
@@ -91,35 +92,35 @@ public class GameScreen extends ScreenAdapter {
 		this.assetLoader = assetLoader;
 		this.batch = batch;
 		this.fadeManager = new FadeManager();
-		
+
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
 		dialogueFont = assetLoader.manager.get(assetLoader.DIALOGUE_FONT_NAME + ".otf", BitmapFont.class);
-		
+
 		Texture menuBoxTexture = assetLoader.manager.get(assetLoader.BOX, Texture.class);
 		Texture dialogueArrowTexture = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
 		Texture menuArrowTexture = assetLoader.manager.get(assetLoader.HORIZONTAL_ARROW, Texture.class);
 
 		gameCamera = new OrthographicCamera();
-		gameViewport = new FitViewport(320 , 240, gameCamera);
+		// ## MUDANÇA AQUI: Trocado FitViewport por ExtendViewport para eliminar as faixas pretas ##
+		gameViewport = new ExtendViewport(240 , 160, gameCamera);
 		uiCamera = new OrthographicCamera();
-		uiViewport = new FitViewport(320 / 2, 240 / 2, uiCamera);
+		uiViewport = new ExtendViewport(240, 160, uiCamera);
 
 		NinePatch mapNameBoxNinePatch = new NinePatch(menuBoxTexture, 8, 8, 8, 8);
-		
-        // ## ALTERAÇÃO AQUI: Passando a 'menuBoxTexture' para a DialogueBox ##
+
 		dialogueBox = new DialogueBox(dialogueFont, menuBoxTexture, dialogueArrowTexture);
 		mapNameBox = new MapNameBox(mapNameBoxNinePatch, uiFont);
 		menuBox = new MenuBox(uiFont, menuBoxTexture, menuArrowTexture);
-		
+
 		scriptRunner = new ScriptRunner(this);
 
 		map = new TmxMapLoader().load(mapFileName);
-		
+
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
 
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
-		
+
 		List<Integer> backgroundIndexes = new ArrayList<>();
 		List<Integer> foregroundIndexes = new ArrayList<>();
 		String[] backgroundLayerNames = {"floor", "buildings", "trees"};
@@ -143,33 +144,33 @@ public class GameScreen extends ScreenAdapter {
 		mapForegroundLayers = foregroundIndexes.stream().mapToInt(i -> i).toArray();
 
 		TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
-		
+
 		this.pathfinder = new Pathfinder(collisionLayer);
-		
+
 		entities = new Array<>();
 		player = new Player(assetLoader.manager.get(assetLoader.PLAYER_ATLAS), collisionLayer, entities, playerStartX * GameConfig.TILE_SIZE, playerStartY * GameConfig.TILE_SIZE);
 		player.setFacingDirection(playerFacing);
 		entities.add(player);
 
 		NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
-        for (Entity e : entities) {
-            if (e instanceof NPC) npcs.add((NPC)e);
-        }
-		
-        TriggerLoader.loadTriggers(map, triggers);
-		WarpLoader.loadWarps(map, warps);
-        
-        TextureAtlas doorAtlas = assetLoader.manager.get(assetLoader.DOOR_ATLAS, TextureAtlas.class);
-        for (Warp warp : warps) {
-            if (warp.isDoor()) {
-                Door door = new Door(doorAtlas, warp.getDoorType(), warp.getDoorX(), warp.getDoorY());
-                entities.add(door);
-                doors.add(door);
-            }
-        }
+		for (Entity e : entities) {
+			if (e instanceof NPC) npcs.add((NPC)e);
+		}
 
-        this.playerInputHandler = new PlayerInputHandler(player, this, game);
-        Gdx.input.setInputProcessor(this.playerInputHandler);
+		TriggerLoader.loadTriggers(map, triggers);
+		WarpLoader.loadWarps(map, warps);
+
+		TextureAtlas doorAtlas = assetLoader.manager.get(assetLoader.DOOR_ATLAS, TextureAtlas.class);
+		for (Warp warp : warps) {
+			if (warp.isDoor()) {
+				Door door = new Door(doorAtlas, warp.getDoorType(), warp.getDoorX(), warp.getDoorY());
+				entities.add(door);
+				doors.add(door);
+			}
+		}
+
+		this.playerInputHandler = new PlayerInputHandler(player, this, game);
+		Gdx.input.setInputProcessor(this.playerInputHandler);
 
 		if (!this.isInterior) {
 			mapNameBox.show(this.mapName);
@@ -179,7 +180,7 @@ public class GameScreen extends ScreenAdapter {
 			runStepOutAnimation(playerFacing);
 		}
 	}
-	
+
 	private void runStepOutAnimation(Direction direction) {
 		Array<ScriptCommand> stepOutSequence = new Array<>();
 		MoveToCommand move = new MoveToCommand();
@@ -190,7 +191,7 @@ public class GameScreen extends ScreenAdapter {
 		stepOutSequence.add(move);
 		scriptRunner.run(player, stepOutSequence);
 	}
-	
+
 	@Override
 	public void resize(int width, int height) {
 		gameViewport.update(width, height, true);
@@ -200,7 +201,7 @@ public class GameScreen extends ScreenAdapter {
 	private void update(float delta) {
 		fadeManager.update(delta);
 		playerInputHandler.update(delta);
-		
+
 		if (!menuBox.isVisible()) {
 			for (Entity entity : entities) {
 				entity.update(delta);
@@ -219,13 +220,13 @@ public class GameScreen extends ScreenAdapter {
 			}
 		}
 
-        dialogueBox.update(delta);
+		dialogueBox.update(delta);
 		mapNameBox.update(delta, uiViewport);
 
-        gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
-        gameCamera.update();
-        mapRenderer.setView(gameCamera);
-    }
+		gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
+		gameCamera.update();
+		mapRenderer.setView(gameCamera);
+	}
 
 	private void handleInteraction() {
 		if (player.isInteractionRequested()) {
@@ -243,60 +244,60 @@ public class GameScreen extends ScreenAdapter {
 
 	@Override
 	public void render(float delta) {
-	    update(delta);
+		update(delta);
 
-	    Gdx.gl.glClearColor(0, 0, 0, 1);
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-	    mapRenderer.render(mapBackgroundLayers);
-	    batch.setProjectionMatrix(gameCamera.combined);
-	    batch.begin();
-	    entities.sort(yComparator);
-	    for (Entity e : entities) {
-	        TextureRegion frame = e.getCurrentFrame();
-	        if (frame == null) continue;
-	        batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
-	    }
-	    batch.end();
-	    mapRenderer.render(mapForegroundLayers);
+		mapRenderer.render(mapBackgroundLayers);
+		batch.setProjectionMatrix(gameCamera.combined);
+		batch.begin();
+		entities.sort(yComparator);
+		for (Entity e : entities) {
+			TextureRegion frame = e.getCurrentFrame();
+			if (frame == null) continue;
+			batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
+		}
+		batch.end();
+		mapRenderer.render(mapForegroundLayers);
 
-	    uiViewport.apply();
-	    batch.setProjectionMatrix(uiCamera.combined);
-	    batch.begin();
-	    mapNameBox.render(batch);
-	    dialogueBox.render(batch, uiViewport); 
-	    menuBox.render(batch, uiViewport);
-	    fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
-	    batch.end();
+		uiViewport.apply();
+		batch.setProjectionMatrix(uiCamera.combined);
+		batch.begin();
+		mapNameBox.render(batch);
+		dialogueBox.render(batch, uiViewport);
+		menuBox.render(batch, uiViewport);
+		fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
+		batch.end();
 	}
-	
-    public Warp getWarpAt(int gridX, int gridY) {
-        Rectangle targetArea = new Rectangle(gridX * GameConfig.TILE_SIZE, gridY * GameConfig.TILE_SIZE, 1, 1);
-        for (Warp warp : warps) {
-            if (warp.getBounds().overlaps(targetArea)) {
-                return warp;
-            }
-        }
-        return null;
-    }
-    
-    public Door getDoorAt(int gridX, int gridY) {
-        for (Door door : doors) {
-            if (door.getGridX() == gridX && door.getGridY() == gridY) {
-                return door;
-            }
-        }
-        return null;
-    }
-	
+
+	public Warp getWarpAt(int gridX, int gridY) {
+		Rectangle targetArea = new Rectangle(gridX * GameConfig.TILE_SIZE, gridY * GameConfig.TILE_SIZE, 1, 1);
+		for (Warp warp : warps) {
+			if (warp.getBounds().overlaps(targetArea)) {
+				return warp;
+			}
+		}
+		return null;
+	}
+
+	public Door getDoorAt(int gridX, int gridY) {
+		for (Door door : doors) {
+			if (door.getGridX() == gridX && door.getGridY() == gridY) {
+				return door;
+			}
+		}
+		return null;
+	}
+
 	public void initiateWarp(Warp warp) {
 		game.warpTo(warp.getTargetMap(), warp.getTargetX(), warp.getTargetY(), warp.getTargetFacing());
 	}
-	
+
 	public void startFadeIn() {
 		fadeManager.fadeIn(0.5f);
 	}
-	
+
 	public void startFadeOut(float duration, Runnable onComplete) {
 		fadeManager.fadeOut(duration, onComplete);
 	}
@@ -304,64 +305,64 @@ public class GameScreen extends ScreenAdapter {
 	public boolean isFading() {
 		return fadeManager.isFading();
 	}
-    
-    public void addEntity(Entity entity) {
-        if (entity != null && !entities.contains(entity, true)) {
-            entities.add(entity);
-        }
-    }
 
-    public void removeEntity(Entity entity) {
-        if (entity != null) {
-            entities.removeValue(entity, true);
-        }
-    }
+	public void addEntity(Entity entity) {
+		if (entity != null && !entities.contains(entity, true)) {
+			entities.add(entity);
+		}
+	}
 
-    public AssetsLoader getAssetLoader() {
-        return assetLoader;
-    }
-	
-    public NPC getNpcById(String npcId) {
-        if (npcId == null || npcId.trim().isEmpty()) return null;
-        for (NPC npc : npcs) {
-            if (npcId.equals(npc.getId())) {
-                return npc;
-            }
-        }
-        return null;
-    }
+	public void removeEntity(Entity entity) {
+		if (entity != null) {
+			entities.removeValue(entity, true);
+		}
+	}
 
-    public Queue<Direction> findPathFor(Character from, Character to) {
-        Vector2 startTile = new Vector2(from.getGridX(), from.getGridY());
-        int targetX = to.getGridX();
-        int targetY = to.getGridY();
+	public AssetsLoader getAssetLoader() {
+		return assetLoader;
+	}
 
-        Set<Vector2> occupiedTiles = new HashSet<>();
-        for (Entity entity : this.entities) {
-            if (entity == from) continue;
-            if (entity instanceof Character) {
-                occupiedTiles.add(new Vector2(((Character) entity).getGridX(), ((Character) entity).getGridY()));
-            }
-        }
+	public NPC getNpcById(String npcId) {
+		if (npcId == null || npcId.trim().isEmpty()) return null;
+		for (NPC npc : npcs) {
+			if (npcId.equals(npc.getId())) {
+				return npc;
+			}
+		}
+		return null;
+	}
 
-        Vector2 adjacentTarget = pathfinder.findBestAdjacent(from.getGridX(), from.getGridY(), targetX, targetY, occupiedTiles);
+	public Queue<Direction> findPathFor(Character from, Character to) {
+		Vector2 startTile = new Vector2(from.getGridX(), from.getGridY());
+		int targetX = to.getGridX();
+		int targetY = to.getGridY();
 
-        if (adjacentTarget == null) {
-            Gdx.app.log("GameScreen", "Nenhum tile adjacente caminhável encontrado para o alvo.");
-            return new Queue<>();
-        }
+		Set<Vector2> occupiedTiles = new HashSet<>();
+		for (Entity entity : this.entities) {
+			if (entity == from) continue;
+			if (entity instanceof Character) {
+				occupiedTiles.add(new Vector2(((Character) entity).getGridX(), ((Character) entity).getGridY()));
+			}
+		}
 
-        occupiedTiles.add(new Vector2(targetX, targetY));
-        return pathfinder.findPath(startTile, adjacentTarget, occupiedTiles);
-    }
+		Vector2 adjacentTarget = pathfinder.findBestAdjacent(from.getGridX(), from.getGridY(), targetX, targetY, occupiedTiles);
+
+		if (adjacentTarget == null) {
+			Gdx.app.log("GameScreen", "Nenhum tile adjacente caminhável encontrado para o alvo.");
+			return new Queue<>();
+		}
+
+		occupiedTiles.add(new Vector2(targetX, targetY));
+		return pathfinder.findPath(startTile, adjacentTarget, occupiedTiles);
+	}
 
 	public DialogueBox getDialogueBox() { return dialogueBox; }
 	public MenuBox getMenuBox() { return menuBox; }
 	public ScriptRunner getScriptRunner() { return scriptRunner; }
 	public Player getPlayer() { return player; }
 	public PlayerInputHandler getInputHandler() {
-        return playerInputHandler;
-    }
+		return playerInputHandler;
+	}
 	@Override
 	public void dispose() {
 		map.dispose();

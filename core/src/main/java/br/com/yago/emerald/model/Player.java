@@ -9,10 +9,27 @@ public class Player extends Character {
 
 	private Direction nextDirection = null;
 	private boolean interactionRequested = false;
+	private final Inventory inventory; // ## NOVO ##
 
 	public Player(TextureAtlas atlas, TiledMapTileLayer collisionLayer, Array<Entity> allEntities, float startX,
 			float startY) {
 		super(atlas, collisionLayer, allEntities, startX, startY);
+		this.inventory = new Inventory(); // ## NOVO ##
+		addDefaultItems(); // ## NOVO ##
+	}
+
+	// ## NOVO MÉTODO PARA TESTE ##
+	private void addDefaultItems() {
+		inventory.addItem(new Item("Potion", Item.ItemCategory.ITEMS, 5));
+		inventory.addItem(new Item("Super Potion", Item.ItemCategory.ITEMS, 2));
+		inventory.addItem(new Item("Antidote", Item.ItemCategory.ITEMS, 10));
+		inventory.addItem(new Item("Poké Ball", Item.ItemCategory.POKEBALLS, 20));
+		inventory.addItem(new Item("Great Ball", Item.ItemCategory.POKEBALLS, 5));
+		inventory.addItem(new Item("HM01 Cut", Item.ItemCategory.TMS_HMS, 1));
+	}
+
+	public Inventory getInventory() { // ## NOVO ##
+		return inventory;
 	}
 
 	@Override
