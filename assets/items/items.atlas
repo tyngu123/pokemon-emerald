@@ -1,0 +1,14 @@
+items.png
+size: 108, 28
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+pma: false
+antidote
+  bounds: 0, 0, 28, 28
+greatball
+  bounds: 28, 0, 26, 26
+pokeball
+  bounds: 54, 0, 26, 26
+potion
+  bounds: 80, 0, 28, 28

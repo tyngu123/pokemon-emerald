@@ -1,0 +1,54 @@
+bag_spritesheet.png
+size: 664, 264
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+items
+  rotate: false
+  xy: 8, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+pokeballs
+  rotate: false
+  xy: 72, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+tmhm
+  rotate: false
+  xy: 136, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+berries
+  rotate: false
+  xy: 200, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+keyitems
+  rotate: false
+  xy: 264, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: 0
+leftarrow
+  rotate: false
+  xy: 552, 168
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+rightarrow
+  rotate: false
+  xy: 576, 168
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0

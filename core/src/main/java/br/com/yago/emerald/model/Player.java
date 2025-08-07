@@ -9,26 +9,26 @@ public class Player extends Character {
 
 	private Direction nextDirection = null;
 	private boolean interactionRequested = false;
-	private final Inventory inventory; // ## NOVO ##
+	private final Inventory inventory;
 
 	public Player(TextureAtlas atlas, TiledMapTileLayer collisionLayer, Array<Entity> allEntities, float startX,
 			float startY) {
 		super(atlas, collisionLayer, allEntities, startX, startY);
-		this.inventory = new Inventory(); // ## NOVO ##
-		addDefaultItems(); // ## NOVO ##
+		this.inventory = new Inventory();
+		addDefaultItems();
 	}
 
-	// ## NOVO MÉTODO PARA TESTE ##
+	// ## MÉTODO ATUALIZADO PARA INCLUIR DESCRIÇÃO E NOME DO SPRITE ##
 	private void addDefaultItems() {
-		inventory.addItem(new Item("Potion", Item.ItemCategory.ITEMS, 5));
-		inventory.addItem(new Item("Super Potion", Item.ItemCategory.ITEMS, 2));
-		inventory.addItem(new Item("Antidote", Item.ItemCategory.ITEMS, 10));
-		inventory.addItem(new Item("Poké Ball", Item.ItemCategory.POKEBALLS, 20));
-		inventory.addItem(new Item("Great Ball", Item.ItemCategory.POKEBALLS, 5));
-		inventory.addItem(new Item("HM01 Cut", Item.ItemCategory.TMS_HMS, 1));
+		inventory.addItem(new Item("Potion", "Heals a Pokémon by 20 HP.", "potion", Item.ItemCategory.ITEMS, 5));
+		inventory.addItem(new Item("Super Potion", "Heals a Pokémon by 50 HP.", "superpotion", Item.ItemCategory.ITEMS, 2));
+		inventory.addItem(new Item("Antidote", "Cures a poisoned Pokémon.", "antidote", Item.ItemCategory.ITEMS, 10));
+		inventory.addItem(new Item("Poke Ball", "A device for catching wild Pokémon.", "pokeball", Item.ItemCategory.POKEBALLS, 20));
+		inventory.addItem(new Item("Great Ball", "A good, high-performance Ball.", "greatball", Item.ItemCategory.POKEBALLS, 5));
+		inventory.addItem(new Item("HM01 Cut", "A machine for teaching Cut.", "hm", Item.ItemCategory.TMS_HMS, 1));
 	}
 
-	public Inventory getInventory() { // ## NOVO ##
+	public Inventory getInventory() {
 		return inventory;
 	}
 
@@ -40,26 +40,16 @@ public class Player extends Character {
 		}
 		return this.nextDirection;
 	}
-
-	/**
-	 * ## NOVO MÉTODO ##
-	 * Chamado a cada frame para checar se o jogador está tentando entrar em um warp.
-	 * Esta lógica foi movida de GameScreen para cá para manter o código organizado.
-	 */
+	
 	public void checkForWarp(Array<Warp> warps) {
 		if (currentState == State.IDLE && nextDirection != null) {
 			int targetX = getGridX() + nextDirection.getDx();
 			int targetY = getGridY() + nextDirection.getDy();
 			
-			// Cria uma "caixa de colisão" para o ponto de destino
 			Rectangle targetBounds = new Rectangle(targetX * getWidth(), targetY * getHeight(), getWidth(), getHeight());
 			
 			for (Warp warp : warps) {
 				if (warp.getBounds().overlaps(targetBounds)) {
-					// Encontrou um warp! A lógica de teletransporte será chamada pela GameScreen
-					// através de um callback ou método direto.
-					// Por enquanto, apenas logamos. A chamada real será feita na GameScreen.
-					// Esta parte é um placeholder, a GameScreen vai iniciar o warp.
 				}
 			}
 		}

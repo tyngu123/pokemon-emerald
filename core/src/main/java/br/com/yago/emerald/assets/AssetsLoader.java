@@ -22,7 +22,7 @@ public class AssetsLoader {
     public final String FONT_FILE    = "ui/font.otf";
     public final String FONT_NAME    = "gameFont";
     public final String DIALOGUE_FONT_NAME = "dialogueFont";
-    public final String BAG_FONT_NAME = "bagFont"; // ## LINHA QUE FALTAVA ADICIONADA ##
+    public final String BAG_FONT_NAME = "bagFont";
     public final String DIALOGUE_BOX = "ui/dialoguebox.png";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
     public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
@@ -38,6 +38,9 @@ public class AssetsLoader {
     public final String NPC1 = "sprites_overworld/npc1.atlas";
     public final String NPC2 = "sprites_overworld/npc001.atlas";
     public final String DOOR_ATLAS = "sprites_overworld/doors.atlas";
+    public final String BAG_ATLAS = "ui/bag.atlas";
+    // ## NOVO ATLAS DE ITENS ##
+    public final String ITEM_ATLAS = "items/items.atlas";
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -107,6 +110,9 @@ public class AssetsLoader {
         manager.load(NPC1,  TextureAtlas.class);
         manager.load(NPC2,  TextureAtlas.class);
         manager.load(DOOR_ATLAS, TextureAtlas.class);
+        manager.load(BAG_ATLAS, TextureAtlas.class);
+        // ## CARREGANDO O ATLAS DE ITENS ##
+        manager.load(ITEM_ATLAS, TextureAtlas.class);
     }
 
     public void dispose() {

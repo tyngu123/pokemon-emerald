@@ -20,18 +20,32 @@ public class Item {
         }
     }
 
-    private String name;
-    private ItemCategory category;
+    private final String name;
+    private final String description;
+    private final String spriteName;
+    private final ItemCategory category;
     private int quantity;
 
-    public Item(String name, ItemCategory category, int quantity) {
+    // ## CONSTRUTOR ATUALIZADO ##
+    public Item(String name, String description, String spriteName, ItemCategory category, int quantity) {
         this.name = name;
+        this.description = description;
+        this.spriteName = spriteName;
         this.category = category;
         this.quantity = quantity;
     }
 
+    // ## Getters para os novos campos ##
     public String getName() {
         return name;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+
+    public String getSpriteName() {
+        return spriteName;
     }
 
     public ItemCategory getCategory() {
