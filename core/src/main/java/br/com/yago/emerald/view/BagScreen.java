@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -39,7 +40,6 @@ public class BagScreen extends ScreenAdapter {
     private final TextureAtlas bagAtlas;
     private final TextureRegion leftArrowRegion;
     private final TextureRegion rightArrowRegion;
-    // ## NOVO: Atlas com os sprites dos itens ##
     private final TextureAtlas itemAtlas;
 
     // Lógica das categorias
@@ -48,7 +48,6 @@ public class BagScreen extends ScreenAdapter {
 
     // Lógica dos itens
     private final Inventory inventory;
-    // ## MUDANÇA: Agora guardamos os objetos Item, não apenas Strings ##
     private final Array<Item> itemsToDisplay = new Array<>();
     private int selectedItemIndex = 0;
 
@@ -56,7 +55,7 @@ public class BagScreen extends ScreenAdapter {
     private enum AnimationState { IDLE, SLIDING_LEFT, SLIDING_RIGHT }
     private AnimationState animationState = AnimationState.IDLE;
     private float animationTimer = 0f;
-    private static final float ANIMATION_DURATION = 0.2f;
+    private static final float ANIMATION_DURATION = 0.1f;
 
     private float arrowAnimTimer = 0f;
 
@@ -88,7 +87,6 @@ public class BagScreen extends ScreenAdapter {
         this.leftArrowRegion = bagAtlas.findRegion("leftarrow");
         this.rightArrowRegion = bagAtlas.findRegion("rightarrow");
         
-        // ## NOVO: Carregando o atlas de itens ##
         this.itemAtlas = assetLoader.manager.get(assetLoader.ITEM_ATLAS, TextureAtlas.class);
 
         for(Item.ItemCategory cat : Item.ItemCategory.values()) {
@@ -101,7 +99,6 @@ public class BagScreen extends ScreenAdapter {
     private void updateItemList() {
         itemsToDisplay.clear();
         Item.ItemCategory currentCategory = categories.get(currentCategoryIndex);
-        // ## MUDANÇA: Adiciona diretamente os objetos Item ##
         itemsToDisplay.addAll(inventory.getItemsByCategory(currentCategory));
         selectedItemIndex = 0;
     }
@@ -128,7 +125,6 @@ public class BagScreen extends ScreenAdapter {
                     return true;
                 }
 
-                // ## MUDANÇA: O tamanho da lista agora é itemsToDisplay.size + 1 (por causa do "CLOSE BAG") ##
                 if (keycode == Input.Keys.DOWN) {
                     selectedItemIndex = (selectedItemIndex + 1) % (itemsToDisplay.size + 1);
                     return true;
@@ -139,7 +135,6 @@ public class BagScreen extends ScreenAdapter {
                 }
 
                 if (keycode == Input.Keys.Z) {
-                    // Se o item selecionado for o último da lista, é o "CLOSE BAG"
                     if (selectedItemIndex == itemsToDisplay.size) {
                         game.closeBagScreen();
                     } else {
@@ -187,7 +182,6 @@ public class BagScreen extends ScreenAdapter {
         drawCategoryTitle();
         drawItemList();
         drawCategoryArrows();
-        // ## NOVO: Desenha a caixa de descrição ##
         drawItemDescription();
 
         batch.end();
@@ -226,24 +220,42 @@ public class BagScreen extends ScreenAdapter {
         } else {
             float progress = animationTimer / ANIMATION_DURATION;
             
+            // ## MUDANÇA: Salva a cor original da fonte ##
+            Color originalColor = font.getColor().cpy();
+
             if (animationState == AnimationState.SLIDING_LEFT) {
+                // Desenha o título atual (que está entrando) com FADE IN
                 float currentX = Interpolation.pow2Out.apply(textX + slideDistance, textX, progress);
+                float currentAlpha = Interpolation.fade.apply(0f, 1f, progress);
+                font.setColor(originalColor.r, originalColor.g, originalColor.b, currentAlpha);
                 font.draw(batch, currentTitle, currentX, titleY);
                 
+                // Desenha o título anterior (que está saindo) com FADE OUT
                 int previousIndex = (currentCategoryIndex - 1 + categories.size) % categories.size;
                 String previousTitle = categories.get(previousIndex).getDisplayName();
                 float previousX = Interpolation.pow2Out.apply(textX, textX - slideDistance, progress);
+                float previousAlpha = Interpolation.fade.apply(1f, 0f, progress);
+                font.setColor(originalColor.r, originalColor.g, originalColor.b, previousAlpha);
                 font.draw(batch, previousTitle, previousX, titleY);
             } 
             else if (animationState == AnimationState.SLIDING_RIGHT) {
+                // Desenha o título atual (que está entrando) com FADE IN
                 float currentX = Interpolation.pow2Out.apply(textX - slideDistance, textX, progress);
+                float currentAlpha = Interpolation.fade.apply(0f, 1f, progress);
+                font.setColor(originalColor.r, originalColor.g, originalColor.b, currentAlpha);
                 font.draw(batch, currentTitle, currentX, titleY);
                 
+                // Desenha o próximo título (que está saindo) com FADE OUT
                 int nextIndex = (currentCategoryIndex + 1) % categories.size;
                 String nextTitle = categories.get(nextIndex).getDisplayName();
                 float nextX = Interpolation.pow2Out.apply(textX, textX + slideDistance, progress);
+                float nextAlpha = Interpolation.fade.apply(1f, 0f, progress);
+                font.setColor(originalColor.r, originalColor.g, originalColor.b, nextAlpha);
                 font.draw(batch, nextTitle, nextX, titleY);
             }
+            
+            // ## MUDANÇA: Restaura a cor original da fonte ##
+            font.setColor(originalColor);
         }
     }
 
@@ -264,10 +276,9 @@ public class BagScreen extends ScreenAdapter {
         float verticalPadding = 5f;
         float itemSpacing = 20f;
 
-        // Desenha a lista de itens
         for (int i = 0; i < itemsToDisplay.size; i++) {
             Item currentItem = itemsToDisplay.get(i);
-            String itemText = currentItem.toString(); // Ex: "POTION X5"
+            String itemText = currentItem.toString();
             layout.setText(font, itemText);
             
             float textY = itemBoxY + itemBoxHeight - verticalPadding - (i * itemSpacing);
@@ -276,46 +287,40 @@ public class BagScreen extends ScreenAdapter {
             font.draw(batch, layout, textX, textY);
         }
         
-        // Desenha a opção "CLOSE BAG"
         String closeText = "CLOSE BAG";
         layout.setText(font, closeText);
         float closeY = itemBoxY + itemBoxHeight - verticalPadding - (itemsToDisplay.size * itemSpacing);
         float closeX = itemBoxX + 15f;
         font.draw(batch, layout, closeX, closeY);
 
-        // Desenha a seta de seleção
         float arrowSize = 7f;
         float arrowX = itemBoxX + 5f;
         float arrowY;
         
-        if (selectedItemIndex == itemsToDisplay.size) { // Seta está no "CLOSE BAG"
+        if (selectedItemIndex == itemsToDisplay.size) {
             layout.setText(font, closeText);
             arrowY = closeY - (layout.height / 2f) - (arrowSize / 2f);
-        } else { // Seta está em um item
+        } else {
              layout.setText(font, itemsToDisplay.get(selectedItemIndex).toString());
              arrowY = itemBoxY + itemBoxHeight - verticalPadding - (selectedItemIndex * itemSpacing) - (layout.height / 2) - (arrowSize / 2);
         }
         batch.draw(arrow, arrowX, arrowY, arrowSize, arrowSize);
     }
     
-    // ## NOVO MÉTODO PARA DESENHAR A DESCRIÇÃO E O SPRITE DO ITEM ##
     private void drawItemDescription() {
-        // A caixa de descrição só aparece se um item estiver selecionado (e não a opção "CLOSE BAG")
         if (selectedItemIndex >= itemsToDisplay.size) {
             return;
         }
 
         Item selectedItem = itemsToDisplay.get(selectedItemIndex);
         
-        // Desenha o sprite do item
         TextureRegion itemSprite = itemAtlas.findRegion(selectedItem.getSpriteName());
         if (itemSprite != null) {
             float spriteX = 4f;
             float spriteY = 60f;
-            batch.draw(itemSprite, spriteX, spriteY, 32, 32); // Tamanho fixo para o sprite
+            batch.draw(itemSprite, spriteX, spriteY, 32, 32);
         }
         
-        // Desenha a descrição do item
         float descBoxX = 4f;
         float descBoxY = 17f;
         float descBoxWidth = 105f;

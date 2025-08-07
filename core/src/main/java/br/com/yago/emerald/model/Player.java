@@ -21,7 +21,7 @@ public class Player extends Character {
 	// ## MÉTODO ATUALIZADO PARA INCLUIR DESCRIÇÃO E NOME DO SPRITE ##
 	private void addDefaultItems() {
 		inventory.addItem(new Item("Potion", "Heals a Pokémon by 20 HP.", "potion", Item.ItemCategory.ITEMS, 5));
-		inventory.addItem(new Item("Super Potion", "Heals a Pokémon by 50 HP.", "superpotion", Item.ItemCategory.ITEMS, 2));
+		inventory.addItem(new Item("Super Potion", "Heals a Pokémon by 50 HP.", "super-potion", Item.ItemCategory.ITEMS, 2));
 		inventory.addItem(new Item("Antidote", "Cures a poisoned Pokémon.", "antidote", Item.ItemCategory.ITEMS, 10));
 		inventory.addItem(new Item("Poke Ball", "A device for catching wild Pokémon.", "pokeball", Item.ItemCategory.POKEBALLS, 20));
 		inventory.addItem(new Item("Great Ball", "A good, high-performance Ball.", "greatball", Item.ItemCategory.POKEBALLS, 5));

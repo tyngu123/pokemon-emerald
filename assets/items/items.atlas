@@ -1,5 +1,5 @@
 items.png
-size: 108, 28
+size: 136, 28
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -12,3 +12,5 @@ pokeball
   bounds: 54, 0, 26, 26
 potion
   bounds: 80, 0, 28, 28
+super-potion
+  bounds: 108, 0, 28, 28
