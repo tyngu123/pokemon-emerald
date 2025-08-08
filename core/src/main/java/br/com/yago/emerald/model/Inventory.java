@@ -16,6 +16,25 @@ public class Inventory {
         items.add(newItem);
     }
 
+    /**
+     * ## MÉTODO ATUALIZADO ##
+     * Remove uma quantidade específica de um item. Se a quantidade chegar a zero,
+     * o item é removido completamente da lista.
+     * @param itemToToss O item a ser modificado.
+     * @param quantityToToss A quantidade a ser descartada.
+     */
+    public void removeItem(Item itemToToss, int quantityToToss) {
+        if (itemToToss == null || !items.contains(itemToToss, true)) {
+            return;
+        }
+
+        itemToToss.decreaseQuantity(quantityToToss);
+
+        if (itemToToss.getQuantity() <= 0) {
+            items.removeValue(itemToToss, true);
+        }
+    }
+
     public Array<Item> getItemsByCategory(Item.ItemCategory category) {
         Array<Item> filteredItems = new Array<>();
         for (Item item : items) {

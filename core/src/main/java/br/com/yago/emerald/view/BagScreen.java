@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -41,17 +42,28 @@ public class BagScreen extends ScreenAdapter {
     private final TextureRegion leftArrowRegion;
     private final TextureRegion rightArrowRegion;
     private final TextureAtlas itemAtlas;
+    private final NinePatch menuBoxPatch;
 
-    // Lógica das categorias
+    // ## MÁQUINA DE ESTADO ATUALIZADA ##
+    private enum BagState { BROWSE, ACTION_MENU, TOSS_QUANTITY, TOSS_CONFIRM }
+    private BagState bagState = BagState.BROWSE;
+
     private final Array<Item.ItemCategory> categories = new Array<>();
     private int currentCategoryIndex = 0;
 
-    // Lógica dos itens
     private final Inventory inventory;
     private final Array<Item> itemsToDisplay = new Array<>();
     private int selectedItemIndex = 0;
 
-    // Animação de transição de categoria
+    private final Array<String> actionMenuOptions = new Array<>(new String[]{"USE", "GIVE", "TOSS", "CANCEL"});
+    private int selectedActionIndex = 0;
+
+    private final Array<String> confirmMenuOptions = new Array<>(new String[]{"YES", "NO"});
+    private int selectedConfirmIndex = 0;
+    
+    // ## NOVO: Variável para guardar a quantidade a ser descartada ##
+    private int tossQuantity = 1;
+
     private enum AnimationState { IDLE, SLIDING_LEFT, SLIDING_RIGHT }
     private AnimationState animationState = AnimationState.IDLE;
     private float animationTimer = 0f;
@@ -61,10 +73,8 @@ public class BagScreen extends ScreenAdapter {
 
     private final float iconX = 35f;
     private final float iconY = 60f;
-
     private final float titleX = 30f;
     private final float titleY = 150f;
-
     private final float leftArrowX = titleX - 15f;
     private final float rightArrowX = titleX + 60f;
     private final float arrowsY = titleY - 12f;
@@ -75,24 +85,19 @@ public class BagScreen extends ScreenAdapter {
         this.batch = batch;
         this.assetLoader = assetLoader;
         this.inventory = gameScreen.getPlayer().getInventory();
-
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(240, 160, camera);
-
         this.background = assetLoader.manager.get(assetLoader.BAG_UI, Texture.class);
         this.arrow = assetLoader.manager.get(assetLoader.HORIZONTAL_ARROW, Texture.class);
         this.font = assetLoader.manager.get(assetLoader.BAG_FONT_NAME + ".otf", BitmapFont.class);
-
         this.bagAtlas = assetLoader.manager.get(assetLoader.BAG_ATLAS, TextureAtlas.class);
         this.leftArrowRegion = bagAtlas.findRegion("leftarrow");
         this.rightArrowRegion = bagAtlas.findRegion("rightarrow");
-        
         this.itemAtlas = assetLoader.manager.get(assetLoader.ITEM_ATLAS, TextureAtlas.class);
-
-        for(Item.ItemCategory cat : Item.ItemCategory.values()) {
+        this.menuBoxPatch = new NinePatch(assetLoader.manager.get(assetLoader.BOX, Texture.class), 8, 8, 8, 8);
+        for (Item.ItemCategory cat : Item.ItemCategory.values()) {
             categories.add(cat);
         }
-
         updateItemList();
     }
 
@@ -100,7 +105,11 @@ public class BagScreen extends ScreenAdapter {
         itemsToDisplay.clear();
         Item.ItemCategory currentCategory = categories.get(currentCategoryIndex);
         itemsToDisplay.addAll(inventory.getItemsByCategory(currentCategory));
-        selectedItemIndex = 0;
+        if (selectedItemIndex >= itemsToDisplay.size && itemsToDisplay.size > 0) {
+            selectedItemIndex = itemsToDisplay.size - 1;
+        } else if (itemsToDisplay.size == 0) {
+            selectedItemIndex = 0;
+        }
     }
 
     @Override
@@ -108,53 +117,145 @@ public class BagScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                if (animationState != AnimationState.IDLE) return true;
-
-                if (keycode == Input.Keys.RIGHT) {
-                    currentCategoryIndex = (currentCategoryIndex + 1) % categories.size;
-                    animationState = AnimationState.SLIDING_LEFT;
-                    animationTimer = 0;
-                    updateItemList();
-                    return true;
-                }
-                if (keycode == Input.Keys.LEFT) {
-                    currentCategoryIndex = (currentCategoryIndex - 1 + categories.size) % categories.size;
-                    animationState = AnimationState.SLIDING_RIGHT;
-                    animationTimer = 0;
-                    updateItemList();
-                    return true;
-                }
-
-                if (keycode == Input.Keys.DOWN) {
-                    selectedItemIndex = (selectedItemIndex + 1) % (itemsToDisplay.size + 1);
-                    return true;
-                }
-                if (keycode == Input.Keys.UP) {
-                    selectedItemIndex = (selectedItemIndex - 1 + (itemsToDisplay.size + 1)) % (itemsToDisplay.size + 1);
-                    return true;
-                }
-
-                if (keycode == Input.Keys.Z) {
-                    if (selectedItemIndex == itemsToDisplay.size) {
-                        game.closeBagScreen();
-                    } else {
-                        Gdx.app.log("BagScreen", "Usou o item: " + itemsToDisplay.get(selectedItemIndex).getName());
-                    }
-                    return true;
-                }
-
-                if (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE) {
-                    game.closeBagScreen();
-                    return true;
+                switch (bagState) {
+                    case BROWSE: return handleBrowseInput(keycode);
+                    case ACTION_MENU: return handleActionMenuInput(keycode);
+                    case TOSS_QUANTITY: return handleTossQuantityInput(keycode);
+                    case TOSS_CONFIRM: return handleTossConfirmInput(keycode);
                 }
                 return false;
             }
         });
     }
 
+    private boolean handleBrowseInput(int keycode) {
+        if (animationState != AnimationState.IDLE) return true;
+        if (keycode == Input.Keys.RIGHT) {
+            currentCategoryIndex = (currentCategoryIndex + 1) % categories.size;
+            animationState = AnimationState.SLIDING_LEFT;
+            animationTimer = 0;
+            updateItemList();
+            return true;
+        }
+        if (keycode == Input.Keys.LEFT) {
+            currentCategoryIndex = (currentCategoryIndex - 1 + categories.size) % categories.size;
+            animationState = AnimationState.SLIDING_RIGHT;
+            animationTimer = 0;
+            updateItemList();
+            return true;
+        }
+        if (keycode == Input.Keys.DOWN) {
+            selectedItemIndex = (selectedItemIndex + 1) % (itemsToDisplay.size + 1);
+            return true;
+        }
+        if (keycode == Input.Keys.UP) {
+            selectedItemIndex = (selectedItemIndex - 1 + (itemsToDisplay.size + 1)) % (itemsToDisplay.size + 1);
+            return true;
+        }
+        if (keycode == Input.Keys.Z) {
+            if (selectedItemIndex == itemsToDisplay.size) {
+                game.closeBagScreen();
+            } else if (itemsToDisplay.size > 0) {
+                bagState = BagState.ACTION_MENU;
+                selectedActionIndex = 0;
+            }
+            return true;
+        }
+        if (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE) {
+            game.closeBagScreen();
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleActionMenuInput(int keycode) {
+        if (keycode == Input.Keys.DOWN) {
+            selectedActionIndex = (selectedActionIndex + 1) % actionMenuOptions.size;
+            return true;
+        }
+        if (keycode == Input.Keys.UP) {
+            selectedActionIndex = (selectedActionIndex - 1 + actionMenuOptions.size) % actionMenuOptions.size;
+            return true;
+        }
+        if (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE) {
+            bagState = BagState.BROWSE;
+            return true;
+        }
+        if (keycode == Input.Keys.Z) {
+            String selectedOption = actionMenuOptions.get(selectedActionIndex);
+            switch (selectedOption) {
+                case "TOSS":
+                    Item item = itemsToDisplay.get(selectedItemIndex);
+                    if (item.getQuantity() > 1) {
+                        tossQuantity = 1;
+                        bagState = BagState.TOSS_QUANTITY;
+                    } else {
+                        tossQuantity = 1;
+                        bagState = BagState.TOSS_CONFIRM;
+                    }
+                    break;
+                case "CANCEL":
+                    bagState = BagState.BROWSE;
+                    break;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleTossQuantityInput(int keycode) {
+        Item item = itemsToDisplay.get(selectedItemIndex);
+        if (keycode == Input.Keys.UP) {
+            tossQuantity = Math.min(item.getQuantity(), tossQuantity + 1);
+            return true;
+        }
+        if (keycode == Input.Keys.DOWN) {
+            tossQuantity = Math.max(1, tossQuantity - 1);
+            return true;
+        }
+        if (keycode == Input.Keys.Z) {
+            bagState = BagState.TOSS_CONFIRM;
+            selectedConfirmIndex = 0;
+            return true;
+        }
+        if (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE) {
+            bagState = BagState.ACTION_MENU;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean handleTossConfirmInput(int keycode) {
+        if (keycode == Input.Keys.DOWN || keycode == Input.Keys.UP) {
+            selectedConfirmIndex = (selectedConfirmIndex + 1) % confirmMenuOptions.size;
+            return true;
+        }
+        if (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE) {
+            Item item = itemsToDisplay.get(selectedItemIndex);
+            if (item.getQuantity() > 1) {
+                bagState = BagState.TOSS_QUANTITY;
+            } else {
+                bagState = BagState.ACTION_MENU;
+            }
+            return true;
+        }
+        if (keycode == Input.Keys.Z) {
+            String selectedOption = confirmMenuOptions.get(selectedConfirmIndex);
+            if ("YES".equals(selectedOption)) {
+                Item itemToToss = itemsToDisplay.get(selectedItemIndex);
+                inventory.removeItem(itemToToss, tossQuantity);
+                updateItemList();
+                bagState = BagState.BROWSE;
+            } else {
+                bagState = BagState.ACTION_MENU;
+            }
+            return true;
+        }
+        return false;
+    }
+
     private void update(float delta) {
         arrowAnimTimer += delta;
-
         if (animationState != AnimationState.IDLE) {
             animationTimer += delta;
             if (animationTimer >= ANIMATION_DURATION) {
@@ -167,30 +268,31 @@ public class BagScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         update(delta);
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         viewport.apply();
         camera.update();
         batch.setProjectionMatrix(camera.combined);
-
         batch.begin();
         batch.draw(background, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
-
         drawCategoryIcon();
         drawCategoryTitle();
         drawItemList();
         drawCategoryArrows();
         drawItemDescription();
-
+        if (bagState == BagState.ACTION_MENU) {
+            drawActionMenu();
+        } else if (bagState == BagState.TOSS_QUANTITY) {
+            drawTossQuantitySelector();
+        } else if (bagState == BagState.TOSS_CONFIRM) {
+            drawTossConfirmation();
+        }
         batch.end();
     }
 
     private void drawCategoryIcon() {
         Item.ItemCategory selectedCategory = categories.get(currentCategoryIndex);
         String regionName = "";
-
         switch (selectedCategory) {
             case ITEMS: regionName = "items"; break;
             case POKEBALLS: regionName = "pokeballs"; break;
@@ -198,72 +300,51 @@ public class BagScreen extends ScreenAdapter {
             case BERRIES: regionName = "berries"; break;
             case KEY_ITEMS: regionName = "keyitems"; break;
         }
-
         if (!regionName.isEmpty()) {
             TextureRegion icon = bagAtlas.findRegion(regionName);
-            if (icon != null) {
-                batch.draw(icon, iconX, iconY);
-            }
+            if (icon != null) batch.draw(icon, iconX, iconY);
         }
     }
 
     private void drawCategoryTitle() {
         String currentTitle = categories.get(currentCategoryIndex).getDisplayName();
-        
         layout.setText(font, currentTitle);
-        float textX = titleX + ( (rightArrowX - leftArrowX) / 2 ) - (layout.width / 2) - 5;
-        
-        float slideDistance = 100f; 
-
+        float textX = titleX + ((rightArrowX - leftArrowX) / 2) - (layout.width / 2) - 5;
         if (animationState == AnimationState.IDLE) {
             font.draw(batch, layout, textX, titleY);
         } else {
             float progress = animationTimer / ANIMATION_DURATION;
-            
-            // ## MUDANÇA: Salva a cor original da fonte ##
             Color originalColor = font.getColor().cpy();
-
             if (animationState == AnimationState.SLIDING_LEFT) {
-                // Desenha o título atual (que está entrando) com FADE IN
-                float currentX = Interpolation.pow2Out.apply(textX + slideDistance, textX, progress);
+                float currentX = Interpolation.pow2Out.apply(textX + 100f, textX, progress);
                 float currentAlpha = Interpolation.fade.apply(0f, 1f, progress);
                 font.setColor(originalColor.r, originalColor.g, originalColor.b, currentAlpha);
                 font.draw(batch, currentTitle, currentX, titleY);
-                
-                // Desenha o título anterior (que está saindo) com FADE OUT
                 int previousIndex = (currentCategoryIndex - 1 + categories.size) % categories.size;
                 String previousTitle = categories.get(previousIndex).getDisplayName();
-                float previousX = Interpolation.pow2Out.apply(textX, textX - slideDistance, progress);
+                float previousX = Interpolation.pow2Out.apply(textX, textX - 100f, progress);
                 float previousAlpha = Interpolation.fade.apply(1f, 0f, progress);
                 font.setColor(originalColor.r, originalColor.g, originalColor.b, previousAlpha);
                 font.draw(batch, previousTitle, previousX, titleY);
-            } 
-            else if (animationState == AnimationState.SLIDING_RIGHT) {
-                // Desenha o título atual (que está entrando) com FADE IN
-                float currentX = Interpolation.pow2Out.apply(textX - slideDistance, textX, progress);
+            } else if (animationState == AnimationState.SLIDING_RIGHT) {
+                float currentX = Interpolation.pow2Out.apply(textX - 100f, textX, progress);
                 float currentAlpha = Interpolation.fade.apply(0f, 1f, progress);
                 font.setColor(originalColor.r, originalColor.g, originalColor.b, currentAlpha);
                 font.draw(batch, currentTitle, currentX, titleY);
-                
-                // Desenha o próximo título (que está saindo) com FADE OUT
                 int nextIndex = (currentCategoryIndex + 1) % categories.size;
                 String nextTitle = categories.get(nextIndex).getDisplayName();
-                float nextX = Interpolation.pow2Out.apply(textX, textX + slideDistance, progress);
+                float nextX = Interpolation.pow2Out.apply(textX, textX + 100f, progress);
                 float nextAlpha = Interpolation.fade.apply(1f, 0f, progress);
                 font.setColor(originalColor.r, originalColor.g, originalColor.b, nextAlpha);
                 font.draw(batch, nextTitle, nextX, titleY);
             }
-            
-            // ## MUDANÇA: Restaura a cor original da fonte ##
             font.setColor(originalColor);
         }
     }
 
     private void drawCategoryArrows() {
         if (animationState == AnimationState.IDLE) {
-            float speed = 8f;
-            float amplitude = 2f;
-            float xOffset = (float) Math.sin(arrowAnimTimer * speed) * amplitude;
+            float xOffset = (float) Math.sin(arrowAnimTimer * 8f) * 2f;
             batch.draw(leftArrowRegion, leftArrowX - xOffset, arrowsY);
             batch.draw(rightArrowRegion, rightArrowX + xOffset, arrowsY);
         }
@@ -275,58 +356,90 @@ public class BagScreen extends ScreenAdapter {
         float itemBoxHeight = 5f;
         float verticalPadding = 5f;
         float itemSpacing = 20f;
-
         for (int i = 0; i < itemsToDisplay.size; i++) {
-            Item currentItem = itemsToDisplay.get(i);
-            String itemText = currentItem.toString();
-            layout.setText(font, itemText);
-            
-            float textY = itemBoxY + itemBoxHeight - verticalPadding - (i * itemSpacing);
-            float textX = itemBoxX + 15f;
-            
-            font.draw(batch, layout, textX, textY);
+            font.draw(batch, itemsToDisplay.get(i).toString(), itemBoxX + 15f, itemBoxY + itemBoxHeight - verticalPadding - (i * itemSpacing));
         }
-        
         String closeText = "CLOSE BAG";
-        layout.setText(font, closeText);
-        float closeY = itemBoxY + itemBoxHeight - verticalPadding - (itemsToDisplay.size * itemSpacing);
-        float closeX = itemBoxX + 15f;
-        font.draw(batch, layout, closeX, closeY);
-
-        float arrowSize = 7f;
-        float arrowX = itemBoxX + 5f;
-        float arrowY;
-        
-        if (selectedItemIndex == itemsToDisplay.size) {
-            layout.setText(font, closeText);
-            arrowY = closeY - (layout.height / 2f) - (arrowSize / 2f);
-        } else {
-             layout.setText(font, itemsToDisplay.get(selectedItemIndex).toString());
-             arrowY = itemBoxY + itemBoxHeight - verticalPadding - (selectedItemIndex * itemSpacing) - (layout.height / 2) - (arrowSize / 2);
+        font.draw(batch, closeText, itemBoxX + 15f, itemBoxY + itemBoxHeight - verticalPadding - (itemsToDisplay.size * itemSpacing));
+        if (bagState == BagState.BROWSE) {
+            float arrowSize = 7f;
+            float arrowX = itemBoxX + 5f;
+            float arrowY;
+            if (selectedItemIndex == itemsToDisplay.size) {
+                layout.setText(font, closeText);
+                arrowY = itemBoxY + itemBoxHeight - verticalPadding - (itemsToDisplay.size * itemSpacing) - (layout.height / 2f) - (arrowSize / 2f);
+            } else {
+                layout.setText(font, itemsToDisplay.get(selectedItemIndex).toString());
+                arrowY = itemBoxY + itemBoxHeight - verticalPadding - (selectedItemIndex * itemSpacing) - (layout.height / 2) - (arrowSize / 2);
+            }
+            batch.draw(arrow, arrowX, arrowY, arrowSize, arrowSize);
         }
-        batch.draw(arrow, arrowX, arrowY, arrowSize, arrowSize);
     }
-    
-    private void drawItemDescription() {
-        if (selectedItemIndex >= itemsToDisplay.size) {
-            return;
-        }
 
+    private void drawItemDescription() {
+        if (selectedItemIndex >= itemsToDisplay.size) return;
         Item selectedItem = itemsToDisplay.get(selectedItemIndex);
-        
         TextureRegion itemSprite = itemAtlas.findRegion(selectedItem.getSpriteName());
         if (itemSprite != null) {
-            float spriteX = 4f;
-            float spriteY = 60f;
-            batch.draw(itemSprite, spriteX, spriteY, 32, 32);
+            batch.draw(itemSprite, 4f, 60f, 32, 32);
         }
-        
-        float descBoxX = 4f;
-        float descBoxY = 17f;
-        float descBoxWidth = 105f;
-        
-        layout.setText(font, selectedItem.getDescription(), font.getColor(), descBoxWidth, Align.left, true);
-        font.draw(batch, layout, descBoxX, descBoxY + layout.height + 5);
+        if (bagState == BagState.TOSS_QUANTITY) {
+            String qtyMessage = "Toss how many?";
+            layout.setText(font, qtyMessage, new Color(0.815f, 0.815f, 0.784f, 1f), 105f, Align.left, true);
+            font.draw(batch, layout, 4f, 17f + layout.height + 5);
+        } else if (bagState == BagState.TOSS_CONFIRM) {
+            String tossMessage = "Is it okay to throw away " + tossQuantity + " " + selectedItem.getName() + "(s)?";
+            layout.setText(font, tossMessage, new Color(0.815f, 0.815f, 0.784f, 1f), 105f, Align.left, true);
+            font.draw(batch, layout, 4f, 17f + layout.height + 5);
+        } else {
+            layout.setText(font, selectedItem.getDescription(), new Color(0.815f, 0.815f, 0.784f, 1f), 105f, Align.left, true);
+            font.draw(batch, layout, 4f, 17f + layout.height + 5);
+        }
+    }
+
+    private void drawActionMenu() {
+        float boxWidth = 80f;
+        float boxHeight = 95f;
+        float boxX = viewport.getWorldWidth() - boxWidth - 5f;
+        float boxY = 5f;
+        menuBoxPatch.draw(batch, boxX, boxY, boxWidth, boxHeight);
+        float verticalPadding = 10f;
+        float itemSpacing = 20f;
+        for (int i = 0; i < actionMenuOptions.size; i++) {
+            font.draw(batch, actionMenuOptions.get(i), boxX + 15f, boxY + boxHeight - verticalPadding - (i * itemSpacing));
+        }
+        layout.setText(font, actionMenuOptions.get(selectedActionIndex));
+        float arrowY = boxY + boxHeight - verticalPadding - (selectedActionIndex * itemSpacing) - (layout.height / 2f) - (7f / 2f);
+        batch.draw(arrow, boxX + 5f, arrowY, 7f, 7f);
+    }
+
+    private void drawTossQuantitySelector() {
+        float boxWidth = 80f;
+        float boxHeight = 40f;
+        float boxX = viewport.getWorldWidth() - boxWidth - 5f;
+        float boxY = 5f;
+        menuBoxPatch.draw(batch, boxX, boxY, boxWidth, boxHeight);
+        String quantityStr = "x" + String.format("%02d", tossQuantity);
+        layout.setText(font, quantityStr);
+        float textX = boxX + boxWidth - layout.width - 10f;
+        float textY = boxY + (boxHeight + layout.height) / 2f;
+        font.draw(batch, quantityStr, textX, textY);
+    }
+
+    private void drawTossConfirmation() {
+        float boxWidth = 60f;
+        float boxHeight = 50f;
+        float boxX = viewport.getWorldWidth() - boxWidth - 5f;
+        float boxY = 5f;
+        menuBoxPatch.draw(batch, boxX, boxY, boxWidth, boxHeight);
+        float verticalPadding = 10f;
+        float itemSpacing = 20f;
+        for (int i = 0; i < confirmMenuOptions.size; i++) {
+            font.draw(batch, confirmMenuOptions.get(i), boxX + 20f, boxY + boxHeight - verticalPadding - (i * itemSpacing));
+        }
+        layout.setText(font, confirmMenuOptions.get(selectedConfirmIndex));
+        float arrowY = boxY + boxHeight - verticalPadding - (selectedConfirmIndex * itemSpacing) - (layout.height / 2f) - (7f / 2f);
+        batch.draw(arrow, boxX + 10f, arrowY, 7f, 7f);
     }
 
     @Override
@@ -340,7 +453,5 @@ public class BagScreen extends ScreenAdapter {
     }
 
     @Override
-    public void dispose() {
-        // Nada a descartar
-    }
+    public void dispose() {}
 }

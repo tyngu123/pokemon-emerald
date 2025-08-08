@@ -26,7 +26,6 @@ public class Item {
     private final ItemCategory category;
     private int quantity;
 
-    // ## CONSTRUTOR ATUALIZADO ##
     public Item(String name, String description, String spriteName, ItemCategory category, int quantity) {
         this.name = name;
         this.description = description;
@@ -35,29 +34,26 @@ public class Item {
         this.quantity = quantity;
     }
 
-    // ## Getters para os novos campos ##
-    public String getName() {
-        return name;
-    }
-    
-    public String getDescription() {
-        return description;
-    }
-
-    public String getSpriteName() {
-        return spriteName;
-    }
-
-    public ItemCategory getCategory() {
-        return category;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
+    public String getName() { return name; }
+    public String getDescription() { return description; }
+    public String getSpriteName() { return spriteName; }
+    public ItemCategory getCategory() { return category; }
+    public int getQuantity() { return quantity; }
 
     public void addQuantity(int amount) {
         this.quantity += amount;
+    }
+
+    /**
+     * ## NOVO MÉTODO ##
+     * Diminui a quantidade do item.
+     * @param amount A quantidade a ser removida.
+     */
+    public void decreaseQuantity(int amount) {
+        this.quantity -= amount;
+        if (this.quantity < 0) {
+            this.quantity = 0;
+        }
     }
 
     @Override
