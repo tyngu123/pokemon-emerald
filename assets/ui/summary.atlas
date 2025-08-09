@@ -1,0 +1,16 @@
+summary.png
+size: 240, 294
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+pma: false
+info
+  bounds: 0, 0, 64, 16
+moves
+  bounds: 64, 0, 64, 16
+moves_screen
+  bounds: 0, 16, 240, 139
+skills
+  bounds: 128, 0, 64, 16
+skills_screen
+  bounds: 0, 155, 240, 139

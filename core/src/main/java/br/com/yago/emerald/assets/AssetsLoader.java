@@ -48,7 +48,8 @@ public class AssetsLoader {
     public final String POKEMON_ICON_ATLAS = "sprites/pokemons/icons/icons.atlas";
     public final String PARTY_UI_ATLAS = "ui/party.atlas";
     public final String TYPE_ATLAS = "ui/type.atlas";
-    public final String POKEBALLS_ATLAS = "ui/pokeballs.atlas"; // ## NOVO ATLAS ADICIONADO ##
+    public final String POKEBALLS_ATLAS = "ui/pokeballs.atlas";
+    public final String SUMMARY_ATLAS = "ui/summary.atlas"; // ## NOVO ATLAS ADICIONADO ##
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -56,7 +57,6 @@ public class AssetsLoader {
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
         manager.setLoader(Animation.class, ".gif", new AnimationAssetLoader(resolver));
         
-        // FONTES... (código das fontes omitido por ser igual)
         FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         menuFontParams.fontFileName = FONT_FILE;
         menuFontParams.fontParameters.size = 16;
@@ -132,7 +132,8 @@ public class AssetsLoader {
         manager.load(POKEMON_ICON_ATLAS, TextureAtlas.class);
         manager.load(PARTY_UI_ATLAS, TextureAtlas.class);
         manager.load(TYPE_ATLAS, TextureAtlas.class);
-        manager.load(POKEBALLS_ATLAS, TextureAtlas.class); // ## CARREGANDO O NOVO ATLAS ##
+        manager.load(POKEBALLS_ATLAS, TextureAtlas.class);
+        manager.load(SUMMARY_ATLAS, TextureAtlas.class); // ## CARREGANDO O NOVO ATLAS ##
     }
 
     public void dispose() {
