@@ -36,18 +36,17 @@ public class Player extends Character {
 	private void addDefaultPokemon() {
 		Pokemon mudkip = new Pokemon("Mudkip", "Mudkip", Pokemon.Gender.MALE, false, 5, 25, 12, 10, 11, 10, 9);
 		Pokemon torchic = new Pokemon("Torchic", "Torchic", Pokemon.Gender.FEMALE, false, 5, 22, 11, 9, 13, 9, 10);
-		// ## ADICIONADO MAIS UM POKÉMON PARA TESTAR A LISTA LATERAL ##
 		Pokemon treecko = new Pokemon("Treecko", "Treecko", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
 		Pokemon jigglypuff = new Pokemon("Jigglypuff", "lalinha", Pokemon.Gender.FEMALE, false, 100, 230, 10, 8, 12, 11, 12);
-		Pokemon articuno = new Pokemon("Articuno", "Articuno", Pokemon.Gender.GENDERLESS, // Articuno é genderless
-				false, // shiny
-				90, // level
-				289, // maxHP
-				185, // attack
-				212, // defense
-				203, // specialAttack
-				257, // specialDefense
-				185 // speed
+		Pokemon articuno = new Pokemon("Articuno", "Articuno", Pokemon.Gender.GENDERLESS,
+				false,
+				90, 
+				289, 
+				185, 
+				212, 
+				203, 
+				257, 
+				185 
 		);
 		Pokemon treecko4 = new Pokemon("Treecko", "Treecko", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
 		party.addPokemon(mudkip);

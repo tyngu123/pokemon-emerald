@@ -1,18 +1,27 @@
 package br.com.yago.emerald.view;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import br.com.yago.emerald.EmeraldGame;
+import br.com.yago.emerald.assets.AssetsLoader;
+import br.com.yago.emerald.config.GameConfig;
+import br.com.yago.emerald.controller.PlayerInputHandler;
+import br.com.yago.emerald.model.Character;
+import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Door;
+import br.com.yago.emerald.model.Entity;
+import br.com.yago.emerald.model.NPC;
+import br.com.yago.emerald.model.Player;
+import br.com.yago.emerald.model.Trigger;
 import br.com.yago.emerald.model.Warp;
+import br.com.yago.emerald.model.pathfinding.Pathfinder;
 import br.com.yago.emerald.script.MoveToCommand;
 import br.com.yago.emerald.script.ScriptCommand;
+import br.com.yago.emerald.script.ScriptRunner;
+import br.com.yago.emerald.ui.DialogueBox;
+import br.com.yago.emerald.ui.MapNameBox;
+import br.com.yago.emerald.ui.MenuBox;
+import br.com.yago.emerald.world.NpcLoader;
+import br.com.yago.emerald.world.TriggerLoader;
 import br.com.yago.emerald.world.WarpLoader;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -34,25 +43,13 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import br.com.yago.emerald.assets.AssetsLoader;
-import br.com.yago.emerald.config.GameConfig;
-import br.com.yago.emerald.controller.PlayerInputHandler;
-import br.com.yago.emerald.model.Character;
-import br.com.yago.emerald.model.Direction;
-import br.com.yago.emerald.model.Entity;
-import br.com.yago.emerald.model.NPC;
-import br.com.yago.emerald.model.Player;
-import br.com.yago.emerald.model.Trigger;
-import br.com.yago.emerald.model.pathfinding.Pathfinder;
-import br.com.yago.emerald.script.ScriptRunner;
-import br.com.yago.emerald.ui.DialogueBox;
-import br.com.yago.emerald.ui.MapNameBox;
-import br.com.yago.emerald.ui.MenuBox;
-import br.com.yago.emerald.world.NpcLoader;
-import br.com.yago.emerald.world.TriggerLoader;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class GameScreen extends ScreenAdapter {
 
@@ -87,10 +84,11 @@ public class GameScreen extends ScreenAdapter {
 	private final String mapName;
 	private final boolean isInterior;
 
-	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, int playerStartX, int playerStartY, Direction playerFacing, boolean isWarpIn) {
+	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, Player player, int playerStartX, int playerStartY, Direction playerFacing, boolean isWarpIn) {
 		this.game = game;
 		this.assetLoader = assetLoader;
 		this.batch = batch;
+        this.player = player;
 		this.fadeManager = new FadeManager();
 
 		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
@@ -101,7 +99,6 @@ public class GameScreen extends ScreenAdapter {
 		Texture menuArrowTexture = assetLoader.manager.get(assetLoader.HORIZONTAL_ARROW, Texture.class);
 
 		gameCamera = new OrthographicCamera();
-		// ## MUDANÇA AQUI: Trocado FitViewport por ExtendViewport para eliminar as faixas pretas ##
 		gameViewport = new ExtendViewport(240 , 160, gameCamera);
 		uiCamera = new OrthographicCamera();
 		uiViewport = new ExtendViewport(240, 160, uiCamera);
@@ -148,9 +145,16 @@ public class GameScreen extends ScreenAdapter {
 		this.pathfinder = new Pathfinder(collisionLayer);
 
 		entities = new Array<>();
-		player = new Player(assetLoader.manager.get(assetLoader.PLAYER_ATLAS), collisionLayer, entities, playerStartX * GameConfig.TILE_SIZE, playerStartY * GameConfig.TILE_SIZE);
-		player.setFacingDirection(playerFacing);
-		entities.add(player);
+
+        player.setCollisionLayer(collisionLayer);
+        player.setAllEntities(entities);
+        player.getWorldPosition().set(playerStartX * GameConfig.TILE_SIZE, playerStartY * GameConfig.TILE_SIZE);
+        player.getStartPosition().set(player.getWorldPosition());
+        player.getTargetPosition().set(player.getWorldPosition());
+        player.setFacingDirection(playerFacing);
+        player.setVisible(true); // ## CORREÇÃO ADICIONADA AQUI ##
+		
+        entities.add(player);
 
 		NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
 		for (Entity e : entities) {

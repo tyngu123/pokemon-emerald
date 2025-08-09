@@ -1,21 +1,25 @@
 package br.com.yago.emerald;
 
+import br.com.yago.emerald.assets.AssetsLoader;
+import br.com.yago.emerald.model.Direction;
+import br.com.yago.emerald.model.Player;
+import br.com.yago.emerald.view.BagScreen;
+import br.com.yago.emerald.view.GameScreen;
+import br.com.yago.emerald.view.PartyScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
-import br.com.yago.emerald.assets.AssetsLoader;
-import br.com.yago.emerald.model.Direction;
-import br.com.yago.emerald.view.BagScreen;
-import br.com.yago.emerald.view.GameScreen;
-import br.com.yago.emerald.view.PartyScreen;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public class EmeraldGame extends Game {
 
     private AssetsLoader assetLoader;
     private SpriteBatch batch;
-    private GameScreen gameScreen; // ## MANTÉM UMA REFERÊNCIA À TELA DO JOGO ##
+    private GameScreen gameScreen;
+    private Player player; // O Player agora é um membro da classe principal
 
     @Override
     public void create () {
@@ -27,54 +31,58 @@ public class EmeraldGame extends Game {
 
         batch = new SpriteBatch();
 
+        // O jogador é criado apenas UMA VEZ, aqui.
+        // Carregamos um mapa inicial apenas para ter uma referência de `collisionLayer` para o construtor,
+        // mas ele será atualizado a cada warp.
+        TiledMap tempMap = new TmxMapLoader().load("maps/alpha_map.tmx");
+        TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get("collision");
+        
+        player = new Player(
+            assetLoader.manager.get(assetLoader.PLAYER_ATLAS),
+            collisionLayer, // Camada de colisão inicial
+            null,           // Lista de entidades será definida na GameScreen
+            10 * 16f,       // Posição X inicial em pixels
+            8 * 16f         // Posição Y inicial em pixels
+        );
+        tempMap.dispose(); // O mapa temporário não é mais necessário
+
         Gdx.app.log("EmeraldGame", "Assets carregados. Configurando GameScreen inicial.");
 
-        gameScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", 10, 8, Direction.DOWN, false);
+        // A instância do player é passada para a GameScreen
+        gameScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", player, 10, 8, Direction.DOWN, false);
         setScreen(gameScreen);
         gameScreen.startFadeIn();
     }
 
-    // ## MÉTODO PARA ABRIR A MOCHILA COM FADE ##
     public void openBagScreen() {
         if (gameScreen != null && !gameScreen.isFading()) {
-            // Usa o FadeManager da GameScreen para fazer o fade out
             gameScreen.startFadeOut(0.5f, () -> {
-                // Quando o fade out terminar, troca para a tela da mochila
                 setScreen(new BagScreen(this, gameScreen, batch, assetLoader));
             });
         }
     }
 
-    // ## MÉTODO PARA FECHAR A MOCHILA COM FADE ##
     public void closeBagScreen() {
         Screen oldScreen = getScreen();
         if (oldScreen instanceof BagScreen) {
-            // Volta para a tela do jogo, que já estará preta por causa do fade out anterior
             setScreen(gameScreen);
-            // Inicia o fade in para revelar a tela do jogo
             gameScreen.startFadeIn();
             oldScreen.dispose();
         }
     }
 
-    // ## MÉTODO PARA ABRIR A TELA DA PARTY COM FADE ##
     public void openPartyScreen() {
         if (gameScreen != null && !gameScreen.isFading()) {
-            // Usa o FadeManager da GameScreen para fazer o fade out
             gameScreen.startFadeOut(0.6f, () -> {
-                 // Quando o fade out terminar, troca para a tela da party
                 setScreen(new PartyScreen(this, gameScreen, batch, assetLoader));
             });
         }
     }
 
-    // ## MÉTODO PARA FECHAR A TELA DA PARTY COM FADE ##
     public void closePartyScreen() {
         Screen oldScreen = getScreen();
         if (oldScreen instanceof PartyScreen) {
-            // Volta para a tela do jogo, que já estará preta por causa do fade out anterior
             setScreen(gameScreen);
-            // Inicia o fade in para revelar a tela do jogo
             gameScreen.startFadeIn();
             oldScreen.dispose();
         }
@@ -85,7 +93,8 @@ public class EmeraldGame extends Game {
 
         GameScreen oldScreen = (GameScreen) getScreen();
 
-        gameScreen = new GameScreen(this, assetLoader, batch, mapFileName, playerStartX, playerStartY, playerFacing, true);
+        // A MESMA instância do player é passada para a nova GameScreen
+        gameScreen = new GameScreen(this, assetLoader, batch, mapFileName, player, playerStartX, playerStartY, playerFacing, true);
         setScreen(gameScreen);
 
         gameScreen.startFadeIn();

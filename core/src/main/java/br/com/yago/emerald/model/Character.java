@@ -15,7 +15,7 @@ import java.util.Map;
 
 public abstract class Character extends Entity {
 
-    public enum State { IDLE, WALKING, FREEZE_WALK } // ## NOVO ESTADO ##
+    public enum State { IDLE, WALKING, FREEZE_WALK }
 
     protected State currentState;
     protected Direction facingDirection;
@@ -31,7 +31,7 @@ public abstract class Character extends Entity {
 
     private boolean controlEnabled = true;
     protected boolean isLocked = false;
-    private boolean visible = true; // ## CONTROLE DE VISIBILIDADE ##
+    private boolean visible = true;
 
     private final Queue<Direction> currentPath = new Queue<>();
 
@@ -157,7 +157,7 @@ public abstract class Character extends Entity {
 
         if (currentState == State.FREEZE_WALK) {
             String animationKey = "walk_" + facingDirection.name().toLowerCase();
-            return animations.get(animationKey).getKeyFrames()[0]; // Sempre o primeiro frame
+            return animations.get(animationKey).getKeyFrames()[0];
         }
 
         String animationKey = (currentState == State.WALKING ? "walk_" : "idle_") + facingDirection.name().toLowerCase();
@@ -200,11 +200,9 @@ public abstract class Character extends Entity {
         continuousDuration = actualDistance * GameConfig.PLAYER_MOVE_DURATION;
         this.facingDirection = dir;
         
-        // ## LÓGICA DO FREEZE_WALK ##
-        // Se for um movimento que ignora colisão (warp de porta), congela a animação.
         if (ignoreCollision) {
             this.currentState = State.FREEZE_WALK;
-            this.stateTimer = 0; // Reseta o timer para pegar o primeiro frame
+            this.stateTimer = 0;
         } else {
             this.currentState = State.WALKING;
         }
@@ -213,6 +211,7 @@ public abstract class Character extends Entity {
     }
     
     public boolean isOccupied(int gridX, int gridY) {
+        if (allEntities == null) return false; // Adiciona verificação de segurança
         for (int i = 0; i < allEntities.size; i++) {
             Entity other = allEntities.get(i);
             if (other == this) continue;
@@ -226,6 +225,7 @@ public abstract class Character extends Entity {
         return false;
     }
     public boolean isWalkable(int gridX, int gridY) {
+        if (collisionLayer == null) return true; // Adiciona verificação de segurança
         if (gridX < 0 || gridX >= collisionLayer.getWidth() || gridY < 0 || gridY >= collisionLayer.getHeight()) return false;
         return collisionLayer.getCell(gridX, gridY) == null;
     }
@@ -255,8 +255,26 @@ public abstract class Character extends Entity {
         return desiredDistance;
     }
     
+    // ## MÉTODOS ADICIONADOS ##
+    public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
+        this.collisionLayer = collisionLayer;
+    }
+
+    public void setAllEntities(Array<Entity> allEntities) {
+        this.allEntities = allEntities;
+    }
+    
+    public Vector2 getStartPosition() {
+        return startPosition;
+    }
+
+    public Vector2 getTargetPosition() {
+        return targetPosition;
+    }
+    // FIM DOS MÉTODOS ADICIONADOS
+
     public boolean isLocked() { return this.isLocked; }
-    public void setVisible(boolean visible) { this.visible = visible; } // ## NOVO MÉTODO ##
+    public void setVisible(boolean visible) { this.visible = visible; }
     public void setControlEnabled(boolean enabled) { this.controlEnabled = enabled; }
     public void setLocked(boolean locked) { this.isLocked = locked; }
     public State getCurrentState() { return currentState; }
