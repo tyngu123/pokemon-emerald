@@ -23,7 +23,8 @@ public class EmeraldGame extends Game {
     private SpriteBatch batch;
     private GameScreen gameScreen;
     private Player player;
-    private Screen previousScreen; // Guarda a tela anterior (PartyScreen)
+    private Screen previousScreen;
+    private String playerName; // ## NOVO CAMPO PARA O NOME DO JOGADOR ##
 
     @Override
     public void create () {
@@ -34,11 +35,16 @@ public class EmeraldGame extends Game {
         assetLoader.manager.finishLoading();
 
         batch = new SpriteBatch();
+        
+        // ## NOME DO JOGADOR DEFINIDO AQUI ##
+        this.playerName = "YAGO";
 
         TiledMap tempMap = new TmxMapLoader().load("maps/alpha_map.tmx");
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get("collision");
         
+        // ## CONSTRUTOR DO PLAYER ATUALIZADO PARA RECEBER O NOME ##
         player = new Player(
+            this.playerName,
             assetLoader.manager.get(assetLoader.PLAYER_ATLAS), 
             collisionLayer,
             null,
@@ -88,20 +94,16 @@ public class EmeraldGame extends Game {
         }
     }
     
-    /**
-     * ## MÉTODO ATUALIZADO ##
-     * Agora aceita a Party e o índice inicial para a SummaryScreen.
-     */
     public void openSummaryScreen(Party party, int initialIndex) {
-        this.previousScreen = getScreen(); // Salva a PartyScreen atual
+        this.previousScreen = getScreen();
         setScreen(new SummaryScreen(this, batch, assetLoader, party, initialIndex));
     }
 
     public void closeSummaryScreen() {
         Screen oldScreen = getScreen();
         if (oldScreen instanceof SummaryScreen) {
-            setScreen(previousScreen); // Volta para a PartyScreen que foi salva
-            previousScreen = null; // Limpa a referência para evitar memory leak
+            setScreen(previousScreen);
+            previousScreen = null;
             oldScreen.dispose();
         }
     }

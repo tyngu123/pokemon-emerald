@@ -31,9 +31,9 @@ public class AssetsLoader {
     public final String DIALOGUE_ARROW = "ui/arrow.png";
     public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
     public final String TOWN_BOX = "ui/townbox.png";
-    public final String BOX = "ui/box2.png";
+    public final String BOX = "ui/box.png";
     public final String BAG_UI = "ui/bag_ui.png";
-    public final String SUMMARY_UI = "ui/summary_ui.png"; // ## NOVA IMAGEM ADICIONADA ##
+    public final String SUMMARY_UI = "ui/summary_ui.png";
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -47,16 +47,17 @@ public class AssetsLoader {
     public final String ITEM_ATLAS = "items/items.atlas";
     public final String POKEMON_ICON_ATLAS = "sprites/pokemons/icons/icons.atlas";
     public final String PARTY_UI_ATLAS = "ui/party.atlas";
+    public final String TYPE_ATLAS = "ui/type.atlas";
+    public final String POKEBALLS_ATLAS = "ui/pokeballs.atlas"; // ## NOVO ATLAS ADICIONADO ##
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
-     // ## REGISTRA NOSSO NOVO LOADER DE GIFS ##
         manager.setLoader(Animation.class, ".gif", new AnimationAssetLoader(resolver));
-        // FONTE PRINCIPAL (gameFont)
-        FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams =
-            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        
+        // FONTES... (código das fontes omitido por ser igual)
+        FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         menuFontParams.fontFileName = FONT_FILE;
         menuFontParams.fontParameters.size = 16;
         menuFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
@@ -68,9 +69,7 @@ public class AssetsLoader {
         menuFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(FONT_NAME + ".otf", BitmapFont.class, menuFontParams);
 
-        // FONTE DO DIÁLOGO (dialogueFont)
-        FreetypeFontLoader.FreeTypeFontLoaderParameter dialogueFontParams =
-            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        FreetypeFontLoader.FreeTypeFontLoaderParameter dialogueFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         dialogueFontParams.fontFileName = FONT_FILE;
         dialogueFontParams.fontParameters.size = 16;
         dialogueFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
@@ -82,13 +81,11 @@ public class AssetsLoader {
         dialogueFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(DIALOGUE_FONT_NAME + ".otf", BitmapFont.class, dialogueFontParams);
 
-        // NOVA FONTE DA MOCHILA (bagFont) - TAMANHO MENOR
-        FreetypeFontLoader.FreeTypeFontLoaderParameter bagFontParams =
-            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        FreetypeFontLoader.FreeTypeFontLoaderParameter bagFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         bagFontParams.fontFileName = FONT_FILE;
         bagFontParams.fontParameters.size = 16;
         bagFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
-        bagFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 0.6f); // Sombra cinza
+        bagFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 0.6f);
         bagFontParams.fontParameters.shadowOffsetX = 1;
         bagFontParams.fontParameters.shadowOffsetY = 1;
         bagFontParams.fontParameters.minFilter = TextureFilter.Nearest;
@@ -96,13 +93,11 @@ public class AssetsLoader {
         bagFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(BAG_FONT_NAME + ".otf", BitmapFont.class, bagFontParams);
         
-        // NOVA FONTE DA PARTY SCREEN
-        FreetypeFontLoader.FreeTypeFontLoaderParameter partyFontParams =
-            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        FreetypeFontLoader.FreeTypeFontLoaderParameter partyFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         partyFontParams.fontFileName = FONT_FILE;
         partyFontParams.fontParameters.size = 16;
-        partyFontParams.fontParameters.color = Color.WHITE; // Texto branco
-        partyFontParams.fontParameters.shadowColor = new Color(0.6f, 0.6f, 0.6f, 1f); // Sombra cinza
+        partyFontParams.fontParameters.color = Color.WHITE;
+        partyFontParams.fontParameters.shadowColor = new Color(0.6f, 0.6f, 0.6f, 1f);
         partyFontParams.fontParameters.shadowOffsetX = 1;
         partyFontParams.fontParameters.shadowOffsetY = 1;
         partyFontParams.fontParameters.minFilter = TextureFilter.Nearest;
@@ -110,10 +105,10 @@ public class AssetsLoader {
         partyFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(PARTY_FONT_NAME + ".otf", BitmapFont.class, partyFontParams);
 
+
         TextureLoader.TextureParameter textureParams = new TextureLoader.TextureParameter();
         textureParams.minFilter = TextureFilter.Nearest;
         textureParams.magFilter = TextureFilter.Nearest;
-
 
         // UI Textures
         manager.load(DIALOGUE_BOX,   Texture.class, textureParams);
@@ -122,7 +117,7 @@ public class AssetsLoader {
         manager.load(TOWN_BOX,       Texture.class, textureParams);
         manager.load(BOX, Texture.class, textureParams);
         manager.load(BAG_UI, Texture.class, textureParams);
-        manager.load(SUMMARY_UI, Texture.class, textureParams); // ## CARREGANDO A NOVA TEXTURA ##
+        manager.load(SUMMARY_UI, Texture.class, textureParams);
         
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);
@@ -136,6 +131,8 @@ public class AssetsLoader {
         manager.load(ITEM_ATLAS, TextureAtlas.class);
         manager.load(POKEMON_ICON_ATLAS, TextureAtlas.class);
         manager.load(PARTY_UI_ATLAS, TextureAtlas.class);
+        manager.load(TYPE_ATLAS, TextureAtlas.class);
+        manager.load(POKEBALLS_ATLAS, TextureAtlas.class); // ## CARREGANDO O NOVO ATLAS ##
     }
 
     public void dispose() {

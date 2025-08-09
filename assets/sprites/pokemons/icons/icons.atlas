@@ -1,18 +1,26 @@
 icons.png
-size: 192, 32
+size: 680, 56
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 pma: false
 articuno
-  bounds: 0, 0, 32, 32
+  bounds: 0, 0, 68, 56
+azurill
+  bounds: 68, 0, 68, 56
+dialga
+  bounds: 136, 0, 68, 56
+groudon
+  bounds: 204, 0, 68, 56
 jigglypuff
-  bounds: 32, 0, 32, 32
+  bounds: 272, 0, 68, 56
 mudkip
-  bounds: 64, 0, 32, 32
+  bounds: 340, 0, 68, 56
 pikachu
-  bounds: 96, 0, 32, 32
+  bounds: 408, 0, 68, 56
+salamence
+  bounds: 476, 0, 68, 56
 torchic
-  bounds: 128, 0, 32, 32
+  bounds: 544, 0, 68, 56
 treecko
-  bounds: 160, 0, 32, 32
+  bounds: 612, 0, 68, 56

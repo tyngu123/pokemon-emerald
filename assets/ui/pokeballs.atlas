@@ -1,0 +1,10 @@
+pokeballs.png
+size: 24, 12
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+pma: false
+greatball
+  bounds: 0, 0, 12, 12
+pokeball
+  bounds: 12, 0, 12, 12

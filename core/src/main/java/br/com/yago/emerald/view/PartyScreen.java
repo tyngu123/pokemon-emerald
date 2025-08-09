@@ -358,12 +358,12 @@ public class PartyScreen extends ScreenAdapter {
                 partyUiAtlas.findRegion("party_pokeball_selected") :
                 partyUiAtlas.findRegion("party_pokeball");
 
-        float iconX = (slotX + slideX) + (isMainSlot ? -10 : -12);
-        float baseIconY = slotY + (isMainSlot ? 24 : 2);
+        float iconX = (slotX + slideX) + (isMainSlot ? -26 : -27);
+        float baseIconY = slotY + (isMainSlot ? 26 : -6);
 
         if (pokeballSprite != null) {
             float pokeballX = (slotX + slideX) + (12f / 2f) - (pokeballSprite.getRegionWidth() / 2f);
-            float pokeballY = baseIconY + (32f / 2f) - (pokeballSprite.getRegionHeight() / 2f);
+            float pokeballY = baseIconY + (64f / 4f) - (pokeballSprite.getRegionHeight() / 2f);
             batch.draw(pokeballSprite, pokeballX, pokeballY);
         }
 

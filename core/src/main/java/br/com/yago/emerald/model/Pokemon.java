@@ -23,8 +23,23 @@ public class Pokemon {
     private int baseSpecialDefense;
     private int baseSpeed;
 
+    private final PokemonType type1;
+    private final PokemonType type2;
+
+    private final PokemonNature nature;
+    private final int metLevel;
+    private final String metMap;
+    
+    private final Pokeball pokeball;
+    private final String originalTrainerName;
+
+    // ## NOVO CAMPO ADICIONADO ##
+    private final Ability ability;
+
     public Pokemon(String speciesName, String nickname, Gender gender, boolean shiny, int level,
-                   int maxHP, int attack, int defense, int specialAttack, int specialDefense, int speed) {
+                   int maxHP, int attack, int defense, int specialAttack, int specialDefense, int speed,
+                   PokemonType type1, PokemonType type2, PokemonNature nature, int metLevel, String metMap,
+                   Pokeball pokeball, String originalTrainerName, Ability ability) { // ## CONSTRUTOR ATUALIZADO ##
         this.speciesName = speciesName;
         this.nickname = nickname;
         this.gender = gender;
@@ -37,8 +52,17 @@ public class Pokemon {
         this.specialAttack = specialAttack;
         this.specialDefense = specialDefense;
         this.speed = speed;
+        this.type1 = type1;
+        this.type2 = type2;
+        this.nature = nature;
+        this.metLevel = metLevel;
+        this.metMap = metMap;
+        this.pokeball = pokeball;
+        this.originalTrainerName = originalTrainerName;
+        this.ability = ability; // ## INICIALIZAÇÃO DO NOVO CAMPO ##
     }
 
+    // Getters
     public String getSpeciesName() { return speciesName; }
     public String getNickname() { return nickname; }
     public Gender getGender() { return gender; }
@@ -46,26 +70,21 @@ public class Pokemon {
     public int getLevel() { return level; }
     public int getCurrentHP() { return currentHP; }
     public int getMaxHP() { return maxHP; }
-    public int getAttack() { return attack; }
-    public int getDefense() { return defense; }
-    public int getSpecialAttack() { return specialAttack; }
-    public int getSpecialDefense() { return specialDefense; }
-    public int getSpeed() { return speed; }
+    public PokemonType getType1() { return type1; }
+    public PokemonType getType2() { return type2; }
+    public PokemonNature getNature() { return nature; }
+    public int getMetLevel() { return metLevel; }
+    public String getMetMap() { return metMap; }
+    public Pokeball getPokeball() { return pokeball; }
+    public String getOriginalTrainerName() { return originalTrainerName; }
+    
+    // ## GETTER PARA O NOVO CAMPO ##
+    public Ability getAbility() { return ability; }
 
-    /**
-     * ## MÉTODO ATUALIZADO ##
-     * Retorna o nome do sprite do ícone. A verificação de shiny foi removida
-     * para que ambos, shiny e normal, usem o mesmo ícone.
-     */
     public String getIconSpriteName() {
         return speciesName.toLowerCase().replace(" ", "");
     }
 
-    /**
-     * Retorna o caminho para o GIF do sprite frontal.
-     * Adiciona "_shiny" ao nome do arquivo se o Pokémon for shiny.
-     * Ex.: "sprites/pokemons/frontal/mudkip_shiny.gif"
-     */
     public String getFrontSpriteGifPath() {
         String baseName = speciesName.toLowerCase().replace(" ", "");
         String shinySuffix = shiny ? "_shiny" : "";
