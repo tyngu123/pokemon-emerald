@@ -2,10 +2,13 @@ package br.com.yago.emerald;
 
 import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.model.Direction;
+import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Player;
+import br.com.yago.emerald.model.Pokemon;
 import br.com.yago.emerald.view.BagScreen;
 import br.com.yago.emerald.view.GameScreen;
 import br.com.yago.emerald.view.PartyScreen;
+import br.com.yago.emerald.view.SummaryScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -19,7 +22,8 @@ public class EmeraldGame extends Game {
     private AssetsLoader assetLoader;
     private SpriteBatch batch;
     private GameScreen gameScreen;
-    private Player player; // O Player agora é um membro da classe principal
+    private Player player;
+    private Screen previousScreen; // Guarda a tela anterior (PartyScreen)
 
     @Override
     public void create () {
@@ -31,24 +35,20 @@ public class EmeraldGame extends Game {
 
         batch = new SpriteBatch();
 
-        // O jogador é criado apenas UMA VEZ, aqui.
-        // Carregamos um mapa inicial apenas para ter uma referência de `collisionLayer` para o construtor,
-        // mas ele será atualizado a cada warp.
         TiledMap tempMap = new TmxMapLoader().load("maps/alpha_map.tmx");
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get("collision");
         
         player = new Player(
-            assetLoader.manager.get(assetLoader.PLAYER_ATLAS),
-            collisionLayer, // Camada de colisão inicial
-            null,           // Lista de entidades será definida na GameScreen
-            10 * 16f,       // Posição X inicial em pixels
-            8 * 16f         // Posição Y inicial em pixels
+            assetLoader.manager.get(assetLoader.PLAYER_ATLAS), 
+            collisionLayer,
+            null,
+            10 * 16f,
+            8 * 16f
         );
-        tempMap.dispose(); // O mapa temporário não é mais necessário
+        tempMap.dispose();
 
         Gdx.app.log("EmeraldGame", "Assets carregados. Configurando GameScreen inicial.");
 
-        // A instância do player é passada para a GameScreen
         gameScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", player, 10, 8, Direction.DOWN, false);
         setScreen(gameScreen);
         gameScreen.startFadeIn();
@@ -87,13 +87,30 @@ public class EmeraldGame extends Game {
             oldScreen.dispose();
         }
     }
+    
+    /**
+     * ## MÉTODO ATUALIZADO ##
+     * Agora aceita a Party e o índice inicial para a SummaryScreen.
+     */
+    public void openSummaryScreen(Party party, int initialIndex) {
+        this.previousScreen = getScreen(); // Salva a PartyScreen atual
+        setScreen(new SummaryScreen(this, batch, assetLoader, party, initialIndex));
+    }
+
+    public void closeSummaryScreen() {
+        Screen oldScreen = getScreen();
+        if (oldScreen instanceof SummaryScreen) {
+            setScreen(previousScreen); // Volta para a PartyScreen que foi salva
+            previousScreen = null; // Limpa a referência para evitar memory leak
+            oldScreen.dispose();
+        }
+    }
 
     public void warpTo(String mapFileName, int playerStartX, int playerStartY, Direction playerFacing) {
         Gdx.app.log("EmeraldGame", "WARP! Trocando para mapa: " + mapFileName);
 
         GameScreen oldScreen = (GameScreen) getScreen();
 
-        // A MESMA instância do player é passada para a nova GameScreen
         gameScreen = new GameScreen(this, assetLoader, batch, mapFileName, player, playerStartX, playerStartY, playerFacing, true);
         setScreen(gameScreen);
 

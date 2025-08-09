@@ -1,5 +1,5 @@
 icons.png
-size: 160, 32
+size: 192, 32
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -10,7 +10,9 @@ jigglypuff
   bounds: 32, 0, 32, 32
 mudkip
   bounds: 64, 0, 32, 32
-torchic
+pikachu
   bounds: 96, 0, 32, 32
-treecko
+torchic
   bounds: 128, 0, 32, 32
+treecko
+  bounds: 160, 0, 32, 32

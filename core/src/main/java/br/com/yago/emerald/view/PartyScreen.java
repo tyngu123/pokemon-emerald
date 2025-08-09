@@ -60,7 +60,6 @@ public class PartyScreen extends ScreenAdapter {
     private final float ICON_BOUNCE_SPEED = 8f;
     private final float ICON_BOUNCE_AMPLITUDE = 2f;
 
-    // --- animação de troca ---
     private boolean isSwapAnimating = false;
     private int animFromIndex = -1, animToIndex = -1;
     private float animTimer = 0f;
@@ -107,7 +106,6 @@ public class PartyScreen extends ScreenAdapter {
         });
     }
 
-    //<editor-fold desc="Input Handlers">
     private boolean handleBrowseInput(int keycode) {
         if (isSwapAnimating) return true;
 
@@ -163,7 +161,13 @@ public class PartyScreen extends ScreenAdapter {
         }
         if (keycode == Input.Keys.Z) {
             String selectedOption = actionMenuOptions.get(selectedActionIndex);
+            
             switch (selectedOption) {
+                case "SUMMARY":
+                    // ## CHAMADA ATUALIZADA ##
+                    // Passa a party e o índice selecionado em vez de apenas o Pokémon.
+                    game.openSummaryScreen(playerParty, selectedIndex);
+                    break;
                 case "SWITCH":
                     switchInitialIndex = selectedIndex;
                     partyState = PartyState.SWITCHING;
@@ -172,7 +176,7 @@ public class PartyScreen extends ScreenAdapter {
                     partyState = PartyState.BROWSE;
                     break;
                 default:
-                    Gdx.app.log("PartyScreen", "Ação: " + selectedOption + " no Pokémon: " + playerParty.getPokemon(selectedIndex).getNickname());
+                    Gdx.app.log("PartyScreen", "Ação '" + selectedOption + "' não implementada.");
                     partyState = PartyState.BROWSE;
                     break;
             }
@@ -209,15 +213,12 @@ public class PartyScreen extends ScreenAdapter {
             return true;
         }
         if (keycode == Input.Keys.Z) {
-            // Inicia animação de troca
             beginSwapAnimation(switchInitialIndex, selectedIndex);
             return true;
         }
         return false;
     }
-    //</editor-fold>
 
-    // --- animação ---
     private void beginSwapAnimation(int from, int to) {
         if (from == to) {
             partyState = PartyState.BROWSE;
@@ -310,7 +311,6 @@ public class PartyScreen extends ScreenAdapter {
         batch.end();
     }
 
-    //<editor-fold desc="Render Methods">
     private void drawSlotAndIcon(Pokemon pokemon, int index) {
         boolean isMainSlot = (index == 0);
         float slotX, slotY;
@@ -399,39 +399,33 @@ public class PartyScreen extends ScreenAdapter {
 
         float slideX = getSlideOffsetX(index);
 
-        // Nome
         whiteFont.draw(batch, pokemon.getNickname(), textX + slideX, nameY);
 
-        // Nível
         String levelStr = "Lv" + pokemon.getLevel();
         layout.setText(whiteFont, levelStr);
         whiteFont.draw(batch, levelStr, levelX + slideX, levelY);
 
-        // Ícone de gênero (5x8) à direita do texto do nível
         TextureRegion genderIcon = null;
         try {
-            Pokemon.Gender g = pokemon.getGender(); // assume getter existe
+            Pokemon.Gender g = pokemon.getGender();
             if (g != null) {
                 if (g.name().equalsIgnoreCase("MALE")) {
                     genderIcon = partyUiAtlas.findRegion("party_male");
                 } else if (g.name().equalsIgnoreCase("FEMALE")) {
                     genderIcon = partyUiAtlas.findRegion("party_female");
                 }
-                // se genderless ou null, não desenha
             }
         } catch (Exception ignored) {}
 
         if (genderIcon != null) {
-            float pad = 3f; // pequeno espaçamento depois de "LvXX"
-            float iconW = genderIcon.getRegionWidth();   // esperado 5
-            float iconH = genderIcon.getRegionHeight();  // esperado 8
-            // centraliza verticalmente relativo à altura do texto medido
+            float pad = 3f;
+            float iconW = genderIcon.getRegionWidth();
+            float iconH = genderIcon.getRegionHeight();
             float genderX = levelX + slideX + layout.width + pad;
             float genderY = levelY - layout.height + (layout.height - iconH) / 2f;
             batch.draw(genderIcon, genderX, genderY, iconW, iconH);
         }
 
-        // HP texto
         String hpString = pokemon.getCurrentHP() + "/" + pokemon.getMaxHP();
         layout.setText(whiteFont, hpString);
         float hpTextY, hpTextX;
@@ -514,7 +508,6 @@ public class PartyScreen extends ScreenAdapter {
         float arrowY = boxY + boxHeight - verticalPadding - (selectedActionIndex * itemSpacing) - (layout.height / 2f) - (7f / 2f);
         batch.draw(assetLoader.manager.get(assetLoader.HORIZONTAL_ARROW, Texture.class), boxX + 5f, arrowY, 7f, 7f);
     }
-    //</editor-fold>
 
     @Override
     public void resize(int width, int height) {

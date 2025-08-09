@@ -4,13 +4,10 @@ public class Pokemon {
 
     public enum Gender { MALE, FEMALE, GENDERLESS }
 
-    // Identificação
-    private String speciesName;   // Nome da espécie (ex.: "Pikachu")
-    private String nickname;      // Apelido dado pelo jogador
+    private String speciesName;
+    private String nickname;
     private Gender gender;
     private boolean shiny;
-
-    // Status de batalha
     private int level;
     private int currentHP;
     private int maxHP;
@@ -19,8 +16,6 @@ public class Pokemon {
     private int specialAttack;
     private int specialDefense;
     private int speed;
-
-    // Atributos base (para futuros cálculos)
     private int baseHP;
     private int baseAttack;
     private int baseDefense;
@@ -36,15 +31,14 @@ public class Pokemon {
         this.shiny = shiny;
         this.level = level;
         this.maxHP = maxHP;
-        this.currentHP = maxHP; // Começa com HP cheio
+        this.currentHP = maxHP;
         this.attack = attack;
         this.defense = defense;
         this.specialAttack = specialAttack;
         this.specialDefense = specialDefense;
         this.speed = speed;
     }
-    
-    // Getters para todos os atributos
+
     public String getSpeciesName() { return speciesName; }
     public String getNickname() { return nickname; }
     public Gender getGender() { return gender; }
@@ -59,10 +53,22 @@ public class Pokemon {
     public int getSpeed() { return speed; }
 
     /**
-     * Retorna o nome do sprite do ícone, considerando se é shiny.
-     * Ex: "mudkip" ou "mudkip_shiny"
+     * ## MÉTODO ATUALIZADO ##
+     * Retorna o nome do sprite do ícone. A verificação de shiny foi removida
+     * para que ambos, shiny e normal, usem o mesmo ícone.
      */
     public String getIconSpriteName() {
-        return speciesName.toLowerCase().replace(" ", "") + (shiny ? "_shiny" : "");
+        return speciesName.toLowerCase().replace(" ", "");
+    }
+
+    /**
+     * Retorna o caminho para o GIF do sprite frontal.
+     * Adiciona "_shiny" ao nome do arquivo se o Pokémon for shiny.
+     * Ex.: "sprites/pokemons/frontal/mudkip_shiny.gif"
+     */
+    public String getFrontSpriteGifPath() {
+        String baseName = speciesName.toLowerCase().replace(" ", "");
+        String shinySuffix = shiny ? "_shiny" : "";
+        return "sprites/pokemons/frontal/" + baseName + shinySuffix + ".gif";
     }
 }

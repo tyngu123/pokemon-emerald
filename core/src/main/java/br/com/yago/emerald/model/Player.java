@@ -34,12 +34,12 @@ public class Player extends Character {
 	}
 
 	private void addDefaultPokemon() {
-		Pokemon mudkip = new Pokemon("Mudkip", "Mudkip", Pokemon.Gender.MALE, false, 5, 25, 12, 10, 11, 10, 9);
-		Pokemon torchic = new Pokemon("Torchic", "Torchic", Pokemon.Gender.FEMALE, false, 5, 22, 11, 9, 13, 9, 10);
-		Pokemon treecko = new Pokemon("Treecko", "Treecko", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
-		Pokemon jigglypuff = new Pokemon("Jigglypuff", "lalinha", Pokemon.Gender.FEMALE, false, 100, 230, 10, 8, 12, 11, 12);
+		Pokemon mudkip = new Pokemon("Mudkip", "Mudkip", Pokemon.Gender.MALE, true, 5, 25, 12, 10, 11, 10, 9);
+		Pokemon torchic = new Pokemon("Torchic", "Torchic", Pokemon.Gender.FEMALE, true, 5, 22, 11, 9, 13, 9, 10);
+		Pokemon treecko = new Pokemon("Treecko", "Treecko", Pokemon.Gender.MALE, true, 5, 23, 10, 8, 12, 11, 12);
+		Pokemon jigglypuff = new Pokemon("Jigglypuff", "lalinha", Pokemon.Gender.FEMALE, true, 100, 230, 10, 8, 12, 11, 12);
 		Pokemon articuno = new Pokemon("Articuno", "Articuno", Pokemon.Gender.GENDERLESS,
-				false,
+				true,
 				90, 
 				289, 
 				185, 
@@ -48,13 +48,13 @@ public class Player extends Character {
 				257, 
 				185 
 		);
-		Pokemon treecko4 = new Pokemon("Treecko", "Treecko", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
+		Pokemon pikachu = new Pokemon("Pikachu", "fofuxo", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
 		party.addPokemon(mudkip);
 		party.addPokemon(torchic);
 		party.addPokemon(treecko);
 		party.addPokemon(jigglypuff);
 		party.addPokemon(articuno);
-		party.addPokemon(treecko4);
+		party.addPokemon(pikachu);
 	}
 
 	public Inventory getInventory() {

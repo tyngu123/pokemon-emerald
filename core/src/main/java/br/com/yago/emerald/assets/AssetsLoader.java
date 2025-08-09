@@ -7,12 +7,15 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.Hinting;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+
+import br.com.yago.emerald.tools.AnimationAssetLoader;
 
 public class AssetsLoader {
 
@@ -30,6 +33,7 @@ public class AssetsLoader {
     public final String TOWN_BOX = "ui/townbox.png";
     public final String BOX = "ui/box2.png";
     public final String BAG_UI = "ui/bag_ui.png";
+    public final String SUMMARY_UI = "ui/summary_ui.png"; // ## NOVA IMAGEM ADICIONADA ##
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -40,17 +44,16 @@ public class AssetsLoader {
     public final String NPC2 = "sprites_overworld/npc001.atlas";
     public final String DOOR_ATLAS = "sprites_overworld/doors.atlas";
     public final String BAG_ATLAS = "ui/bag.atlas";
-    // ## NOVO ATLAS DE ITENS ##
     public final String ITEM_ATLAS = "items/items.atlas";
     public final String POKEMON_ICON_ATLAS = "sprites/pokemons/icons/icons.atlas";
- // ## NOVO ATLAS DA UI DA PARTY ##
     public final String PARTY_UI_ATLAS = "ui/party.atlas";
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
-
+     // ## REGISTRA NOSSO NOVO LOADER DE GIFS ##
+        manager.setLoader(Animation.class, ".gif", new AnimationAssetLoader(resolver));
         // FONTE PRINCIPAL (gameFont)
         FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams =
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
@@ -93,7 +96,7 @@ public class AssetsLoader {
         bagFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(BAG_FONT_NAME + ".otf", BitmapFont.class, bagFontParams);
         
-     // ## NOVA FONTE DA PARTY SCREEN ##
+        // NOVA FONTE DA PARTY SCREEN
         FreetypeFontLoader.FreeTypeFontLoaderParameter partyFontParams =
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         partyFontParams.fontFileName = FONT_FILE;
@@ -119,7 +122,8 @@ public class AssetsLoader {
         manager.load(TOWN_BOX,       Texture.class, textureParams);
         manager.load(BOX, Texture.class, textureParams);
         manager.load(BAG_UI, Texture.class, textureParams);
-
+        manager.load(SUMMARY_UI, Texture.class, textureParams); // ## CARREGANDO A NOVA TEXTURA ##
+        
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);
         manager.load(PROF_BIRCH_ATLAS, TextureAtlas.class);
@@ -129,7 +133,6 @@ public class AssetsLoader {
         manager.load(NPC2,  TextureAtlas.class);
         manager.load(DOOR_ATLAS, TextureAtlas.class);
         manager.load(BAG_ATLAS, TextureAtlas.class);
-        // ## CARREGANDO O ATLAS DE ITENS ##
         manager.load(ITEM_ATLAS, TextureAtlas.class);
         manager.load(POKEMON_ICON_ATLAS, TextureAtlas.class);
         manager.load(PARTY_UI_ATLAS, TextureAtlas.class);
