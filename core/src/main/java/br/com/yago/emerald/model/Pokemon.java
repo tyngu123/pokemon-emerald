@@ -1,27 +1,23 @@
 package br.com.yago.emerald.model;
 
+import java.util.Map;
+
 public class Pokemon {
 
     public enum Gender { MALE, FEMALE, GENDERLESS }
 
-    private String speciesName;
-    private String nickname;
-    private Gender gender;
-    private boolean shiny;
-    private int level;
+    private final String speciesName;
+    private final String nickname;
+    private final Gender gender;
+    private final boolean shiny;
+    private final int level;
     private int currentHP;
-    private int maxHP;
-    private int attack;
-    private int defense;
-    private int specialAttack;
-    private int specialDefense;
-    private int speed;
-    private int baseHP;
-    private int baseAttack;
-    private int baseDefense;
-    private int baseSpecialAttack;
-    private int baseSpecialDefense;
-    private int baseSpeed;
+    private final int maxHP;
+    private final int attack;
+    private final int defense;
+    private final int specialAttack;
+    private final int specialDefense;
+    private final int speed;
 
     private final PokemonType type1;
     private final PokemonType type2;
@@ -29,36 +25,28 @@ public class Pokemon {
     private final PokemonNature nature;
     private final int metLevel;
     private final String metMap;
-    
+
     private final Pokeball pokeball;
     private final String originalTrainerName;
-
     private final Ability ability;
-
-    // ## NOVOS CAMPOS ADICIONADOS ##
     private final Item heldItem;
+
+    private final ExperienceGroup experienceGroup;
     private final int experiencePoints;
     private final int experienceToNextLevel;
 
-
-    public Pokemon(String speciesName, String nickname, Gender gender, boolean shiny, int level,
-                   int maxHP, int attack, int defense, int specialAttack, int specialDefense, int speed,
-                   PokemonType type1, PokemonType type2, PokemonNature nature, int metLevel, String metMap,
-                   Pokeball pokeball, String originalTrainerName, Ability ability, Item heldItem, int experiencePoints, int experienceToNextLevel) { // ## CONSTRUTOR ATUALIZADO ##
+    public Pokemon(
+        String speciesName, String nickname, Pokemon.Gender gender, boolean shiny, int level,
+        Map<String, Integer> baseStats,
+        PokemonType type1, PokemonType type2, PokemonNature nature, int metLevel, String metMap,
+        Pokeball pokeball, String originalTrainerName, Ability ability, Item heldItem,
+        ExperienceGroup experienceGroup
+    ) {
         this.speciesName = speciesName;
         this.nickname = nickname;
         this.gender = gender;
         this.shiny = shiny;
         this.level = level;
-        this.maxHP = maxHP;
-        this.currentHP = maxHP;
-        this.attack = attack;
-        this.defense = defense;
-        this.specialAttack = specialAttack;
-        this.specialDefense = specialDefense;
-        this.speed = speed;
-        this.type1 = type1;
-        this.type2 = type2;
         this.nature = nature;
         this.metLevel = metLevel;
         this.metMap = metMap;
@@ -66,8 +54,29 @@ public class Pokemon {
         this.originalTrainerName = originalTrainerName;
         this.ability = ability;
         this.heldItem = heldItem;
-        this.experiencePoints = experiencePoints;
-        this.experienceToNextLevel = experienceToNextLevel;
+        this.experienceGroup = experienceGroup;
+        this.type1 = type1;
+        this.type2 = type2;
+
+        // Calcular stats usando a classe utilitária
+        this.maxHP = StatCalculator.calculateHP(baseStats.get("HP"), level);
+        this.attack = StatCalculator.calculateStat(baseStats.get("ATTACK"), level);
+        this.defense = StatCalculator.calculateStat(baseStats.get("DEFENSE"), level);
+        this.specialAttack = StatCalculator.calculateStat(baseStats.get("SPECIAL_ATTACK"), level);
+        this.specialDefense = StatCalculator.calculateStat(baseStats.get("SPECIAL_DEFENSE"), level);
+        this.speed = StatCalculator.calculateStat(baseStats.get("SPEED"), level);
+
+        // O HP atual começa cheio
+        this.currentHP = this.maxHP;
+
+        // Calcular experiência usando a classe utilitária
+        this.experiencePoints = ExperienceCalculator.getTotalExpForLevel(level, experienceGroup);
+        this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(level, experienceGroup);
+    }
+
+    private int calculateStatWithNature(int baseStat, String statName) {
+        float modifier = nature.getModifierForStat(statName);
+        return (int) (baseStat * modifier);
     }
 
     // Getters
@@ -78,11 +87,11 @@ public class Pokemon {
     public int getLevel() { return level; }
     public int getCurrentHP() { return currentHP; }
     public int getMaxHP() { return maxHP; }
-    public int getAttack() { return attack; }
-    public int getDefense() { return defense; }
-    public int getSpecialAttack() { return specialAttack; }
-    public int getSpecialDefense() { return specialDefense; }
-    public int getSpeed() { return speed; }
+    public int getAttack() { return calculateStatWithNature(this.attack, "ATTACK"); }
+    public int getDefense() { return calculateStatWithNature(this.defense, "DEFENSE"); }
+    public int getSpecialAttack() { return calculateStatWithNature(this.specialAttack, "SPECIAL_ATTACK"); }
+    public int getSpecialDefense() { return calculateStatWithNature(this.specialDefense, "SPECIAL_DEFENSE"); }
+    public int getSpeed() { return calculateStatWithNature(this.speed, "SPEED"); }
     public PokemonType getType1() { return type1; }
     public PokemonType getType2() { return type2; }
     public PokemonNature getNature() { return nature; }
@@ -91,8 +100,6 @@ public class Pokemon {
     public Pokeball getPokeball() { return pokeball; }
     public String getOriginalTrainerName() { return originalTrainerName; }
     public Ability getAbility() { return ability; }
-    
-    // ## GETTERS PARA OS NOVOS CAMPOS ##
     public Item getHeldItem() { return heldItem; }
     public int getExperiencePoints() { return experiencePoints; }
     public int getExperienceToNextLevel() { return experienceToNextLevel; }

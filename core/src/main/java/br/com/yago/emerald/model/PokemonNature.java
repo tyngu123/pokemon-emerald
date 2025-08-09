@@ -1,29 +1,57 @@
 package br.com.yago.emerald.model;
 
+/**
+ * Enum que representa as diferentes tipos de Pokébolas.
+ */
 public enum PokemonNature {
-    HARDY,
-    LONELY,
-    BRAVE,
-    ADAMANT,
-    NAUGHTY,
-    BOLD,
-    DOCILE,
-    RELAXED,
-    IMPISH,
-    LAX,
-    TIMID,
-    HASTY,
-    SERIOUS,
-    JOLLY,
-    NAIVE,
-    MODEST,
-    MILD,
-    QUIET,
-    BASHFUL,
-    RASH,
-    CALM,
-    GENTLE,
-    SASSY,
-    CAREFUL,
-    QUIRKY
+    HARDY("ATTACK", "ATTACK"),
+    LONELY("ATTACK", "DEFENSE"),
+    BRAVE("ATTACK", "SPEED"),
+    ADAMANT("ATTACK", "SPECIAL_ATTACK"),
+    NAUGHTY("ATTACK", "SPECIAL_DEFENSE"),
+
+    BOLD("DEFENSE", "ATTACK"),
+    DOCILE("DEFENSE", "DEFENSE"),
+    RELAXED("DEFENSE", "SPEED"),
+    IMPISH("DEFENSE", "SPECIAL_ATTACK"),
+    LAX("DEFENSE", "SPECIAL_DEFENSE"),
+
+    TIMID("SPEED", "ATTACK"),
+    HASTY("SPEED", "DEFENSE"),
+    SERIOUS("SPEED", "SPEED"),
+    JOLLY("SPEED", "SPECIAL_ATTACK"),
+    NAIVE("SPEED", "SPECIAL_DEFENSE"),
+
+    MODEST("SPECIAL_ATTACK", "ATTACK"),
+    MILD("SPECIAL_ATTACK", "DEFENSE"),
+    QUIET("SPECIAL_ATTACK", "SPEED"),
+    BASHFUL("SPECIAL_ATTACK", "SPECIAL_ATTACK"),
+    RASH("SPECIAL_ATTACK", "SPECIAL_DEFENSE"),
+
+    CALM("SPECIAL_DEFENSE", "ATTACK"),
+    GENTLE("SPECIAL_DEFENSE", "DEFENSE"),
+    SASSY("SPECIAL_DEFENSE", "SPEED"),
+    CAREFUL("SPECIAL_DEFENSE", "SPECIAL_ATTACK"),
+    QUIRKY("SPECIAL_DEFENSE", "SPECIAL_DEFENSE");
+
+    private final String increasedStat;
+    private final String decreasedStat;
+
+    PokemonNature(String increasedStat, String decreasedStat) {
+        this.increasedStat = increasedStat;
+        this.decreasedStat = decreasedStat;
+    }
+
+    public float getModifierForStat(String statName) {
+        if (increasedStat.equals(decreasedStat)) {
+            return 1.0f; // Nature Neutra
+        }
+        if (statName.equals(increasedStat)) {
+            return 1.1f; // Bônus de 10%
+        }
+        if (statName.equals(decreasedStat)) {
+            return 0.9f; // Penalidade de 10%
+        }
+        return 1.0f; // Sem modificação
+    }
 }

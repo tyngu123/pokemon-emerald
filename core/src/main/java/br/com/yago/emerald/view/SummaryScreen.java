@@ -28,6 +28,7 @@ import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Pokeball;
 import br.com.yago.emerald.model.Pokemon;
 import br.com.yago.emerald.model.Pokemon.Gender;
+import br.com.yago.emerald.model.PokemonNature;
 import br.com.yago.emerald.model.PokemonType;
 
 public class SummaryScreen extends ScreenAdapter {
@@ -36,7 +37,7 @@ public class SummaryScreen extends ScreenAdapter {
     private final SpriteBatch batch;
     private final Viewport viewport;
     private final OrthographicCamera camera;
-    
+
     private final BitmapFont whiteFont;
     private final BitmapFont blackFont;
     private final GlyphLayout layout = new GlyphLayout();
@@ -60,7 +61,7 @@ public class SummaryScreen extends ScreenAdapter {
     private enum SummaryState { POKEMON_INFO, POKEMON_SKILLS, POKEMON_MOVES }
     private SummaryState currentState = SummaryState.POKEMON_INFO;
     private SummaryState previousState;
-    
+
     private enum AnimationType { NONE, SLIDING }
     private AnimationType animationType = AnimationType.NONE;
     private float animationTimer = 0f;
@@ -72,11 +73,11 @@ public class SummaryScreen extends ScreenAdapter {
         this.party = party;
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(240, 160, camera);
-        
+
         this.infoBackground = new TextureRegion(assetLoader.manager.get(assetLoader.SUMMARY_UI, Texture.class));
         this.whiteFont = assetLoader.manager.get(assetLoader.PARTY_FONT_NAME + ".otf", BitmapFont.class);
         this.blackFont = assetLoader.manager.get(assetLoader.BAG_FONT_NAME + ".otf", BitmapFont.class);
-        
+
         this.typeAtlas = assetLoader.manager.get(assetLoader.TYPE_ATLAS, TextureAtlas.class);
         this.pokeballsAtlas = assetLoader.manager.get(assetLoader.POKEBALLS_ATLAS, TextureAtlas.class);
         this.partyUiAtlas = assetLoader.manager.get(assetLoader.PARTY_UI_ATLAS, TextureAtlas.class);
@@ -90,7 +91,7 @@ public class SummaryScreen extends ScreenAdapter {
 
         loadPokemon(initialIndex);
     }
-    
+
     private void loadPokemon(int index) {
         if (pokemonAnimation != null) {
             for (Object frameObject : pokemonAnimation.getKeyFrames()) {
@@ -106,7 +107,7 @@ public class SummaryScreen extends ScreenAdapter {
         this.pokemonAnimation = AnimationLoader.loadGifAnimation(currentPokemon.getFrontSpriteGifPath());
         this.stateTimer = 0f;
     }
-    
+
     @Override
     public void show() {
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -146,11 +147,11 @@ public class SummaryScreen extends ScreenAdapter {
         int numStates = SummaryState.values().length;
         int nextIndex = next ? (currentState.ordinal() + 1) % numStates : (currentState.ordinal() - 1 + numStates) % numStates;
         currentState = SummaryState.values()[nextIndex];
-        
+
         animationType = AnimationType.SLIDING;
         animationTimer = 0f;
     }
-    
+
     private void update(float delta) {
         stateTimer += delta;
         if (animationType != AnimationType.NONE) {
@@ -173,7 +174,7 @@ public class SummaryScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-        
+
         batch.draw(infoBackground, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         drawPokemonInfoPanel();
         drawScreens();
@@ -188,10 +189,10 @@ public class SummaryScreen extends ScreenAdapter {
         } else {
             float progress = Math.min(1f, animationTimer / SLIDE_DURATION);
             float screenWidth = viewport.getWorldWidth();
-            
+
             float currentOffset = Interpolation.pow2Out.apply(-screenWidth, 0, progress);
             float previousOffset = Interpolation.pow2Out.apply(0, screenWidth, progress);
-            
+
             drawScreenForState(previousState, previousOffset);
             drawScreenForState(currentState, currentOffset);
         }
@@ -258,78 +259,100 @@ public class SummaryScreen extends ScreenAdapter {
         drawAbilityInfo(xOffset);
         drawMetInformation(xOffset);
     }
-    
+
     private void drawSkillsScreen(float xOffset) {
         if (skillsBackground != null) {
             batch.draw(skillsBackground, xOffset, 0);
         }
-
+    
         float leftMargin = xOffset + 85f;
         float topY = 126f;
-
+    
         // --- HELD ITEM ---
         blackFont.draw(batch, "", leftMargin, topY);
         Item heldItem = currentPokemon.getHeldItem();
         String itemName = heldItem != null ? heldItem.getName().toUpperCase() : "NONE";
         blackFont.draw(batch, itemName, leftMargin + 1, topY);
-
+    
         // --- STATS ---
         float statsYLeft = topY - 22f;
         float statsYRight = topY - 22f;
-
-        // Coordenadas coluna esquerda
+    
         float labelXLeft = xOffset + 85f;
         float valueXLeft = labelXLeft + 65f;
-
-        // Coordenadas coluna direita
-        float labelXRight = xOffset + 177f; // Ajuste a distância para caber bem
+    
+        float labelXRight = xOffset + 177f;
         float valueXRight = labelXRight + 40f;
-
+    
+        // ## LÓGICA DE CORES ATUALIZADA ##
+        Color originalColor = blackFont.getColor().cpy();
+        Color increasedColor = new Color(0/255f, 152/255f, 0/255f, 1f); // Verde para bônus
+        Color decreasedColor = new Color(248f/255f, 0f, 0f, 0.75f);      // Vermelho para penalidade (mesma cor da nature)
+        PokemonNature nature = currentPokemon.getNature();
+    
         // Coluna esquerda: HP, ATTACK, DEFENSE
         whiteFont.draw(batch, "HP", labelXLeft, statsYLeft);
         String hpStr = currentPokemon.getCurrentHP() + "/" + currentPokemon.getMaxHP();
         layout.setText(blackFont, hpStr);
         blackFont.draw(batch, hpStr, valueXLeft + 24 - layout.width, statsYLeft);
         statsYLeft -= 16;
-
+    
+        float attackMod = nature.getModifierForStat("ATTACK");
+        if (attackMod > 1.0f) blackFont.setColor(increasedColor);
+        else if (attackMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "ATTACK", labelXLeft, statsYLeft);
         blackFont.draw(batch, String.valueOf(currentPokemon.getAttack()), valueXLeft, statsYLeft);
+        blackFont.setColor(originalColor);
         statsYLeft -= 16;
-
+    
+        float defenseMod = nature.getModifierForStat("DEFENSE");
+        if (defenseMod > 1.0f) blackFont.setColor(increasedColor);
+        else if (defenseMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "DEFENSE", labelXLeft, statsYLeft);
         blackFont.draw(batch, String.valueOf(currentPokemon.getDefense()), valueXLeft, statsYLeft);
-
+        blackFont.setColor(originalColor);
+    
         // Coluna direita: SP. ATK, SP. DEF, SPEED
+        float spAttackMod = nature.getModifierForStat("SPECIAL_ATTACK");
+        if (spAttackMod > 1.0f) blackFont.setColor(increasedColor);
+        else if (spAttackMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "SP. ATK", labelXRight, statsYRight);
         blackFont.draw(batch, String.valueOf(currentPokemon.getSpecialAttack()), valueXRight, statsYRight);
+        blackFont.setColor(originalColor);
         statsYRight -= 16;
-
+    
+        float spDefenseMod = nature.getModifierForStat("SPECIAL_DEFENSE");
+        if (spDefenseMod > 1.0f) blackFont.setColor(increasedColor);
+        else if (spDefenseMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "SP. DEF", labelXRight, statsYRight);
         blackFont.draw(batch, String.valueOf(currentPokemon.getSpecialDefense()), valueXRight, statsYRight);
+        blackFont.setColor(originalColor);
         statsYRight -= 16;
-
+    
+        float speedMod = nature.getModifierForStat("SPEED");
+        if (speedMod > 1.0f) blackFont.setColor(increasedColor);
+        else if (speedMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "SPEED", labelXRight, statsYRight);
         blackFont.draw(batch, String.valueOf(currentPokemon.getSpeed()), valueXRight, statsYRight);
-
-     // --- EXPERIENCE ---
-        float expLabelX = xOffset + 85f;     // mesma lógica da coluna esquerda/direita
-        float expValueX = expLabelX + 65f;   // distância do valor
-
+        blackFont.setColor(originalColor);
+    
+         // --- EXPERIENCE ---
+        float expLabelX = xOffset + 85f;
+        float expValueX = expLabelX + 65f;
         float expY = Math.min(statsYLeft, statsYRight) - 26f;
-
-        // EXP. POINTS
+    
         whiteFont.draw(batch, "EXP. POINTS", expLabelX, expY);
         String expStr = String.valueOf(currentPokemon.getExperiencePoints());
         layout.setText(blackFont, expStr);
         blackFont.draw(batch, expStr, expValueX + 68 - layout.width, expY);
         expY -= 12;
-
-        // NEXT LV.
+    
         whiteFont.draw(batch, "TO NEXT LV.", expLabelX, expY);
         String nextLvStr = String.valueOf(currentPokemon.getExperienceToNextLevel());
         layout.setText(blackFont, nextLvStr);
         blackFont.draw(batch, nextLvStr, expValueX + 68 - layout.width, expY);
     }
+
     private void drawMovesScreen(float xOffset) {
         if(movesBackground != null) {
             batch.draw(movesBackground, xOffset, 0);
@@ -404,7 +427,7 @@ public class SummaryScreen extends ScreenAdapter {
             }
         }
     }
-    
+
     private void drawAbilityInfo(float xOffset) {
         Ability ability = currentPokemon.getAbility();
         if (ability == null) return;
@@ -417,7 +440,7 @@ public class SummaryScreen extends ScreenAdapter {
         layout.setText(blackFont, description, new Color(96f,96f,96f,1f), 150f, Align.left, true);
         blackFont.draw(batch, layout, xOffset + startX, descY);
     }
-    
+
     private void drawMetInformation(float xOffset) {
         float startX = 85f;
         float y = 45f;
@@ -452,12 +475,12 @@ public class SummaryScreen extends ScreenAdapter {
         blackFont.draw(batch, textPart3, xOffset + currentX, y);
         whiteFont.setColor(originalColor);
     }
-    
+
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
     }
-    
+
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(Gdx.input.getInputProcessor());

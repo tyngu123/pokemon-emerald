@@ -1,11 +1,12 @@
 package br.com.yago.emerald.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
-
-import br.com.yago.emerald.model.Pokemon.Gender;
 
 public class Player extends Character {
 
@@ -15,7 +16,8 @@ public class Player extends Character {
 	private final Inventory inventory;
 	private final Party party;
 
-	public Player(String name, TextureAtlas atlas, TiledMapTileLayer collisionLayer, Array<Entity> allEntities, float startX, float startY) {
+	public Player(String name, TextureAtlas atlas, TiledMapTileLayer collisionLayer, Array<Entity> allEntities,
+			float startX, float startY) {
 		super(atlas, collisionLayer, allEntities, startX, startY);
 		this.name = name;
 		this.inventory = new Inventory();
@@ -26,44 +28,98 @@ public class Player extends Character {
 
 	private void addDefaultItems() {
 		inventory.addItem(new Item("Potion", "Heals a Pokémon by 20 HP.", "potion", Item.ItemCategory.ITEMS, 5));
-		inventory.addItem(new Item("Super Potion", "Heals a Pokémon by 50 HP.", "super-potion", Item.ItemCategory.ITEMS, 2));
+		inventory.addItem(
+				new Item("Super Potion", "Heals a Pokémon by 50 HP.", "super-potion", Item.ItemCategory.ITEMS, 2));
 		inventory.addItem(new Item("Antidote", "Cures a poisoned Pokémon.", "antidote", Item.ItemCategory.ITEMS, 10));
-		inventory.addItem(new Item("Poke Ball", "A device for catching wild Pokémon.", "pokeball", Item.ItemCategory.POKEBALLS, 20));
-		inventory.addItem(new Item("Great Ball", "A good, high-performance Ball.", "greatball", Item.ItemCategory.POKEBALLS, 5));
+		inventory.addItem(new Item("Poke Ball", "A device for catching wild Pokémon.", "pokeball",
+				Item.ItemCategory.POKEBALLS, 20));
+		inventory.addItem(
+				new Item("Great Ball", "A good, high-performance Ball.", "greatball", Item.ItemCategory.POKEBALLS, 5));
 		inventory.addItem(new Item("HM01 Cut", "A machine for teaching Cut.", "hm", Item.ItemCategory.TMS_HMS, 1));
 	}
 
 	private void addDefaultPokemon() {
-	    // ## POKEMON ATUALIZADOS COM ITEM E EXPERIÊNCIA ##
-		Ability torrent = new Ability("Torrent", "Powers up Water-type moves.");
-		Item potion = new Item("Potion", "Heals a Pokémon by 20 HP.", "potion", Item.ItemCategory.ITEMS, 1);
-		Pokemon mudkip = new Pokemon("MUDKIP", "Mudkip", Gender.MALE, true, 5, 25, 12, 10, 11, 10, 9, PokemonType.WATER, null, PokemonNature.HARDY, 5, "Littleroot Town", Pokeball.POKEBALL, this.name, torrent, potion, 125, 50);
+	    Ability torrent = new Ability("Torrent", "Powers up Water-type moves.");
+	    Item potion = new Item("Potion", "Heals a Pokémon by 20 HP.", "potion", Item.ItemCategory.ITEMS, 1);
 
-		Ability intimidate = new Ability("Intimidate", "Lowers the foe's Attack.");
-		Pokemon salamence = new Pokemon("SALAMENCE", "drago", Gender.FEMALE, false, 50, 150, 135, 80, 110, 80, 100, PokemonType.DRAGON, PokemonType.FLYING, PokemonNature.NAUGHTY, 50, "Meteor Falls", Pokeball.GREATBALL, this.name, intimidate, null, 125000, 25000);
+	    Map<String, Integer> mudkipBaseStats = new HashMap<>();
+	    mudkipBaseStats.put("HP", 50);
+	    mudkipBaseStats.put("ATTACK", 70);
+	    mudkipBaseStats.put("DEFENSE", 50);
+	    mudkipBaseStats.put("SPECIAL_ATTACK", 50);
+	    mudkipBaseStats.put("SPECIAL_DEFENSE", 50);
+	    mudkipBaseStats.put("SPEED", 40);
 
-		Ability drought = new Ability("Drought", "Turns the sunlight harsh.");
-		Pokemon groudon = new Pokemon("GROUDON", "Groudon", Gender.GENDERLESS, false, 100, 404, 438, 416, 328, 306, 306, PokemonType.GROUND, null, PokemonNature.ADAMANT, 70, "Cave of Origin", Pokeball.POKEBALL, this.name, drought, null, 1250000, 0);
+	    Pokemon mudkip = new Pokemon("MUDKIP", "Mudkip", Pokemon.Gender.MALE, true, 5, mudkipBaseStats,
+	            PokemonType.WATER, null, PokemonNature.HARDY, 5, "Littleroot Town", Pokeball.POKEBALL, this.name,
+	            torrent, potion, ExperienceGroup.FAST);
 
-		Ability cuteCharm = new Ability("Cute Charm", "May cause infatuation.");
-		Pokemon jigglypuff = new Pokemon("JIGGLYPUFF", "lalinha", Gender.FEMALE, true, 100, 230, 10, 8, 12, 11, 12, PokemonType.NORMAL, PokemonType.FAIRY, PokemonNature.MODEST, 15, "Route 115", Pokeball.POKEBALL, this.name, cuteCharm, null, 800000, 0);
+	    Ability intimidate = new Ability("Intimidate", "Lowers the foe's Attack.");
+	    Map<String, Integer> salamenceBaseStats = new HashMap<>();
+	    salamenceBaseStats.put("HP", 95);
+	    salamenceBaseStats.put("ATTACK", 135);
+	    salamenceBaseStats.put("DEFENSE", 80);
+	    salamenceBaseStats.put("SPECIAL_ATTACK", 110);
+	    salamenceBaseStats.put("SPECIAL_DEFENSE", 80);
+	    salamenceBaseStats.put("SPEED", 100);
 
-		Ability pressure = new Ability("Pressure", "Raises the foe's PP usage.");
-		Pokemon articuno = new Pokemon("ARTICUNO", "Articuno", Gender.GENDERLESS, true, 90, 289, 185, 212, 203, 257, 185, PokemonType.ICE, PokemonType.FLYING, PokemonNature.TIMID, 50, "Seafoam Islands", Pokeball.GREATBALL, this.name, pressure, null, 900000, 100000);
+	    Pokemon salamence = new Pokemon("SALAMENCE", "drago", Pokemon.Gender.FEMALE, true, 5, salamenceBaseStats,
+	            PokemonType.DRAGON, PokemonType.FLYING, PokemonNature.NAUGHTY, 50, "Meteor Falls", Pokeball.GREATBALL,
+	            this.name, intimidate, null, ExperienceGroup.SLOW);
 
-		Ability staticAbility = new Ability("Static", "Contact cause paralysis.");
-		Pokemon pikachu = new Pokemon("PIKACHU", "fofuxo", Gender.MALE, false, 100, 23, 10, 8, 12, 11, 12, PokemonType.ELECTRIC, null, PokemonNature.JOLLY, 100, "Viridian Forest", Pokeball.POKEBALL, this.name, staticAbility, null, 1000000, 0);
-		
-		party.addPokemon(mudkip);
-		party.addPokemon(salamence);
-		party.addPokemon(groudon);
-		party.addPokemon(jigglypuff);
-		party.addPokemon(articuno);
-		party.addPokemon(pikachu);
+	    // ---------- NOVOS (base stats oficiais) ----------
+	    // PIKACHU — 35 / 55 / 40 / 50 / 50 / 90
+	    Ability staticAbility = new Ability("Static", "Contact may cause paralysis.");
+	    Map<String, Integer> pikachuBaseStats = new HashMap<>();
+	    pikachuBaseStats.put("HP", 35);
+	    pikachuBaseStats.put("ATTACK", 55);
+	    pikachuBaseStats.put("DEFENSE", 40);
+	    pikachuBaseStats.put("SPECIAL_ATTACK", 50);
+	    pikachuBaseStats.put("SPECIAL_DEFENSE", 50);
+	    pikachuBaseStats.put("SPEED", 90);
+
+	    Pokemon pikachu = new Pokemon("PIKACHU", "fofuxo", Pokemon.Gender.MALE, false, 15, pikachuBaseStats,
+	            PokemonType.ELECTRIC, null, PokemonNature.JOLLY, 5, "Viridian Forest", Pokeball.POKEBALL, this.name,
+	            staticAbility, null, ExperienceGroup.FAST);
+
+	    // JIGGLYPUFF — 115 / 45 / 20 / 45 / 25 / 20
+	    Ability cuteCharm = new Ability("Cute Charm", "May cause infatuation on contact.");
+	    Map<String, Integer> jigglypuffBaseStats = new HashMap<>();
+	    jigglypuffBaseStats.put("HP", 115);
+	    jigglypuffBaseStats.put("ATTACK", 45);
+	    jigglypuffBaseStats.put("DEFENSE", 20);
+	    jigglypuffBaseStats.put("SPECIAL_ATTACK", 45);
+	    jigglypuffBaseStats.put("SPECIAL_DEFENSE", 25);
+	    jigglypuffBaseStats.put("SPEED", 20);
+
+	    Pokemon jigglypuff = new Pokemon("JIGGLYPUFF", "lalica", Pokemon.Gender.FEMALE, true, 5, jigglypuffBaseStats,
+	            PokemonType.NORMAL, PokemonType.FAIRY, PokemonNature.MODEST, 5, "Route 115", Pokeball.POKEBALL, this.name,
+	            cuteCharm, null, ExperienceGroup.FAST);
+
+	    // DIALGA — 100 / 120 / 120 / 150 / 100 / 90
+	    Ability pressure = new Ability("Pressure", "Raises the foe's PP usage.");
+	    Map<String, Integer> dialgaBaseStats = new HashMap<>();
+	    dialgaBaseStats.put("HP", 100);
+	    dialgaBaseStats.put("ATTACK", 120);
+	    dialgaBaseStats.put("DEFENSE", 120);
+	    dialgaBaseStats.put("SPECIAL_ATTACK", 150);
+	    dialgaBaseStats.put("SPECIAL_DEFENSE", 100);
+	    dialgaBaseStats.put("SPEED", 90);
+
+	    Pokemon dialga = new Pokemon("DIALGA", "Dialga", Pokemon.Gender.GENDERLESS, false, 5, dialgaBaseStats,
+	            PokemonType.STEEL, PokemonType.DRAGON, PokemonNature.MODEST, 5, "Spear Pillar", Pokeball.POKEBALL,
+	            this.name, pressure, null, ExperienceGroup.SLOW);
+
+	    // adicionar ao party
+	    party.addPokemon(mudkip);
+	    party.addPokemon(salamence);
+	    party.addPokemon(pikachu);
+	    party.addPokemon(jigglypuff);
+	    party.addPokemon(dialga);
 	}
-	
+
 	public String getName() {
-	    return name;
+		return name;
 	}
 
 	public Inventory getInventory() {
