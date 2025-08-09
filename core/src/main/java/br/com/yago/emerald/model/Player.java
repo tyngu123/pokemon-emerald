@@ -38,7 +38,7 @@ public class Player extends Character {
 		Pokemon torchic = new Pokemon("Torchic", "Torchic", Pokemon.Gender.FEMALE, false, 5, 22, 11, 9, 13, 9, 10);
 		// ## ADICIONADO MAIS UM POKÉMON PARA TESTAR A LISTA LATERAL ##
 		Pokemon treecko = new Pokemon("Treecko", "Treecko", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
-		Pokemon jigglypuff = new Pokemon("Jigglypuff", "lalinha", Pokemon.Gender.MALE, false, 5, 23, 10, 8, 12, 11, 12);
+		Pokemon jigglypuff = new Pokemon("Jigglypuff", "lalinha", Pokemon.Gender.FEMALE, false, 100, 230, 10, 8, 12, 11, 12);
 		Pokemon articuno = new Pokemon("Articuno", "Articuno", Pokemon.Gender.GENDERLESS, // Articuno é genderless
 				false, // shiny
 				90, // level

@@ -74,7 +74,7 @@ public class MenuBox {
 			return;
 
 		// Mantendo os tamanhos da caixa, você pode ajustá-los se necessário
-		float boxWidth = 80f;
+		float boxWidth = 70f;
 		float boxHeight = 160f; // Altura ajustada para o novo espaçamento
 		float boxX = viewport.getWorldWidth() - boxWidth;
 		float boxY = viewport.getWorldHeight() - boxHeight;

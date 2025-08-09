@@ -19,11 +19,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.math.Interpolation;
 
 public class PartyScreen extends ScreenAdapter {
 
@@ -209,7 +209,7 @@ public class PartyScreen extends ScreenAdapter {
             return true;
         }
         if (keycode == Input.Keys.Z) {
-            // Inicia animação de troca (main e other deslizam p/ esquerda; depois entram da direita)
+            // Inicia animação de troca
             beginSwapAnimation(switchInitialIndex, selectedIndex);
             return true;
         }
@@ -217,6 +217,7 @@ public class PartyScreen extends ScreenAdapter {
     }
     //</editor-fold>
 
+    // --- animação ---
     private void beginSwapAnimation(int from, int to) {
         if (from == to) {
             partyState = PartyState.BROWSE;
@@ -233,14 +234,14 @@ public class PartyScreen extends ScreenAdapter {
     private float getSlideOffsetX(int index) {
         if (!isSwapAnimating) return 0f;
 
-        float dist = viewport.getWorldWidth() + 32f; // distância suficiente para sair/entrar
+        float dist = viewport.getWorldWidth() + 32f;
 
         switch (swapPhase) {
             case OUT: {
                 if (index == animFromIndex || index == animToIndex) {
                     float p = Math.min(1f, animTimer / SWAP_OUT_DURATION);
                     float k = Interpolation.pow2Out.apply(p);
-                    return -dist * k; // sai pra esquerda
+                    return -dist * k;
                 }
                 return 0f;
             }
@@ -248,7 +249,7 @@ public class PartyScreen extends ScreenAdapter {
                 if (index == animFromIndex || index == animToIndex) {
                     float p = Math.min(1f, animTimer / SWAP_IN_DURATION);
                     float k = Interpolation.pow2Out.apply(p);
-                    return dist * (1f - k); // entra da direita até 0
+                    return dist * (1f - k);
                 }
                 return 0f;
             }
@@ -260,21 +261,18 @@ public class PartyScreen extends ScreenAdapter {
     private void update(float delta) {
         iconBounceTimer += delta;
 
-        // animação de troca
         if (isSwapAnimating) {
             animTimer += delta;
 
             if (swapPhase == SwapPhase.OUT && animTimer >= SWAP_OUT_DURATION) {
-                // faz o swap quando os antigos já saíram
                 playerParty.swapPokemons(animFromIndex, animToIndex);
                 swapPhase = SwapPhase.IN;
                 animTimer = 0f;
             } else if (swapPhase == SwapPhase.IN && animTimer >= SWAP_IN_DURATION) {
-                // termina animação
                 isSwapAnimating = false;
                 swapPhase = SwapPhase.DONE;
                 partyState = PartyState.BROWSE;
-                selectedIndex = animToIndex; // foco volta para o destino
+                selectedIndex = animToIndex;
                 switchInitialIndex = -1;
             }
         }
@@ -339,10 +337,8 @@ public class PartyScreen extends ScreenAdapter {
             slotY = 30f + (4 - (index - 1)) * 26f;
             if (partyState == PartyState.SWITCHING) {
                 if (index == switchInitialIndex) {
-                    // usa o sprite de switch para 'other'
                     slotSprite = partyUiAtlas.findRegion("party_slot_switch_other");
                 } else if (index == selectedIndex) {
-                    // usa o sprite de switch selecionado para 'other'
                     slotSprite = partyUiAtlas.findRegion("party_slot_switch_other_selected");
                 } else {
                     slotSprite = partyUiAtlas.findRegion("party_slot_other");
@@ -366,8 +362,8 @@ public class PartyScreen extends ScreenAdapter {
         float baseIconY = slotY + (isMainSlot ? 24 : 2);
 
         if (pokeballSprite != null) {
-            float pokeballX = (slotX + slideX) + (10f / 2f) - (pokeballSprite.getRegionWidth() / 2f);
-            float pokeballY = baseIconY + (26f / 2f) - (pokeballSprite.getRegionHeight() / 2f);
+            float pokeballX = (slotX + slideX) + (12f / 2f) - (pokeballSprite.getRegionWidth() / 2f);
+            float pokeballY = baseIconY + (32f / 2f) - (pokeballSprite.getRegionHeight() / 2f);
             batch.draw(pokeballSprite, pokeballX, pokeballY);
         }
 
@@ -403,9 +399,39 @@ public class PartyScreen extends ScreenAdapter {
 
         float slideX = getSlideOffsetX(index);
 
+        // Nome
         whiteFont.draw(batch, pokemon.getNickname(), textX + slideX, nameY);
-        whiteFont.draw(batch, "Lv" + pokemon.getLevel(), levelX + slideX, levelY);
 
+        // Nível
+        String levelStr = "Lv" + pokemon.getLevel();
+        layout.setText(whiteFont, levelStr);
+        whiteFont.draw(batch, levelStr, levelX + slideX, levelY);
+
+        // Ícone de gênero (5x8) à direita do texto do nível
+        TextureRegion genderIcon = null;
+        try {
+            Pokemon.Gender g = pokemon.getGender(); // assume getter existe
+            if (g != null) {
+                if (g.name().equalsIgnoreCase("MALE")) {
+                    genderIcon = partyUiAtlas.findRegion("party_male");
+                } else if (g.name().equalsIgnoreCase("FEMALE")) {
+                    genderIcon = partyUiAtlas.findRegion("party_female");
+                }
+                // se genderless ou null, não desenha
+            }
+        } catch (Exception ignored) {}
+
+        if (genderIcon != null) {
+            float pad = 3f; // pequeno espaçamento depois de "LvXX"
+            float iconW = genderIcon.getRegionWidth();   // esperado 5
+            float iconH = genderIcon.getRegionHeight();  // esperado 8
+            // centraliza verticalmente relativo à altura do texto medido
+            float genderX = levelX + slideX + layout.width + pad;
+            float genderY = levelY - layout.height + (layout.height - iconH) / 2f;
+            batch.draw(genderIcon, genderX, genderY, iconW, iconH);
+        }
+
+        // HP texto
         String hpString = pokemon.getCurrentHP() + "/" + pokemon.getMaxHP();
         layout.setText(whiteFont, hpString);
         float hpTextY, hpTextX;

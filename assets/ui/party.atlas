@@ -4,22 +4,26 @@ format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 pma: false
+party_female
+  bounds: 0, 0, 5, 8
+party_male
+  bounds: 5, 0, 5, 8
 party_pokeball
-  bounds: 0, 0, 20, 20
+  bounds: 10, 0, 20, 20
 party_pokeball_selected
   bounds: 142, 22, 20, 24
 party_slot
   bounds: 162, 22, 78, 49
 party_slot_other
-  bounds: 20, 0, 142, 22
+  bounds: 30, 0, 142, 22
 party_slot_other_selected
-  bounds: 162, 0, 142, 22
+  bounds: 172, 0, 142, 22
 party_slot_selected
   bounds: 240, 22, 78, 49
 party_slot_switch
   bounds: 318, 22, 78, 49
 party_slot_switch_other
-  bounds: 304, 0, 142, 22
+  bounds: 314, 0, 142, 22
 party_slot_switch_other_selected
   bounds: 0, 22, 142, 22
 party_slot_switch_selected
