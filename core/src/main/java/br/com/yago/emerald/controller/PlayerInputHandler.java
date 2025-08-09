@@ -70,7 +70,10 @@ public class PlayerInputHandler extends InputAdapter {
                     break;
                 case Input.Keys.Z: // Botão de Ação/Seleção
                     String selectedOption = menu.getSelectedOption();
-                    
+                 // ## LÓGICA PARA ABRIR A TELA DA PARTY ##
+                    if ("POKEMON".equals(selectedOption)) {
+                        game.openPartyScreen();
+                    } 
                     // ## LÓGICA PARA ABRIR A MOCHILA ##
                     if ("BAG".equals(selectedOption)) {
                         game.openBagScreen();

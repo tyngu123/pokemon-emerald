@@ -1,13 +1,15 @@
 package br.com.yago.emerald;
 
-import br.com.yago.emerald.assets.AssetsLoader;
-import br.com.yago.emerald.model.Direction;
-import br.com.yago.emerald.view.BagScreen;
-import br.com.yago.emerald.view.GameScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import br.com.yago.emerald.assets.AssetsLoader;
+import br.com.yago.emerald.model.Direction;
+import br.com.yago.emerald.view.BagScreen;
+import br.com.yago.emerald.view.GameScreen;
+import br.com.yago.emerald.view.PartyScreen;
 
 public class EmeraldGame extends Game {
 
@@ -45,6 +47,22 @@ public class EmeraldGame extends Game {
         Screen oldScreen = getScreen();
         if (oldScreen instanceof BagScreen) {
             // Volta para a tela do jogo que estava ativa.
+            setScreen(gameScreen);
+            oldScreen.dispose();
+        }
+    }
+    
+    // ## NOVO MÉTODO PARA ABRIR A TELA DA PARTY ##
+    public void openPartyScreen() {
+        if (gameScreen != null) {
+            setScreen(new PartyScreen(this, gameScreen, batch, assetLoader));
+        }
+    }
+    
+    // ## NOVO MÉTODO PARA FECHAR A TELA DA PARTY ##
+    public void closePartyScreen() {
+        Screen oldScreen = getScreen();
+        if (oldScreen instanceof PartyScreen) {
             setScreen(gameScreen);
             oldScreen.dispose();
         }

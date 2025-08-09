@@ -24,6 +24,7 @@ public class AssetsLoader {
     public final String DIALOGUE_FONT_NAME = "dialogueFont";
     public final String BAG_FONT_NAME = "bagFont";
     public final String DIALOGUE_BOX = "ui/dialoguebox.png";
+    public final String PARTY_FONT_NAME = "partyFont";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
     public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
     public final String TOWN_BOX = "ui/townbox.png";
@@ -41,6 +42,9 @@ public class AssetsLoader {
     public final String BAG_ATLAS = "ui/bag.atlas";
     // ## NOVO ATLAS DE ITENS ##
     public final String ITEM_ATLAS = "items/items.atlas";
+    public final String POKEMON_ICON_ATLAS = "sprites/pokemons/icons/icons.atlas";
+ // ## NOVO ATLAS DA UI DA PARTY ##
+    public final String PARTY_UI_ATLAS = "ui/party.atlas";
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -80,19 +84,33 @@ public class AssetsLoader {
             new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         bagFontParams.fontFileName = FONT_FILE;
         bagFontParams.fontParameters.size = 16;
-        bagFontParams.fontParameters.color = Color.BLACK;
-        bagFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 1f);
+        bagFontParams.fontParameters.color = new Color(0.282f, 0.282f, 0.282f, 1f);
+        bagFontParams.fontParameters.shadowColor = new Color(0.815f, 0.815f, 0.784f, 0.6f); // Sombra cinza
         bagFontParams.fontParameters.shadowOffsetX = 1;
         bagFontParams.fontParameters.shadowOffsetY = 1;
         bagFontParams.fontParameters.minFilter = TextureFilter.Nearest;
         bagFontParams.fontParameters.magFilter = TextureFilter.Nearest;
         bagFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(BAG_FONT_NAME + ".otf", BitmapFont.class, bagFontParams);
+        
+     // ## NOVA FONTE DA PARTY SCREEN ##
+        FreetypeFontLoader.FreeTypeFontLoaderParameter partyFontParams =
+            new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        partyFontParams.fontFileName = FONT_FILE;
+        partyFontParams.fontParameters.size = 16;
+        partyFontParams.fontParameters.color = Color.WHITE; // Texto branco
+        partyFontParams.fontParameters.shadowColor = new Color(0.6f, 0.6f, 0.6f, 1f); // Sombra cinza
+        partyFontParams.fontParameters.shadowOffsetX = 1;
+        partyFontParams.fontParameters.shadowOffsetY = 1;
+        partyFontParams.fontParameters.minFilter = TextureFilter.Nearest;
+        partyFontParams.fontParameters.magFilter = TextureFilter.Nearest;
+        partyFontParams.fontParameters.hinting = Hinting.Full;
+        manager.load(PARTY_FONT_NAME + ".otf", BitmapFont.class, partyFontParams);
 
-        // Parâmetros para carregar texturas com filtro NEAREST
         TextureLoader.TextureParameter textureParams = new TextureLoader.TextureParameter();
         textureParams.minFilter = TextureFilter.Nearest;
         textureParams.magFilter = TextureFilter.Nearest;
+
 
         // UI Textures
         manager.load(DIALOGUE_BOX,   Texture.class, textureParams);
@@ -113,6 +131,8 @@ public class AssetsLoader {
         manager.load(BAG_ATLAS, TextureAtlas.class);
         // ## CARREGANDO O ATLAS DE ITENS ##
         manager.load(ITEM_ATLAS, TextureAtlas.class);
+        manager.load(POKEMON_ICON_ATLAS, TextureAtlas.class);
+        manager.load(PARTY_UI_ATLAS, TextureAtlas.class);
     }
 
     public void dispose() {

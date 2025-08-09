@@ -1,0 +1,16 @@
+icons.png
+size: 160, 32
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+pma: false
+articuno
+  bounds: 0, 0, 32, 32
+jigglypuff
+  bounds: 32, 0, 32, 32
+mudkip
+  bounds: 64, 0, 32, 32
+torchic
+  bounds: 96, 0, 32, 32
+treecko
+  bounds: 128, 0, 32, 32
