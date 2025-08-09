@@ -33,13 +33,18 @@ public class Pokemon {
     private final Pokeball pokeball;
     private final String originalTrainerName;
 
-    // ## NOVO CAMPO ADICIONADO ##
     private final Ability ability;
+
+    // ## NOVOS CAMPOS ADICIONADOS ##
+    private final Item heldItem;
+    private final int experiencePoints;
+    private final int experienceToNextLevel;
+
 
     public Pokemon(String speciesName, String nickname, Gender gender, boolean shiny, int level,
                    int maxHP, int attack, int defense, int specialAttack, int specialDefense, int speed,
                    PokemonType type1, PokemonType type2, PokemonNature nature, int metLevel, String metMap,
-                   Pokeball pokeball, String originalTrainerName, Ability ability) { // ## CONSTRUTOR ATUALIZADO ##
+                   Pokeball pokeball, String originalTrainerName, Ability ability, Item heldItem, int experiencePoints, int experienceToNextLevel) { // ## CONSTRUTOR ATUALIZADO ##
         this.speciesName = speciesName;
         this.nickname = nickname;
         this.gender = gender;
@@ -59,7 +64,10 @@ public class Pokemon {
         this.metMap = metMap;
         this.pokeball = pokeball;
         this.originalTrainerName = originalTrainerName;
-        this.ability = ability; // ## INICIALIZAÇÃO DO NOVO CAMPO ##
+        this.ability = ability;
+        this.heldItem = heldItem;
+        this.experiencePoints = experiencePoints;
+        this.experienceToNextLevel = experienceToNextLevel;
     }
 
     // Getters
@@ -70,6 +78,11 @@ public class Pokemon {
     public int getLevel() { return level; }
     public int getCurrentHP() { return currentHP; }
     public int getMaxHP() { return maxHP; }
+    public int getAttack() { return attack; }
+    public int getDefense() { return defense; }
+    public int getSpecialAttack() { return specialAttack; }
+    public int getSpecialDefense() { return specialDefense; }
+    public int getSpeed() { return speed; }
     public PokemonType getType1() { return type1; }
     public PokemonType getType2() { return type2; }
     public PokemonNature getNature() { return nature; }
@@ -77,9 +90,12 @@ public class Pokemon {
     public String getMetMap() { return metMap; }
     public Pokeball getPokeball() { return pokeball; }
     public String getOriginalTrainerName() { return originalTrainerName; }
-    
-    // ## GETTER PARA O NOVO CAMPO ##
     public Ability getAbility() { return ability; }
+    
+    // ## GETTERS PARA OS NOVOS CAMPOS ##
+    public Item getHeldItem() { return heldItem; }
+    public int getExperiencePoints() { return experiencePoints; }
+    public int getExperienceToNextLevel() { return experienceToNextLevel; }
 
     public String getIconSpriteName() {
         return speciesName.toLowerCase().replace(" ", "");

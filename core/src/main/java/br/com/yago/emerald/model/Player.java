@@ -34,24 +34,25 @@ public class Player extends Character {
 	}
 
 	private void addDefaultPokemon() {
-	    // ## HABILIDADES ADICIONADAS A CADA POKÉMON ##
-		Ability torrent = new Ability("Torrent", "Powers up Water-type moves when the Pokémon's HP is low.");
-		Pokemon mudkip = new Pokemon("MUDKIP", "Mudkip", Gender.MALE, true, 5, 25, 12, 10, 11, 10, 9, PokemonType.WATER, null, PokemonNature.HARDY, 5, "Littleroot Town", Pokeball.POKEBALL, this.name, torrent);
+	    // ## POKEMON ATUALIZADOS COM ITEM E EXPERIÊNCIA ##
+		Ability torrent = new Ability("Torrent", "Powers up Water-type moves.");
+		Item potion = new Item("Potion", "Heals a Pokémon by 20 HP.", "potion", Item.ItemCategory.ITEMS, 1);
+		Pokemon mudkip = new Pokemon("MUDKIP", "Mudkip", Gender.MALE, true, 5, 25, 12, 10, 11, 10, 9, PokemonType.WATER, null, PokemonNature.HARDY, 5, "Littleroot Town", Pokeball.POKEBALL, this.name, torrent, potion, 125, 50);
 
-		Ability intimidate = new Ability("Intimidate", "Lowers the opposing Pokémon's Attack stat upon entering battle.");
-		Pokemon salamence = new Pokemon("SALAMENCE", "drago", Gender.FEMALE, false, 50, 150, 135, 80, 110, 80, 100, PokemonType.DRAGON, PokemonType.FLYING, PokemonNature.NAUGHTY, 50, "Meteor Falls", Pokeball.GREATBALL, this.name, intimidate);
+		Ability intimidate = new Ability("Intimidate", "Lowers the foe's Attack.");
+		Pokemon salamence = new Pokemon("SALAMENCE", "drago", Gender.FEMALE, false, 50, 150, 135, 80, 110, 80, 100, PokemonType.DRAGON, PokemonType.FLYING, PokemonNature.NAUGHTY, 50, "Meteor Falls", Pokeball.GREATBALL, this.name, intimidate, null, 125000, 25000);
 
 		Ability drought = new Ability("Drought", "Turns the sunlight harsh.");
-		Pokemon groudon = new Pokemon("GROUDON", "Groudon", Gender.GENDERLESS, false, 100, 404, 438, 416, 328, 306, 306, PokemonType.GROUND, null, PokemonNature.ADAMANT, 70, "Cave of Origin", Pokeball.POKEBALL, this.name, drought);
+		Pokemon groudon = new Pokemon("GROUDON", "Groudon", Gender.GENDERLESS, false, 100, 404, 438, 416, 328, 306, 306, PokemonType.GROUND, null, PokemonNature.ADAMANT, 70, "Cave of Origin", Pokeball.POKEBALL, this.name, drought, null, 1250000, 0);
 
 		Ability cuteCharm = new Ability("Cute Charm", "May cause infatuation.");
-		Pokemon jigglypuff = new Pokemon("JIGGLYPUFF", "lalinha", Gender.FEMALE, true, 100, 230, 10, 8, 12, 11, 12, PokemonType.NORMAL, PokemonType.FAIRY, PokemonNature.MODEST, 15, "Route 115", Pokeball.POKEBALL, this.name, cuteCharm);
+		Pokemon jigglypuff = new Pokemon("JIGGLYPUFF", "lalinha", Gender.FEMALE, true, 100, 230, 10, 8, 12, 11, 12, PokemonType.NORMAL, PokemonType.FAIRY, PokemonNature.MODEST, 15, "Route 115", Pokeball.POKEBALL, this.name, cuteCharm, null, 800000, 0);
 
-		Ability pressure = new Ability("Pressure", "raises the foe's PP usage.");
-		Pokemon articuno = new Pokemon("ARTICUNO", "Articuno", Gender.GENDERLESS, true, 90, 289, 185, 212, 203, 257, 185, PokemonType.ICE, PokemonType.FLYING, PokemonNature.TIMID, 50, "Seafoam Islands", Pokeball.GREATBALL, this.name, pressure);
+		Ability pressure = new Ability("Pressure", "Raises the foe's PP usage.");
+		Pokemon articuno = new Pokemon("ARTICUNO", "Articuno", Gender.GENDERLESS, true, 90, 289, 185, 212, 203, 257, 185, PokemonType.ICE, PokemonType.FLYING, PokemonNature.TIMID, 50, "Seafoam Islands", Pokeball.GREATBALL, this.name, pressure, null, 900000, 100000);
 
 		Ability staticAbility = new Ability("Static", "Contact cause paralysis.");
-		Pokemon pikachu = new Pokemon("PIKACHU", "fofuxo", Gender.MALE, false, 100, 23, 10, 8, 12, 11, 12, PokemonType.ELECTRIC, null, PokemonNature.JOLLY, 100, "Viridian Forest", Pokeball.POKEBALL, this.name, staticAbility);
+		Pokemon pikachu = new Pokemon("PIKACHU", "fofuxo", Gender.MALE, false, 100, 23, 10, 8, 12, 11, 12, PokemonType.ELECTRIC, null, PokemonNature.JOLLY, 100, "Viridian Forest", Pokeball.POKEBALL, this.name, staticAbility, null, 1000000, 0);
 		
 		party.addPokemon(mudkip);
 		party.addPokemon(salamence);

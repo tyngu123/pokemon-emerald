@@ -23,6 +23,7 @@ import br.com.yago.emerald.EmeraldGame;
 import br.com.yago.emerald.assets.AnimationLoader;
 import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.model.Ability;
+import br.com.yago.emerald.model.Item;
 import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Pokeball;
 import br.com.yago.emerald.model.Pokemon;
@@ -173,16 +174,9 @@ public class SummaryScreen extends ScreenAdapter {
 
         batch.begin();
         
-        // 1. Fundo base (da tela de info) é sempre visível por baixo de tudo.
         batch.draw(infoBackground, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
-
-        // 2. Desenha o painel de informações do Pokémon.
         drawPokemonInfoPanel();
-
-        // 3. Desenha os conteúdos/fundos específicos de cada aba, com animação, sobrepondo o painel.
         drawScreens();
-
-        // 4. Desenha a guia e o rótulo da aba no topo.
         drawTabHeader();
 
         batch.end();
@@ -195,8 +189,6 @@ public class SummaryScreen extends ScreenAdapter {
             float progress = Math.min(1f, animationTimer / SLIDE_DURATION);
             float screenWidth = viewport.getWorldWidth();
             
-            // ## LÓGICA DE ANIMAÇÃO ATUALIZADA ##
-            // Nova tela vem da esquerda, tela antiga vai para a direita.
             float currentOffset = Interpolation.pow2Out.apply(-screenWidth, 0, progress);
             float previousOffset = Interpolation.pow2Out.apply(0, screenWidth, progress);
             
@@ -268,11 +260,76 @@ public class SummaryScreen extends ScreenAdapter {
     }
     
     private void drawSkillsScreen(float xOffset) {
-        if(skillsBackground != null) {
+        if (skillsBackground != null) {
             batch.draw(skillsBackground, xOffset, 0);
         }
-    }
 
+        float leftMargin = xOffset + 85f;
+        float topY = 126f;
+
+        // --- HELD ITEM ---
+        blackFont.draw(batch, "", leftMargin, topY);
+        Item heldItem = currentPokemon.getHeldItem();
+        String itemName = heldItem != null ? heldItem.getName().toUpperCase() : "NONE";
+        blackFont.draw(batch, itemName, leftMargin + 1, topY);
+
+        // --- STATS ---
+        float statsYLeft = topY - 22f;
+        float statsYRight = topY - 22f;
+
+        // Coordenadas coluna esquerda
+        float labelXLeft = xOffset + 85f;
+        float valueXLeft = labelXLeft + 65f;
+
+        // Coordenadas coluna direita
+        float labelXRight = xOffset + 177f; // Ajuste a distância para caber bem
+        float valueXRight = labelXRight + 40f;
+
+        // Coluna esquerda: HP, ATTACK, DEFENSE
+        whiteFont.draw(batch, "HP", labelXLeft, statsYLeft);
+        String hpStr = currentPokemon.getCurrentHP() + "/" + currentPokemon.getMaxHP();
+        layout.setText(blackFont, hpStr);
+        blackFont.draw(batch, hpStr, valueXLeft + 24 - layout.width, statsYLeft);
+        statsYLeft -= 16;
+
+        whiteFont.draw(batch, "ATTACK", labelXLeft, statsYLeft);
+        blackFont.draw(batch, String.valueOf(currentPokemon.getAttack()), valueXLeft, statsYLeft);
+        statsYLeft -= 16;
+
+        whiteFont.draw(batch, "DEFENSE", labelXLeft, statsYLeft);
+        blackFont.draw(batch, String.valueOf(currentPokemon.getDefense()), valueXLeft, statsYLeft);
+
+        // Coluna direita: SP. ATK, SP. DEF, SPEED
+        whiteFont.draw(batch, "SP. ATK", labelXRight, statsYRight);
+        blackFont.draw(batch, String.valueOf(currentPokemon.getSpecialAttack()), valueXRight, statsYRight);
+        statsYRight -= 16;
+
+        whiteFont.draw(batch, "SP. DEF", labelXRight, statsYRight);
+        blackFont.draw(batch, String.valueOf(currentPokemon.getSpecialDefense()), valueXRight, statsYRight);
+        statsYRight -= 16;
+
+        whiteFont.draw(batch, "SPEED", labelXRight, statsYRight);
+        blackFont.draw(batch, String.valueOf(currentPokemon.getSpeed()), valueXRight, statsYRight);
+
+     // --- EXPERIENCE ---
+        float expLabelX = xOffset + 85f;     // mesma lógica da coluna esquerda/direita
+        float expValueX = expLabelX + 65f;   // distância do valor
+
+        float expY = Math.min(statsYLeft, statsYRight) - 26f;
+
+        // EXP. POINTS
+        whiteFont.draw(batch, "EXP. POINTS", expLabelX, expY);
+        String expStr = String.valueOf(currentPokemon.getExperiencePoints());
+        layout.setText(blackFont, expStr);
+        blackFont.draw(batch, expStr, expValueX + 68 - layout.width, expY);
+        expY -= 12;
+
+        // NEXT LV.
+        whiteFont.draw(batch, "TO NEXT LV.", expLabelX, expY);
+        String nextLvStr = String.valueOf(currentPokemon.getExperienceToNextLevel());
+        layout.setText(blackFont, nextLvStr);
+        blackFont.draw(batch, nextLvStr, expValueX + 68 - layout.width, expY);
+    }
     private void drawMovesScreen(float xOffset) {
         if(movesBackground != null) {
             batch.draw(movesBackground, xOffset, 0);
