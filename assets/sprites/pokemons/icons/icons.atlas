@@ -1,5 +1,5 @@
 icons.png
-size: 680, 56
+size: 884, 56
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -10,17 +10,23 @@ azurill
   bounds: 68, 0, 68, 56
 dialga
   bounds: 136, 0, 68, 56
-groudon
+dragonite
   bounds: 204, 0, 68, 56
-jigglypuff
+eevee
   bounds: 272, 0, 68, 56
-mudkip
+gengar
   bounds: 340, 0, 68, 56
-pikachu
+groudon
   bounds: 408, 0, 68, 56
-salamence
+jigglypuff
   bounds: 476, 0, 68, 56
-torchic
+mudkip
   bounds: 544, 0, 68, 56
-treecko
+pikachu
   bounds: 612, 0, 68, 56
+salamence
+  bounds: 680, 0, 68, 56
+torchic
+  bounds: 748, 0, 68, 56
+treecko
+  bounds: 816, 0, 68, 56

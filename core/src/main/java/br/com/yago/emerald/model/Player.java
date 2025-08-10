@@ -78,21 +78,21 @@ public class Player extends Character {
 	    pikachuBaseStats.put("SPECIAL_DEFENSE", 50);
 	    pikachuBaseStats.put("SPEED", 90);
 
-	    Pokemon pikachu = new Pokemon("PIKACHU", "fofuxo", Pokemon.Gender.MALE, false, 15, pikachuBaseStats,
+	    Pokemon pikachu = new Pokemon("PIKACHU", "fofuxo", Pokemon.Gender.MALE, false, 100, pikachuBaseStats,
 	            PokemonType.ELECTRIC, null, PokemonNature.JOLLY, 5, "Viridian Forest", Pokeball.POKEBALL, this.name,
 	            staticAbility, null, ExperienceGroup.FAST);
 
 	    // JIGGLYPUFF — 115 / 45 / 20 / 45 / 25 / 20
 	    Ability cuteCharm = new Ability("Cute Charm", "May cause infatuation on contact.");
 	    Map<String, Integer> jigglypuffBaseStats = new HashMap<>();
-	    jigglypuffBaseStats.put("HP", 115);
+	    jigglypuffBaseStats.put("HP", 255);
 	    jigglypuffBaseStats.put("ATTACK", 45);
 	    jigglypuffBaseStats.put("DEFENSE", 20);
 	    jigglypuffBaseStats.put("SPECIAL_ATTACK", 45);
 	    jigglypuffBaseStats.put("SPECIAL_DEFENSE", 25);
 	    jigglypuffBaseStats.put("SPEED", 20);
 
-	    Pokemon jigglypuff = new Pokemon("JIGGLYPUFF", "lalica", Pokemon.Gender.FEMALE, true, 5, jigglypuffBaseStats,
+	    Pokemon jigglypuff = new Pokemon("EEVEE", "lalica", Pokemon.Gender.FEMALE, true, 100, jigglypuffBaseStats,
 	            PokemonType.NORMAL, PokemonType.FAIRY, PokemonNature.MODEST, 5, "Route 115", Pokeball.POKEBALL, this.name,
 	            cuteCharm, null, ExperienceGroup.FAST);
 

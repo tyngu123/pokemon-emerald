@@ -28,6 +28,9 @@ public class AssetsLoader {
     public final String BAG_FONT_NAME = "bagFont";
     public final String DIALOGUE_BOX = "ui/dialoguebox.png";
     public final String PARTY_FONT_NAME = "partyFont";
+    // ## NOVAS FONTES DE STATUS ##
+    public final String INCREASED_STAT_FONT_NAME = "increasedStatFont";
+    public final String DECREASED_STAT_FONT_NAME = "decreasedStatFont";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
     public final String HORIZONTAL_ARROW = "ui/horizontal_arrow.png";
     public final String TOWN_BOX = "ui/townbox.png";
@@ -49,7 +52,7 @@ public class AssetsLoader {
     public final String PARTY_UI_ATLAS = "ui/party.atlas";
     public final String TYPE_ATLAS = "ui/type.atlas";
     public final String POKEBALLS_ATLAS = "ui/pokeballs.atlas";
-    public final String SUMMARY_ATLAS = "ui/summary.atlas"; // ## NOVO ATLAS ADICIONADO ##
+    public final String SUMMARY_ATLAS = "ui/summary.atlas";
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -105,6 +108,31 @@ public class AssetsLoader {
         partyFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(PARTY_FONT_NAME + ".otf", BitmapFont.class, partyFontParams);
 
+        // ## CARREGANDO FONTE VERDE PARA STATUS AUMENTADO ##
+        FreetypeFontLoader.FreeTypeFontLoaderParameter increasedStatFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        increasedStatFontParams.fontFileName = FONT_FILE;
+        increasedStatFontParams.fontParameters.size = 16;
+        increasedStatFontParams.fontParameters.color = new Color(0/255f, 152/255f, 0/255f, 1f); // Verde
+        increasedStatFontParams.fontParameters.shadowColor = new Color(0/255f, 100/255f, 0/255f, 0.45f); // Sombra Verde Escura
+        increasedStatFontParams.fontParameters.shadowOffsetX = 1;
+        increasedStatFontParams.fontParameters.shadowOffsetY = 1;
+        increasedStatFontParams.fontParameters.minFilter = TextureFilter.Nearest;
+        increasedStatFontParams.fontParameters.magFilter = TextureFilter.Nearest;
+        increasedStatFontParams.fontParameters.hinting = Hinting.Full;
+        manager.load(INCREASED_STAT_FONT_NAME + ".otf", BitmapFont.class, increasedStatFontParams);
+
+        // ## CARREGANDO FONTE VERMELHA PARA STATUS DIMINUÍDO ##
+        FreetypeFontLoader.FreeTypeFontLoaderParameter decreasedStatFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        decreasedStatFontParams.fontFileName = FONT_FILE;
+        decreasedStatFontParams.fontParameters.size = 16;
+        decreasedStatFontParams.fontParameters.color = new Color(248f/255f, 0f, 0f, 1f); // Vermelho
+        decreasedStatFontParams.fontParameters.shadowColor = new Color(150f/255f, 0f, 0f, 0.45f); // Sombra Vermelha Escura
+        decreasedStatFontParams.fontParameters.shadowOffsetX = 1;
+        decreasedStatFontParams.fontParameters.shadowOffsetY = 1;
+        decreasedStatFontParams.fontParameters.minFilter = TextureFilter.Nearest;
+        decreasedStatFontParams.fontParameters.magFilter = TextureFilter.Nearest;
+        decreasedStatFontParams.fontParameters.hinting = Hinting.Full;
+        manager.load(DECREASED_STAT_FONT_NAME + ".otf", BitmapFont.class, decreasedStatFontParams);
 
         TextureLoader.TextureParameter textureParams = new TextureLoader.TextureParameter();
         textureParams.minFilter = TextureFilter.Nearest;
@@ -133,7 +161,7 @@ public class AssetsLoader {
         manager.load(PARTY_UI_ATLAS, TextureAtlas.class);
         manager.load(TYPE_ATLAS, TextureAtlas.class);
         manager.load(POKEBALLS_ATLAS, TextureAtlas.class);
-        manager.load(SUMMARY_ATLAS, TextureAtlas.class); // ## CARREGANDO O NOVO ATLAS ##
+        manager.load(SUMMARY_ATLAS, TextureAtlas.class);
     }
 
     public void dispose() {

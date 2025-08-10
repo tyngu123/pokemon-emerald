@@ -40,6 +40,9 @@ public class SummaryScreen extends ScreenAdapter {
 
     private final BitmapFont whiteFont;
     private final BitmapFont blackFont;
+    // ## NOVAS FONTES DE STATUS ##
+    private final BitmapFont increasedStatFont;
+    private final BitmapFont decreasedStatFont;
     private final GlyphLayout layout = new GlyphLayout();
 
     private final TextureAtlas typeAtlas;
@@ -77,6 +80,9 @@ public class SummaryScreen extends ScreenAdapter {
         this.infoBackground = new TextureRegion(assetLoader.manager.get(assetLoader.SUMMARY_UI, Texture.class));
         this.whiteFont = assetLoader.manager.get(assetLoader.PARTY_FONT_NAME + ".otf", BitmapFont.class);
         this.blackFont = assetLoader.manager.get(assetLoader.BAG_FONT_NAME + ".otf", BitmapFont.class);
+        // ## CARREGANDO AS NOVAS FONTES ##
+        this.increasedStatFont = assetLoader.manager.get(assetLoader.INCREASED_STAT_FONT_NAME + ".otf", BitmapFont.class);
+        this.decreasedStatFont = assetLoader.manager.get(assetLoader.DECREASED_STAT_FONT_NAME + ".otf", BitmapFont.class);
 
         this.typeAtlas = assetLoader.manager.get(assetLoader.TYPE_ATLAS, TextureAtlas.class);
         this.pokeballsAtlas = assetLoader.manager.get(assetLoader.POKEBALLS_ATLAS, TextureAtlas.class);
@@ -260,6 +266,7 @@ public class SummaryScreen extends ScreenAdapter {
         drawMetInformation(xOffset);
     }
 
+    // ## MÉTODO ATUALIZADO PARA USAR AS NOVAS FONTES ##
     private void drawSkillsScreen(float xOffset) {
         if (skillsBackground != null) {
             batch.draw(skillsBackground, xOffset, 0);
@@ -284,10 +291,6 @@ public class SummaryScreen extends ScreenAdapter {
         float labelXRight = xOffset + 177f;
         float valueXRight = labelXRight + 40f;
     
-        // ## LÓGICA DE CORES ATUALIZADA ##
-        Color originalColor = blackFont.getColor().cpy();
-        Color increasedColor = new Color(0/255f, 152/255f, 0/255f, 1f); // Verde para bônus
-        Color decreasedColor = new Color(248f/255f, 0f, 0f, 0.75f);      // Vermelho para penalidade (mesma cor da nature)
         PokemonNature nature = currentPokemon.getNature();
     
         // Coluna esquerda: HP, ATTACK, DEFENSE
@@ -298,45 +301,45 @@ public class SummaryScreen extends ScreenAdapter {
         statsYLeft -= 16;
     
         float attackMod = nature.getModifierForStat("ATTACK");
-        if (attackMod > 1.0f) blackFont.setColor(increasedColor);
-        else if (attackMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "ATTACK", labelXLeft, statsYLeft);
-        blackFont.draw(batch, String.valueOf(currentPokemon.getAttack()), valueXLeft, statsYLeft);
-        blackFont.setColor(originalColor);
+        BitmapFont attackFont = blackFont; // Fonte padrão
+        if (attackMod > 1.0f) attackFont = increasedStatFont;
+        else if (attackMod < 1.0f) attackFont = decreasedStatFont;
+        attackFont.draw(batch, String.valueOf(currentPokemon.getAttack()), valueXLeft, statsYLeft);
         statsYLeft -= 16;
     
         float defenseMod = nature.getModifierForStat("DEFENSE");
-        if (defenseMod > 1.0f) blackFont.setColor(increasedColor);
-        else if (defenseMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "DEFENSE", labelXLeft, statsYLeft);
-        blackFont.draw(batch, String.valueOf(currentPokemon.getDefense()), valueXLeft, statsYLeft);
-        blackFont.setColor(originalColor);
+        BitmapFont defenseFont = blackFont; // Fonte padrão
+        if (defenseMod > 1.0f) defenseFont = increasedStatFont;
+        else if (defenseMod < 1.0f) defenseFont = decreasedStatFont;
+        defenseFont.draw(batch, String.valueOf(currentPokemon.getDefense()), valueXLeft, statsYLeft);
     
         // Coluna direita: SP. ATK, SP. DEF, SPEED
         float spAttackMod = nature.getModifierForStat("SPECIAL_ATTACK");
-        if (spAttackMod > 1.0f) blackFont.setColor(increasedColor);
-        else if (spAttackMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "SP. ATK", labelXRight, statsYRight);
-        blackFont.draw(batch, String.valueOf(currentPokemon.getSpecialAttack()), valueXRight, statsYRight);
-        blackFont.setColor(originalColor);
+        BitmapFont spAttackFont = blackFont; // Fonte padrão
+        if (spAttackMod > 1.0f) spAttackFont = increasedStatFont;
+        else if (spAttackMod < 1.0f) spAttackFont = decreasedStatFont;
+        spAttackFont.draw(batch, String.valueOf(currentPokemon.getSpecialAttack()), valueXRight, statsYRight);
         statsYRight -= 16;
     
         float spDefenseMod = nature.getModifierForStat("SPECIAL_DEFENSE");
-        if (spDefenseMod > 1.0f) blackFont.setColor(increasedColor);
-        else if (spDefenseMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "SP. DEF", labelXRight, statsYRight);
-        blackFont.draw(batch, String.valueOf(currentPokemon.getSpecialDefense()), valueXRight, statsYRight);
-        blackFont.setColor(originalColor);
+        BitmapFont spDefenseFont = blackFont; // Fonte padrão
+        if (spDefenseMod > 1.0f) spDefenseFont = increasedStatFont;
+        else if (spDefenseMod < 1.0f) spDefenseFont = decreasedStatFont;
+        spDefenseFont.draw(batch, String.valueOf(currentPokemon.getSpecialDefense()), valueXRight, statsYRight);
         statsYRight -= 16;
     
         float speedMod = nature.getModifierForStat("SPEED");
-        if (speedMod > 1.0f) blackFont.setColor(increasedColor);
-        else if (speedMod < 1.0f) blackFont.setColor(decreasedColor);
         whiteFont.draw(batch, "SPEED", labelXRight, statsYRight);
-        blackFont.draw(batch, String.valueOf(currentPokemon.getSpeed()), valueXRight, statsYRight);
-        blackFont.setColor(originalColor);
+        BitmapFont speedFont = blackFont; // Fonte padrão
+        if (speedMod > 1.0f) speedFont = increasedStatFont;
+        else if (speedMod < 1.0f) speedFont = decreasedStatFont;
+        speedFont.draw(batch, String.valueOf(currentPokemon.getSpeed()), valueXRight, statsYRight);
     
-         // --- EXPERIENCE ---
+        // --- EXPERIENCE ---
         float expLabelX = xOffset + 85f;
         float expValueX = expLabelX + 65f;
         float expY = Math.min(statsYLeft, statsYRight) - 26f;
