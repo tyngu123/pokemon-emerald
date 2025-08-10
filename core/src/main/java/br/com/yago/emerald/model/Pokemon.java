@@ -1,6 +1,7 @@
 package br.com.yago.emerald.model;
 
 import java.util.Map;
+import com.badlogic.gdx.utils.Array;
 
 public class Pokemon {
 
@@ -35,6 +36,9 @@ public class Pokemon {
     private final int experiencePoints;
     private final int experienceToNextLevel;
 
+    // ## NOVO CAMPO PARA OS MOVIMENTOS ##
+    private final Array<Move> moves;
+
     public Pokemon(
         String speciesName, String nickname, Pokemon.Gender gender, boolean shiny, int level,
         Map<String, Integer> baseStats,
@@ -57,6 +61,7 @@ public class Pokemon {
         this.experienceGroup = experienceGroup;
         this.type1 = type1;
         this.type2 = type2;
+        this.moves = new Array<>(4); // Pokémon pode ter até 4 movimentos
 
         // Calcular stats usando a classe utilitária
         this.maxHP = StatCalculator.calculateHP(baseStats.get("HP"), level);
@@ -72,6 +77,17 @@ public class Pokemon {
         // Calcular experiência usando a classe utilitária
         this.experiencePoints = ExperienceCalculator.getTotalExpForLevel(level, experienceGroup);
         this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(level, experienceGroup);
+    }
+
+    /**
+     * ## NOVO MÉTODO ##
+     * Adiciona um movimento ao Pokémon, se houver espaço.
+     * @param move O movimento a ser adicionado.
+     */
+    public void learnMove(Move move) {
+        if (moves.size < 4) {
+            moves.add(move);
+        }
     }
 
     private int calculateStatWithNature(int baseStat, String statName) {
@@ -103,6 +119,7 @@ public class Pokemon {
     public Item getHeldItem() { return heldItem; }
     public int getExperiencePoints() { return experiencePoints; }
     public int getExperienceToNextLevel() { return experienceToNextLevel; }
+    public Array<Move> getMoves() { return moves; } // Getter para os movimentos
 
     public String getIconSpriteName() {
         return speciesName.toLowerCase().replace(" ", "");

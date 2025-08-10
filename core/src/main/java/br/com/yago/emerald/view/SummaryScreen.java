@@ -18,12 +18,14 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.Array;
 
 import br.com.yago.emerald.EmeraldGame;
 import br.com.yago.emerald.assets.AnimationLoader;
 import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.model.Ability;
 import br.com.yago.emerald.model.Item;
+import br.com.yago.emerald.model.Move;
 import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Pokeball;
 import br.com.yago.emerald.model.Pokemon;
@@ -40,7 +42,6 @@ public class SummaryScreen extends ScreenAdapter {
 
     private final BitmapFont whiteFont;
     private final BitmapFont blackFont;
-    // ## NOVAS FONTES DE STATUS ##
     private final BitmapFont increasedStatFont;
     private final BitmapFont decreasedStatFont;
     private final GlyphLayout layout = new GlyphLayout();
@@ -54,6 +55,7 @@ public class SummaryScreen extends ScreenAdapter {
     private final TextureRegion skillsBackground;
     private final TextureRegion movesBackground;
     private final TextureRegion infoGuide, skillsGuide, movesGuide;
+    private final TextureRegion moveSelectedOverlay; // ## NOVO ##
 
     private final Party party;
     private int currentIndex;
@@ -70,6 +72,11 @@ public class SummaryScreen extends ScreenAdapter {
     private float animationTimer = 0f;
     private static final float SLIDE_DURATION = 0.25f;
 
+    // ## NOVOS CAMPOS PARA A TELA DE MOVIMENTOS ##
+    private int selectedMoveIndex = 0;
+    private float blinkTimer = 0f;
+    private boolean showBlink = true;
+
     public SummaryScreen(EmeraldGame game, SpriteBatch batch, AssetsLoader assetLoader, Party party, int initialIndex) {
         this.game = game;
         this.batch = batch;
@@ -80,7 +87,6 @@ public class SummaryScreen extends ScreenAdapter {
         this.infoBackground = new TextureRegion(assetLoader.manager.get(assetLoader.SUMMARY_UI, Texture.class));
         this.whiteFont = assetLoader.manager.get(assetLoader.PARTY_FONT_NAME + ".otf", BitmapFont.class);
         this.blackFont = assetLoader.manager.get(assetLoader.BAG_FONT_NAME + ".otf", BitmapFont.class);
-        // ## CARREGANDO AS NOVAS FONTES ##
         this.increasedStatFont = assetLoader.manager.get(assetLoader.INCREASED_STAT_FONT_NAME + ".otf", BitmapFont.class);
         this.decreasedStatFont = assetLoader.manager.get(assetLoader.DECREASED_STAT_FONT_NAME + ".otf", BitmapFont.class);
 
@@ -94,6 +100,7 @@ public class SummaryScreen extends ScreenAdapter {
         this.movesGuide = summaryAtlas.findRegion("moves");
         this.skillsBackground = summaryAtlas.findRegion("skills_screen");
         this.movesBackground = summaryAtlas.findRegion("moves_screen");
+        this.moveSelectedOverlay = summaryAtlas.findRegion("move_selected"); // ## CARREGANDO A SOBREPOSIÇÃO ##
 
         loadPokemon(initialIndex);
     }
@@ -112,6 +119,7 @@ public class SummaryScreen extends ScreenAdapter {
         this.currentPokemon = party.getPokemon(currentIndex);
         this.pokemonAnimation = AnimationLoader.loadGifAnimation(currentPokemon.getFrontSpriteGifPath());
         this.stateTimer = 0f;
+        this.selectedMoveIndex = 0; // Reseta a seleção de movimento ao trocar de Pokémon
     }
 
     @Override
@@ -125,6 +133,18 @@ public class SummaryScreen extends ScreenAdapter {
                     game.closeSummaryScreen();
                     return true;
                 }
+
+                if (currentState == SummaryState.POKEMON_MOVES) {
+                    if (keycode == Input.Keys.DOWN) {
+                        selectedMoveIndex = (selectedMoveIndex + 1) % currentPokemon.getMoves().size;
+                        return true;
+                    }
+                    if (keycode == Input.Keys.UP) {
+                        selectedMoveIndex = (selectedMoveIndex - 1 + currentPokemon.getMoves().size) % currentPokemon.getMoves().size;
+                        return true;
+                    }
+                }
+
                 if (keycode == Input.Keys.DOWN) {
                     int nextIndex = (currentIndex + 1) % party.getPartySize();
                     loadPokemon(nextIndex);
@@ -154,6 +174,10 @@ public class SummaryScreen extends ScreenAdapter {
         int nextIndex = next ? (currentState.ordinal() + 1) % numStates : (currentState.ordinal() - 1 + numStates) % numStates;
         currentState = SummaryState.values()[nextIndex];
 
+        if (currentState == SummaryState.POKEMON_MOVES) {
+            selectedMoveIndex = 0; // Seleciona o primeiro movimento ao entrar na aba
+        }
+
         animationType = AnimationType.SLIDING;
         animationTimer = 0f;
     }
@@ -164,6 +188,14 @@ public class SummaryScreen extends ScreenAdapter {
             animationTimer += delta;
             if (animationTimer >= SLIDE_DURATION) {
                 animationType = AnimationType.NONE;
+            }
+        }
+
+        if (currentState == SummaryState.POKEMON_MOVES) {
+            blinkTimer += delta;
+            if (blinkTimer > 0.3f) { // Velocidade do pisca-pisca
+                showBlink = !showBlink;
+                blinkTimer = 0f;
             }
         }
     }
@@ -266,7 +298,6 @@ public class SummaryScreen extends ScreenAdapter {
         drawMetInformation(xOffset);
     }
 
-    // ## MÉTODO ATUALIZADO PARA USAR AS NOVAS FONTES ##
     private void drawSkillsScreen(float xOffset) {
         if (skillsBackground != null) {
             batch.draw(skillsBackground, xOffset, 0);
@@ -275,13 +306,10 @@ public class SummaryScreen extends ScreenAdapter {
         float leftMargin = xOffset + 85f;
         float topY = 126f;
     
-        // --- HELD ITEM ---
-        blackFont.draw(batch, "", leftMargin, topY);
         Item heldItem = currentPokemon.getHeldItem();
         String itemName = heldItem != null ? heldItem.getName().toUpperCase() : "NONE";
         blackFont.draw(batch, itemName, leftMargin + 1, topY);
     
-        // --- STATS ---
         float statsYLeft = topY - 22f;
         float statsYRight = topY - 22f;
     
@@ -293,7 +321,6 @@ public class SummaryScreen extends ScreenAdapter {
     
         PokemonNature nature = currentPokemon.getNature();
     
-        // Coluna esquerda: HP, ATTACK, DEFENSE
         whiteFont.draw(batch, "HP", labelXLeft, statsYLeft);
         String hpStr = currentPokemon.getCurrentHP() + "/" + currentPokemon.getMaxHP();
         layout.setText(blackFont, hpStr);
@@ -302,7 +329,7 @@ public class SummaryScreen extends ScreenAdapter {
     
         float attackMod = nature.getModifierForStat("ATTACK");
         whiteFont.draw(batch, "ATTACK", labelXLeft, statsYLeft);
-        BitmapFont attackFont = blackFont; // Fonte padrão
+        BitmapFont attackFont = blackFont;
         if (attackMod > 1.0f) attackFont = increasedStatFont;
         else if (attackMod < 1.0f) attackFont = decreasedStatFont;
         attackFont.draw(batch, String.valueOf(currentPokemon.getAttack()), valueXLeft, statsYLeft);
@@ -310,15 +337,14 @@ public class SummaryScreen extends ScreenAdapter {
     
         float defenseMod = nature.getModifierForStat("DEFENSE");
         whiteFont.draw(batch, "DEFENSE", labelXLeft, statsYLeft);
-        BitmapFont defenseFont = blackFont; // Fonte padrão
+        BitmapFont defenseFont = blackFont;
         if (defenseMod > 1.0f) defenseFont = increasedStatFont;
         else if (defenseMod < 1.0f) defenseFont = decreasedStatFont;
         defenseFont.draw(batch, String.valueOf(currentPokemon.getDefense()), valueXLeft, statsYLeft);
     
-        // Coluna direita: SP. ATK, SP. DEF, SPEED
         float spAttackMod = nature.getModifierForStat("SPECIAL_ATTACK");
         whiteFont.draw(batch, "SP. ATK", labelXRight, statsYRight);
-        BitmapFont spAttackFont = blackFont; // Fonte padrão
+        BitmapFont spAttackFont = blackFont;
         if (spAttackMod > 1.0f) spAttackFont = increasedStatFont;
         else if (spAttackMod < 1.0f) spAttackFont = decreasedStatFont;
         spAttackFont.draw(batch, String.valueOf(currentPokemon.getSpecialAttack()), valueXRight, statsYRight);
@@ -326,7 +352,7 @@ public class SummaryScreen extends ScreenAdapter {
     
         float spDefenseMod = nature.getModifierForStat("SPECIAL_DEFENSE");
         whiteFont.draw(batch, "SP. DEF", labelXRight, statsYRight);
-        BitmapFont spDefenseFont = blackFont; // Fonte padrão
+        BitmapFont spDefenseFont = blackFont;
         if (spDefenseMod > 1.0f) spDefenseFont = increasedStatFont;
         else if (spDefenseMod < 1.0f) spDefenseFont = decreasedStatFont;
         spDefenseFont.draw(batch, String.valueOf(currentPokemon.getSpecialDefense()), valueXRight, statsYRight);
@@ -334,12 +360,11 @@ public class SummaryScreen extends ScreenAdapter {
     
         float speedMod = nature.getModifierForStat("SPEED");
         whiteFont.draw(batch, "SPEED", labelXRight, statsYRight);
-        BitmapFont speedFont = blackFont; // Fonte padrão
+        BitmapFont speedFont = blackFont;
         if (speedMod > 1.0f) speedFont = increasedStatFont;
         else if (speedMod < 1.0f) speedFont = decreasedStatFont;
         speedFont.draw(batch, String.valueOf(currentPokemon.getSpeed()), valueXRight, statsYRight);
     
-        // --- EXPERIENCE ---
         float expLabelX = xOffset + 85f;
         float expValueX = expLabelX + 65f;
         float expY = Math.min(statsYLeft, statsYRight) - 26f;
@@ -357,8 +382,81 @@ public class SummaryScreen extends ScreenAdapter {
     }
 
     private void drawMovesScreen(float xOffset) {
-        if(movesBackground != null) {
-            batch.draw(movesBackground, xOffset, 0);
+        if (movesBackground != null) batch.draw(movesBackground, xOffset, 0);
+
+        Array<Move> moves = currentPokemon.getMoves();
+
+        // ===== ancoragem/colunas (tela 240x160) =====
+        final float COL_LEFT     = xOffset + 85f;  // coluna dos badges (fica no bloco direito)
+        final float ROW_Y0       = 122f;           // baseline da 1ª linha
+        final float ROW_STEP     = 16f;            // altura entre linhas (4 linhas)
+        final float TYPE_W = 32f, TYPE_H = 12f;
+
+        final float NAME_X       = COL_LEFT + TYPE_W + 1f; // nome depois do badge
+        final float LIST_RIGHT   = xOffset + 238f;         // borda direita com 10px de margem
+        final float PP_PAD_RIGHT = 0f;                     // padding extra se quiser
+
+        // ===== rodapé esquerdo: EFFECT =====
+        final float EFFECT_LBL_X = xOffset + 4f;
+        final float EFFECT_VAL_X = xOffset + 60f;  // garante que não encosta no divisor
+        final float EFFECT_Y0    = 36f;            // POWER
+        final float EFFECT_DY    = 16f;            // ACCURACY
+
+        // ===== descrição =====
+        final float DESC_X     = COL_LEFT + 1f;
+        final float DESC_TOP_Y = 36f;
+        final float DESC_W     = (LIST_RIGHT - 8f) - DESC_X; // wrap até ~8 px da borda
+
+     // ===== lista de moves =====
+        for (int i = 0; i < moves.size; i++) {
+            Move mv = moves.get(i);
+            float y = ROW_Y0 - i * ROW_STEP;
+
+            // --- PP: calcular posição e largura do texto pra achar a borda direita ---
+            String ppText = "PP" + mv.getCurrentPP() + "/" + mv.getMaxPP();
+            layout.setText(blackFont, ppText);
+            float ppX = LIST_RIGHT - PP_PAD_RIGHT - layout.width;
+            float rightEdge = ppX + layout.width; // último dígito do PP
+
+            // --- overlay de seleção: vai do badge até o último dígito do PP ---
+            if (i == selectedMoveIndex && showBlink && moveSelectedOverlay != null) {
+                // pequenos paddings pra ficar igual ao Emerald
+                final float SEL_PAD_L = -2f;  // passa 2px pra esquerda do badge
+                final float SEL_PAD_R =  2f;  // passa 2px além do PP
+                final float SEL_TOP   = 13f;  // altura acima da baseline
+                final float SEL_H     = 14f;  // altura da faixa
+
+                float selX = COL_LEFT + SEL_PAD_L;
+                float selY = y - SEL_TOP;
+                float selW = (rightEdge - selX) + SEL_PAD_R;
+
+                // estica a arte horizontalmente
+                batch.draw(moveSelectedOverlay, selX, selY, selW, SEL_H);
+            }
+
+            // --- badge de tipo ---
+            TextureRegion tr = typeAtlas.findRegion(mv.getType().name().toLowerCase());
+            if (tr != null) batch.draw(tr, COL_LEFT, y - 12f, TYPE_W, TYPE_H);
+
+            // --- nome ---
+            whiteFont.draw(batch, mv.getName().toUpperCase(), NAME_X, y);
+
+            // --- PP (mesma linha, flush-right) ---
+            blackFont.draw(batch, ppText, ppX, y);
+        }
+
+        // ===== rodapé: effect + description do selecionado =====
+        if (moves.size > 0) {
+            Move sel = moves.get(selectedMoveIndex);
+
+            whiteFont.draw(batch, "POWER",    EFFECT_LBL_X, EFFECT_Y0);
+            blackFont.draw(batch, sel.getPowerString(),     EFFECT_VAL_X, EFFECT_Y0);
+
+            whiteFont.draw(batch, "ACCURACY", EFFECT_LBL_X, EFFECT_Y0 - EFFECT_DY);
+            blackFont.draw(batch, sel.getAccuracyString(),  EFFECT_VAL_X, EFFECT_Y0 - EFFECT_DY);
+            //TODO
+            layout.setText(blackFont, sel.getDescription(), new Color(96f,96f,96f,1f), DESC_W, Align.left, true);
+            blackFont.draw(batch, layout, DESC_X, DESC_TOP_Y);
         }
     }
 
