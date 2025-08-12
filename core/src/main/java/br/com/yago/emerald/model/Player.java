@@ -50,7 +50,7 @@ public class Player extends Character {
 	    mudkipBaseStats.put("SPECIAL_DEFENSE", 50);
 	    mudkipBaseStats.put("SPEED", 40);
 
-	    Pokemon mudkip = new Pokemon("MUDKIP", "Mudkip", Pokemon.Gender.MALE, true, 5, mudkipBaseStats,
+	    Pokemon mudkip = new Pokemon("GENGAR", "Mudkip", Pokemon.Gender.MALE, true, 5, mudkipBaseStats,
 	            PokemonType.WATER, null, PokemonNature.HARDY, 5, "Littleroot Town", Pokeball.POKEBALL, this.name,
 	            torrent, potion, ExperienceGroup.FAST);
         // ## ADICIONANDO MOVIMENTOS AO MUDKIP ##

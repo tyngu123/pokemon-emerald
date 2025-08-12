@@ -28,36 +28,44 @@ public class PlayerInputHandler extends InputAdapter {
     private final Player player;
     private final GameScreen screen;
     private final List<Direction> pressedDirections = new ArrayList<>();
-    private final EmeraldGame game; // ## REFERÊNCIA AO JOGO PRINCIPAL ##
+    private final EmeraldGame game;
 
-    public PlayerInputHandler(Player player, GameScreen screen, EmeraldGame game) { // ## CONSTRUTOR ATUALIZADO ##
+    public PlayerInputHandler(Player player, GameScreen screen, EmeraldGame game) {
         this.player = player;
         this.screen = screen;
         this.game = game;
     }
 
     public void update(float delta) {
-        // Se o menu estiver visível, não faz nada relacionado ao movimento.
         if (screen.getMenuBox().isVisible()) {
-            // Limpa as direções pressionadas para evitar movimento "preso" ao fechar o menu.
             pressedDirections.clear();
             player.setNextDirection(null);
             return;
         }
 
-        // Lógica de movimento original
         if (player.isLocked() || !pressedDirections.isEmpty()) {
             updatePlayerDirection();
         } else {
             player.setNextDirection(null);
         }
     }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Limpa a lista de direções pressionadas para evitar movimento "preso".
+     */
+    public void clearPressedKeys() {
+        pressedDirections.clear();
+    }
 
     @Override
     public boolean keyDown(int keycode) {
+        if (screen.isInBattle()) {
+            return false;
+        }
+        
         MenuBox menu = screen.getMenuBox();
 
-        // Se o menu estiver visível, os inputs controlam apenas o menu.
         if (menu.isVisible()) {
             switch (keycode) {
                 case Input.Keys.UP:
@@ -68,13 +76,11 @@ public class PlayerInputHandler extends InputAdapter {
                 case Input.Keys.S:
                     menu.moveSelectionDown();
                     break;
-                case Input.Keys.Z: // Botão de Ação/Seleção
+                case Input.Keys.Z:
                     String selectedOption = menu.getSelectedOption();
-                 // ## LÓGICA PARA ABRIR A TELA DA PARTY ##
                     if ("POKEMON".equals(selectedOption)) {
                         game.openPartyScreen();
                     } 
-                    // ## LÓGICA PARA ABRIR A MOCHILA ##
                     if ("BAG".equals(selectedOption)) {
                         game.openBagScreen();
                     } 
@@ -89,18 +95,16 @@ public class PlayerInputHandler extends InputAdapter {
                     player.setLocked(menu.isVisible());
                     break;
             }
-            return true; // Consome o input para que não afete o jogo
+            return true;
         } else {
-            // Se o menu NÃO estiver visível, a lógica de jogo normal se aplica.
             if (player.isLocked()) {
                 return false;
             }
 
             if (keycode == Input.Keys.ENTER) {
-                // Só abre o menu se nenhum script ou diálogo estiver ativo
                 if (!screen.getScriptRunner().isActive() && screen.getDialogueBox().isFinished()) {
                     menu.toggle();
-                    player.setLocked(menu.isVisible()); // Bloqueia o jogador
+                    player.setLocked(menu.isVisible());
                     return true;
                 }
             }
@@ -195,7 +199,6 @@ public class PlayerInputHandler extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        // Só processa o keyUp se o menu estiver fechado
         if (!screen.getMenuBox().isVisible()) {
             Direction dir = getDirectionFromKeycode(keycode);
             if (dir != null) {

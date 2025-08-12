@@ -25,6 +25,7 @@ public abstract class Character extends Entity {
     protected final Vector2 startPosition;
     protected final Vector2 targetPosition;
     protected float movementProgress;
+    private boolean movementJustFinished = false; // ## NOVA FLAG ##
 
     protected TiledMapTileLayer collisionLayer;
     protected Array<Entity> allEntities;
@@ -113,6 +114,7 @@ public abstract class Character extends Entity {
         if (movementProgress >= 1f) {
             worldPosition.set(targetPosition);
             currentState = State.IDLE;
+            movementJustFinished = true; // ## SINALIZA QUE O MOVIMENTO ACABOU DE TERMINAR ##
 
             if (isFollowingPath()) {
                 currentPath.removeFirst();
@@ -122,6 +124,15 @@ public abstract class Character extends Entity {
             
             onMovementComplete();
         }
+    }
+    
+    // ## NOVOS MÉTODOS PARA CONTROLAR A FLAG ##
+    public boolean isMovementJustFinished() {
+        return movementJustFinished;
+    }
+
+    public void clearMovementJustFinished() {
+        this.movementJustFinished = false;
     }
 
     protected void onMovementComplete() {
@@ -211,7 +222,7 @@ public abstract class Character extends Entity {
     }
     
     public boolean isOccupied(int gridX, int gridY) {
-        if (allEntities == null) return false; // Adiciona verificação de segurança
+        if (allEntities == null) return false;
         for (int i = 0; i < allEntities.size; i++) {
             Entity other = allEntities.get(i);
             if (other == this) continue;
@@ -225,7 +236,7 @@ public abstract class Character extends Entity {
         return false;
     }
     public boolean isWalkable(int gridX, int gridY) {
-        if (collisionLayer == null) return true; // Adiciona verificação de segurança
+        if (collisionLayer == null) return true;
         if (gridX < 0 || gridX >= collisionLayer.getWidth() || gridY < 0 || gridY >= collisionLayer.getHeight()) return false;
         return collisionLayer.getCell(gridX, gridY) == null;
     }
@@ -255,7 +266,6 @@ public abstract class Character extends Entity {
         return desiredDistance;
     }
     
-    // ## MÉTODOS ADICIONADOS ##
     public void setCollisionLayer(TiledMapTileLayer collisionLayer) {
         this.collisionLayer = collisionLayer;
     }
@@ -271,7 +281,6 @@ public abstract class Character extends Entity {
     public Vector2 getTargetPosition() {
         return targetPosition;
     }
-    // FIM DOS MÉTODOS ADICIONADOS
 
     public boolean isLocked() { return this.isLocked; }
     public void setVisible(boolean visible) { this.visible = visible; }

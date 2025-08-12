@@ -58,7 +58,7 @@ public class GifDecoder {
     protected Vector<GifFrame> frames; // frames read from current file
     protected int frameCount;
 
-    private static class DixieMap extends Pixmap {
+    static class DixieMap extends Pixmap {
         DixieMap(int w, int h, Pixmap.Format f) {
             super(w, h, f);
         }

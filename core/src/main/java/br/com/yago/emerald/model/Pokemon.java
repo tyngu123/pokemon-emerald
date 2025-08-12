@@ -36,7 +36,6 @@ public class Pokemon {
     private final int experiencePoints;
     private final int experienceToNextLevel;
 
-    // ## NOVO CAMPO PARA OS MOVIMENTOS ##
     private final Array<Move> moves;
 
     public Pokemon(
@@ -61,9 +60,8 @@ public class Pokemon {
         this.experienceGroup = experienceGroup;
         this.type1 = type1;
         this.type2 = type2;
-        this.moves = new Array<>(4); // Pokémon pode ter até 4 movimentos
+        this.moves = new Array<>(4);
 
-        // Calcular stats usando a classe utilitária
         this.maxHP = StatCalculator.calculateHP(baseStats.get("HP"), level);
         this.attack = StatCalculator.calculateStat(baseStats.get("ATTACK"), level);
         this.defense = StatCalculator.calculateStat(baseStats.get("DEFENSE"), level);
@@ -71,19 +69,12 @@ public class Pokemon {
         this.specialDefense = StatCalculator.calculateStat(baseStats.get("SPECIAL_DEFENSE"), level);
         this.speed = StatCalculator.calculateStat(baseStats.get("SPEED"), level);
 
-        // O HP atual começa cheio
         this.currentHP = this.maxHP;
 
-        // Calcular experiência usando a classe utilitária
         this.experiencePoints = ExperienceCalculator.getTotalExpForLevel(level, experienceGroup);
         this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(level, experienceGroup);
     }
 
-    /**
-     * ## NOVO MÉTODO ##
-     * Adiciona um movimento ao Pokémon, se houver espaço.
-     * @param move O movimento a ser adicionado.
-     */
     public void learnMove(Move move) {
         if (moves.size < 4) {
             moves.add(move);
@@ -119,7 +110,7 @@ public class Pokemon {
     public Item getHeldItem() { return heldItem; }
     public int getExperiencePoints() { return experiencePoints; }
     public int getExperienceToNextLevel() { return experienceToNextLevel; }
-    public Array<Move> getMoves() { return moves; } // Getter para os movimentos
+    public Array<Move> getMoves() { return moves; }
 
     public String getIconSpriteName() {
         return speciesName.toLowerCase().replace(" ", "");
@@ -129,5 +120,15 @@ public class Pokemon {
         String baseName = speciesName.toLowerCase().replace(" ", "");
         String shinySuffix = shiny ? "_shiny" : "";
         return "sprites/pokemons/frontal/" + baseName + shinySuffix + ".gif";
+    }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Retorna o caminho para a animação do sprite de costas do Pokémon.
+     */
+    public String getBackSpriteGifPath() {
+        String baseName = speciesName.toLowerCase().replace(" ", "");
+        String shinySuffix = shiny ? "_shiny" : "";
+        return "sprites/pokemons/back/" + baseName + shinySuffix + ".gif";
     }
 }

@@ -22,6 +22,8 @@ import br.com.yago.emerald.ui.MenuBox;
 import br.com.yago.emerald.world.NpcLoader;
 import br.com.yago.emerald.world.TriggerLoader;
 import br.com.yago.emerald.world.WarpLoader;
+import br.com.yago.emerald.script.FadeOutCommand;
+import br.com.yago.emerald.script.WaitCommand;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -37,6 +39,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -44,6 +47,14 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import br.com.yago.emerald.model.Pokemon;
+import java.util.Map;
+import java.util.HashMap;
+import br.com.yago.emerald.model.ExperienceGroup;
+import br.com.yago.emerald.model.PokemonType;
+import br.com.yago.emerald.model.PokemonNature;
+import br.com.yago.emerald.model.Ability;
+import br.com.yago.emerald.model.Pokeball;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -83,6 +94,8 @@ public class GameScreen extends ScreenAdapter {
 
 	private final String mapName;
 	private final boolean isInterior;
+	private TiledMapTileLayer grassLayer;
+    private boolean inBattle = false;
 
 	public GameScreen(EmeraldGame game, AssetsLoader assetLoader, SpriteBatch batch, String mapFileName, Player player, int playerStartX, int playerStartY, Direction playerFacing, boolean isWarpIn) {
 		this.game = game;
@@ -112,6 +125,7 @@ public class GameScreen extends ScreenAdapter {
 		scriptRunner = new ScriptRunner(this);
 
 		map = new TmxMapLoader().load(mapFileName);
+		this.grassLayer = (TiledMapTileLayer) map.getLayers().get("grass");
 
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
@@ -152,7 +166,7 @@ public class GameScreen extends ScreenAdapter {
         player.getStartPosition().set(player.getWorldPosition());
         player.getTargetPosition().set(player.getWorldPosition());
         player.setFacingDirection(playerFacing);
-        player.setVisible(true); // ## CORREÇÃO ADICIONADA AQUI ##
+        player.setVisible(true);
 		
         entities.add(player);
 
@@ -223,6 +237,11 @@ public class GameScreen extends ScreenAdapter {
 				}
 			}
 		}
+        
+        if (player.isMovementJustFinished()) {
+            checkForBattle();
+            player.clearMovementJustFinished();
+        }
 
 		dialogueBox.update(delta);
 		mapNameBox.update(delta, uiViewport);
@@ -231,6 +250,75 @@ public class GameScreen extends ScreenAdapter {
 		gameCamera.update();
 		mapRenderer.setView(gameCamera);
 	}
+    
+    private void checkForBattle() {
+        if (inBattle || grassLayer == null) return;
+
+        int playerX = player.getGridX();
+        int playerY = player.getGridY();
+
+        if (grassLayer.getCell(playerX, playerY) != null) {
+            if (MathUtils.random(1, 100) <= 10) {
+                startBattle();
+            }
+        }
+    }
+    
+    private Pokemon createWildPokemon() {
+        Map<String, Integer> pidgeyBaseStats = new HashMap<>();
+	    pidgeyBaseStats.put("HP", 40);
+	    pidgeyBaseStats.put("ATTACK", 45);
+	    pidgeyBaseStats.put("DEFENSE", 40);
+	    pidgeyBaseStats.put("SPECIAL_ATTACK", 35);
+	    pidgeyBaseStats.put("SPECIAL_DEFENSE", 35);
+	    pidgeyBaseStats.put("SPEED", 56);
+
+        return new Pokemon(
+            "PIDGEY", "Pidgey", Pokemon.Gender.FEMALE, false, 3, pidgeyBaseStats,
+            PokemonType.NORMAL, PokemonType.FLYING, PokemonNature.JOLLY, 3, "Rota 1", Pokeball.POKEBALL, "",
+            new Ability("Keen Eye", "Previne a redução de accuracy."), null, ExperienceGroup.MEDIUM_SLOW
+        );
+    }
+    
+    private void startBattle() {
+        playerInputHandler.clearPressedKeys();
+        final Pokemon wildPokemon = createWildPokemon();
+
+        Array<ScriptCommand> preBattleSequence = new Array<>();
+        
+        WaitCommand wait = new WaitCommand();
+        JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
+        waitData.addChild("duration", new JsonValue(0.4f));
+        wait.initialize(waitData);
+        preBattleSequence.add(wait);
+
+        FadeOutCommand fade = new FadeOutCommand();
+        JsonValue fadeData = new JsonValue(JsonValue.ValueType.object);
+        fadeData.addChild("duration", new JsonValue(0.4f));
+        fade.initialize(fadeData);
+        preBattleSequence.add(fade);
+        
+        scriptRunner.runScript(preBattleSequence, player, () -> {
+            game.openBattleScreen(wildPokemon);
+        });
+    }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Roda uma sequência de 1 segundo de espera antes de liberar o jogador.
+     */
+    public void onBattleEnd() {
+        Array<ScriptCommand> postBattleSequence = new Array<>();
+        
+        WaitCommand wait = new WaitCommand();
+        JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
+        waitData.addChild("duration", new JsonValue(1.0f));
+        wait.initialize(waitData);
+        postBattleSequence.add(wait);
+        
+        // O ScriptRunner irá destravar o jogador automaticamente no final.
+        scriptRunner.run(player, postBattleSequence);
+    }
 
 	private void handleInteraction() {
 		if (player.isInteractionRequested()) {
@@ -274,6 +362,14 @@ public class GameScreen extends ScreenAdapter {
 		fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
 		batch.end();
 	}
+    
+    public boolean isInBattle() {
+        return inBattle;
+    }
+
+    public void setInBattle(boolean inBattle) {
+        this.inBattle = inBattle;
+    }
 
 	public Warp getWarpAt(int gridX, int gridY) {
 		Rectangle targetArea = new Rectangle(gridX * GameConfig.TILE_SIZE, gridY * GameConfig.TILE_SIZE, 1, 1);

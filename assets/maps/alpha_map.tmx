@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="14">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="14">
  <properties>
   <property name="isInterior" type="bool" value="false"/>
   <property name="name" value="ALPHA TOWN"/>
  </properties>
  <tileset firstgid="1" source="exterior.tsx"/>
+ <layer id="12" name="grass" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztzbEJAAAMw7D0/6e7BnpBQQLPTgAA4L+p/AGuBTnEAAo=
+  </data>
+ </layer>
  <layer id="1" name="floor" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt080RQDAQhuFvMOHiogi0gh7SF6lCI2gFDdgDFwe/SUzGHt7J8dlNJh4Az3KdD/TU4Nu32WefffbZP/ZHAczCHT/5+f5bdQQ0lIq+8UdyJ2rW4E9UoyElnvs62t+jC34RAqWmqvC+f1YbH59v/9+bGbbkmgn/bH9p2L/S177p92effRf9NAAyKqcW9wumvA==
+   eJzt0k0OQDAQhuEvSNnYOASugju4F07hIrhK6wJmIxELP1VFTJM3XT6dZhwAjuU6F+ipwbVvs88+++yzv+1LAYziO3708/nnqgCoqSZ4xpfkKmo04CuqNlAj9H0Trf/xC37mA7mhCv+8v1cbbt/lIp39u/IGG/4b5j967vJ1Y5/9P/uxByRUSk1ILqdg
   </data>
  </layer>
  <objectgroup id="10" name="warps">
@@ -41,7 +46,7 @@
  </layer>
  <layer id="3" name="foreground" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2Dwg/nCDAwLhBE0IfGhAgba/d+Bdv4QRtBDEUQCcRQWHD2QjhomIBOIs5Bw9sA6ZxSMghEFqJX/hmr9SAnYBsUDZfdA6aeGn4kJu21EYkrsR28fIdOE7B3K7cJRMAroAQDD6i6z
+   eJxjYBgFo2Dwg/nCDAwLhBE0IfGhAgba/d+Bdv4QRtBDEUQCcRQWHD2QjhomIBOIs5Bw9sA6ZxSMghEFqJX/hmr9OApGNkBvHyHThMBQbheOglFADwAAIhkbgQ==
   </data>
  </layer>
  <objectgroup id="5" name="npcs">
@@ -92,7 +97,7 @@
   <object id="5" x="304" y="336" width="16" height="16">
    <properties>
     <property name="dialogueKey" value="MOM_GREETING"/>
-    <property name="id" value="npc_mom1"/>
+    <property name="id" value="npc2"/>
     <property name="initialDirection" value="DOWN"/>
     <property name="movementRange" type="int" value="1"/>
     <property name="movementType" value="PACE_HORIZONTAL"/>

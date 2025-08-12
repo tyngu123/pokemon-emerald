@@ -6,6 +6,7 @@ import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Player;
 import br.com.yago.emerald.model.Pokemon;
 import br.com.yago.emerald.view.BagScreen;
+import br.com.yago.emerald.view.BattleScreen;
 import br.com.yago.emerald.view.GameScreen;
 import br.com.yago.emerald.view.PartyScreen;
 import br.com.yago.emerald.view.SummaryScreen;
@@ -24,7 +25,8 @@ public class EmeraldGame extends Game {
     private GameScreen gameScreen;
     private Player player;
     private Screen previousScreen;
-    private String playerName; // ## NOVO CAMPO PARA O NOME DO JOGADOR ##
+    private String playerName;
+    private BattleScreen battleScreen;
 
     @Override
     public void create () {
@@ -36,13 +38,11 @@ public class EmeraldGame extends Game {
 
         batch = new SpriteBatch();
         
-        // ## NOME DO JOGADOR DEFINIDO AQUI ##
         this.playerName = "YAGO";
 
         TiledMap tempMap = new TmxMapLoader().load("maps/alpha_map.tmx");
         TiledMapTileLayer collisionLayer = (TiledMapTileLayer) tempMap.getLayers().get("collision");
         
-        // ## CONSTRUTOR DO PLAYER ATUALIZADO PARA RECEBER O NOME ##
         player = new Player(
             this.playerName,
             assetLoader.manager.get(assetLoader.PLAYER_ATLAS), 
@@ -58,6 +58,26 @@ public class EmeraldGame extends Game {
         gameScreen = new GameScreen(this, assetLoader, batch, "maps/alpha_map.tmx", player, 10, 8, Direction.DOWN, false);
         setScreen(gameScreen);
         gameScreen.startFadeIn();
+    }
+    
+    public void openBattleScreen(Pokemon wildPokemon) {
+        if (gameScreen != null && !gameScreen.isFading()) {
+            gameScreen.setInBattle(true);
+            // ## CHAMADA ATUALIZADA: Passa a equipe do jogador ##
+            battleScreen = new BattleScreen(this, gameScreen, batch, assetLoader, player.getParty(), wildPokemon);
+            setScreen(battleScreen);
+        }
+    }
+
+    public void closeBattleScreen() {
+        Screen oldScreen = getScreen();
+        if (oldScreen instanceof BattleScreen) {
+            setScreen(gameScreen); 
+            gameScreen.startFadeIn();
+            gameScreen.setInBattle(false);
+            gameScreen.onBattleEnd();
+            oldScreen.dispose();
+        }
     }
 
     public void openBagScreen() {
