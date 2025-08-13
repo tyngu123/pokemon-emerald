@@ -1,7 +1,8 @@
 package br.com.yago.emerald.model;
 
-import java.util.Map;
 import com.badlogic.gdx.utils.Array;
+import br.com.yago.emerald.database.PokemonData;
+import java.util.Map;
 
 public class Pokemon {
 
@@ -19,60 +20,55 @@ public class Pokemon {
     private final int specialAttack;
     private final int specialDefense;
     private final int speed;
-
     private final PokemonType type1;
     private final PokemonType type2;
-
     private final PokemonNature nature;
     private final int metLevel;
     private final String metMap;
-
     private final Pokeball pokeball;
     private final String originalTrainerName;
     private final Ability ability;
     private final Item heldItem;
-
     private final ExperienceGroup experienceGroup;
     private final int experiencePoints;
     private final int experienceToNextLevel;
-
     private final Array<Move> moves;
 
     public Pokemon(
-        String speciesName, String nickname, Pokemon.Gender gender, boolean shiny, int level,
-        Map<String, Integer> baseStats,
-        PokemonType type1, PokemonType type2, PokemonNature nature, int metLevel, String metMap,
-        Pokeball pokeball, String originalTrainerName, Ability ability, Item heldItem,
-        ExperienceGroup experienceGroup
+        PokemonData data, int level, String nickname, Gender gender, boolean shiny,
+        PokemonNature nature, int metLevel, String metMap, Pokeball pokeball, 
+        String originalTrainerName, Ability ability
     ) {
-        this.speciesName = speciesName;
+        this.speciesName = data.speciesName;
         this.nickname = nickname;
+        this.level = level;
         this.gender = gender;
         this.shiny = shiny;
-        this.level = level;
         this.nature = nature;
         this.metLevel = metLevel;
         this.metMap = metMap;
         this.pokeball = pokeball;
         this.originalTrainerName = originalTrainerName;
         this.ability = ability;
-        this.heldItem = heldItem;
-        this.experienceGroup = experienceGroup;
-        this.type1 = type1;
-        this.type2 = type2;
-        this.moves = new Array<>(4);
-
-        this.maxHP = StatCalculator.calculateHP(baseStats.get("HP"), level);
-        this.attack = StatCalculator.calculateStat(baseStats.get("ATTACK"), level);
-        this.defense = StatCalculator.calculateStat(baseStats.get("DEFENSE"), level);
-        this.specialAttack = StatCalculator.calculateStat(baseStats.get("SPECIAL_ATTACK"), level);
-        this.specialDefense = StatCalculator.calculateStat(baseStats.get("SPECIAL_DEFENSE"), level);
-        this.speed = StatCalculator.calculateStat(baseStats.get("SPEED"), level);
-
+        this.heldItem = null; // Simplificado por agora
+        
+        this.type1 = PokemonType.valueOf(data.type1);
+        this.type2 = (data.type2 != null) ? PokemonType.valueOf(data.type2) : null;
+        this.experienceGroup = ExperienceGroup.valueOf(data.experienceGroup);
+        
+        // Calcula os stats com base nos dados do JSON e no nível
+        this.maxHP = StatCalculator.calculateHP(data.baseStats.get("HP"), level);
+        this.attack = StatCalculator.calculateStat(data.baseStats.get("ATTACK"), level);
+        this.defense = StatCalculator.calculateStat(data.baseStats.get("DEFENSE"), level);
+        this.specialAttack = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_ATTACK"), level);
+        this.specialDefense = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_DEFENSE"), level);
+        this.speed = StatCalculator.calculateStat(data.baseStats.get("SPEED"), level);
+        
         this.currentHP = this.maxHP;
-
         this.experiencePoints = ExperienceCalculator.getTotalExpForLevel(level, experienceGroup);
         this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(level, experienceGroup);
+        
+        this.moves = new Array<>(4);
     }
 
     public void learnMove(Move move) {
@@ -122,10 +118,6 @@ public class Pokemon {
         return "sprites/pokemons/frontal/" + baseName + shinySuffix + ".gif";
     }
     
-    /**
-     * ## NOVO MÉTODO ##
-     * Retorna o caminho para a animação do sprite de costas do Pokémon.
-     */
     public String getBackSpriteGifPath() {
         String baseName = speciesName.toLowerCase().replace(" ", "");
         String shinySuffix = shiny ? "_shiny" : "";

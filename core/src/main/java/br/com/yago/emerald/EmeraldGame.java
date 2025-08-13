@@ -1,6 +1,7 @@
 package br.com.yago.emerald;
 
 import br.com.yago.emerald.assets.AssetsLoader;
+import br.com.yago.emerald.database.GameDatabase;
 import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Player;
@@ -27,10 +28,15 @@ public class EmeraldGame extends Game {
     private Screen previousScreen;
     private String playerName;
     private BattleScreen battleScreen;
+    public GameDatabase db;
 
     @Override
     public void create () {
         Gdx.app.log("EmeraldGame", "Jogo iniciado. Carregando assets e criando batch...");
+
+        // Carrega o banco de dados de JSONs antes de qualquer outra coisa
+        db = new GameDatabase();
+        db.load();
 
         assetLoader = new AssetsLoader();
         assetLoader.load();
@@ -49,7 +55,8 @@ public class EmeraldGame extends Game {
             collisionLayer,
             null,
             10 * 16f,
-            8 * 16f
+            8 * 16f,
+            this // Passa a instância do jogo para o Player
         );
         tempMap.dispose();
 
@@ -63,7 +70,6 @@ public class EmeraldGame extends Game {
     public void openBattleScreen(Pokemon wildPokemon) {
         if (gameScreen != null && !gameScreen.isFading()) {
             gameScreen.setInBattle(true);
-            // ## CHAMADA ATUALIZADA: Passa a equipe do jogador ##
             battleScreen = new BattleScreen(this, gameScreen, batch, assetLoader, player.getParty(), wildPokemon);
             setScreen(battleScreen);
         }

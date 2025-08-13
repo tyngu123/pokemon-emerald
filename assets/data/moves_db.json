@@ -1,0 +1,2795 @@
+
+{
+  "Pound": {
+    "description": "Pounds the foe with forelegs or tail.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Karate Chop": {
+    "description": "A chopping attack with a high critical-hit ratio.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Double Slap": {
+    "description": "Repeatedly slaps the foe 2 to 5 times.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 85,
+    "pp": 10
+  },
+  "Comet Punch": {
+    "description": "Repeatedly punches the foe 2 to 5 times.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 18,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Mega Punch": {
+    "description": "A powerful punch thrown with incredible force.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 85,
+    "pp": 20
+  },
+  "Pay Day": {
+    "description": "Throws coins at the foe. Money is picked up after the battle.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Fire Punch": {
+    "description": "A fiery punch that may burn the foe.",
+    "type": "FIRE",
+    "category": "PHYSICAL",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Ice Punch": {
+    "description": "An icy punch that may freeze the foe.",
+    "type": "ICE",
+    "category": "PHYSICAL",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Thunder Punch": {
+    "description": "An electrified punch that may paralyze the foe.",
+    "type": "ELECTRIC",
+    "category": "PHYSICAL",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Scratch": {
+    "description": "Scratches the foe with sharp claws.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Vise Grip": {
+    "description": "Grips the foe with large and powerful pincers.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 55,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Guillotine": {
+    "description": "A one-hit KO move. Fails if the foe is a higher level.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  "Razor Wind": {
+    "description": "A 2-turn move that strikes the foe on the 2nd turn.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Swords Dance": {
+    "description": "A fighting dance that sharply raises the user's Attack.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Cut": {
+    "description": "Cuts the foe with a scythe, claw, etc.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 95,
+    "pp": 30
+  },
+  "Gust": {
+    "description": "Whips up a strong gust of wind.",
+    "type": "FLYING",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Wing Attack": {
+    "description": "Strikes the foe with wings spread wide.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Whirlwind": {
+    "description": "Blows away the foe with wind and ends the battle.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Fly": {
+    "description": "Flies up on the first turn, then attacks on the next turn.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 90,
+    "accuracy": 95,
+    "pp": 15
+  },
+  "Bind": {
+    "description": "Binds and squeezes the foe for 2 to 5 turns.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 85,
+    "pp": 20
+  },
+  "Slam": {
+    "description": "Slams the foe with a long tail, vine, etc.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 75,
+    "pp": 20
+  },
+  "Vine Whip": {
+    "description": "Strikes the foe with slender, whip-like vines.",
+    "type": "GRASS",
+    "category": "PHYSICAL",
+    "power": 45,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Stomp": {
+    "description": "Stomps the foe with a big foot. May cause flinching.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Double Kick": {
+    "description": "A double-kicking attack that strikes the foe twice.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 30,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Mega Kick": {
+    "description": "An extremely powerful kick with intense force.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 75,
+    "pp": 5
+  },
+  "Jump Kick": {
+    "description": "A strong jumping kick. If it misses, the user is hurt.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 95,
+    "pp": 10
+  },
+  "Rolling Kick": {
+    "description": "A quick kick from a spin. May cause flinching.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Sand Attack": {
+    "description": "Reduces the foe's accuracy by hurling sand.",
+    "type": "GROUND",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Headbutt": {
+    "description": "A ramming attack that may cause flinching.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Horn Attack": {
+    "description": "Jabs the foe with sharp horns.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Fury Attack": {
+    "description": "Jabs the foe with sharp horns, etc., 2 to 5 times.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 85,
+    "pp": 20
+  },
+  "Horn Drill": {
+    "description": "A one-hit KO attack. Fails if the foe is a higher level.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  "Tackle": {
+    "description": "A physical attack.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Body Slam": {
+    "description": "A full-body slam that may cause paralysis.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 85,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Wrap": {
+    "description": "Wraps and squeezes the foe for 2 to 5 turns.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 90,
+    "pp": 20
+  },
+  "Take Down": {
+    "description": "A reckless charge attack. The user receives recoil damage.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 90,
+    "accuracy": 85,
+    "pp": 20
+  },
+  "Thrash": {
+    "description": "A rampage of 2 to 3 turns that confuses the user.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Double-Edge": {
+    "description": "A life-risking tackle that also hurts the user.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Tail Whip": {
+    "description": "Lowers the foe's Defense.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Poison Sting": {
+    "description": "A toxic attack with barbs, etc., that may poison.",
+    "type": "POISON",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Twineedle": {
+    "description": "Stingers on the forelegs jab the foe twice.",
+    "type": "BUG",
+    "category": "PHYSICAL",
+    "power": 25,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Pin Missile": {
+    "description": "Sharp pins are shot at the foe 2 to 5 times.",
+    "type": "BUG",
+    "category": "PHYSICAL",
+    "power": 25,
+    "accuracy": 95,
+    "pp": 20
+  },
+  "Leer": {
+    "description": "Reduces the foe's Defense with a scary glare.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Bite": {
+    "description": "Bites with vicious fangs. May cause flinching.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Growl": {
+    "description": "Reduces the foe's Attack with a cute cry.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 40
+  },
+  "Roar": {
+    "description": "Makes the foe flee to end the battle.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Sing": {
+    "description": "A soothing song lulls the foe into a deep sleep.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 55,
+    "pp": 15
+  },
+  "Supersonic": {
+    "description": "Emits bizarre sound waves that may confuse the foe.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 55,
+    "pp": 20
+  },
+  "Sonic Boom": {
+    "description": "Launches a shock wave that always inflicts 20 HP damage.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 20
+  },
+  "Disable": {
+    "description": "Disables the foe's most recent move for a few turns.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Acid": {
+    "description": "Sprays a hide-melting acid. May lower Defense.",
+    "type": "POISON",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Ember": {
+    "description": "A weak fire attack that may inflict a burn.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Flamethrower": {
+    "description": "A powerful fire attack that may inflict a burn.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Mist": {
+    "description": "Creates a mist that prevents stats from being lowered.",
+    "type": "ICE",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Water Gun": {
+    "description": "Squirts water to attack the foe.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Hydro Pump": {
+    "description": "Blasts water at high power to strike the foe.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 110,
+    "accuracy": 80,
+    "pp": 5
+  },
+  "Surf": {
+    "description": "Creates a huge wave, then crashes it down on the foe.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Ice Beam": {
+    "description": "Blasts the foe with an icy beam that may freeze it.",
+    "type": "ICE",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Blizzard": {
+    "description": "A howling blizzard attack that may freeze the foe.",
+    "type": "ICE",
+    "category": "SPECIAL",
+    "power": 110,
+    "accuracy": 70,
+    "pp": 5
+  },
+  "Psybeam": {
+    "description": "Fires a peculiar ray that may confuse the foe.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Bubble Beam": {
+    "description": "A spray of bubbles that may lower the foe's Speed.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Aurora Beam": {
+    "description": "Fires a rainbow-colored beam that may lower Attack.",
+    "type": "ICE",
+    "category": "SPECIAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Hyper Beam": {
+    "description": "A severely powerful attack that leaves the user immobile for a turn.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Peck": {
+    "description": "Pecks the foe with a sharp beak, etc.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 35,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Drill Peck": {
+    "description": "A corkscrewing attack with the beak acting as a drill.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Submission": {
+    "description": "A reckless body slam that also hurts the user.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 80,
+    "pp": 20
+  },
+  "Low Kick": {
+    "description": "A kick that deals more damage to heavier foes.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Counter": {
+    "description": "Retaliates any physical hit with double the power.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Seismic Toss": {
+    "description": "Inflicts damage equal to the user's level.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Strength": {
+    "description": "Builds enormous power, then slams the foe.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Absorb": {
+    "description": "An attack that absorbs half the damage inflicted.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Mega Drain": {
+    "description": "An attack that absorbs half the damage inflicted.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Leech Seed": {
+    "description": "Plants a seed on the foe to steal some HP every turn.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Growth": {
+    "description": "Forces the body to grow, raising Special Attack.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Razor Leaf": {
+    "description": "Cuts the foe with sharp leaves. High critical-hit ratio.",
+    "type": "GRASS",
+    "category": "PHYSICAL",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 25
+  },
+  "Solar Beam": {
+    "description": "Absorbs light in one turn, then attacks next turn.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Poison Powder": {
+    "description": "Scatters a toxic powder that may poison the foe.",
+    "type": "POISON",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 75,
+    "pp": 35
+  },
+  "Stun Spore": {
+    "description": "Scatters a powder that may paralyze the foe.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 75,
+    "pp": 30
+  },
+  "Sleep Powder": {
+    "description": "Scatters a powder that may cause the foe to sleep.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 75,
+    "pp": 15
+  },
+  "Petal Dance": {
+    "description": "A rampage of 2 to 3 turns that confuses the user.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "String Shot": {
+    "description": "Binds the foe with string to reduce its Speed.",
+    "type": "BUG",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 95,
+    "pp": 40
+  },
+  "Dragon Rage": {
+    "description": "Launches a shock wave that always inflicts 40 HP damage.",
+    "type": "DRAGON",
+    "category": "SPECIAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Fire Spin": {
+    "description": "Traps the foe in a ring of fire for 2 to 5 turns.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Thunder Shock": {
+    "description": "An electric shock attack that may paralyze the foe.",
+    "type": "ELECTRIC",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Thunderbolt": {
+    "description": "A strong electrical attack that may paralyze the foe.",
+    "type": "ELECTRIC",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Thunder Wave": {
+    "description": "A weak electric shock that paralyzes the foe.",
+    "type": "ELECTRIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 20
+  },
+  "Thunder": {
+    "description": "A lightning attack that may cause paralysis.",
+    "type": "ELECTRIC",
+    "category": "SPECIAL",
+    "power": 110,
+    "accuracy": 70,
+    "pp": 10
+  },
+  "Rock Throw": {
+    "description": "Throws small rocks to strike the foe.",
+    "type": "ROCK",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 90,
+    "pp": 15
+  },
+  "Earthquake": {
+    "description": "A powerful quake, but has no effect on flying foes.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Fissure": {
+    "description": "A one-hit KO move. Fails if the foe is a higher level.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  "Dig": {
+    "description": "Digs underground the first turn and attacks the next.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Toxic": {
+    "description": "Poisons the foe with an intensifying toxin.",
+    "type": "POISON",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Confusion": {
+    "description": "A psychic attack that may confuse the foe.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Psychic": {
+    "description": "A powerful psychic attack that may lower Sp. Def.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Hypnosis": {
+    "description": "A hypnotizing move that may cause sleep.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 60,
+    "pp": 20
+  },
+  "Meditate": {
+    "description": "Meditates in a peaceful fashion to raise Attack.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Agility": {
+    "description": "Relaxes the body to sharply raise Speed.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Quick Attack": {
+    "description": "An attack that always goes first.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Rage": {
+    "description": "Raises the user's Attack every time it is hit.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Teleport": {
+    "description": "A psychic move for fleeing from battle instantly.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Night Shade": {
+    "description": "Inflicts damage equal to the user's level.",
+    "type": "GHOST",
+    "category": "SPECIAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Mimic": {
+    "description": "Copies a move used by the foe during one battle.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Screech": {
+    "description": "Emits a screech that sharply reduces the foe's Defense.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 85,
+    "pp": 40
+  },
+  "Double Team": {
+    "description": "Creates illusory copies to raise evasiveness.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15
+  },
+  "Recover": {
+    "description": "Recovers up to half the user's maximum HP.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Harden": {
+    "description": "Stiffens the body's muscles to raise Defense.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Minimize": {
+    "description": "Minimizes the user's size to raise evasiveness.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Smokescreen": {
+    "description": "Lowers the foe's accuracy using smoke, ink, etc.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Confuse Ray": {
+    "description": "A sinister ray that confuses the foe.",
+    "type": "GHOST",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Withdraw": {
+    "description": "Withdraws the body into its hard shell to raise Defense.",
+    "type": "WATER",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Defense Curl": {
+    "description": "Curls up to conceal weak spots and raise Defense.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Barrier": {
+    "description": "Creates a sturdy wall that sharply raises Defense.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Light Screen": {
+    "description": "Creates a wall of light that lowers damage from Sp. Atk.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Haze": {
+    "description": "Creates a black haze that eliminates all stat changes.",
+    "type": "ICE",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Reflect": {
+    "description": "Creates a wall of light that weakens physical attacks.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Focus Energy": {
+    "description": "Focuses power to raise the critical-hit ratio.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Bide": {
+    "description": "Endures attacks for 2 turns, then strikes back for double.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Metronome": {
+    "description": "Wags a finger to use any Pokémon move at random.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Mirror Move": {
+    "description": "Counters the foe's attack with the same move.",
+    "type": "FLYING",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Self-Destruct": {
+    "description": "A powerful attack that also faints the user.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 200,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Egg Bomb": {
+    "description": "An egg is hurled with great force at the foe.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 75,
+    "pp": 10
+  },
+  "Lick": {
+    "description": "Licks with a long tongue. May cause paralysis.",
+    "type": "GHOST",
+    "category": "PHYSICAL",
+    "power": 30,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Smog": {
+    "description": "An exhaust-gas attack that may also poison.",
+    "type": "POISON",
+    "category": "SPECIAL",
+    "power": 30,
+    "accuracy": 70,
+    "pp": 20
+  },
+  "Sludge": {
+    "description": "Sludge is hurled to inflict damage. May also poison.",
+    "type": "POISON",
+    "category": "SPECIAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Bone Club": {
+    "description": "Clubs the foe with a bone. May cause flinching.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 65,
+    "accuracy": 85,
+    "pp": 20
+  },
+  "Fire Blast": {
+    "description": "Incinerates everything in a fiery blast. May cause a burn.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 110,
+    "accuracy": 85,
+    "pp": 5
+  },
+  "Waterfall": {
+    "description": "A powerful charge attack. Can be used to climb waterfalls.",
+    "type": "WATER",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Clamp": {
+    "description": "Traps and squeezes the foe for 2 to 5 turns.",
+    "type": "WATER",
+    "category": "PHYSICAL",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Swift": {
+    "description": "Sprays star-shaped rays that never miss.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Skull Bash": {
+    "description": "Tucks in its head, then attacks on the next turn.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 130,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Spike Cannon": {
+    "description": "Launches sharp spikes that strike 2 to 5 times.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Constrict": {
+    "description": "Constricts to inflict pain. May lower Speed.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 10,
+    "accuracy": 100,
+    "pp": 35
+  },
+  "Amnesia": {
+    "description": "Forgets something, sharply raising Sp. Def.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Kinesis": {
+    "description": "Distracts the foe. May lower accuracy.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 80,
+    "pp": 15
+  },
+  "Soft-Boiled": {
+    "description": "Recovers up to half the user's maximum HP.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "High Jump Kick": {
+    "description": "A jumping knee kick. If it misses, the user is hurt.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 130,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Glare": {
+    "description": "Intimidates and frightens the foe into paralysis.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Dream Eater": {
+    "description": "Absorbs half the damage inflicted on a sleeping foe.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 100,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Poison Gas": {
+    "description": "Envelops the foe in a toxic gas that may poison.",
+    "type": "POISON",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 40
+  },
+  "Barrage": {
+    "description": "Hurls round objects at the foe 2 to 5 times.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 85,
+    "pp": 20
+  },
+  "Leech Life": {
+    "description": "An attack that absorbs half the damage inflicted.",
+    "type": "BUG",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Lovely Kiss": {
+    "description": "May cause the foe to fall asleep.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 75,
+    "pp": 10
+  },
+  "Sky Attack": {
+    "description": "Searches for weaknesses, then strikes the next turn.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 140,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Transform": {
+    "description": "Transforms the user into a copy of the foe.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Bubble": {
+    "description": "A spray of bubbles that may lower the foe's Speed.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Dizzy Punch": {
+    "description": "A rhythmic punch that may confuse the foe.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Spore": {
+    "description": "Scatters spores that always cause sleep.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Flash": {
+    "description": "Blinds the foe with a flash of light, reducing accuracy.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Psywave": {
+    "description": "Attacks with a psychic wave of varying intensity.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Splash": {
+    "description": "It's just a splash... Has no effect whatsoever.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Acid Armor": {
+    "description": "Liquefies the user's body to sharply raise Defense.",
+    "type": "POISON",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Crabhammer": {
+    "description": "Hammers with a pincer. Has a high critical-hit ratio.",
+    "type": "WATER",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Explosion": {
+    "description": "Inflicts severe damage but makes the user faint.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 250,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Fury Swipes": {
+    "description": "Rakes the foe with sharp claws, etc., 2 to 5 times.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 18,
+    "accuracy": 80,
+    "pp": 15
+  },
+  "Bonemerang": {
+    "description": "A bone is thrown like a boomerang to strike twice.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Rest": {
+    "description": "The user sleeps for 2 turns, restoring HP and status.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Rock Slide": {
+    "description": "Large boulders are hurled. May cause flinching.",
+    "type": "ROCK",
+    "category": "PHYSICAL",
+    "power": 75,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Hyper Fang": {
+    "description": "Attacks with sharp fangs. May cause flinching.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 90,
+    "pp": 15
+  },
+  "Sharpen": {
+    "description": "Reduces the polygon count and raises Attack.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Conversion": {
+    "description": "Changes the user's type to a move's type.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Tri Attack": {
+    "description": "Fires three types of beams at the same time.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Super Fang": {
+    "description": "Attacks with sharp fangs and halves the foe's HP.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Slash": {
+    "description": "Slashes with claws, etc. Has a high critical-hit ratio.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Substitute": {
+    "description": "Creates a decoy using 1/4 of the user's maximum HP.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Struggle": {
+    "description": "An attack that is used when no PP is left.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 0,
+    "pp": 1
+  },
+  "Sketch": {
+    "description": "Permanently copies the last move used by the foe.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 1
+  },
+  "Triple Kick": {
+    "description": "Kicks the foe 3 times in a row with rising power.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 10,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Thief": {
+    "description": "An attack that may steal a held item.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Spider Web": {
+    "description": "Ensnares the foe to stop it from fleeing or switching.",
+    "type": "BUG",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Mind Reader": {
+    "description": "Senses the foe's action to ensure the next move hits.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Nightmare": {
+    "description": "Inflicts 1/4 damage on a sleeping foe every turn.",
+    "type": "GHOST",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Flame Wheel": {
+    "description": "A fiery charge attack that may inflict a burn.",
+    "type": "FIRE",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Snore": {
+    "description": "A loud snore that may cause flinching. Can be used only while asleep.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Curse": {
+    "description": "A move that works differently for the Ghost type.",
+    "type": "GHOST",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Flail": {
+    "description": "A desperate attack that flows with greater power the lower the user's HP.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Conversion 2": {
+    "description": "Makes the user resistant to the foe's last move.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 30
+  },
+  "Aeroblast": {
+    "description": "Launches a vacuum cannon. High critical-hit ratio.",
+    "type": "FLYING",
+    "category": "SPECIAL",
+    "power": 100,
+    "accuracy": 95,
+    "pp": 5
+  },
+  "Cotton Spore": {
+    "description": "Spores cling to the foe, sharply reducing Speed.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 40
+  },
+  "Reversal": {
+    "description": "An attack that flows with greater power the lower the user's HP.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Spite": {
+    "description": "Spitefully reduces the PP of the foe's last move.",
+    "type": "GHOST",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Powder Snow": {
+    "description": "Blasts the foe with a snowy gust. May cause freezing.",
+    "type": "ICE",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Protect": {
+    "description": "Evades attack, but may fail if used in succession.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Mach Punch": {
+    "description": "A punch is thrown at blinding speed. It always goes first.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Scary Face": {
+    "description": "Frightens the foe with a scary face to sharply reduce its Speed.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Faint Attack": {
+    "description": "The user draws up close to the foe disarmingly, then hits without fail.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Sweet Kiss": {
+    "description": "Demands a kiss with a cute look. May cause confusion.",
+    "type": "FAIRY",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 75,
+    "pp": 10
+  },
+  "Belly Drum": {
+    "description": "Maximizes Attack while sacrificing HP.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Sludge Bomb": {
+    "description": "Sludge is hurled to inflict damage. May also poison.",
+    "type": "POISON",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Mud-Slap": {
+    "description": "Hurls mud in the foe's face to reduce its accuracy.",
+    "type": "GROUND",
+    "category": "SPECIAL",
+    "power": 20,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Octazooka": {
+    "description": "Fires ink to attack. May lower accuracy.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 65,
+    "accuracy": 85,
+    "pp": 10
+  },
+  "Spikes": {
+    "description": "Sets spikes that hurt a foe switching in.",
+    "type": "GROUND",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Zap Cannon": {
+    "description": "An attack that always causes paralysis.",
+    "type": "ELECTRIC",
+    "category": "SPECIAL",
+    "power": 120,
+    "accuracy": 50,
+    "pp": 5
+  },
+  "Foresight": {
+    "description": "Negates the foe's efforts to heighten evasiveness.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Destiny Bond": {
+    "description": "If the user faints, the foe is also defeated.",
+    "type": "GHOST",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Perish Song": {
+    "description": "Any Pokémon hearing this song faints in 3 turns.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Icy Wind": {
+    "description": "A chilling attack that lowers the foe's Speed.",
+    "type": "ICE",
+    "category": "SPECIAL",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 15
+  },
+  "Detect": {
+    "description": "Evades attack, but may fail if used in succession.",
+    "type": "FIGHTING",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Bone Rush": {
+    "description": "A bone is used to beat the foe 2 to 5 times.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 25,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Lock-On": {
+    "description": "Locks on to the foe to ensure the next move hits.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Outrage": {
+    "description": "A rampage of 2 to 3 turns that confuses the user.",
+    "type": "DRAGON",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Sandstorm": {
+    "description": "A sandstorm lasting 2 to 5 turns that damages all types except Rock, Ground, and Steel.",
+    "type": "ROCK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Giga Drain": {
+    "description": "An attack that absorbs half the damage inflicted.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Endure": {
+    "description": "Endures any attack with at least 1 HP. May fail in succession.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Charm": {
+    "description": "Charms the foe to sharply reduce its Attack.",
+    "type": "FAIRY",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Rollout": {
+    "description": "An attack that gains power for 5 turns.",
+    "type": "ROCK",
+    "category": "PHYSICAL",
+    "power": 30,
+    "accuracy": 90,
+    "pp": 20
+  },
+  "False Swipe": {
+    "description": "An attack that leaves the foe with at least 1 HP.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 40
+  },
+  "Swagger": {
+    "description": "Confuses the foe, but also sharply raises its Attack.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Milk Drink": {
+    "description": "Recovers up to half the user's maximum HP.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Spark": {
+    "description": "An electrified tackle that may paralyze the foe.",
+    "type": "ELECTRIC",
+    "category": "PHYSICAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Fury Cutter": {
+    "description": "An attack that grows stronger with each successive hit.",
+    "type": "BUG",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 95,
+    "pp": 20
+  },
+  "Steel Wing": {
+    "description": "Strikes the foe with hard wings. May raise Defense.",
+    "type": "STEEL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 90,
+    "pp": 25
+  },
+  "Mean Look": {
+    "description": "Fixes the foe with a look that prevents escape.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Attract": {
+    "description": "Makes the opposite gender less likely to attack.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Sleep Talk": {
+    "description": "Randomly uses one of the user's moves while asleep.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Heal Bell": {
+    "description": "Heals the status problems of all Pokémon in the party.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Return": {
+    "description": "An attack that grows more powerful with friendship.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Present": {
+    "description": "A gift in the form of a bomb. May restore HP.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 90,
+    "pp": 15
+  },
+  "Frustration": {
+    "description": "An attack that is stronger if the trainer is disliked.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Safeguard": {
+    "description": "A mystical force prevents all status problems.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 25
+  },
+  "Pain Split": {
+    "description": "Adds the user's and foe's HP and shares it equally.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Sacred Fire": {
+    "description": "A mystical fire attack that may inflict a burn.",
+    "type": "FIRE",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 95,
+    "pp": 5
+  },
+  "Magnitude": {
+    "description": "A ground-shaking attack of random intensity.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Dynamic Punch": {
+    "description": "A powerful punch that always confuses the foe.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 50,
+    "pp": 5
+  },
+  "Megahorn": {
+    "description": "A brutal ramming attack using horns.",
+    "type": "BUG",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 85,
+    "pp": 10
+  },
+  "Dragon Breath": {
+    "description": "An attack with a powerful breath of air. May paralyze.",
+    "type": "DRAGON",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Baton Pass": {
+    "description": "Switches out the user while keeping effects in play.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Encore": {
+    "description": "Makes the foe repeat its last move for 2 to 6 turns.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Pursuit": {
+    "description": "Inflicts bad damage if used on a foe switching out.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Rapid Spin": {
+    "description": "Spins the body at high speed to strike the foe.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 40
+  },
+  "Sweet Scent": {
+    "description": "A sweet scent that lowers the foe's evasiveness.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Iron Tail": {
+    "description": "Attacks with a rock-hard tail. May lower Defense.",
+    "type": "STEEL",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 75,
+    "pp": 15
+  },
+  "Metal Claw": {
+    "description": "A claw attack that may raise the user's Attack.",
+    "type": "STEEL",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 95,
+    "pp": 35
+  },
+  "Vital Throw": {
+    "description": "A throw that never misses, but always strikes last.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Morning Sun": {
+    "description": "Restores HP. The amount varies with the weather.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Synthesis": {
+    "description": "Restores HP. The amount varies with the weather.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Moonlight": {
+    "description": "Restores HP. The amount varies with the weather.",
+    "type": "FAIRY",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Hidden Power": {
+    "description": "The effectiveness varies with the user.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Cross Chop": {
+    "description": "A double-chopping attack. High critical-hit ratio.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 100,
+    "accuracy": 80,
+    "pp": 5
+  },
+  "Twister": {
+    "description": "Whips up a vicious twister to tear at the foe.",
+    "type": "DRAGON",
+    "category": "SPECIAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Rain Dance": {
+    "description": "Boosts the power of Water-type moves for 5 turns.",
+    "type": "WATER",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Sunny Day": {
+    "description": "Boosts the power of Fire-type moves for 5 turns.",
+    "type": "FIRE",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Crunch": {
+    "description": "Crunches with sharp fangs. May lower Sp. Def.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Mirror Coat": {
+    "description": "Counters special attacks with double the power.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Psych Up": {
+    "description": "Copies the foe's effect(s) and gives them to the user.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Extreme Speed": {
+    "description": "An extremely fast attack that always strikes first.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Ancient Power": {
+    "description": "An attack that may raise all stats.",
+    "type": "ROCK",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Shadow Ball": {
+    "description": "Hurls a black blob that may lower the foe's Sp. Def.",
+    "type": "GHOST",
+    "category": "SPECIAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Future Sight": {
+    "description": "Heightens inner power to strike 2 turns later.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Rock Smash": {
+    "description": "A rock-crushing attack that may lower Defense.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Whirlpool": {
+    "description": "Traps and damages the foe for 2 to 5 turns.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Beat Up": {
+    "description": "Each Pokémon in the party attacks the foe.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Focus Punch": {
+    "description": "A powerful loyalty attack. The user flinches if hit.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Smelling Salts": {
+    "description": "Powerful against paralyzed foes, but heals them.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Follow Me": {
+    "description": "Draws attention to make foes attack only the user.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Nature Power": {
+    "description": "The type of attack varies depending on the location.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Charge": {
+    "description": "Charges power to boost the next Electric move.",
+    "type": "ELECTRIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Taunt": {
+    "description": "Taunts the foe into only using attack moves.",
+    "type": "DARK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Helping Hand": {
+    "description": "Boosts the power of the recipient's move.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Trick": {
+    "description": "Tricks the foe into trading held items.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Role Play": {
+    "description": "Mimics the target and copies its special ability.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Wish": {
+    "description": "A wish that restores HP. It takes one turn to come true.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Assist": {
+    "description": "Attacks randomly with one of the partner's moves.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Ingrain": {
+    "description": "Lays roots that restore HP each turn. Can't switch out.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Superpower": {
+    "description": "A powerful attack, but it also lowers the user's stats.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Magic Coat": {
+    "description": "Reflects special moves back to the attacker.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15
+  },
+  "Recycle": {
+    "description": "Recycles a used item for one more use.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Revenge": {
+    "description": "An attack that gains power if the user is hit.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Brick Break": {
+    "description": "Destroys barriers such as Reflect and Light Screen.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Yawn": {
+    "description": "A huge yawn that lulls the foe into falling asleep on the next turn.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Knock Off": {
+    "description": "Knocks down the foe's held item to prevent its use.",
+    "type": "DARK",
+    "category": "PHYSICAL",
+    "power": 65,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Endeavor": {
+    "description": "Gains power if the user's HP is lower than the foe's.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Eruption": {
+    "description": "The higher the user's HP, the more powerful this attack becomes.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Skill Swap": {
+    "description": "The user swaps special abilities with the target.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Imprison": {
+    "description": "Prevents the foe from using moves known by the user.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Refresh": {
+    "description": "Heals the user of poison, paralysis, or burning.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Grudge": {
+    "description": "If the user faints, the foe's last move loses all its PP.",
+    "type": "GHOST",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Snatch": {
+    "description": "Steals the effects of the move the target is trying to use.",
+    "type": "DARK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Secret Power": {
+    "description": "An attack with effects that vary by location.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Dive": {
+    "description": "Dives underwater the first turn and attacks the next.",
+    "type": "WATER",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Arm Thrust": {
+    "description": "A straight-arm punch that strikes the foe 2 to 5 times.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 15,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Camouflage": {
+    "description": "Changes the user's type depending on the location.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Tail Glow": {
+    "description": "Flashes a light that sharply raises Sp. Atk.",
+    "type": "BUG",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Luster Purge": {
+    "description": "A flash of light that may lower Sp. Def.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Mist Ball": {
+    "description": "A flurry of down that may lower Sp. Atk.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Feather Dance": {
+    "description": "Envelops the foe in down to sharply reduce Attack.",
+    "type": "FLYING",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Teeter Dance": {
+    "description": "A wobbly dance that confuses all Pokémon in battle.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Blaze Kick": {
+    "description": "A kick with a high critical-hit ratio. May cause a burn.",
+    "type": "FIRE",
+    "category": "PHYSICAL",
+    "power": 85,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Mud Sport": {
+    "description": "Covers the user in mud to weaken electrical attacks.",
+    "type": "GROUND",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15
+  },
+  "Ice Ball": {
+    "description": "An attack that gains power for 5 turns.",
+    "type": "ICE",
+    "category": "PHYSICAL",
+    "power": 30,
+    "accuracy": 90,
+    "pp": 20
+  },
+  "Needle Arm": {
+    "description": "An attack with thorny arms. May cause flinching.",
+    "type": "GRASS",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Slack Off": {
+    "description": "Slacks off and restores half the maximum HP.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Hyper Voice": {
+    "description": "A loud attack that uses sound waves to hurt.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Poison Fang": {
+    "description": "A bite that may badly poison the foe.",
+    "type": "POISON",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Crush Claw": {
+    "description": "Tears at the foe with sharp claws. May lower Defense.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 75,
+    "accuracy": 95,
+    "pp": 10
+  },
+  "Blast Burn": {
+    "description": "Powerful, but leaves the user immobile the next turn.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Hydro Cannon": {
+    "description": "Powerful, but leaves the user immobile the next turn.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Meteor Mash": {
+    "description": "A powerful meteor-like punch. May raise Attack.",
+    "type": "STEEL",
+    "category": "PHYSICAL",
+    "power": 90,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Astonish": {
+    "description": "An attack that may shock the foe into flinching.",
+    "type": "GHOST",
+    "category": "PHYSICAL",
+    "power": 30,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Weather Ball": {
+    "description": "An attack that varies in power and type with the weather.",
+    "type": "NORMAL",
+    "category": "SPECIAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Aromatherapy": {
+    "description": "Heals all status problems with a soothing scent.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Fake Tears": {
+    "description": "Feigns crying to sharply lower the foe's Sp. Def.",
+    "type": "DARK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Air Cutter": {
+    "description": "Hacks the air with a blade of wind. High critical-hit ratio.",
+    "type": "FLYING",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 95,
+    "pp": 25
+  },
+  "Overheat": {
+    "description": "Allows a full-power attack, but sharply lowers Sp. Atk.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 130,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Odor Sleuth": {
+    "description": "Negates the foe's efforts to heighten evasiveness.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Rock Tomb": {
+    "description": "Stops the foe from moving with rocks and cuts its Speed.",
+    "type": "ROCK",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 95,
+    "pp": 15
+  },
+  "Silver Wind": {
+    "description": "A powdery attack that may raise all stats.",
+    "type": "BUG",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Metal Sound": {
+    "description": "A horrible sound that sharply lowers Sp. Def.",
+    "type": "STEEL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 85,
+    "pp": 40
+  },
+  "Grass Whistle": {
+    "description": "A pleasant melody that lulls the foe into a deep sleep.",
+    "type": "GRASS",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 55,
+    "pp": 15
+  },
+  "Tickle": {
+    "description": "Makes the foe laugh to lower its Attack and Defense.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Cosmic Power": {
+    "description": "Raises Defense and Sp. Def with a mysterious power.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Water Spout": {
+    "description": "The higher the user's HP, the more powerful this attack becomes.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Signal Beam": {
+    "description": "A strange beam attack that may confuse the foe.",
+    "type": "BUG",
+    "category": "SPECIAL",
+    "power": 75,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Shadow Punch": {
+    "description": "An unavoidable punch that is thrown from shadows.",
+    "type": "GHOST",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Extrasensory": {
+    "description": "A peculiar attack that may cause flinching.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Sky Uppercut": {
+    "description": "An uppercut thrown as if leaping into the sky.",
+    "type": "FIGHTING",
+    "category": "PHYSICAL",
+    "power": 85,
+    "accuracy": 90,
+    "pp": 15
+  },
+  "Sand Tomb": {
+    "description": "Traps and hurts the foe in quicksand for 2 to 5 turns.",
+    "type": "GROUND",
+    "category": "PHYSICAL",
+    "power": 35,
+    "accuracy": 85,
+    "pp": 15
+  },
+  "Sheer Cold": {
+    "description": "A one-hit KO attack that is intensely cold.",
+    "type": "ICE",
+    "category": "SPECIAL",
+    "power": 0,
+    "accuracy": 30,
+    "pp": 5
+  },
+  "Muddy Water": {
+    "description": "Attacks with muddy water. May lower accuracy.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 90,
+    "accuracy": 85,
+    "pp": 10
+  },
+  "Bullet Seed": {
+    "description": "Shoots 2 to 5 seeds in a row to strike the foe.",
+    "type": "GRASS",
+    "category": "PHYSICAL",
+    "power": 25,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Aerial Ace": {
+    "description": "An extremely speedy and unavoidable attack.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Icicle Spear": {
+    "description": "Attacks the foe by launching sharp icicles 2 to 5 times.",
+    "type": "ICE",
+    "category": "PHYSICAL",
+    "power": 25,
+    "accuracy": 100,
+    "pp": 30
+  },
+  "Iron Defense": {
+    "description": "Hardens the body's surface to sharply raise Defense.",
+    "type": "STEEL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15
+  },
+  "Block": {
+    "description": "Blocks the foe's path to prevent escape.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 5
+  },
+  "Howl": {
+    "description": "Howls to raise the spirit and boosts Attack.",
+    "type": "NORMAL",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 40
+  },
+  "Dragon Claw": {
+    "description": "Slashes the foe with sharp claws.",
+    "type": "DRAGON",
+    "category": "PHYSICAL",
+    "power": 80,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Frenzy Plant": {
+    "description": "Powerful, but leaves the user immobile the next turn.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 150,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Bulk Up": {
+    "description": "Bulks up the body to boost both Attack and Defense.",
+    "type": "FIGHTING",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Bounce": {
+    "description": "Bounces up, then down the next turn. May paralyze.",
+    "type": "FLYING",
+    "category": "PHYSICAL",
+    "power": 85,
+    "accuracy": 85,
+    "pp": 5
+  },
+  "Mud Shot": {
+    "description": "Hurls mud at the foe and reduces Speed.",
+    "type": "GROUND",
+    "category": "SPECIAL",
+    "power": 55,
+    "accuracy": 95,
+    "pp": 15
+  },
+  "Poison Tail": {
+    "description": "Has a high critical-hit ratio. May also poison.",
+    "type": "POISON",
+    "category": "PHYSICAL",
+    "power": 50,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Covet": {
+    "description": "Cutely begs to obtain an item held by the foe.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 25
+  },
+  "Volt Tackle": {
+    "description": "A life-risking charge attack that also hurts the user.",
+    "type": "ELECTRIC",
+    "category": "PHYSICAL",
+    "power": 120,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Magical Leaf": {
+    "description": "Attacks with a strange leaf that cannot be evaded.",
+    "type": "GRASS",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Water Sport": {
+    "description": "The user becomes soaked in water, weakening fire attacks.",
+    "type": "WATER",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 15
+  },
+  "Calm Mind": {
+    "description": "Raises Sp. Atk and Sp. Def by focusing the mind.",
+    "type": "PSYCHIC",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Leaf Blade": {
+    "description": "Slashes with a sharp leaf. High critical-hit ratio.",
+    "type": "GRASS",
+    "category": "PHYSICAL",
+    "power": 90,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Dragon Dance": {
+    "description": "A mystical dance that boosts Attack and Speed.",
+    "type": "DRAGON",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Rock Blast": {
+    "description": "Hurls boulders at the foe 2 to 5 times in a row.",
+    "type": "ROCK",
+    "category": "PHYSICAL",
+    "power": 25,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Shock Wave": {
+    "description": "A fast and unavoidable electric attack.",
+    "type": "ELECTRIC",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 0,
+    "pp": 20
+  },
+  "Water Pulse": {
+    "description": "Attacks with ultrasonic waves. May confuse the foe.",
+    "type": "WATER",
+    "category": "SPECIAL",
+    "power": 60,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Doom Desire": {
+    "description": "Summons a shower of light. It strikes 2 turns later.",
+    "type": "STEEL",
+    "category": "SPECIAL",
+    "power": 140,
+    "accuracy": 100,
+    "pp": 5
+  },
+  "Psycho Boost": {
+    "description": "Allows a full-power attack, but sharply lowers Sp. Atk.",
+    "type": "PSYCHIC",
+    "category": "SPECIAL",
+    "power": 140,
+    "accuracy": 90,
+    "pp": 5
+  },
+  "Fake Out": {
+    "description": "An attack that hits first and makes the target flinch. Usable only on the first turn.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 40,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Facade": {
+    "description": "An attack that boosts power if the user is poisoned, burned, or paralyzed.",
+    "type": "NORMAL",
+    "category": "PHYSICAL",
+    "power": 70,
+    "accuracy": 100,
+    "pp": 20
+  },
+  "Flatter": {
+    "description": "Confuses the target, but raises its Sp. Atk.",
+    "type": "DARK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  },
+  "Hail": {
+    "description": "Summons a hailstorm that strikes every turn.",
+    "type": "ICE",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 0,
+    "pp": 10
+  },
+  "Heat Wave": {
+    "description": "Exhales a hot breath on the foe. May inflict a burn.",
+    "type": "FIRE",
+    "category": "SPECIAL",
+    "power": 95,
+    "accuracy": 90,
+    "pp": 10
+  },
+  "Memento": {
+    "description": "The user faints and lowers the foe's abilities.",
+    "type": "DARK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 10
+  },
+  "Torment": {
+    "description": "Torments the foe and stops successive use of a move.",
+    "type": "DARK",
+    "category": "STATUS",
+    "power": 0,
+    "accuracy": 100,
+    "pp": 15
+  }
+}

@@ -1,29 +1,11 @@
 package br.com.yago.emerald.view;
 
-import br.com.yago.emerald.EmeraldGame;
-import br.com.yago.emerald.assets.AssetsLoader;
-import br.com.yago.emerald.config.GameConfig;
-import br.com.yago.emerald.controller.PlayerInputHandler;
-import br.com.yago.emerald.model.Character;
-import br.com.yago.emerald.model.Direction;
-import br.com.yago.emerald.model.Door;
-import br.com.yago.emerald.model.Entity;
-import br.com.yago.emerald.model.NPC;
-import br.com.yago.emerald.model.Player;
-import br.com.yago.emerald.model.Trigger;
-import br.com.yago.emerald.model.Warp;
-import br.com.yago.emerald.model.pathfinding.Pathfinder;
-import br.com.yago.emerald.script.MoveToCommand;
-import br.com.yago.emerald.script.ScriptCommand;
-import br.com.yago.emerald.script.ScriptRunner;
-import br.com.yago.emerald.ui.DialogueBox;
-import br.com.yago.emerald.ui.MapNameBox;
-import br.com.yago.emerald.ui.MenuBox;
-import br.com.yago.emerald.world.NpcLoader;
-import br.com.yago.emerald.world.TriggerLoader;
-import br.com.yago.emerald.world.WarpLoader;
-import br.com.yago.emerald.script.FadeOutCommand;
-import br.com.yago.emerald.script.WaitCommand;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -43,31 +25,44 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import br.com.yago.emerald.model.Pokemon;
-import java.util.Map;
-import java.util.HashMap;
-import br.com.yago.emerald.model.ExperienceGroup;
-import br.com.yago.emerald.model.PokemonType;
-import br.com.yago.emerald.model.PokemonNature;
-import br.com.yago.emerald.model.Ability;
-import br.com.yago.emerald.model.Pokeball;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import br.com.yago.emerald.EmeraldGame;
+import br.com.yago.emerald.assets.AssetsLoader;
+import br.com.yago.emerald.config.GameConfig;
+import br.com.yago.emerald.controller.PlayerInputHandler;
+import br.com.yago.emerald.database.GameDatabase;
+import br.com.yago.emerald.model.Character;
+import br.com.yago.emerald.model.Direction;
+import br.com.yago.emerald.model.Door;
+import br.com.yago.emerald.model.EncounterData;
+import br.com.yago.emerald.model.Entity;
+import br.com.yago.emerald.model.NPC;
+import br.com.yago.emerald.model.Player;
+import br.com.yago.emerald.model.Pokemon;
+import br.com.yago.emerald.model.Trigger;
+import br.com.yago.emerald.model.Warp;
+import br.com.yago.emerald.model.pathfinding.Pathfinder;
+import br.com.yago.emerald.script.FadeOutCommand;
+import br.com.yago.emerald.script.MoveToCommand;
+import br.com.yago.emerald.script.ScriptCommand;
+import br.com.yago.emerald.script.ScriptRunner;
+import br.com.yago.emerald.script.WaitCommand;
+import br.com.yago.emerald.ui.DialogueBox;
+import br.com.yago.emerald.ui.MapNameBox;
+import br.com.yago.emerald.ui.MenuBox;
+import br.com.yago.emerald.world.NpcLoader;
+import br.com.yago.emerald.world.TriggerLoader;
+import br.com.yago.emerald.world.WarpLoader;
 
 public class GameScreen extends ScreenAdapter {
 
 	private final EmeraldGame game;
 	private final SpriteBatch batch;
-	private final BitmapFont uiFont;
-	private final BitmapFont dialogueFont;
 	private final OrthographicCamera gameCamera;
 	private final Viewport gameViewport;
 	private final OrthographicCamera uiCamera;
@@ -90,7 +85,8 @@ public class GameScreen extends ScreenAdapter {
 	private final Comparator<Entity> yComparator = (e1, e2) -> Float.compare(e2.getWorldPosition().y, e1.getWorldPosition().y);
 	private final Pathfinder pathfinder;
 	private final FadeManager fadeManager;
-
+	private final GameDatabase db;
+	private final Array<EncounterData> wildEncounters = new Array<>();
 
 	private final String mapName;
 	private final boolean isInterior;
@@ -103,9 +99,10 @@ public class GameScreen extends ScreenAdapter {
 		this.batch = batch;
         this.player = player;
 		this.fadeManager = new FadeManager();
+        this.db = game.db;
 
-		uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
-		dialogueFont = assetLoader.manager.get(assetLoader.DIALOGUE_FONT_NAME + ".otf", BitmapFont.class);
+		BitmapFont uiFont = assetLoader.manager.get(assetLoader.FONT_NAME + ".otf", BitmapFont.class);
+		BitmapFont dialogueFont = assetLoader.manager.get(assetLoader.DIALOGUE_FONT_NAME + ".otf", BitmapFont.class);
 
 		Texture menuBoxTexture = assetLoader.manager.get(assetLoader.BOX, Texture.class);
 		Texture dialogueArrowTexture = assetLoader.manager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
@@ -126,6 +123,7 @@ public class GameScreen extends ScreenAdapter {
 
 		map = new TmxMapLoader().load(mapFileName);
 		this.grassLayer = (TiledMapTileLayer) map.getLayers().get("grass");
+        loadEncounterData();
 
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
@@ -155,11 +153,8 @@ public class GameScreen extends ScreenAdapter {
 		mapForegroundLayers = foregroundIndexes.stream().mapToInt(i -> i).toArray();
 
 		TiledMapTileLayer collisionLayer = (TiledMapTileLayer) map.getLayers().get("collision");
-
 		this.pathfinder = new Pathfinder(collisionLayer);
-
 		entities = new Array<>();
-
         player.setCollisionLayer(collisionLayer);
         player.setAllEntities(entities);
         player.getWorldPosition().set(playerStartX * GameConfig.TILE_SIZE, playerStartY * GameConfig.TILE_SIZE);
@@ -167,7 +162,6 @@ public class GameScreen extends ScreenAdapter {
         player.getTargetPosition().set(player.getWorldPosition());
         player.setFacingDirection(playerFacing);
         player.setVisible(true);
-		
         entities.add(player);
 
 		NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
@@ -199,6 +193,23 @@ public class GameScreen extends ScreenAdapter {
 		}
 	}
 
+    private void loadEncounterData() {
+        String encounterFilePath = map.getProperties().get("encounterFile", String.class);
+        if (encounterFilePath == null || encounterFilePath.isEmpty()) {
+            Gdx.app.log("GameScreen", "Mapa não possui propriedade 'encounterFile'. Nenhum encontro selvagem será carregado.");
+            return;
+        }
+        
+        if (Gdx.files.internal(encounterFilePath).exists()) {
+            Json json = new Json();
+            Array<EncounterData> encounters = json.fromJson(Array.class, EncounterData.class, Gdx.files.internal(encounterFilePath));
+            wildEncounters.addAll(encounters);
+            Gdx.app.log("GameScreen", wildEncounters.size + " encontros carregados de: " + encounterFilePath);
+        } else {
+            Gdx.app.error("GameScreen", "Arquivo de encontro definido no mapa não foi encontrado: " + encounterFilePath);
+        }
+    }
+    
 	private void runStepOutAnimation(Direction direction) {
 		Array<ScriptCommand> stepOutSequence = new Array<>();
 		MoveToCommand move = new MoveToCommand();
@@ -245,7 +256,6 @@ public class GameScreen extends ScreenAdapter {
 
 		dialogueBox.update(delta);
 		mapNameBox.update(delta, uiViewport);
-
 		gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
 		gameCamera.update();
 		mapRenderer.setView(gameCamera);
@@ -253,39 +263,25 @@ public class GameScreen extends ScreenAdapter {
     
     private void checkForBattle() {
         if (inBattle || grassLayer == null) return;
-
         int playerX = player.getGridX();
         int playerY = player.getGridY();
-
         if (grassLayer.getCell(playerX, playerY) != null) {
-            if (MathUtils.random(1, 100) <= 10) {
+            if (MathUtils.random(1, 100) <= 15) { // 15% chance
                 startBattle();
             }
         }
     }
     
-    private Pokemon createWildPokemon() {
-        Map<String, Integer> pidgeyBaseStats = new HashMap<>();
-	    pidgeyBaseStats.put("HP", 40);
-	    pidgeyBaseStats.put("ATTACK", 45);
-	    pidgeyBaseStats.put("DEFENSE", 40);
-	    pidgeyBaseStats.put("SPECIAL_ATTACK", 35);
-	    pidgeyBaseStats.put("SPECIAL_DEFENSE", 35);
-	    pidgeyBaseStats.put("SPEED", 56);
-
-        return new Pokemon(
-            "PIDGEY", "Pidgey", Pokemon.Gender.FEMALE, false, 3, pidgeyBaseStats,
-            PokemonType.NORMAL, PokemonType.FLYING, PokemonNature.JOLLY, 3, "Rota 1", Pokeball.POKEBALL, "",
-            new Ability("Keen Eye", "Previne a redução de accuracy."), null, ExperienceGroup.MEDIUM_SLOW
-        );
-    }
-    
     private void startBattle() {
         playerInputHandler.clearPressedKeys();
-        final Pokemon wildPokemon = createWildPokemon();
+        final Pokemon wildPokemon = selectRandomEncounter();
+
+        if (wildPokemon == null) {
+            Gdx.app.log("GameScreen", "Nenhum encontro selvagem para iniciar batalha.");
+            return;
+        }
 
         Array<ScriptCommand> preBattleSequence = new Array<>();
-        
         WaitCommand wait = new WaitCommand();
         JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
         waitData.addChild("duration", new JsonValue(0.4f));
@@ -302,21 +298,41 @@ public class GameScreen extends ScreenAdapter {
             game.openBattleScreen(wildPokemon);
         });
     }
+
+    private Pokemon selectRandomEncounter() {
+        if (wildEncounters.size == 0) return null;
+
+        int totalChance = 0;
+        for (EncounterData data : wildEncounters) {
+            totalChance += data.chance;
+        }
+
+        if (totalChance == 0) return null;
+
+        int randomRoll = MathUtils.random(1, totalChance);
+        EncounterData selectedEncounter = null;
+        int cumulativeChance = 0;
+        for (EncounterData data : wildEncounters) {
+            cumulativeChance += data.chance;
+            if (randomRoll <= cumulativeChance) {
+                selectedEncounter = data;
+                break;
+            }
+        }
+
+        if (selectedEncounter == null) selectedEncounter = wildEncounters.first();
+        int level = MathUtils.random(selectedEncounter.minLevel, selectedEncounter.maxLevel);
+        
+        return db.createPokemon(selectedEncounter.speciesName, level, null, "");
+    }
     
-    /**
-     * ## NOVO MÉTODO ##
-     * Roda uma sequência de 1 segundo de espera antes de liberar o jogador.
-     */
     public void onBattleEnd() {
         Array<ScriptCommand> postBattleSequence = new Array<>();
-        
         WaitCommand wait = new WaitCommand();
         JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
         waitData.addChild("duration", new JsonValue(1.0f));
         wait.initialize(waitData);
         postBattleSequence.add(wait);
-        
-        // O ScriptRunner irá destravar o jogador automaticamente no final.
         scriptRunner.run(player, postBattleSequence);
     }
 
@@ -337,7 +353,6 @@ public class GameScreen extends ScreenAdapter {
 	@Override
 	public void render(float delta) {
 		update(delta);
-
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -406,18 +421,6 @@ public class GameScreen extends ScreenAdapter {
 		return fadeManager.isFading();
 	}
 
-	public void addEntity(Entity entity) {
-		if (entity != null && !entities.contains(entity, true)) {
-			entities.add(entity);
-		}
-	}
-
-	public void removeEntity(Entity entity) {
-		if (entity != null) {
-			entities.removeValue(entity, true);
-		}
-	}
-
 	public AssetsLoader getAssetLoader() {
 		return assetLoader;
 	}
@@ -460,9 +463,8 @@ public class GameScreen extends ScreenAdapter {
 	public MenuBox getMenuBox() { return menuBox; }
 	public ScriptRunner getScriptRunner() { return scriptRunner; }
 	public Player getPlayer() { return player; }
-	public PlayerInputHandler getInputHandler() {
-		return playerInputHandler;
-	}
+	public PlayerInputHandler getInputHandler() { return playerInputHandler; }
+
 	@Override
 	public void dispose() {
 		map.dispose();

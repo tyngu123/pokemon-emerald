@@ -1,0 +1,14 @@
+[
+  {
+    "speciesName": "PIKACHU",
+    "minLevel": 2,
+    "maxLevel": 5,
+    "chance": 10
+  },
+  {
+    "speciesName": "JIGGLYPUFF",
+    "minLevel": 2,
+    "maxLevel": 4,
+    "chance": 90
+  }
+]

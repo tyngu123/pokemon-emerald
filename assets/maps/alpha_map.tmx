@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="14">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="14">
  <properties>
+  <property name="encounterFile" value="data/encounters/route1.json"/>
   <property name="isInterior" type="bool" value="false"/>
   <property name="name" value="ALPHA TOWN"/>
  </properties>
  <tileset firstgid="1" source="exterior.tsx"/>
  <layer id="12" name="grass" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJztzbEJAAAMw7D0/6e7BnpBQQLPTgAA4L+p/AGuBTnEAAo=
+   eJztz8EJAAAIA7G6/9J+HUElgXuXJgAAcF+N7N9W+fUHtmhHHAAO
   </data>
  </layer>
  <layer id="1" name="floor" width="32" height="32">
   <data encoding="base64" compression="zlib">
-   eJzt0k0OQDAQhuEvSNnYOASugju4F07hIrhK6wJmIxELP1VFTJM3XT6dZhwAjuU6F+ipwbVvs88+++yzv+1LAYziO3708/nnqgCoqSZ4xpfkKmo04CuqNlAj9H0Trf/xC37mA7mhCv+8v1cbbt/lIp39u/IGG/4b5j967vJ1Y5/9P/uxByRUSk1ILqdg
+   eJzt1c8NQDAUx/FfkHJxMQRWwQ7dC1NYBKtgAe8iEYf6V6XxmnzT46evaVIHgGO41gU6qnfN2+yzzz777Kv9QQCTsMePfj7/UhkAFVUH7/gDuSM1afBHqtJQLa77Otreow1+5gO5pgr/vL9XE6p3uerK+7tzBhP+F+Y/uu76Eup5zmbD/8s++08Ve0BCpdQMFBmo0A==
   </data>
  </layer>
  <objectgroup id="10" name="warps">

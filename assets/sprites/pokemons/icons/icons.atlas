@@ -1,32 +1,2150 @@
 icons.png
-size: 884, 56
+size: 2040, 2016
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 pma: false
-articuno
+abomasnow-mega
   bounds: 0, 0, 68, 56
-azurill
+abomasnow
   bounds: 68, 0, 68, 56
-dialga
+abra
   bounds: 136, 0, 68, 56
-dragonite
+absol-mega
   bounds: 204, 0, 68, 56
-eevee
+absol
   bounds: 272, 0, 68, 56
-gengar
+accelgor
   bounds: 340, 0, 68, 56
-groudon
+aegislash-blade
   bounds: 408, 0, 68, 56
-jigglypuff
+aegislash
   bounds: 476, 0, 68, 56
-mudkip
+aerodactyl-mega
   bounds: 544, 0, 68, 56
-pikachu
+aerodactyl
   bounds: 612, 0, 68, 56
-salamence
+aggron-mega
   bounds: 680, 0, 68, 56
-torchic
+aggron
   bounds: 748, 0, 68, 56
-treecko
+aipom
   bounds: 816, 0, 68, 56
+alakazam-mega
+  bounds: 884, 0, 68, 56
+alakazam
+  bounds: 952, 0, 68, 56
+alomomola
+  bounds: 1020, 0, 68, 56
+altaria-mega
+  bounds: 1088, 0, 68, 56
+altaria
+  bounds: 1156, 0, 68, 56
+amaura
+  bounds: 1224, 0, 68, 56
+ambipom
+  bounds: 1292, 0, 68, 56
+amoonguss
+  bounds: 1360, 0, 68, 56
+ampharos-mega
+  bounds: 1428, 0, 68, 56
+ampharos
+  bounds: 1496, 0, 68, 56
+anorith
+  bounds: 1564, 0, 68, 56
+araquanid
+  bounds: 1632, 0, 68, 56
+arbok
+  bounds: 1700, 0, 68, 56
+arcanine
+  bounds: 1768, 0, 68, 56
+arceus-bug
+  bounds: 1836, 0, 68, 56
+arceus-dark
+  bounds: 1904, 0, 68, 56
+arceus-dragon
+  bounds: 1972, 0, 68, 56
+arceus-electric
+  bounds: 0, 56, 68, 56
+arceus-fairy
+  bounds: 68, 56, 68, 56
+arceus-fighting
+  bounds: 136, 56, 68, 56
+arceus-fire
+  bounds: 204, 56, 68, 56
+arceus-flying
+  bounds: 272, 56, 68, 56
+arceus-ghost
+  bounds: 340, 56, 68, 56
+arceus-grass
+  bounds: 408, 56, 68, 56
+arceus-ground
+  bounds: 476, 56, 68, 56
+arceus-ice
+  bounds: 544, 56, 68, 56
+arceus-poison
+  bounds: 612, 56, 68, 56
+arceus-psychic
+  bounds: 680, 56, 68, 56
+arceus-rock
+  bounds: 748, 56, 68, 56
+arceus-steel
+  bounds: 816, 56, 68, 56
+arceus-unknown
+  bounds: 884, 56, 68, 56
+arceus-water
+  bounds: 952, 56, 68, 56
+arceus
+  bounds: 1020, 56, 68, 56
+archen
+  bounds: 1088, 56, 68, 56
+archeops
+  bounds: 1156, 56, 68, 56
+ariados
+  bounds: 1224, 56, 68, 56
+armaldo
+  bounds: 1292, 56, 68, 56
+aromatisse
+  bounds: 1360, 56, 68, 56
+aron
+  bounds: 1428, 56, 68, 56
+audino-mega
+  bounds: 1496, 56, 68, 56
+audino
+  bounds: 1564, 56, 68, 56
+aurorus
+  bounds: 1632, 56, 68, 56
+avalugg
+  bounds: 1700, 56, 68, 56
+axew
+  bounds: 1768, 56, 68, 56
+azelf
+  bounds: 1836, 56, 68, 56
+azumarill
+  bounds: 1904, 56, 68, 56
+bagon
+  bounds: 1972, 56, 68, 56
+baltoy
+  bounds: 0, 112, 68, 56
+banette-mega
+  bounds: 68, 112, 68, 56
+banette
+  bounds: 136, 112, 68, 56
+barbaracle
+  bounds: 204, 112, 68, 56
+barboach
+  bounds: 272, 112, 68, 56
+basculin-blue-striped
+  bounds: 340, 112, 68, 56
+basculin
+  bounds: 408, 112, 68, 56
+bastiodon
+  bounds: 476, 112, 68, 56
+bayleef
+  bounds: 544, 112, 68, 56
+beartic
+  bounds: 612, 112, 68, 56
+beautifly
+  bounds: 680, 112, 68, 56
+beedrill-mega
+  bounds: 748, 112, 68, 56
+beedrill
+  bounds: 816, 112, 68, 56
+beheeyem
+  bounds: 884, 112, 68, 56
+beldum
+  bounds: 952, 112, 68, 56
+bellossom
+  bounds: 1020, 112, 68, 56
+bellsprout
+  bounds: 1088, 112, 68, 56
+bergmite
+  bounds: 1156, 112, 68, 56
+bewear
+  bounds: 1224, 112, 68, 56
+bibarel
+  bounds: 1292, 112, 68, 56
+bidoof
+  bounds: 1360, 112, 68, 56
+binacle
+  bounds: 1428, 112, 68, 56
+bisharp
+  bounds: 1496, 112, 68, 56
+blacephalon
+  bounds: 1564, 112, 68, 56
+blastoise-mega
+  bounds: 1632, 112, 68, 56
+blastoise
+  bounds: 1700, 112, 68, 56
+blaziken-mega
+  bounds: 1768, 112, 68, 56
+blaziken
+  bounds: 1836, 112, 68, 56
+blissey
+  bounds: 1904, 112, 68, 56
+blitzle
+  bounds: 1972, 112, 68, 56
+boldore
+  bounds: 0, 168, 68, 56
+bonsly
+  bounds: 68, 168, 68, 56
+bouffalant
+  bounds: 136, 168, 68, 56
+bounsweet
+  bounds: 204, 168, 68, 56
+braixen
+  bounds: 272, 168, 68, 56
+braviary
+  bounds: 340, 168, 68, 56
+breloom
+  bounds: 408, 168, 68, 56
+brionne
+  bounds: 476, 168, 68, 56
+bronzong
+  bounds: 544, 168, 68, 56
+bronzor
+  bounds: 612, 168, 68, 56
+bruxish
+  bounds: 680, 168, 68, 56
+budew
+  bounds: 748, 168, 68, 56
+buizel
+  bounds: 816, 168, 68, 56
+bulbasaur
+  bounds: 884, 168, 68, 56
+buneary
+  bounds: 952, 168, 68, 56
+bunnelby
+  bounds: 1020, 168, 68, 56
+burmy-sandy
+  bounds: 1088, 168, 68, 56
+burmy-trash
+  bounds: 1156, 168, 68, 56
+burmy
+  bounds: 1224, 168, 68, 56
+butterfree
+  bounds: 1292, 168, 68, 56
+buzzwole
+  bounds: 1360, 168, 68, 56
+cacnea
+  bounds: 1428, 168, 68, 56
+cacturne
+  bounds: 1496, 168, 68, 56
+camerupt-mega
+  bounds: 1564, 168, 68, 56
+camerupt
+  bounds: 1632, 168, 68, 56
+carbink
+  bounds: 1700, 168, 68, 56
+carnivine
+  bounds: 1768, 168, 68, 56
+carracosta
+  bounds: 1836, 168, 68, 56
+carvanha
+  bounds: 1904, 168, 68, 56
+cascoon
+  bounds: 1972, 168, 68, 56
+castform-rainy
+  bounds: 0, 224, 68, 56
+castform-snowy
+  bounds: 68, 224, 68, 56
+castform-sunny
+  bounds: 136, 224, 68, 56
+castform
+  bounds: 204, 224, 68, 56
+caterpie
+  bounds: 272, 224, 68, 56
+celebi
+  bounds: 340, 224, 68, 56
+celesteela
+  bounds: 408, 224, 68, 56
+chandelure
+  bounds: 476, 224, 68, 56
+chansey
+  bounds: 544, 224, 68, 56
+charizard-mega-x
+  bounds: 612, 224, 68, 56
+charizard-mega-y
+  bounds: 680, 224, 68, 56
+charizard
+  bounds: 748, 224, 68, 56
+charjabug
+  bounds: 816, 224, 68, 56
+charmander
+  bounds: 884, 224, 68, 56
+charmeleon
+  bounds: 952, 224, 68, 56
+chatot
+  bounds: 1020, 224, 68, 56
+cherrim-sunshine
+  bounds: 1088, 224, 68, 56
+cherrim
+  bounds: 1156, 224, 68, 56
+cherubi
+  bounds: 1224, 224, 68, 56
+chesnaught
+  bounds: 1292, 224, 68, 56
+chespin
+  bounds: 1360, 224, 68, 56
+chikorita
+  bounds: 1428, 224, 68, 56
+chimchar
+  bounds: 1496, 224, 68, 56
+chimecho
+  bounds: 1564, 224, 68, 56
+chinchou
+  bounds: 1632, 224, 68, 56
+chingling
+  bounds: 1700, 224, 68, 56
+cinccino
+  bounds: 1768, 224, 68, 56
+clamperl
+  bounds: 1836, 224, 68, 56
+clauncher
+  bounds: 1904, 224, 68, 56
+clawitzer
+  bounds: 1972, 224, 68, 56
+claydol
+  bounds: 0, 280, 68, 56
+clefable
+  bounds: 68, 280, 68, 56
+clefairy
+  bounds: 136, 280, 68, 56
+cleffa
+  bounds: 204, 280, 68, 56
+cloyster
+  bounds: 272, 280, 68, 56
+cobalion
+  bounds: 340, 280, 68, 56
+cofagrigus
+  bounds: 408, 280, 68, 56
+combee
+  bounds: 476, 280, 68, 56
+combusken
+  bounds: 544, 280, 68, 56
+comfey
+  bounds: 612, 280, 68, 56
+conkeldurr
+  bounds: 680, 280, 68, 56
+corphish
+  bounds: 748, 280, 68, 56
+corsola
+  bounds: 816, 280, 68, 56
+cosmoem
+  bounds: 884, 280, 68, 56
+cosmog
+  bounds: 952, 280, 68, 56
+cottonee
+  bounds: 1020, 280, 68, 56
+crabominable
+  bounds: 1088, 280, 68, 56
+crabrawler
+  bounds: 1156, 280, 68, 56
+cradily
+  bounds: 1224, 280, 68, 56
+cranidos
+  bounds: 1292, 280, 68, 56
+crawdaunt
+  bounds: 1360, 280, 68, 56
+cresselia
+  bounds: 1428, 280, 68, 56
+croagunk
+  bounds: 1496, 280, 68, 56
+crobat
+  bounds: 1564, 280, 68, 56
+croconaw
+  bounds: 1632, 280, 68, 56
+crustle
+  bounds: 1700, 280, 68, 56
+cryogonal
+  bounds: 1768, 280, 68, 56
+cubchoo
+  bounds: 1836, 280, 68, 56
+cubone
+  bounds: 1904, 280, 68, 56
+cutiefly
+  bounds: 1972, 280, 68, 56
+cyndaquil
+  bounds: 0, 336, 68, 56
+darkrai
+  bounds: 68, 336, 68, 56
+darmanitan-zen
+  bounds: 136, 336, 68, 56
+darmanitan
+  bounds: 204, 336, 68, 56
+dartrix
+  bounds: 272, 336, 68, 56
+darumaka
+  bounds: 340, 336, 68, 56
+decidueye
+  bounds: 408, 336, 68, 56
+dedenne
+  bounds: 476, 336, 68, 56
+deerling-autumn
+  bounds: 544, 336, 68, 56
+deerling-summer
+  bounds: 612, 336, 68, 56
+deerling-winter
+  bounds: 680, 336, 68, 56
+deerling
+  bounds: 748, 336, 68, 56
+deino
+  bounds: 816, 336, 68, 56
+delcatty
+  bounds: 884, 336, 68, 56
+delibird
+  bounds: 952, 336, 68, 56
+delphox
+  bounds: 1020, 336, 68, 56
+deoxys-attack
+  bounds: 1088, 336, 68, 56
+deoxys-defense
+  bounds: 1156, 336, 68, 56
+deoxys-speed
+  bounds: 1224, 336, 68, 56
+deoxys
+  bounds: 1292, 336, 68, 56
+dewgong
+  bounds: 1360, 336, 68, 56
+dewott
+  bounds: 1428, 336, 68, 56
+dewpider
+  bounds: 1496, 336, 68, 56
+dhelmise
+  bounds: 1564, 336, 68, 56
+diancie-mega
+  bounds: 1632, 336, 68, 56
+diancie
+  bounds: 1700, 336, 68, 56
+diggersby
+  bounds: 1768, 336, 68, 56
+diglett-alola
+  bounds: 1836, 336, 68, 56
+diglett
+  bounds: 1904, 336, 68, 56
+ditto
+  bounds: 1972, 336, 68, 56
+dodrio
+  bounds: 0, 392, 68, 56
+doduo
+  bounds: 68, 392, 68, 56
+donphan
+  bounds: 136, 392, 68, 56
+doublade
+  bounds: 204, 392, 68, 56
+dragalge
+  bounds: 272, 392, 68, 56
+dragonair
+  bounds: 340, 392, 68, 56
+drampa
+  bounds: 408, 392, 68, 56
+drapion
+  bounds: 476, 392, 68, 56
+dratini
+  bounds: 544, 392, 68, 56
+drifblim
+  bounds: 612, 392, 68, 56
+drifloon
+  bounds: 680, 392, 68, 56
+drilbur
+  bounds: 748, 392, 68, 56
+drowzee
+  bounds: 816, 392, 68, 56
+druddigon
+  bounds: 884, 392, 68, 56
+ducklett
+  bounds: 952, 392, 68, 56
+dugtrio-alola
+  bounds: 1020, 392, 68, 56
+dugtrio
+  bounds: 1088, 392, 68, 56
+dunsparce
+  bounds: 1156, 392, 68, 56
+duosion
+  bounds: 1224, 392, 68, 56
+durant
+  bounds: 1292, 392, 68, 56
+dusclops
+  bounds: 1360, 392, 68, 56
+dusknoir
+  bounds: 1428, 392, 68, 56
+duskull
+  bounds: 1496, 392, 68, 56
+dustox
+  bounds: 1564, 392, 68, 56
+dwebble
+  bounds: 1632, 392, 68, 56
+eelektrik
+  bounds: 1700, 392, 68, 56
+eelektross
+  bounds: 1768, 392, 68, 56
+eevee-starter
+  bounds: 1836, 392, 68, 56
+ekans
+  bounds: 1904, 392, 68, 56
+electabuzz
+  bounds: 1972, 392, 68, 56
+electivire
+  bounds: 0, 448, 68, 56
+electrike
+  bounds: 68, 448, 68, 56
+electrode
+  bounds: 136, 448, 68, 56
+elekid
+  bounds: 204, 448, 68, 56
+elgyem
+  bounds: 272, 448, 68, 56
+emboar
+  bounds: 340, 448, 68, 56
+emolga
+  bounds: 408, 448, 68, 56
+empoleon
+  bounds: 476, 448, 68, 56
+entei
+  bounds: 544, 448, 68, 56
+escavalier
+  bounds: 612, 448, 68, 56
+espeon
+  bounds: 680, 448, 68, 56
+espurr
+  bounds: 748, 448, 68, 56
+excadrill
+  bounds: 816, 448, 68, 56
+exeggcute
+  bounds: 884, 448, 68, 56
+exeggutor-alola
+  bounds: 952, 448, 68, 56
+exeggutor
+  bounds: 1020, 448, 68, 56
+exploud
+  bounds: 1088, 448, 68, 56
+farfetchd
+  bounds: 1156, 448, 68, 56
+fearow
+  bounds: 1224, 448, 68, 56
+feebas
+  bounds: 1292, 448, 68, 56
+fennekin
+  bounds: 1360, 448, 68, 56
+feraligatr
+  bounds: 1428, 448, 68, 56
+ferroseed
+  bounds: 1496, 448, 68, 56
+ferrothorn
+  bounds: 1564, 448, 68, 56
+finneon
+  bounds: 1632, 448, 68, 56
+flaaffy
+  bounds: 1700, 448, 68, 56
+flabebe-blue
+  bounds: 1768, 448, 68, 56
+flabebe-orange
+  bounds: 1836, 448, 68, 56
+flabebe-white
+  bounds: 1904, 448, 68, 56
+flabebe-yellow
+  bounds: 1972, 448, 68, 56
+flabebe
+  bounds: 0, 504, 68, 56
+flareon
+  bounds: 68, 504, 68, 56
+fletchinder
+  bounds: 136, 504, 68, 56
+fletchling
+  bounds: 204, 504, 68, 56
+floatzel
+  bounds: 272, 504, 68, 56
+floette-blue
+  bounds: 340, 504, 68, 56
+floette-eternal
+  bounds: 408, 504, 68, 56
+floette-orange
+  bounds: 476, 504, 68, 56
+floette-white
+  bounds: 544, 504, 68, 56
+floette-yellow
+  bounds: 612, 504, 68, 56
+floette
+  bounds: 680, 504, 68, 56
+florges-blue
+  bounds: 748, 504, 68, 56
+florges-orange
+  bounds: 816, 504, 68, 56
+florges-white
+  bounds: 884, 504, 68, 56
+florges-yellow
+  bounds: 952, 504, 68, 56
+florges
+  bounds: 1020, 504, 68, 56
+flygon
+  bounds: 1088, 504, 68, 56
+fomantis
+  bounds: 1156, 504, 68, 56
+foongus
+  bounds: 1224, 504, 68, 56
+forretress
+  bounds: 1292, 504, 68, 56
+fraxure
+  bounds: 1360, 504, 68, 56
+frillish
+  bounds: 1428, 504, 68, 56
+froakie
+  bounds: 1496, 504, 68, 56
+frogadier
+  bounds: 1564, 504, 68, 56
+froslass
+  bounds: 1632, 504, 68, 56
+furfrou-dandy
+  bounds: 1700, 504, 68, 56
+furfrou-debutante
+  bounds: 1768, 504, 68, 56
+furfrou-diamond
+  bounds: 1836, 504, 68, 56
+furfrou-heart
+  bounds: 1904, 504, 68, 56
+furfrou-kabuki
+  bounds: 1972, 504, 68, 56
+furfrou-la-reine
+  bounds: 0, 560, 68, 56
+furfrou-matron
+  bounds: 68, 560, 68, 56
+furfrou-pharaoh
+  bounds: 136, 560, 68, 56
+furfrou-star
+  bounds: 204, 560, 68, 56
+furfrou
+  bounds: 272, 560, 68, 56
+furret
+  bounds: 340, 560, 68, 56
+gabite
+  bounds: 408, 560, 68, 56
+gallade-mega
+  bounds: 476, 560, 68, 56
+gallade
+  bounds: 544, 560, 68, 56
+galvantula
+  bounds: 612, 560, 68, 56
+garbodor
+  bounds: 680, 560, 68, 56
+garchomp-mega
+  bounds: 748, 560, 68, 56
+garchomp
+  bounds: 816, 560, 68, 56
+gardevoir-mega
+  bounds: 884, 560, 68, 56
+gardevoir
+  bounds: 952, 560, 68, 56
+gastly
+  bounds: 1020, 560, 68, 56
+gastrodon-east
+  bounds: 1088, 560, 68, 56
+gastrodon
+  bounds: 1156, 560, 68, 56
+genesect-burn
+  bounds: 1224, 560, 68, 56
+genesect-chill
+  bounds: 1292, 560, 68, 56
+genesect-douse
+  bounds: 1360, 560, 68, 56
+genesect-shock
+  bounds: 1428, 560, 68, 56
+genesect-standard
+  bounds: 1496, 560, 68, 56
+genesect
+  bounds: 1564, 560, 68, 56
+gengar-mega
+  bounds: 1632, 560, 68, 56
+gengar
+  bounds: 1700, 560, 68, 56
+geodude-alola
+  bounds: 1768, 560, 68, 56
+geodude
+  bounds: 1836, 560, 68, 56
+gible
+  bounds: 1904, 560, 68, 56
+gigalith
+  bounds: 1972, 560, 68, 56
+girafarig
+  bounds: 0, 616, 68, 56
+giratina-origin
+  bounds: 68, 616, 68, 56
+giratina
+  bounds: 136, 616, 68, 56
+glaceon
+  bounds: 204, 616, 68, 56
+glalie-mega
+  bounds: 272, 616, 68, 56
+glalie
+  bounds: 340, 616, 68, 56
+glameow
+  bounds: 408, 616, 68, 56
+gligar
+  bounds: 476, 616, 68, 56
+gliscor
+  bounds: 544, 616, 68, 56
+gloom
+  bounds: 612, 616, 68, 56
+gogoat
+  bounds: 680, 616, 68, 56
+golbat
+  bounds: 748, 616, 68, 56
+goldeen
+  bounds: 816, 616, 68, 56
+golduck
+  bounds: 884, 616, 68, 56
+golem-alola
+  bounds: 952, 616, 68, 56
+golem
+  bounds: 1020, 616, 68, 56
+golett
+  bounds: 1088, 616, 68, 56
+golisopod
+  bounds: 1156, 616, 68, 56
+golurk
+  bounds: 1224, 616, 68, 56
+goodra
+  bounds: 1292, 616, 68, 56
+goomy
+  bounds: 1360, 616, 68, 56
+gorebyss
+  bounds: 1428, 616, 68, 56
+gothita
+  bounds: 1496, 616, 68, 56
+gothitelle
+  bounds: 1564, 616, 68, 56
+gothorita
+  bounds: 1632, 616, 68, 56
+gourgeist-large
+  bounds: 1700, 616, 68, 56
+gourgeist-small
+  bounds: 1768, 616, 68, 56
+gourgeist-super
+  bounds: 1836, 616, 68, 56
+gourgeist
+  bounds: 1904, 616, 68, 56
+granbull
+  bounds: 1972, 616, 68, 56
+graveler-alola
+  bounds: 0, 672, 68, 56
+graveler
+  bounds: 68, 672, 68, 56
+greninja-ash
+  bounds: 136, 672, 68, 56
+greninja
+  bounds: 204, 672, 68, 56
+grimer-alola
+  bounds: 272, 672, 68, 56
+grimer
+  bounds: 340, 672, 68, 56
+grotle
+  bounds: 408, 672, 68, 56
+groudon-primal
+  bounds: 476, 672, 68, 56
+groudon
+  bounds: 544, 672, 68, 56
+grovyle
+  bounds: 612, 672, 68, 56
+growlithe
+  bounds: 680, 672, 68, 56
+grubbin
+  bounds: 748, 672, 68, 56
+grumpig
+  bounds: 816, 672, 68, 56
+gulpin
+  bounds: 884, 672, 68, 56
+gumshoos
+  bounds: 952, 672, 68, 56
+gurdurr
+  bounds: 1020, 672, 68, 56
+guzzlord
+  bounds: 1088, 672, 68, 56
+gyarados-mega
+  bounds: 1156, 672, 68, 56
+gyarados
+  bounds: 1224, 672, 68, 56
+hakamo-o
+  bounds: 1292, 672, 68, 56
+happiny
+  bounds: 1360, 672, 68, 56
+hariyama
+  bounds: 1428, 672, 68, 56
+haunter
+  bounds: 1496, 672, 68, 56
+hawlucha
+  bounds: 1564, 672, 68, 56
+haxorus
+  bounds: 1632, 672, 68, 56
+heatmor
+  bounds: 1700, 672, 68, 56
+heatran
+  bounds: 1768, 672, 68, 56
+heliolisk
+  bounds: 1836, 672, 68, 56
+helioptile
+  bounds: 1904, 672, 68, 56
+heracross-mega
+  bounds: 1972, 672, 68, 56
+heracross
+  bounds: 0, 728, 68, 56
+herdier
+  bounds: 68, 728, 68, 56
+hippopotas
+  bounds: 136, 728, 68, 56
+hippowdon
+  bounds: 204, 728, 68, 56
+hitmonchan
+  bounds: 272, 728, 68, 56
+hitmonlee
+  bounds: 340, 728, 68, 56
+hitmontop
+  bounds: 408, 728, 68, 56
+ho-oh
+  bounds: 476, 728, 68, 56
+honchkrow
+  bounds: 544, 728, 68, 56
+honedge
+  bounds: 612, 728, 68, 56
+hoopa-unbound
+  bounds: 680, 728, 68, 56
+hoopa
+  bounds: 748, 728, 68, 56
+hoothoot
+  bounds: 816, 728, 68, 56
+hoppip
+  bounds: 884, 728, 68, 56
+horsea
+  bounds: 952, 728, 68, 56
+houndoom-mega
+  bounds: 1020, 728, 68, 56
+houndoom
+  bounds: 1088, 728, 68, 56
+houndour
+  bounds: 1156, 728, 68, 56
+huntail
+  bounds: 1224, 728, 68, 56
+hydreigon
+  bounds: 1292, 728, 68, 56
+hypno
+  bounds: 1360, 728, 68, 56
+igglybuff
+  bounds: 1428, 728, 68, 56
+illumise
+  bounds: 1496, 728, 68, 56
+incineroar
+  bounds: 1564, 728, 68, 56
+infernape
+  bounds: 1632, 728, 68, 56
+inkay
+  bounds: 1700, 728, 68, 56
+ivysaur
+  bounds: 1768, 728, 68, 56
+jangmo-o
+  bounds: 1836, 728, 68, 56
+jellicent
+  bounds: 1904, 728, 68, 56
+jigglypuff
+  bounds: 1972, 728, 68, 56
+jirachi
+  bounds: 0, 784, 68, 56
+jolteon
+  bounds: 68, 784, 68, 56
+joltik
+  bounds: 136, 784, 68, 56
+jumpluff
+  bounds: 204, 784, 68, 56
+jynx
+  bounds: 272, 784, 68, 56
+kabuto
+  bounds: 340, 784, 68, 56
+kabutops
+  bounds: 408, 784, 68, 56
+kadabra
+  bounds: 476, 784, 68, 56
+kakuna
+  bounds: 544, 784, 68, 56
+kangaskhan-mega
+  bounds: 612, 784, 68, 56
+kangaskhan
+  bounds: 680, 784, 68, 56
+karrablast
+  bounds: 748, 784, 68, 56
+kartana
+  bounds: 816, 784, 68, 56
+kecleon
+  bounds: 884, 784, 68, 56
+keldeo-resolute
+  bounds: 952, 784, 68, 56
+keldeo
+  bounds: 1020, 784, 68, 56
+kingdra
+  bounds: 1088, 784, 68, 56
+kingler
+  bounds: 1156, 784, 68, 56
+kirlia
+  bounds: 1224, 784, 68, 56
+klang
+  bounds: 1292, 784, 68, 56
+klefki
+  bounds: 1360, 784, 68, 56
+klink
+  bounds: 1428, 784, 68, 56
+klinklang
+  bounds: 1496, 784, 68, 56
+koffing
+  bounds: 1564, 784, 68, 56
+komala
+  bounds: 1632, 784, 68, 56
+kommo-o
+  bounds: 1700, 784, 68, 56
+krabby
+  bounds: 1768, 784, 68, 56
+kricketot
+  bounds: 1836, 784, 68, 56
+kricketune
+  bounds: 1904, 784, 68, 56
+krokorok
+  bounds: 1972, 784, 68, 56
+krookodile
+  bounds: 0, 840, 68, 56
+kyogre-primal
+  bounds: 68, 840, 68, 56
+kyogre
+  bounds: 136, 840, 68, 56
+kyurem-black
+  bounds: 204, 840, 68, 56
+kyurem-white
+  bounds: 272, 840, 68, 56
+kyurem
+  bounds: 340, 840, 68, 56
+lairon
+  bounds: 408, 840, 68, 56
+lampent
+  bounds: 476, 840, 68, 56
+landorus-therian
+  bounds: 544, 840, 68, 56
+landorus
+  bounds: 612, 840, 68, 56
+lanturn
+  bounds: 680, 840, 68, 56
+lapras
+  bounds: 748, 840, 68, 56
+larvesta
+  bounds: 816, 840, 68, 56
+larvitar
+  bounds: 884, 840, 68, 56
+latias-mega
+  bounds: 952, 840, 68, 56
+latias
+  bounds: 1020, 840, 68, 56
+latios-mega
+  bounds: 1088, 840, 68, 56
+latios
+  bounds: 1156, 840, 68, 56
+leafeon
+  bounds: 1224, 840, 68, 56
+leavanny
+  bounds: 1292, 840, 68, 56
+ledian
+  bounds: 1360, 840, 68, 56
+ledyba
+  bounds: 1428, 840, 68, 56
+lickilicky
+  bounds: 1496, 840, 68, 56
+lickitung
+  bounds: 1564, 840, 68, 56
+liepard
+  bounds: 1632, 840, 68, 56
+lileep
+  bounds: 1700, 840, 68, 56
+lilligant
+  bounds: 1768, 840, 68, 56
+lillipup
+  bounds: 1836, 840, 68, 56
+linoone
+  bounds: 1904, 840, 68, 56
+litleo
+  bounds: 1972, 840, 68, 56
+litten
+  bounds: 0, 896, 68, 56
+litwick
+  bounds: 68, 896, 68, 56
+lombre
+  bounds: 136, 896, 68, 56
+lopunny-mega
+  bounds: 204, 896, 68, 56
+lopunny
+  bounds: 272, 896, 68, 56
+lotad
+  bounds: 340, 896, 68, 56
+loudred
+  bounds: 408, 896, 68, 56
+lucario-mega
+  bounds: 476, 896, 68, 56
+lucario
+  bounds: 544, 896, 68, 56
+ludicolo
+  bounds: 612, 896, 68, 56
+lugia
+  bounds: 680, 896, 68, 56
+lumineon
+  bounds: 748, 896, 68, 56
+lunala
+  bounds: 816, 896, 68, 56
+lunatone
+  bounds: 884, 896, 68, 56
+lurantis
+  bounds: 952, 896, 68, 56
+luvdisc
+  bounds: 1020, 896, 68, 56
+luxio
+  bounds: 1088, 896, 68, 56
+luxray
+  bounds: 1156, 896, 68, 56
+lycanroc-dusk
+  bounds: 1224, 896, 68, 56
+lycanroc-midnight
+  bounds: 1292, 896, 68, 56
+lycanroc
+  bounds: 1360, 896, 68, 56
+machamp
+  bounds: 1428, 896, 68, 56
+machoke
+  bounds: 1496, 896, 68, 56
+machop
+  bounds: 1564, 896, 68, 56
+magby
+  bounds: 1632, 896, 68, 56
+magcargo
+  bounds: 1700, 896, 68, 56
+magearna-original
+  bounds: 1768, 896, 68, 56
+magearna
+  bounds: 1836, 896, 68, 56
+magikarp
+  bounds: 1904, 896, 68, 56
+magmar
+  bounds: 1972, 896, 68, 56
+magmortar
+  bounds: 0, 952, 68, 56
+magnemite
+  bounds: 68, 952, 68, 56
+magneton
+  bounds: 136, 952, 68, 56
+magnezone
+  bounds: 204, 952, 68, 56
+makuhita
+  bounds: 272, 952, 68, 56
+malamar
+  bounds: 340, 952, 68, 56
+mamoswine
+  bounds: 408, 952, 68, 56
+manaphy
+  bounds: 476, 952, 68, 56
+mandibuzz
+  bounds: 544, 952, 68, 56
+manectric-mega
+  bounds: 612, 952, 68, 56
+manectric
+  bounds: 680, 952, 68, 56
+mankey
+  bounds: 748, 952, 68, 56
+mantine
+  bounds: 816, 952, 68, 56
+mantyke
+  bounds: 884, 952, 68, 56
+maractus
+  bounds: 952, 952, 68, 56
+mareanie
+  bounds: 1020, 952, 68, 56
+mareep
+  bounds: 1088, 952, 68, 56
+marill
+  bounds: 1156, 952, 68, 56
+marowak-alola
+  bounds: 1224, 952, 68, 56
+marowak
+  bounds: 1292, 952, 68, 56
+marshadow-gen7
+  bounds: 1360, 952, 68, 56
+marshadow
+  bounds: 1428, 952, 68, 56
+marshtomp
+  bounds: 1496, 952, 68, 56
+masquerain
+  bounds: 1564, 952, 68, 56
+mawile-mega
+  bounds: 1632, 952, 68, 56
+mawile
+  bounds: 1700, 952, 68, 56
+medicham-mega
+  bounds: 1768, 952, 68, 56
+medicham
+  bounds: 1836, 952, 68, 56
+meditite
+  bounds: 1904, 952, 68, 56
+meganium
+  bounds: 1972, 952, 68, 56
+melmetal
+  bounds: 0, 1008, 68, 56
+meloetta-pirouette
+  bounds: 68, 1008, 68, 56
+meloetta
+  bounds: 136, 1008, 68, 56
+meltan
+  bounds: 204, 1008, 68, 56
+meowstic
+  bounds: 272, 1008, 68, 56
+meowth-alola
+  bounds: 340, 1008, 68, 56
+meowth
+  bounds: 408, 1008, 68, 56
+mesprit
+  bounds: 476, 1008, 68, 56
+metagross-mega
+  bounds: 544, 1008, 68, 56
+metagross
+  bounds: 612, 1008, 68, 56
+metang
+  bounds: 680, 1008, 68, 56
+metapod
+  bounds: 748, 1008, 68, 56
+mew
+  bounds: 816, 1008, 68, 56
+mewtwo-mega-x
+  bounds: 884, 1008, 68, 56
+mewtwo-mega-y
+  bounds: 952, 1008, 68, 56
+mewtwo
+  bounds: 1020, 1008, 68, 56
+mienfoo
+  bounds: 1088, 1008, 68, 56
+mienshao
+  bounds: 1156, 1008, 68, 56
+mightyena
+  bounds: 1224, 1008, 68, 56
+milotic
+  bounds: 1292, 1008, 68, 56
+miltank
+  bounds: 1360, 1008, 68, 56
+mime-jr
+  bounds: 1428, 1008, 68, 56
+mimikyu
+  bounds: 1496, 1008, 68, 56
+minccino
+  bounds: 1564, 1008, 68, 56
+minior-blue-gen7
+  bounds: 1632, 1008, 68, 56
+minior-blue
+  bounds: 1700, 1008, 68, 56
+minior-green-gen7
+  bounds: 1768, 1008, 68, 56
+minior-green
+  bounds: 1836, 1008, 68, 56
+minior-indigo-gen7
+  bounds: 1904, 1008, 68, 56
+minior-indigo
+  bounds: 1972, 1008, 68, 56
+minior-orange-gen7
+  bounds: 0, 1064, 68, 56
+minior-orange
+  bounds: 68, 1064, 68, 56
+minior-red-gen7
+  bounds: 136, 1064, 68, 56
+minior-red
+  bounds: 204, 1064, 68, 56
+minior-violet-gen7
+  bounds: 272, 1064, 68, 56
+minior-violet
+  bounds: 340, 1064, 68, 56
+minior-yellow-gen7
+  bounds: 408, 1064, 68, 56
+minior-yellow
+  bounds: 476, 1064, 68, 56
+minior
+  bounds: 544, 1064, 68, 56
+minun
+  bounds: 612, 1064, 68, 56
+misdreavus
+  bounds: 680, 1064, 68, 56
+mismagius
+  bounds: 748, 1064, 68, 56
+moltres
+  bounds: 816, 1064, 68, 56
+monferno
+  bounds: 884, 1064, 68, 56
+morelull
+  bounds: 952, 1064, 68, 56
+mothim
+  bounds: 1020, 1064, 68, 56
+mr-mime
+  bounds: 1088, 1064, 68, 56
+mudbray
+  bounds: 1156, 1064, 68, 56
+mudkip
+  bounds: 1224, 1064, 68, 56
+mudsdale
+  bounds: 1292, 1064, 68, 56
+muk-alola
+  bounds: 1360, 1064, 68, 56
+muk
+  bounds: 1428, 1064, 68, 56
+munchlax
+  bounds: 1496, 1064, 68, 56
+munna
+  bounds: 1564, 1064, 68, 56
+murkrow
+  bounds: 1632, 1064, 68, 56
+musharna
+  bounds: 1700, 1064, 68, 56
+naganadel
+  bounds: 1768, 1064, 68, 56
+natu
+  bounds: 1836, 1064, 68, 56
+necrozma-dawn
+  bounds: 1904, 1064, 68, 56
+necrozma-dusk
+  bounds: 1972, 1064, 68, 56
+necrozma-ultra
+  bounds: 0, 1120, 68, 56
+necrozma
+  bounds: 68, 1120, 68, 56
+nidoking
+  bounds: 136, 1120, 68, 56
+nidoqueen
+  bounds: 204, 1120, 68, 56
+nidoran-f
+  bounds: 272, 1120, 68, 56
+nidoran-m
+  bounds: 340, 1120, 68, 56
+nidorina
+  bounds: 408, 1120, 68, 56
+nidorino
+  bounds: 476, 1120, 68, 56
+nihilego
+  bounds: 544, 1120, 68, 56
+nincada
+  bounds: 612, 1120, 68, 56
+ninetales-alola
+  bounds: 680, 1120, 68, 56
+ninetales
+  bounds: 748, 1120, 68, 56
+ninjask
+  bounds: 816, 1120, 68, 56
+noctowl
+  bounds: 884, 1120, 68, 56
+noibat
+  bounds: 952, 1120, 68, 56
+noivern
+  bounds: 1020, 1120, 68, 56
+nosepass
+  bounds: 1088, 1120, 68, 56
+numel
+  bounds: 1156, 1120, 68, 56
+nuzleaf
+  bounds: 1224, 1120, 68, 56
+octillery
+  bounds: 1292, 1120, 68, 56
+oddish
+  bounds: 1360, 1120, 68, 56
+omanyte
+  bounds: 1428, 1120, 68, 56
+omastar
+  bounds: 1496, 1120, 68, 56
+onix
+  bounds: 1564, 1120, 68, 56
+oranguru
+  bounds: 1632, 1120, 68, 56
+oricorio-pau
+  bounds: 1700, 1120, 68, 56
+oricorio-pom-pom
+  bounds: 1768, 1120, 68, 56
+oricorio-sensu
+  bounds: 1836, 1120, 68, 56
+oricorio
+  bounds: 1904, 1120, 68, 56
+oshawott
+  bounds: 1972, 1120, 68, 56
+pachirisu
+  bounds: 0, 1176, 68, 56
+palkia
+  bounds: 68, 1176, 68, 56
+palossand
+  bounds: 136, 1176, 68, 56
+palpitoad
+  bounds: 204, 1176, 68, 56
+pancham
+  bounds: 272, 1176, 68, 56
+pangoro
+  bounds: 340, 1176, 68, 56
+panpour
+  bounds: 408, 1176, 68, 56
+pansage
+  bounds: 476, 1176, 68, 56
+pansear
+  bounds: 544, 1176, 68, 56
+paras
+  bounds: 612, 1176, 68, 56
+parasect
+  bounds: 680, 1176, 68, 56
+passimian
+  bounds: 748, 1176, 68, 56
+patrat
+  bounds: 816, 1176, 68, 56
+pawniard
+  bounds: 884, 1176, 68, 56
+pelipper
+  bounds: 952, 1176, 68, 56
+persian-alola
+  bounds: 1020, 1176, 68, 56
+persian
+  bounds: 1088, 1176, 68, 56
+petilil
+  bounds: 1156, 1176, 68, 56
+phanpy
+  bounds: 1224, 1176, 68, 56
+phantump
+  bounds: 1292, 1176, 68, 56
+pheromosa
+  bounds: 1360, 1176, 68, 56
+phione
+  bounds: 1428, 1176, 68, 56
+pichu-spiky-eared
+  bounds: 1496, 1176, 68, 56
+pichu
+  bounds: 1564, 1176, 68, 56
+pidgeot-mega
+  bounds: 1632, 1176, 68, 56
+pidgeot
+  bounds: 1700, 1176, 68, 56
+pidgeotto
+  bounds: 1768, 1176, 68, 56
+pidgey
+  bounds: 1836, 1176, 68, 56
+pidove
+  bounds: 1904, 1176, 68, 56
+pignite
+  bounds: 1972, 1176, 68, 56
+pikachu-alola-cap
+  bounds: 0, 1232, 68, 56
+pikachu-belle
+  bounds: 68, 1232, 68, 56
+pikachu-cosplay
+  bounds: 136, 1232, 68, 56
+pikachu-hoenn-cap
+  bounds: 204, 1232, 68, 56
+pikachu-kalos-cap
+  bounds: 272, 1232, 68, 56
+pikachu-libre
+  bounds: 340, 1232, 68, 56
+pikachu-original-cap
+  bounds: 408, 1232, 68, 56
+pikachu-partner-cap
+  bounds: 476, 1232, 68, 56
+pikachu-phd
+  bounds: 544, 1232, 68, 56
+pikachu-pop-star
+  bounds: 612, 1232, 68, 56
+pikachu-rock-star
+  bounds: 680, 1232, 68, 56
+pikachu-sinnoh-cap
+  bounds: 748, 1232, 68, 56
+pikachu-starter
+  bounds: 816, 1232, 68, 56
+pikachu-unova-cap
+  bounds: 884, 1232, 68, 56
+pikachu-world-cap
+  bounds: 952, 1232, 68, 56
+pikachu
+  bounds: 1020, 1232, 68, 56
+pikipek
+  bounds: 1088, 1232, 68, 56
+piloswine
+  bounds: 1156, 1232, 68, 56
+pineco
+  bounds: 1224, 1232, 68, 56
+pinsir-mega
+  bounds: 1292, 1232, 68, 56
+pinsir
+  bounds: 1360, 1232, 68, 56
+piplup
+  bounds: 1428, 1232, 68, 56
+plusle
+  bounds: 1496, 1232, 68, 56
+poipole
+  bounds: 1564, 1232, 68, 56
+politoed
+  bounds: 1632, 1232, 68, 56
+poliwag
+  bounds: 1700, 1232, 68, 56
+poliwhirl
+  bounds: 1768, 1232, 68, 56
+poliwrath
+  bounds: 1836, 1232, 68, 56
+ponyta
+  bounds: 1904, 1232, 68, 56
+poochyena
+  bounds: 1972, 1232, 68, 56
+popplio
+  bounds: 0, 1288, 68, 56
+porygon-z
+  bounds: 68, 1288, 68, 56
+porygon
+  bounds: 136, 1288, 68, 56
+porygon2
+  bounds: 204, 1288, 68, 56
+primarina
+  bounds: 272, 1288, 68, 56
+primeape
+  bounds: 340, 1288, 68, 56
+prinplup
+  bounds: 408, 1288, 68, 56
+probopass
+  bounds: 476, 1288, 68, 56
+psyduck
+  bounds: 544, 1288, 68, 56
+pumpkaboo-large
+  bounds: 612, 1288, 68, 56
+pumpkaboo-small
+  bounds: 680, 1288, 68, 56
+pumpkaboo-super
+  bounds: 748, 1288, 68, 56
+pumpkaboo
+  bounds: 816, 1288, 68, 56
+pupitar
+  bounds: 884, 1288, 68, 56
+purrloin
+  bounds: 952, 1288, 68, 56
+purugly
+  bounds: 1020, 1288, 68, 56
+pyroar
+  bounds: 1088, 1288, 68, 56
+pyukumuku
+  bounds: 1156, 1288, 68, 56
+quagsire
+  bounds: 1224, 1288, 68, 56
+quilava
+  bounds: 1292, 1288, 68, 56
+quilladin
+  bounds: 1360, 1288, 68, 56
+qwilfish
+  bounds: 1428, 1288, 68, 56
+raichu-alola
+  bounds: 1496, 1288, 68, 56
+raichu
+  bounds: 1564, 1288, 68, 56
+raikou
+  bounds: 1632, 1288, 68, 56
+ralts
+  bounds: 1700, 1288, 68, 56
+rampardos
+  bounds: 1768, 1288, 68, 56
+rapidash
+  bounds: 1836, 1288, 68, 56
+raticate-alola
+  bounds: 1904, 1288, 68, 56
+raticate
+  bounds: 1972, 1288, 68, 56
+rattata-alola
+  bounds: 0, 1344, 68, 56
+rattata
+  bounds: 68, 1344, 68, 56
+rayquaza-mega
+  bounds: 136, 1344, 68, 56
+rayquaza
+  bounds: 204, 1344, 68, 56
+regice
+  bounds: 272, 1344, 68, 56
+regigigas
+  bounds: 340, 1344, 68, 56
+regirock
+  bounds: 408, 1344, 68, 56
+registeel
+  bounds: 476, 1344, 68, 56
+relicanth
+  bounds: 544, 1344, 68, 56
+remoraid
+  bounds: 612, 1344, 68, 56
+reshiram
+  bounds: 680, 1344, 68, 56
+reuniclus
+  bounds: 748, 1344, 68, 56
+rhydon
+  bounds: 816, 1344, 68, 56
+rhyhorn
+  bounds: 884, 1344, 68, 56
+rhyperior
+  bounds: 952, 1344, 68, 56
+ribombee
+  bounds: 1020, 1344, 68, 56
+riolu
+  bounds: 1088, 1344, 68, 56
+rockruff
+  bounds: 1156, 1344, 68, 56
+roggenrola
+  bounds: 1224, 1344, 68, 56
+roselia
+  bounds: 1292, 1344, 68, 56
+roserade
+  bounds: 1360, 1344, 68, 56
+rotom-fan
+  bounds: 1428, 1344, 68, 56
+rotom-frost
+  bounds: 1496, 1344, 68, 56
+rotom-heat
+  bounds: 1564, 1344, 68, 56
+rotom-mow
+  bounds: 1632, 1344, 68, 56
+rotom-wash
+  bounds: 1700, 1344, 68, 56
+rotom
+  bounds: 1768, 1344, 68, 56
+rowlet
+  bounds: 1836, 1344, 68, 56
+rufflet
+  bounds: 1904, 1344, 68, 56
+sableye-mega
+  bounds: 1972, 1344, 68, 56
+sableye
+  bounds: 0, 1400, 68, 56
+salamence-mega
+  bounds: 68, 1400, 68, 56
+salamence
+  bounds: 136, 1400, 68, 56
+salandit
+  bounds: 204, 1400, 68, 56
+salazzle
+  bounds: 272, 1400, 68, 56
+samurott
+  bounds: 340, 1400, 68, 56
+sandile
+  bounds: 408, 1400, 68, 56
+sandshrew-alola
+  bounds: 476, 1400, 68, 56
+sandshrew
+  bounds: 544, 1400, 68, 56
+sandslash-alola
+  bounds: 612, 1400, 68, 56
+sandslash
+  bounds: 680, 1400, 68, 56
+sandygast
+  bounds: 748, 1400, 68, 56
+sawk
+  bounds: 816, 1400, 68, 56
+sawsbuck-autumn
+  bounds: 884, 1400, 68, 56
+sawsbuck-summer
+  bounds: 952, 1400, 68, 56
+sawsbuck-winter
+  bounds: 1020, 1400, 68, 56
+sawsbuck
+  bounds: 1088, 1400, 68, 56
+scatterbug
+  bounds: 1156, 1400, 68, 56
+sceptile-mega
+  bounds: 1224, 1400, 68, 56
+sceptile
+  bounds: 1292, 1400, 68, 56
+scizor-mega
+  bounds: 1360, 1400, 68, 56
+scizor
+  bounds: 1428, 1400, 68, 56
+scolipede
+  bounds: 1496, 1400, 68, 56
+scrafty
+  bounds: 1564, 1400, 68, 56
+scraggy
+  bounds: 1632, 1400, 68, 56
+scyther
+  bounds: 1700, 1400, 68, 56
+seadra
+  bounds: 1768, 1400, 68, 56
+seaking
+  bounds: 1836, 1400, 68, 56
+sealeo
+  bounds: 1904, 1400, 68, 56
+seedot
+  bounds: 1972, 1400, 68, 56
+seel
+  bounds: 0, 1456, 68, 56
+seismitoad
+  bounds: 68, 1456, 68, 56
+sentret
+  bounds: 136, 1456, 68, 56
+serperior
+  bounds: 204, 1456, 68, 56
+servine
+  bounds: 272, 1456, 68, 56
+seviper
+  bounds: 340, 1456, 68, 56
+sewaddle
+  bounds: 408, 1456, 68, 56
+sharpedo-mega
+  bounds: 476, 1456, 68, 56
+sharpedo
+  bounds: 544, 1456, 68, 56
+shaymin-sky
+  bounds: 612, 1456, 68, 56
+shaymin
+  bounds: 680, 1456, 68, 56
+shedinja
+  bounds: 748, 1456, 68, 56
+shelgon
+  bounds: 816, 1456, 68, 56
+shellder
+  bounds: 884, 1456, 68, 56
+shellos-east
+  bounds: 952, 1456, 68, 56
+shellos
+  bounds: 1020, 1456, 68, 56
+shelmet
+  bounds: 1088, 1456, 68, 56
+shieldon
+  bounds: 1156, 1456, 68, 56
+shiftry
+  bounds: 1224, 1456, 68, 56
+shiinotic
+  bounds: 1292, 1456, 68, 56
+shinx
+  bounds: 1360, 1456, 68, 56
+shroomish
+  bounds: 1428, 1456, 68, 56
+shuckle
+  bounds: 1496, 1456, 68, 56
+shuppet
+  bounds: 1564, 1456, 68, 56
+sigilyph
+  bounds: 1632, 1456, 68, 56
+silcoon
+  bounds: 1700, 1456, 68, 56
+silvally-bug
+  bounds: 1768, 1456, 68, 56
+silvally-dark
+  bounds: 1836, 1456, 68, 56
+silvally-dragon
+  bounds: 1904, 1456, 68, 56
+silvally-electric
+  bounds: 1972, 1456, 68, 56
+silvally-fairy
+  bounds: 0, 1512, 68, 56
+silvally-fighting
+  bounds: 68, 1512, 68, 56
+silvally-fire
+  bounds: 136, 1512, 68, 56
+silvally-flying
+  bounds: 204, 1512, 68, 56
+silvally-ghost
+  bounds: 272, 1512, 68, 56
+silvally-grass
+  bounds: 340, 1512, 68, 56
+silvally-ground
+  bounds: 408, 1512, 68, 56
+silvally-ice
+  bounds: 476, 1512, 68, 56
+silvally-poison
+  bounds: 544, 1512, 68, 56
+silvally-psychic
+  bounds: 612, 1512, 68, 56
+silvally-rock
+  bounds: 680, 1512, 68, 56
+silvally-steel
+  bounds: 748, 1512, 68, 56
+silvally-water
+  bounds: 816, 1512, 68, 56
+silvally
+  bounds: 884, 1512, 68, 56
+simipour
+  bounds: 952, 1512, 68, 56
+simisage
+  bounds: 1020, 1512, 68, 56
+simisear
+  bounds: 1088, 1512, 68, 56
+skarmory
+  bounds: 1156, 1512, 68, 56
+skiddo
+  bounds: 1224, 1512, 68, 56
+skiploom
+  bounds: 1292, 1512, 68, 56
+skitty
+  bounds: 1360, 1512, 68, 56
+skorupi
+  bounds: 1428, 1512, 68, 56
+skrelp
+  bounds: 1496, 1512, 68, 56
+skuntank
+  bounds: 1564, 1512, 68, 56
+slaking
+  bounds: 1632, 1512, 68, 56
+slakoth
+  bounds: 1700, 1512, 68, 56
+sliggoo
+  bounds: 1768, 1512, 68, 56
+slowbro-mega
+  bounds: 1836, 1512, 68, 56
+slowbro
+  bounds: 1904, 1512, 68, 56
+slowking
+  bounds: 1972, 1512, 68, 56
+slowpoke-galar
+  bounds: 0, 1568, 68, 56
+slowpoke
+  bounds: 68, 1568, 68, 56
+slugma
+  bounds: 136, 1568, 68, 56
+slurpuff
+  bounds: 204, 1568, 68, 56
+smeargle
+  bounds: 272, 1568, 68, 56
+smoochum
+  bounds: 340, 1568, 68, 56
+sneasel
+  bounds: 408, 1568, 68, 56
+snivy
+  bounds: 476, 1568, 68, 56
+snorlax
+  bounds: 544, 1568, 68, 56
+snorunt
+  bounds: 612, 1568, 68, 56
+snover
+  bounds: 680, 1568, 68, 56
+snubbull
+  bounds: 748, 1568, 68, 56
+solgaleo
+  bounds: 816, 1568, 68, 56
+solosis
+  bounds: 884, 1568, 68, 56
+solrock
+  bounds: 952, 1568, 68, 56
+spearow
+  bounds: 1020, 1568, 68, 56
+spewpa
+  bounds: 1088, 1568, 68, 56
+spheal
+  bounds: 1156, 1568, 68, 56
+spinarak
+  bounds: 1224, 1568, 68, 56
+spinda-blank
+  bounds: 1292, 1568, 68, 56
+spinda-filled
+  bounds: 1360, 1568, 68, 56
+spinda
+  bounds: 1428, 1568, 68, 56
+spiritomb
+  bounds: 1496, 1568, 68, 56
+spoink
+  bounds: 1564, 1568, 68, 56
+spritzee
+  bounds: 1632, 1568, 68, 56
+squirtle
+  bounds: 1700, 1568, 68, 56
+stakataka
+  bounds: 1768, 1568, 68, 56
+stantler
+  bounds: 1836, 1568, 68, 56
+staraptor
+  bounds: 1904, 1568, 68, 56
+staravia
+  bounds: 1972, 1568, 68, 56
+starly
+  bounds: 0, 1624, 68, 56
+starmie
+  bounds: 68, 1624, 68, 56
+staryu
+  bounds: 136, 1624, 68, 56
+steelix-mega
+  bounds: 204, 1624, 68, 56
+steelix
+  bounds: 272, 1624, 68, 56
+steenee
+  bounds: 340, 1624, 68, 56
+stoutland
+  bounds: 408, 1624, 68, 56
+stufful
+  bounds: 476, 1624, 68, 56
+stunfisk
+  bounds: 544, 1624, 68, 56
+stunky
+  bounds: 612, 1624, 68, 56
+sudowoodo
+  bounds: 680, 1624, 68, 56
+suicune
+  bounds: 748, 1624, 68, 56
+sunflora
+  bounds: 816, 1624, 68, 56
+sunkern
+  bounds: 884, 1624, 68, 56
+surskit
+  bounds: 952, 1624, 68, 56
+swablu
+  bounds: 1020, 1624, 68, 56
+swadloon
+  bounds: 1088, 1624, 68, 56
+swalot
+  bounds: 1156, 1624, 68, 56
+swampert-mega
+  bounds: 1224, 1624, 68, 56
+swampert
+  bounds: 1292, 1624, 68, 56
+swanna
+  bounds: 1360, 1624, 68, 56
+swellow
+  bounds: 1428, 1624, 68, 56
+swinub
+  bounds: 1496, 1624, 68, 56
+swirlix
+  bounds: 1564, 1624, 68, 56
+swoobat
+  bounds: 1632, 1624, 68, 56
+sylveon
+  bounds: 1700, 1624, 68, 56
+taillow
+  bounds: 1768, 1624, 68, 56
+talonflame
+  bounds: 1836, 1624, 68, 56
+tangela
+  bounds: 1904, 1624, 68, 56
+tangrowth
+  bounds: 1972, 1624, 68, 56
+tapu-bulu
+  bounds: 0, 1680, 68, 56
+tapu-fini
+  bounds: 68, 1680, 68, 56
+tapu-koko
+  bounds: 136, 1680, 68, 56
+tapu-lele
+  bounds: 204, 1680, 68, 56
+tauros
+  bounds: 272, 1680, 68, 56
+teddiursa
+  bounds: 340, 1680, 68, 56
+tentacool
+  bounds: 408, 1680, 68, 56
+tentacruel
+  bounds: 476, 1680, 68, 56
+tepig
+  bounds: 544, 1680, 68, 56
+terrakion
+  bounds: 612, 1680, 68, 56
+throh
+  bounds: 680, 1680, 68, 56
+thundurus-therian
+  bounds: 748, 1680, 68, 56
+thundurus
+  bounds: 816, 1680, 68, 56
+timburr
+  bounds: 884, 1680, 68, 56
+tirtouga
+  bounds: 952, 1680, 68, 56
+togedemaru
+  bounds: 1020, 1680, 68, 56
+togekiss
+  bounds: 1088, 1680, 68, 56
+togepi
+  bounds: 1156, 1680, 68, 56
+togetic
+  bounds: 1224, 1680, 68, 56
+torchic
+  bounds: 1292, 1680, 68, 56
+torkoal
+  bounds: 1360, 1680, 68, 56
+tornadus-therian
+  bounds: 1428, 1680, 68, 56
+tornadus
+  bounds: 1496, 1680, 68, 56
+torracat
+  bounds: 1564, 1680, 68, 56
+torterra
+  bounds: 1632, 1680, 68, 56
+totodile
+  bounds: 1700, 1680, 68, 56
+toucannon
+  bounds: 1768, 1680, 68, 56
+toxapex
+  bounds: 1836, 1680, 68, 56
+toxicroak
+  bounds: 1904, 1680, 68, 56
+tranquill
+  bounds: 1972, 1680, 68, 56
+trapinch
+  bounds: 0, 1736, 68, 56
+treecko
+  bounds: 68, 1736, 68, 56
+trevenant
+  bounds: 136, 1736, 68, 56
+tropius
+  bounds: 204, 1736, 68, 56
+trubbish
+  bounds: 272, 1736, 68, 56
+trumbeak
+  bounds: 340, 1736, 68, 56
+tsareena
+  bounds: 408, 1736, 68, 56
+turtonator
+  bounds: 476, 1736, 68, 56
+turtwig
+  bounds: 544, 1736, 68, 56
+tympole
+  bounds: 612, 1736, 68, 56
+tynamo
+  bounds: 680, 1736, 68, 56
+type-null
+  bounds: 748, 1736, 68, 56
+typhlosion
+  bounds: 816, 1736, 68, 56
+tyranitar-mega
+  bounds: 884, 1736, 68, 56
+tyranitar
+  bounds: 952, 1736, 68, 56
+tyrantrum
+  bounds: 1020, 1736, 68, 56
+tyrogue
+  bounds: 1088, 1736, 68, 56
+tyrunt
+  bounds: 1156, 1736, 68, 56
+umbreon
+  bounds: 1224, 1736, 68, 56
+unfezant
+  bounds: 1292, 1736, 68, 56
+unown-b
+  bounds: 1360, 1736, 68, 56
+unown-c
+  bounds: 1428, 1736, 68, 56
+unown-d
+  bounds: 1496, 1736, 68, 56
+unown-e
+  bounds: 1564, 1736, 68, 56
+unown-exclamation
+  bounds: 1632, 1736, 68, 56
+unown-f
+  bounds: 1700, 1736, 68, 56
+unown-g
+  bounds: 1768, 1736, 68, 56
+unown-h
+  bounds: 1836, 1736, 68, 56
+unown-i
+  bounds: 1904, 1736, 68, 56
+unown-j
+  bounds: 1972, 1736, 68, 56
+unown-k
+  bounds: 0, 1792, 68, 56
+unown-l
+  bounds: 68, 1792, 68, 56
+unown-m
+  bounds: 136, 1792, 68, 56
+unown-n
+  bounds: 204, 1792, 68, 56
+unown-o
+  bounds: 272, 1792, 68, 56
+unown-p
+  bounds: 340, 1792, 68, 56
+unown-q
+  bounds: 408, 1792, 68, 56
+unown-question
+  bounds: 476, 1792, 68, 56
+unown-r
+  bounds: 544, 1792, 68, 56
+unown-s
+  bounds: 612, 1792, 68, 56
+unown-t
+  bounds: 680, 1792, 68, 56
+unown-u
+  bounds: 748, 1792, 68, 56
+unown-v
+  bounds: 816, 1792, 68, 56
+unown-w
+  bounds: 884, 1792, 68, 56
+unown-x
+  bounds: 952, 1792, 68, 56
+unown-y
+  bounds: 1020, 1792, 68, 56
+unown-z
+  bounds: 1088, 1792, 68, 56
+unown
+  bounds: 1156, 1792, 68, 56
+ursaring
+  bounds: 1224, 1792, 68, 56
+uxie
+  bounds: 1292, 1792, 68, 56
+vanillish
+  bounds: 1360, 1792, 68, 56
+vanillite
+  bounds: 1428, 1792, 68, 56
+vanilluxe
+  bounds: 1496, 1792, 68, 56
+vaporeon
+  bounds: 1564, 1792, 68, 56
+venipede
+  bounds: 1632, 1792, 68, 56
+venomoth
+  bounds: 1700, 1792, 68, 56
+venonat
+  bounds: 1768, 1792, 68, 56
+venusaur-mega
+  bounds: 1836, 1792, 68, 56
+venusaur
+  bounds: 1904, 1792, 68, 56
+vespiquen
+  bounds: 1972, 1792, 68, 56
+vibrava
+  bounds: 0, 1848, 68, 56
+victini
+  bounds: 68, 1848, 68, 56
+victreebel
+  bounds: 136, 1848, 68, 56
+vigoroth
+  bounds: 204, 1848, 68, 56
+vikavolt
+  bounds: 272, 1848, 68, 56
+vileplume
+  bounds: 340, 1848, 68, 56
+virizion
+  bounds: 408, 1848, 68, 56
+vivillon-archipelago
+  bounds: 476, 1848, 68, 56
+vivillon-continental
+  bounds: 544, 1848, 68, 56
+vivillon-elegant
+  bounds: 612, 1848, 68, 56
+vivillon-fancy
+  bounds: 680, 1848, 68, 56
+vivillon-garden
+  bounds: 748, 1848, 68, 56
+vivillon-high-plains
+  bounds: 816, 1848, 68, 56
+vivillon-icy-snow
+  bounds: 884, 1848, 68, 56
+vivillon-jungle
+  bounds: 952, 1848, 68, 56
+vivillon-marine
+  bounds: 1020, 1848, 68, 56
+vivillon-modern
+  bounds: 1088, 1848, 68, 56
+vivillon-monsoon
+  bounds: 1156, 1848, 68, 56
+vivillon-ocean
+  bounds: 1224, 1848, 68, 56
+vivillon-poke-ball
+  bounds: 1292, 1848, 68, 56
+vivillon-polar
+  bounds: 1360, 1848, 68, 56
+vivillon-river
+  bounds: 1428, 1848, 68, 56
+vivillon-sandstorm
+  bounds: 1496, 1848, 68, 56
+vivillon-savanna
+  bounds: 1564, 1848, 68, 56
+vivillon-sun
+  bounds: 1632, 1848, 68, 56
+vivillon-tundra
+  bounds: 1700, 1848, 68, 56
+vivillon
+  bounds: 1768, 1848, 68, 56
+volbeat
+  bounds: 1836, 1848, 68, 56
+volcanion
+  bounds: 1904, 1848, 68, 56
+volcarona
+  bounds: 1972, 1848, 68, 56
+voltorb
+  bounds: 0, 1904, 68, 56
+vullaby
+  bounds: 68, 1904, 68, 56
+vulpix-alola
+  bounds: 136, 1904, 68, 56
+vulpix
+  bounds: 204, 1904, 68, 56
+wailmer
+  bounds: 272, 1904, 68, 56
+wailord
+  bounds: 340, 1904, 68, 56
+walrein
+  bounds: 408, 1904, 68, 56
+wartortle
+  bounds: 476, 1904, 68, 56
+watchog
+  bounds: 544, 1904, 68, 56
+weavile
+  bounds: 612, 1904, 68, 56
+weedle
+  bounds: 680, 1904, 68, 56
+weepinbell
+  bounds: 748, 1904, 68, 56
+weezing
+  bounds: 816, 1904, 68, 56
+whimsicott
+  bounds: 884, 1904, 68, 56
+whirlipede
+  bounds: 952, 1904, 68, 56
+whiscash
+  bounds: 1020, 1904, 68, 56
+whismur
+  bounds: 1088, 1904, 68, 56
+wigglytuff
+  bounds: 1156, 1904, 68, 56
+wimpod
+  bounds: 1224, 1904, 68, 56
+wingull
+  bounds: 1292, 1904, 68, 56
+wishiwashi-school
+  bounds: 1360, 1904, 68, 56
+wishiwashi
+  bounds: 1428, 1904, 68, 56
+wobbuffet
+  bounds: 1496, 1904, 68, 56
+woobat
+  bounds: 1564, 1904, 68, 56
+wooper
+  bounds: 1632, 1904, 68, 56
+wormadam-sandy
+  bounds: 1700, 1904, 68, 56
+wormadam-trash
+  bounds: 1768, 1904, 68, 56
+wormadam
+  bounds: 1836, 1904, 68, 56
+wurmple
+  bounds: 1904, 1904, 68, 56
+wynaut
+  bounds: 1972, 1904, 68, 56
+xatu
+  bounds: 0, 1960, 68, 56
+xerneas-active
+  bounds: 68, 1960, 68, 56
+xerneas
+  bounds: 136, 1960, 68, 56
+xurkitree
+  bounds: 204, 1960, 68, 56
+yamask
+  bounds: 272, 1960, 68, 56
+yanma
+  bounds: 340, 1960, 68, 56
+yanmega
+  bounds: 408, 1960, 68, 56
+yungoos
+  bounds: 476, 1960, 68, 56
+yveltal
+  bounds: 544, 1960, 68, 56
+zangoose
+  bounds: 612, 1960, 68, 56
+zapdos
+  bounds: 680, 1960, 68, 56
+zebstrika
+  bounds: 748, 1960, 68, 56
+zekrom
+  bounds: 816, 1960, 68, 56
+zeraora
+  bounds: 884, 1960, 68, 56
+zigzagoon
+  bounds: 952, 1960, 68, 56
+zoroark
+  bounds: 1020, 1960, 68, 56
+zorua
+  bounds: 1088, 1960, 68, 56
+zubat
+  bounds: 1156, 1960, 68, 56
+zweilous
+  bounds: 1224, 1960, 68, 56
+zygarde-10
+  bounds: 1292, 1960, 68, 56
+zygarde-complete
+  bounds: 1360, 1960, 68, 56
+zygarde
+  bounds: 1428, 1960, 68, 56

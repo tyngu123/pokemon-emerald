@@ -1,0 +1,233 @@
+{
+  "Air Lock": {
+    "description": "Eliminates the effects of weather."
+  },
+  "Arena Trap": {
+    "description": "Prevents the foe from fleeing."
+  },
+  "Battle Armor": {
+    "description": "The Pokémon is protected against critical hits."
+  },
+  "Blaze": {
+    "description": "Powers up Fire-type moves in a pinch."
+  },
+  "Cacophony": {
+    "description": "Avoids sound-based moves."
+  },
+  "Chlorophyll": {
+    "description": "Boosts the Pokémon's Speed in sunshine."
+  },
+  "Clear Body": {
+    "description": "Prevents other Pokémon from lowering its stats."
+  },
+  "Cloud Nine": {
+    "description": "Eliminates the effects of weather."
+  },
+  "Color Change": {
+    "description": "Changes the Pokémon's type to the foe's move."
+  },
+  "Compound Eyes": {
+    "description": "The Pokémon's accuracy is boosted."
+  },
+  "Cute Charm": {
+    "description": "Contact with the Pokémon may cause infatuation."
+  },
+  "Damp": {
+    "description": "Prevents the use of self-destructing moves."
+  },
+  "Drizzle": {
+    "description": "The Pokémon makes it rain when it enters a battle."
+  },
+  "Drought": {
+    "description": "Turns the sunlight harsh when the Pokémon enters a battle."
+  },
+  "Early Bird": {
+    "description": "The Pokémon awakens quickly from sleep."
+  },
+  "Effect Spore": {
+    "description": "Contact may poison or cause paralysis or sleep."
+  },
+  "Flame Body": {
+    "description": "Contact with the Pokémon may burn the attacker."
+  },
+  "Flash Fire": {
+    "description": "It powers up Fire-type moves if it's hit by one."
+  },
+  "Forecast": {
+    "description": "Castform transforms with the weather."
+  },
+  "Guts": {
+    "description": "Boosts Attack if there is a status problem."
+  },
+  "Huge Power": {
+    "description": "Raises the Pokémon's Attack stat."
+  },
+  "Hustle": {
+    "description": "Boosts the Attack stat, but lowers accuracy."
+  },
+  "Hyper Cutter": {
+    "description": "Prevents other Pokémon from lowering Attack stat."
+  },
+  "Illuminate": {
+    "description": "Raises the likelihood of meeting wild Pokémon."
+  },
+  "Immunity": {
+    "description": "Prevents the Pokémon from getting poisoned."
+  },
+  "Inner Focus": {
+    "description": "The Pokémon is protected from flinching."
+  },
+  "Insomnia": {
+    "description": "Prevents the Pokémon from falling asleep."
+  },
+  "Intimidate": {
+    "description": "Lowers the foe's Attack stat."
+  },
+  "Keen Eye": {
+    "description": "Prevents other Pokémon from lowering accuracy."
+  },
+  "Levitate": {
+    "description": "Gives immunity to Ground type moves."
+  },
+  "Lightning Rod": {
+    "description": "Draws in all Electric-type moves to up Sp. Attack."
+  },
+  "Limber": {
+    "description": "The Pokémon is protected from paralysis."
+  },
+  "Liquid Ooze": {
+    "description": "Damages attackers using any draining move."
+  },
+  "Magma Armor": {
+    "description": "Prevents the Pokémon from becoming frozen."
+  },
+  "Magnet Pull": {
+    "description": "Prevents Steel-type Pokémon from escaping."
+  },
+  "Marvel Scale": {
+    "description": "Ups Defense if there is a status problem."
+  },
+  "Minus": {
+    "description": "Ups Sp. Atk if another Pokémon has Plus or Minus."
+  },
+  "Natural Cure": {
+    "description": "All status problems heal when it switches out."
+  },
+  "Oblivious": {
+    "description": "Prevents it from becoming infatuated."
+  },
+  "Overgrow": {
+    "description": "Powers up Grass-type moves in a pinch."
+  },
+  "Own Tempo": {
+    "description": "Prevents the Pokémon from becoming confused."
+  },
+  "Pickup": {
+    "description": "The Pokémon may pick up items."
+  },
+  "Plus": {
+    "description": "Ups Sp. Atk if another Pokémon has Plus or Minus."
+  },
+  "Poison Point": {
+    "description": "Contact with the Pokémon may poison the attacker."
+  },
+  "Pressure": {
+    "description": "The Pokémon raises the foe's PP usage."
+  },
+  "Pure Power": {
+    "description": "Raises the Pokémon's Attack stat."
+  },
+  "Rain Dish": {
+    "description": "The Pokémon gradually regains HP in rain."
+  },
+  "Rock Head": {
+    "description": "Protects the Pokémon from recoil damage."
+  },
+  "Rough Skin": {
+    "description": "Inflicts damage to the attacker on contact."
+  },
+  "Run Away": {
+    "description": "Enables a sure getaway from wild Pokémon."
+  },
+  "Sand Stream": {
+    "description": "The Pokémon summons a sandstorm in battle."
+  },
+  "Sand Veil": {
+    "description": "Boosts the Pokémon's evasion in a sandstorm."
+  },
+  "Serene Grace": {
+    "description": "Boosts the likelihood of added effects appearing."
+  },
+  "Shadow Tag": {
+    "description": "Prevents the foe from escaping."
+  },
+  "Shed Skin": {
+    "description": "The Pokémon may heal its own status problems."
+  },
+  "Shell Armor": {
+    "description": "The Pokémon is protected against critical hits."
+  },
+  "Shield Dust": {
+    "description": "Blocks the added effects of attacks taken."
+  },
+  "Soundproof": {
+    "description": "Gives immunity to sound-based moves."
+  },
+  "Speed Boost": {
+    "description": "Its Speed stat is gradually boosted."
+  },
+  "Static": {
+    "description": "Contact with the Pokémon may cause paralysis."
+  },
+  "Stench": {
+    "description": "The stench may cause the target to flinch."
+  },
+  "Sticky Hold": {
+    "description": "Protects the Pokémon from item theft."
+  },
+  "Sturdy": {
+    "description": "It cannot be knocked out with one hit."
+  },
+  "Suction Cups": {
+    "description": "Negates all moves that force switching out."
+  },
+  "Swarm": {
+    "description": "Powers up Bug-type moves in a pinch."
+  },
+  "Swift Swim": {
+    "description": "Boosts the Pokémon's Speed in rain."
+  },
+  "Synchronize": {
+    "description": "Passes a burn, poison, or paralysis to the foe."
+  },
+  "Thick Fat": {
+    "description": "Ups resistance to Fire- and Ice-type moves."
+  },
+  "Torrent": {
+    "description": "Powers up Water-type moves in a pinch."
+  },
+  "Trace": {
+    "description": "The Pokémon copies a foe's Ability."
+  },
+  "Truant": {
+    "description": "Pokémon can't attack on consecutive turns."
+  },
+  "Vital Spirit": {
+    "description": "Prevents the Pokémon from falling asleep."
+  },
+  "Volt Absorb": {
+    "description": "Restores HP if hit by an Electric-type move."
+  },
+  "Water Absorb": {
+    "description": "Restores HP if hit by a Water-type move."
+  },
+  "Water Veil": {
+    "description": "Prevents the Pokémon from getting a burn."
+  },
+  "White Smoke": {
+    "description": "Prevents other Pokémon from lowering its stats."
+  },
+  "Wonder Guard": {
+    "description": "Only supereffective moves will hit."
+  }
+}

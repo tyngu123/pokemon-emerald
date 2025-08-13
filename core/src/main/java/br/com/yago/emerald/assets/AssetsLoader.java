@@ -28,7 +28,6 @@ public class AssetsLoader {
     public final String BAG_FONT_NAME = "bagFont";
     public final String DIALOGUE_BOX = "ui/dialoguebox.png";
     public final String PARTY_FONT_NAME = "partyFont";
-    // ## NOVAS FONTES DE STATUS ##
     public final String INCREASED_STAT_FONT_NAME = "increasedStatFont";
     public final String DECREASED_STAT_FONT_NAME = "decreasedStatFont";
     public final String DIALOGUE_ARROW = "ui/arrow.png";
@@ -37,6 +36,7 @@ public class AssetsLoader {
     public final String BOX = "ui/box.png";
     public final String BAG_UI = "ui/bag_ui.png";
     public final String SUMMARY_UI = "ui/summary_ui.png";
+    public final String BATTLE_BG = "ui/battle_bg.png";
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -53,6 +53,8 @@ public class AssetsLoader {
     public final String TYPE_ATLAS = "ui/type.atlas";
     public final String POKEBALLS_ATLAS = "ui/pokeballs.atlas";
     public final String SUMMARY_ATLAS = "ui/summary.atlas";
+    public final String BATTLE_ATLAS = "ui/battle.atlas";
+    public final String ALPHABET_ATLAS = "ui/alphabet.atlas";
 
     public void load() {
     	FileHandleResolver resolver = new InternalFileHandleResolver();
@@ -60,6 +62,7 @@ public class AssetsLoader {
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
         manager.setLoader(Animation.class, ".gif", new AnimationAssetLoader(resolver));
         
+        // ## CÓDIGO QUE FALTAVA ADICIONADO AQUI ##
         FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         menuFontParams.fontFileName = FONT_FILE;
         menuFontParams.fontParameters.size = 16;
@@ -108,12 +111,11 @@ public class AssetsLoader {
         partyFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(PARTY_FONT_NAME + ".otf", BitmapFont.class, partyFontParams);
 
-        // ## CARREGANDO FONTE VERDE PARA STATUS AUMENTADO ##
         FreetypeFontLoader.FreeTypeFontLoaderParameter increasedStatFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         increasedStatFontParams.fontFileName = FONT_FILE;
         increasedStatFontParams.fontParameters.size = 16;
-        increasedStatFontParams.fontParameters.color = new Color(0/255f, 152/255f, 0/255f, 1f); // Verde
-        increasedStatFontParams.fontParameters.shadowColor = new Color(0/255f, 100/255f, 0/255f, 0.45f); // Sombra Verde Escura
+        increasedStatFontParams.fontParameters.color = new Color(0/255f, 152/255f, 0/255f, 1f);
+        increasedStatFontParams.fontParameters.shadowColor = new Color(0/255f, 100/255f, 0/255f, 0.45f);
         increasedStatFontParams.fontParameters.shadowOffsetX = 1;
         increasedStatFontParams.fontParameters.shadowOffsetY = 1;
         increasedStatFontParams.fontParameters.minFilter = TextureFilter.Nearest;
@@ -121,12 +123,11 @@ public class AssetsLoader {
         increasedStatFontParams.fontParameters.hinting = Hinting.Full;
         manager.load(INCREASED_STAT_FONT_NAME + ".otf", BitmapFont.class, increasedStatFontParams);
 
-        // ## CARREGANDO FONTE VERMELHA PARA STATUS DIMINUÍDO ##
         FreetypeFontLoader.FreeTypeFontLoaderParameter decreasedStatFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         decreasedStatFontParams.fontFileName = FONT_FILE;
         decreasedStatFontParams.fontParameters.size = 16;
-        decreasedStatFontParams.fontParameters.color = new Color(248f/255f, 0f, 0f, 1f); // Vermelho
-        decreasedStatFontParams.fontParameters.shadowColor = new Color(150f/255f, 0f, 0f, 0.45f); // Sombra Vermelha Escura
+        decreasedStatFontParams.fontParameters.color = new Color(248f/255f, 0f, 0f, 1f);
+        decreasedStatFontParams.fontParameters.shadowColor = new Color(150f/255f, 0f, 0f, 0.45f);
         decreasedStatFontParams.fontParameters.shadowOffsetX = 1;
         decreasedStatFontParams.fontParameters.shadowOffsetY = 1;
         decreasedStatFontParams.fontParameters.minFilter = TextureFilter.Nearest;
@@ -146,6 +147,7 @@ public class AssetsLoader {
         manager.load(BOX, Texture.class, textureParams);
         manager.load(BAG_UI, Texture.class, textureParams);
         manager.load(SUMMARY_UI, Texture.class, textureParams);
+        manager.load(BATTLE_BG, Texture.class, textureParams);
         
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);
@@ -162,6 +164,8 @@ public class AssetsLoader {
         manager.load(TYPE_ATLAS, TextureAtlas.class);
         manager.load(POKEBALLS_ATLAS, TextureAtlas.class);
         manager.load(SUMMARY_ATLAS, TextureAtlas.class);
+        manager.load(BATTLE_ATLAS, TextureAtlas.class);
+        manager.load(ALPHABET_ATLAS, TextureAtlas.class);
     }
 
     public void dispose() {
