@@ -14,16 +14,18 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.utils.Array;
 
 import br.com.yago.emerald.EmeraldGame;
 import br.com.yago.emerald.assets.AnimationLoader;
 import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.model.Ability;
+import br.com.yago.emerald.model.ExperienceCalculator;
 import br.com.yago.emerald.model.Item;
 import br.com.yago.emerald.model.Move;
 import br.com.yago.emerald.model.Party;
@@ -39,6 +41,7 @@ public class SummaryScreen extends ScreenAdapter {
     private final SpriteBatch batch;
     private final Viewport viewport;
     private final OrthographicCamera camera;
+    private final ShapeRenderer shapeRenderer;
 
     private final BitmapFont whiteFont;
     private final BitmapFont blackFont;
@@ -55,7 +58,7 @@ public class SummaryScreen extends ScreenAdapter {
     private final TextureRegion skillsBackground;
     private final TextureRegion movesBackground;
     private final TextureRegion infoGuide, skillsGuide, movesGuide;
-    private final TextureRegion moveSelectedOverlay; // ## NOVO ##
+    private final TextureRegion moveSelectedOverlay;
 
     private final Party party;
     private int currentIndex;
@@ -72,7 +75,6 @@ public class SummaryScreen extends ScreenAdapter {
     private float animationTimer = 0f;
     private static final float SLIDE_DURATION = 0.25f;
 
-    // ## NOVOS CAMPOS PARA A TELA DE MOVIMENTOS ##
     private int selectedMoveIndex = 0;
     private float blinkTimer = 0f;
     private boolean showBlink = true;
@@ -83,6 +85,7 @@ public class SummaryScreen extends ScreenAdapter {
         this.party = party;
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(240, 160, camera);
+        this.shapeRenderer = new ShapeRenderer();
 
         this.infoBackground = new TextureRegion(assetLoader.manager.get(assetLoader.SUMMARY_UI, Texture.class));
         this.whiteFont = assetLoader.manager.get(assetLoader.PARTY_FONT_NAME + ".otf", BitmapFont.class);
@@ -100,7 +103,7 @@ public class SummaryScreen extends ScreenAdapter {
         this.movesGuide = summaryAtlas.findRegion("moves");
         this.skillsBackground = summaryAtlas.findRegion("skills_screen");
         this.movesBackground = summaryAtlas.findRegion("moves_screen");
-        this.moveSelectedOverlay = summaryAtlas.findRegion("move_selected"); // ## CARREGANDO A SOBREPOSIÇÃO ##
+        this.moveSelectedOverlay = summaryAtlas.findRegion("move_selected");
 
         loadPokemon(initialIndex);
     }
@@ -119,7 +122,7 @@ public class SummaryScreen extends ScreenAdapter {
         this.currentPokemon = party.getPokemon(currentIndex);
         this.pokemonAnimation = AnimationLoader.loadGifAnimation(currentPokemon.getFrontSpriteGifPath());
         this.stateTimer = 0f;
-        this.selectedMoveIndex = 0; // Reseta a seleção de movimento ao trocar de Pokémon
+        this.selectedMoveIndex = 0;
     }
 
     @Override
@@ -175,7 +178,7 @@ public class SummaryScreen extends ScreenAdapter {
         currentState = SummaryState.values()[nextIndex];
 
         if (currentState == SummaryState.POKEMON_MOVES) {
-            selectedMoveIndex = 0; // Seleciona o primeiro movimento ao entrar na aba
+            selectedMoveIndex = 0;
         }
 
         animationType = AnimationType.SLIDING;
@@ -193,7 +196,7 @@ public class SummaryScreen extends ScreenAdapter {
 
         if (currentState == SummaryState.POKEMON_MOVES) {
             blinkTimer += delta;
-            if (blinkTimer > 0.3f) { // Velocidade do pisca-pisca
+            if (blinkTimer > 0.3f) {
                 showBlink = !showBlink;
                 blinkTimer = 0f;
             }
@@ -210,6 +213,7 @@ public class SummaryScreen extends ScreenAdapter {
         viewport.apply();
         camera.update();
         batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
 
         batch.begin();
 
@@ -379,6 +383,35 @@ public class SummaryScreen extends ScreenAdapter {
         String nextLvStr = String.valueOf(currentPokemon.getExperienceToNextLevel());
         layout.setText(blackFont, nextLvStr);
         blackFont.draw(batch, nextLvStr, expValueX + 68 - layout.width, expY);
+
+        batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        float barWidth = 64f;
+        float barHeight = 3f; // Deixando a barra mais fina
+        float barX = (expValueX + 83) - barWidth -1; // Ajuste fino na posição
+        float barY = expY - 23;
+
+        shapeRenderer.setColor(new Color(0f,0f,0f,0f));
+        shapeRenderer.rect(barX, barY, barWidth, barHeight);
+
+        // ## LÓGICA DE EXPERIÊNCIA CORRIGIDA ##
+        int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(currentPokemon.getLevel(), currentPokemon.getExperienceGroup());
+        int expInCurrentLevel = currentPokemon.getExperiencePoints() - totalExpForCurrentLevel;
+        int expNeededForNextLevel = currentPokemon.getExperienceToNextLevel();
+
+        float progressPercentage = 0f;
+        if (expNeededForNextLevel > 0) {
+            progressPercentage = (float) expInCurrentLevel / expNeededForNextLevel;
+        }
+
+        shapeRenderer.setColor(Color.CYAN); // Cor alterada para um azul mais claro e visível
+        shapeRenderer.rect(barX, barY, barWidth * progressPercentage, barHeight);
+
+        shapeRenderer.end();
+
+        batch.begin();
     }
 
     private void drawMovesScreen(float xOffset) {
@@ -386,66 +419,54 @@ public class SummaryScreen extends ScreenAdapter {
 
         Array<Move> moves = currentPokemon.getMoves();
 
-        // ===== ancoragem/colunas (tela 240x160) =====
-        final float COL_LEFT     = xOffset + 85f;  // coluna dos badges (fica no bloco direito)
-        final float ROW_Y0       = 122f;           // baseline da 1ª linha
-        final float ROW_STEP     = 16f;            // altura entre linhas (4 linhas)
+        final float COL_LEFT     = xOffset + 85f;
+        final float ROW_Y0       = 122f;
+        final float ROW_STEP     = 16f;
         final float TYPE_W = 32f, TYPE_H = 12f;
 
-        final float NAME_X       = COL_LEFT + TYPE_W + 1f; // nome depois do badge
-        final float LIST_RIGHT   = xOffset + 238f;         // borda direita com 10px de margem
-        final float PP_PAD_RIGHT = 0f;                     // padding extra se quiser
+        final float NAME_X       = COL_LEFT + TYPE_W + 1f;
+        final float LIST_RIGHT   = xOffset + 238f;
+        final float PP_PAD_RIGHT = 0f;
 
-        // ===== rodapé esquerdo: EFFECT =====
         final float EFFECT_LBL_X = xOffset + 4f;
-        final float EFFECT_VAL_X = xOffset + 60f;  // garante que não encosta no divisor
-        final float EFFECT_Y0    = 36f;            // POWER
-        final float EFFECT_DY    = 16f;            // ACCURACY
+        final float EFFECT_VAL_X = xOffset + 60f;
+        final float EFFECT_Y0    = 36f;
+        final float EFFECT_DY    = 16f;
 
-        // ===== descrição =====
         final float DESC_X     = COL_LEFT + 1f;
         final float DESC_TOP_Y = 36f;
-        final float DESC_W     = (LIST_RIGHT - 8f) - DESC_X; // wrap até ~8 px da borda
+        final float DESC_W     = (LIST_RIGHT - 8f) - DESC_X;
 
-     // ===== lista de moves =====
         for (int i = 0; i < moves.size; i++) {
             Move mv = moves.get(i);
             float y = ROW_Y0 - i * ROW_STEP;
 
-            // --- PP: calcular posição e largura do texto pra achar a borda direita ---
             String ppText = "PP" + mv.getCurrentPP() + "/" + mv.getMaxPP();
             layout.setText(blackFont, ppText);
             float ppX = LIST_RIGHT - PP_PAD_RIGHT - layout.width;
-            float rightEdge = ppX + layout.width; // último dígito do PP
+            float rightEdge = ppX + layout.width;
 
-            // --- overlay de seleção: vai do badge até o último dígito do PP ---
             if (i == selectedMoveIndex && showBlink && moveSelectedOverlay != null) {
-                // pequenos paddings pra ficar igual ao Emerald
-                final float SEL_PAD_L = -2f;  // passa 2px pra esquerda do badge
-                final float SEL_PAD_R =  2f;  // passa 2px além do PP
-                final float SEL_TOP   = 13f;  // altura acima da baseline
-                final float SEL_H     = 14f;  // altura da faixa
+                final float SEL_PAD_L = -2f;
+                final float SEL_PAD_R =  2f;
+                final float SEL_TOP   = 13f;
+                final float SEL_H     = 14f;
 
                 float selX = COL_LEFT + SEL_PAD_L;
                 float selY = y - SEL_TOP;
                 float selW = (rightEdge - selX) + SEL_PAD_R;
 
-                // estica a arte horizontalmente
                 batch.draw(moveSelectedOverlay, selX, selY, selW, SEL_H);
             }
 
-            // --- badge de tipo ---
             TextureRegion tr = typeAtlas.findRegion(mv.getType().name().toLowerCase());
             if (tr != null) batch.draw(tr, COL_LEFT, y - 12f, TYPE_W, TYPE_H);
 
-            // --- nome ---
             whiteFont.draw(batch, mv.getName().toUpperCase(), NAME_X, y);
 
-            // --- PP (mesma linha, flush-right) ---
             blackFont.draw(batch, ppText, ppX, y);
         }
 
-        // ===== rodapé: effect + description do selecionado =====
         if (moves.size > 0) {
             Move sel = moves.get(selectedMoveIndex);
 
@@ -454,7 +475,7 @@ public class SummaryScreen extends ScreenAdapter {
 
             whiteFont.draw(batch, "ACCURACY", EFFECT_LBL_X, EFFECT_Y0 - EFFECT_DY);
             blackFont.draw(batch, sel.getAccuracyString(),  EFFECT_VAL_X, EFFECT_Y0 - EFFECT_DY);
-            //TODO
+            
             layout.setText(blackFont, sel.getDescription(), new Color(96f,96f,96f,1f), DESC_W, Align.left, true);
             blackFont.draw(batch, layout, DESC_X, DESC_TOP_Y);
         }
@@ -589,6 +610,7 @@ public class SummaryScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
+        shapeRenderer.dispose();
         if (pokemonAnimation != null) {
             for (Object frameObject : pokemonAnimation.getKeyFrames()) {
                 TextureRegion frame = (TextureRegion) frameObject;

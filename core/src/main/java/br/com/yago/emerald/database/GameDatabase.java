@@ -1,7 +1,7 @@
 package br.com.yago.emerald.database;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils; // Importação necessária para aleatoriedade
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -20,20 +20,17 @@ public class GameDatabase {
     public void load() {
         Json json = new Json();
         
-        // Carrega Pokémon
         Array<PokemonData> pokemonList = json.fromJson(Array.class, PokemonData.class, Gdx.files.internal("data/pokemon_db.json"));
         for (PokemonData data : pokemonList) {
             pokemonDataMap.put(data.speciesName.toUpperCase(), data);
         }
         
-        // Carrega Golpes
         JsonValue moveRoot = new JsonReader().parse(Gdx.files.internal("data/moves_db.json"));
         for (JsonValue moveEntry = moveRoot.child; moveEntry != null; moveEntry = moveEntry.next) {
             MoveData moveData = json.readValue(MoveData.class, moveEntry);
             moveDataMap.put(moveEntry.name().toUpperCase(), moveData);
         }
 
-        // Carrega Habilidades
         JsonValue abilityRoot = new JsonReader().parse(Gdx.files.internal("data/abilities_db.json"));
         for (JsonValue abilityEntry = abilityRoot.child; abilityEntry != null; abilityEntry = abilityEntry.next) {
             AbilityData abilityData = json.readValue(AbilityData.class, abilityEntry);
@@ -84,35 +81,68 @@ public class GameDatabase {
         
         Ability ability = getAbility(data.ability);
         
-        // ## AQUI ESTÁ A NOVA LÓGICA DE ALEATORIEDADE ##
-        
-        // 1. Nature Aleatória (já implementado)
         PokemonNature randomNature = PokemonNature.values()[MathUtils.random(PokemonNature.values().length - 1)];
-        
-        // 2. Gênero Aleatório (Macho ou Fêmea)
         Pokemon.Gender randomGender = MathUtils.randomBoolean() ? Pokemon.Gender.MALE : Pokemon.Gender.FEMALE;
-
-        // 3. Chance de ser Shiny (1 em 4096)
         boolean isShiny = MathUtils.random(1, 4096) == 1;
 
         Pokemon pokemon = new Pokemon(
             data,
             level,
             (nickname == null || nickname.isEmpty()) ? speciesName.substring(0, 1).toUpperCase() + speciesName.substring(1).toLowerCase() : nickname,
-            randomGender, // Usa o gênero aleatório
-            isShiny,      // Usa o status shiny aleatório
-            randomNature, // Usa a nature aleatória
+            randomGender,
+            isShiny,
+            randomNature,
             level,
-            "Wild",       // metMap
+            "Wild",
             Pokeball.POKEBALL,
             trainerName,
             ability
         );
         
-        // Adiciona os golpes corretos para o nível
         if (data.learnset != null) {
             for (LearnableMove learnable : data.learnset) {
                 if (learnable.level <= level) {
+                    Move move = createMove(learnable.moveName);
+                    if (move != null) {
+                        pokemon.learnMove(move);
+                    }
+                }
+            }
+        }
+        
+        return pokemon;
+    }
+
+    // Novo método para criar Pokémon com XP específico
+    public Pokemon createPokemon(String speciesName, String nickname, String trainerName, int experiencePoints) {
+        PokemonData data = getPokemonData(speciesName);
+        if (data == null) {
+            Gdx.app.error("GameDatabase", "Espécie não encontrada no banco de dados: " + speciesName);
+            return null;
+        }
+        
+        Ability ability = getAbility(data.ability);
+        
+        PokemonNature randomNature = PokemonNature.values()[MathUtils.random(PokemonNature.values().length - 1)];
+        Pokemon.Gender randomGender = MathUtils.randomBoolean() ? Pokemon.Gender.MALE : Pokemon.Gender.FEMALE;
+        boolean isShiny = MathUtils.random(1, 4096) == 1;
+
+        Pokemon pokemon = new Pokemon(
+            data,
+            (nickname == null || nickname.isEmpty()) ? speciesName.substring(0, 1).toUpperCase() + speciesName.substring(1).toLowerCase() : nickname,
+            randomGender,
+            isShiny,
+            randomNature,
+            "Wild",
+            Pokeball.POKEBALL,
+            trainerName,
+            ability,
+            experiencePoints
+        );
+        
+        if (data.learnset != null) {
+            for (LearnableMove learnable : data.learnset) {
+                if (learnable.level <= pokemon.getLevel()) {
                     Move move = createMove(learnable.moveName);
                     if (move != null) {
                         pokemon.learnMove(move);

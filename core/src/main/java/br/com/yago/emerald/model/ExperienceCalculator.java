@@ -61,4 +61,18 @@ public class ExperienceCalculator {
         int expForNextLevel = getTotalExpForLevel(currentLevel + 1, group);
         return expForNextLevel - expForCurrentLevel;
     }
+
+    /**
+     * Calcula o nível de um Pokémon com base em sua experiência total.
+     */
+    public static int calculateLevelFromExp(int totalExp, ExperienceGroup group) {
+        if (totalExp <= 0) return 1;
+        // Começa a verificar a partir do nível 2, pois o nível 1 é 0 de exp.
+        for (int level = 2; level <= 100; level++) {
+            if (totalExp < getTotalExpForLevel(level, group)) {
+                return level - 1;
+            }
+        }
+        return 100; // Se a exp for maior ou igual à do nível 100
+    }
 }

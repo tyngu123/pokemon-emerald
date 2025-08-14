@@ -34,39 +34,49 @@ public class Pokemon {
     private final int experienceToNextLevel;
     private final Array<Move> moves;
 
+    // Construtor original, mantido para compatibilidade
     public Pokemon(
         PokemonData data, int level, String nickname, Gender gender, boolean shiny,
         PokemonNature nature, int metLevel, String metMap, Pokeball pokeball, 
         String originalTrainerName, Ability ability
     ) {
+        this(data, nickname, gender, shiny, nature, metMap, pokeball, originalTrainerName, ability, ExperienceCalculator.getTotalExpForLevel(level, ExperienceGroup.valueOf(data.experienceGroup)));
+    }
+
+    // Novo construtor para criação com pontos de experiência específicos
+    public Pokemon(
+        PokemonData data, String nickname, Gender gender, boolean shiny,
+        PokemonNature nature, String metMap, Pokeball pokeball, 
+        String originalTrainerName, Ability ability, int experiencePoints
+    ) {
         this.speciesName = data.speciesName;
         this.nickname = nickname;
-        this.level = level;
         this.gender = gender;
         this.shiny = shiny;
         this.nature = nature;
-        this.metLevel = metLevel;
         this.metMap = metMap;
         this.pokeball = pokeball;
         this.originalTrainerName = originalTrainerName;
         this.ability = ability;
-        this.heldItem = null; // Simplificado por agora
+        this.heldItem = null;
         
         this.type1 = PokemonType.valueOf(data.type1);
         this.type2 = (data.type2 != null) ? PokemonType.valueOf(data.type2) : null;
         this.experienceGroup = ExperienceGroup.valueOf(data.experienceGroup);
         
-        // Calcula os stats com base nos dados do JSON e no nível
-        this.maxHP = StatCalculator.calculateHP(data.baseStats.get("HP"), level);
-        this.attack = StatCalculator.calculateStat(data.baseStats.get("ATTACK"), level);
-        this.defense = StatCalculator.calculateStat(data.baseStats.get("DEFENSE"), level);
-        this.specialAttack = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_ATTACK"), level);
-        this.specialDefense = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_DEFENSE"), level);
-        this.speed = StatCalculator.calculateStat(data.baseStats.get("SPEED"), level);
+        this.experiencePoints = experiencePoints;
+        this.level = ExperienceCalculator.calculateLevelFromExp(this.experiencePoints, this.experienceGroup);
+        this.metLevel = this.level;
+        
+        this.maxHP = StatCalculator.calculateHP(data.baseStats.get("HP"), this.level);
+        this.attack = StatCalculator.calculateStat(data.baseStats.get("ATTACK"), this.level);
+        this.defense = StatCalculator.calculateStat(data.baseStats.get("DEFENSE"), this.level);
+        this.specialAttack = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_ATTACK"), this.level);
+        this.specialDefense = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_DEFENSE"), this.level);
+        this.speed = StatCalculator.calculateStat(data.baseStats.get("SPEED"), this.level);
         
         this.currentHP = this.maxHP;
-        this.experiencePoints = ExperienceCalculator.getTotalExpForLevel(level, experienceGroup);
-        this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(level, experienceGroup);
+        this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(this.level, this.experienceGroup);
         
         this.moves = new Array<>(4);
     }
@@ -106,6 +116,7 @@ public class Pokemon {
     public Item getHeldItem() { return heldItem; }
     public int getExperiencePoints() { return experiencePoints; }
     public int getExperienceToNextLevel() { return experienceToNextLevel; }
+    public ExperienceGroup getExperienceGroup() { return experienceGroup; }
     public Array<Move> getMoves() { return moves; }
 
     public String getIconSpriteName() {

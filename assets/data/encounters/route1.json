@@ -1,14 +1,26 @@
 [
   {
-    "speciesName": "PIKACHU",
-    "minLevel": 2,
-    "maxLevel": 5,
-    "chance": 10
+    "speciesName": "BLASTOISE",
+    "minLevel": 80,
+    "maxLevel": 100,
+    "chance": 25
   },
   {
-    "speciesName": "JIGGLYPUFF",
-    "minLevel": 2,
-    "maxLevel": 4,
-    "chance": 90
+    "speciesName": "CHARIZARD",
+    "minLevel": 80,
+    "maxLevel": 100,
+    "chance": 25
+  },
+  {
+    "speciesName": "EEVEE",
+    "minLevel": 80,
+    "maxLevel": 100,
+    "chance": 25
+  },
+  {
+    "speciesName": "GENGAR",
+    "minLevel": 80,
+    "maxLevel": 100,
+    "chance": 25
   }
 ]

@@ -31,12 +31,19 @@ public class Player extends Character {
 		inventory.addItem(new Item("Poke Ball", "A device for catching wild Pokémon.", "pokeball", Item.ItemCategory.POKEBALLS, 20));
 	}
 
-    // Agora usa o GameDatabase para criar os Pokémon iniciais
+    // Agora usa o GameDatabase para criar os Pokémon iniciais com XP específico
 	private void addDefaultPokemon() {
-	    party.addPokemon(game.db.createPokemon("PIKACHU", 5, "Ratinho", this.name));
-	    party.addPokemon(game.db.createPokemon("CHARIZARD", 7, "CHARIZARD", this.name));
-        party.addPokemon(game.db.createPokemon("EEVEE", 100, "EEVEE", this.name));
-        party.addPokemon(game.db.createPokemon("ARTICUNO", 100, "Passarin", this.name));
+	    // Pikachu com XP para estar um pouco acima do nível 5
+	    party.addPokemon(game.db.createPokemon("PIKACHU", "Ratinho", this.name, 120000)); 
+	    
+	    // Charizard com XP para estar um pouco acima do nível 7
+	    party.addPokemon(game.db.createPokemon("CHARIZARD", "CHARIZARD", this.name, 300));
+        
+        // Eevee no nível 100
+        party.addPokemon(game.db.createPokemon("EEVEE", "EEVEE", this.name, 1000000));
+        
+        // Blastoise com XP para estar um pouco acima do nível 36
+        party.addPokemon(game.db.createPokemon("BLASTOISE", "BLASTOISE", this.name, 52000));
 	}
 
 	public String getName() {
