@@ -53,17 +53,22 @@ public class HealthBar {
         redPixmap.dispose();
     }
 
-    public void draw(SpriteBatch batch, Pokemon pokemon, float x, float y) {
-        if (pokemon == null) return;
-
-        // 1. Draw the static gray background bar first
+    /**
+     * NOVO MÉTODO: Desenha a barra de vida com base em uma porcentagem específica.
+     * Isso é usado para a animação de perda de HP.
+     * @param batch O SpriteBatch para desenhar.
+     * @param hpPercentage A porcentagem de vida a ser exibida (0.0 a 1.0).
+     * @param x A posição X.
+     * @param y A posição Y.
+     */
+    public void draw(SpriteBatch batch, float hpPercentage, float x, float y) {
+        // 1. Desenha o fundo cinza estático primeiro
         batch.draw(backgroundBar, x, y, maxWidth, height);
 
-        // 2. Calculate the health percentage
-        float hpPercentage = (float) pokemon.getCurrentHP() / pokemon.getMaxHP();
-        hpPercentage = Math.max(0, hpPercentage); // Ensure it doesn't go below zero
+        // 2. Garante que a porcentagem não seja negativa
+        hpPercentage = Math.max(0, hpPercentage);
 
-        // 3. Choose the appropriate color for the current health
+        // 3. Escolhe a cor apropriada para a vida atual
         Texture barTexture;
         if (hpPercentage > 0.5f) {
             barTexture = greenBar;
@@ -73,12 +78,24 @@ public class HealthBar {
             barTexture = redBar;
         }
 
-        // 4. Calculate the current width of the colored health bar
+        // 4. Calcula a largura atual da barra de vida colorida
         float currentWidth = maxWidth * hpPercentage;
 
-        // 5. Draw the colored health bar on top of the background
-        // The bar is aligned to the right, so it depletes from right to left
+        // 5. Desenha a barra de vida colorida sobre o fundo
         batch.draw(barTexture, x, y, currentWidth, height);
+    }
+    
+    /**
+     * Método original, agora chama o novo método sobrecarregado.
+     * @param batch O SpriteBatch para desenhar.
+     * @param pokemon O Pokémon cuja vida será exibida.
+     * @param x A posição X.
+     * @param y A posição Y.
+     */
+    public void draw(SpriteBatch batch, Pokemon pokemon, float x, float y) {
+        if (pokemon == null) return;
+        float hpPercentage = (float) pokemon.getCurrentHP() / pokemon.getMaxHP();
+        draw(batch, hpPercentage, x, y);
     }
 
     public void dispose() {

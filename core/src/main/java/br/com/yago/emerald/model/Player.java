@@ -34,16 +34,20 @@ public class Player extends Character {
     // Agora usa o GameDatabase para criar os Pokémon iniciais com XP específico
 	private void addDefaultPokemon() {
 	    // Pikachu com XP para estar um pouco acima do nível 5
-	    party.addPokemon(game.db.createPokemon("PIKACHU", "Ratinho", this.name, 120000)); 
+	    party.addPokemon(game.db.createPokemon("PIKACHU", "Ratinho", this.name, 30000)); 
 	    
 	    // Charizard com XP para estar um pouco acima do nível 7
 	    party.addPokemon(game.db.createPokemon("CHARIZARD", "CHARIZARD", this.name, 300));
         
         // Eevee no nível 100
-        party.addPokemon(game.db.createPokemon("EEVEE", "EEVEE", this.name, 1000000));
+        party.addPokemon(game.db.createPokemon("EEVEE", "EEVEE", this.name, 300));
         
         // Blastoise com XP para estar um pouco acima do nível 36
-        party.addPokemon(game.db.createPokemon("BLASTOISE", "BLASTOISE", this.name, 52000));
+        party.addPokemon(game.db.createPokemon("BLASTOISE", "BLASTOISE", this.name, 300));
+        
+        party.addPokemon(game.db.createPokemon("VENUSAUR", "VENUSAUR", this.name, 300));
+        
+        party.addPokemon(game.db.createPokemon("NIDOKING", "NIDOKING", this.name, 300));
 	}
 
 	public String getName() {

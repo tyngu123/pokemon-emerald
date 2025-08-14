@@ -12,9 +12,10 @@ public class Move {
     private final int power;
     private final int accuracy;
     private final int maxPP;
+    private final int priority; // NOVO CAMPO
     private int currentPP;
 
-    public Move(String name, String description, PokemonType type, MoveCategory category, int power, int accuracy, int pp) {
+    public Move(String name, String description, PokemonType type, MoveCategory category, int power, int accuracy, int pp, int priority) {
         this.name = name;
         this.description = description;
         this.type = type;
@@ -23,6 +24,7 @@ public class Move {
         this.accuracy = accuracy;
         this.maxPP = pp;
         this.currentPP = pp; // Começa com PP cheio
+        this.priority = priority; // NOVO
     }
 
     // Getters
@@ -34,6 +36,7 @@ public class Move {
     public int getAccuracy() { return accuracy; }
     public int getMaxPP() { return maxPP; }
     public int getCurrentPP() { return currentPP; }
+    public int getPriority() { return priority; } // NOVO GETTER
 
     /**
      * Retorna a representação do poder como String. Se for 0, mostra "--".

@@ -8,4 +8,5 @@ public class MoveData {
     public int power;
     public int accuracy;
     public int pp;
+    public int priority; // NOVO CAMPO
 }

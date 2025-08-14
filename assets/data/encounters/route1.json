@@ -1,26 +1,26 @@
 [
   {
     "speciesName": "ARTICUNO",
-    "minLevel": 80,
-    "maxLevel": 100,
+    "minLevel": 8,
+    "maxLevel": 10,
     "chance": 25
   },
   {
     "speciesName": "CHARIZARD",
-    "minLevel": 80,
-    "maxLevel": 100,
+    "minLevel": 8,
+    "maxLevel": 10,
     "chance": 25
   },
   {
     "speciesName": "EEVEE",
-    "minLevel": 80,
-    "maxLevel": 100,
+    "minLevel": 8,
+    "maxLevel": 10,
     "chance": 25
   },
   {
-    "speciesName": "ARTICUNO",
-    "minLevel": 80,
-    "maxLevel": 100,
+    "speciesName": "GENGAR",
+    "minLevel": 8,
+    "maxLevel": 10,
     "chance": 25
   }
 ]

@@ -86,6 +86,18 @@ public class Pokemon {
             moves.add(move);
         }
     }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Aplica dano ao Pokémon, garantindo que o HP não fique negativo.
+     * @param damage A quantidade de dano a ser aplicada.
+     */
+    public void takeDamage(int damage) {
+        this.currentHP -= damage;
+        if (this.currentHP < 0) {
+            this.currentHP = 0;
+        }
+    }
 
     private int calculateStatWithNature(int baseStat, String statName) {
         float modifier = nature.getModifierForStat(statName);

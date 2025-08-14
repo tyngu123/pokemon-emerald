@@ -59,7 +59,8 @@ public class GameDatabase {
             MoveCategory.valueOf(data.category),
             data.power,
             data.accuracy,
-            data.pp
+            data.pp,
+            data.priority // NOVO
         );
     }
     
