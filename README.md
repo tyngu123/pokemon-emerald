@@ -2,6 +2,9 @@
 
 <img width="1193" height="832" alt="image" src="https://github.com/user-attachments/assets/89374600-9822-486e-abd7-b6aa7f50836d" />
 <img width="1195" height="830" alt="image" src="https://github.com/user-attachments/assets/d127cb9b-161c-4d33-a047-d7545a2c04bb" />
+<img width="1196" height="826" alt="image" src="https://github.com/user-attachments/assets/e5aea736-d817-4603-b91f-aa0717dd840b" />
+<img width="1195" height="832" alt="image" src="https://github.com/user-attachments/assets/d93b142e-ea9c-4d38-8195-eaeb7f1add20" />
+
 
 
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
