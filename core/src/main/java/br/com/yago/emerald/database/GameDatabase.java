@@ -125,7 +125,7 @@ public class GameDatabase {
         
         PokemonNature randomNature = PokemonNature.values()[MathUtils.random(PokemonNature.values().length - 1)];
         Pokemon.Gender randomGender = MathUtils.randomBoolean() ? Pokemon.Gender.MALE : Pokemon.Gender.FEMALE;
-        boolean isShiny = MathUtils.random(1, 4096) == 1;
+        boolean isShiny = MathUtils.random(1, 2) == 1;
 
         Pokemon pokemon = new Pokemon(
             data,

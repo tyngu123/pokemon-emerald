@@ -57,6 +57,10 @@ public class BattleScreen extends ScreenAdapter {
     private final HealthBar enemyHealthBar;
     private final Animation<TextureRegion> playerThrowAnimation;
 
+    // ## NOVOS RECURSOS DO MENU DE AÇÃO ##
+    private final TextureRegion battleActionUi;
+    private final TextureRegion actionArrow;
+
     private final Pokemon wildPokemon;
     private final Pokemon playerPokemon;
     private Animation<TextureRegion> playerPokemonAnimation;
@@ -76,6 +80,7 @@ public class BattleScreen extends ScreenAdapter {
     private final Vector2 playerStatusOffScreenPos;
     private final Vector2 playerStatusCurrentPos = new Vector2();
 
+    // ## MÁQUINA DE ESTADO ATUALIZADA ##
     private enum BattleState {
         WILD_INTRO_TYPING,
         WILD_INTRO_WAIT,
@@ -84,7 +89,7 @@ public class BattleScreen extends ScreenAdapter {
         PLAYER_THROWING,
         TRANSITION_OUT,
         STATUS_BAR_ENTERING,
-        BATTLE_READY
+        ACTION_SELECTION // Novo estado para o menu de ação
     }
     private BattleState currentState;
 
@@ -94,6 +99,10 @@ public class BattleScreen extends ScreenAdapter {
     private float typewriterTimer = 0f;
     private final float charsPerSecond = 40f;
     private float indicatorTimer = 0f;
+
+    // ## LÓGICA DO MENU DE AÇÃO ##
+    private int selectedActionIndex = 0; // 0:FIGHT, 1:BAG, 2:POKEMON, 3:RUN
+    private final Array<Vector2> actionArrowPositions = new Array<>();
 
     public BattleScreen(EmeraldGame game, GameScreen gameScreen, SpriteBatch batch, AssetsLoader assetLoader, Party playerParty, Pokemon wildPokemon) {
         this.game = game;
@@ -118,6 +127,16 @@ public class BattleScreen extends ScreenAdapter {
         this.platform = battleAtlas.findRegion("plataform");
         this.statusEnemy = battleAtlas.findRegion("status_enemy");
         this.statusPlayer = battleAtlas.findRegion("status_player");
+        
+        // ## CARREGANDO AS TEXTURAS DO MENU ##
+        this.battleActionUi = battleAtlas.findRegion("battle_action_ui");
+        this.actionArrow = battleAtlas.findRegion("action_arrow");
+
+        // ## DEFININDO POSIÇÕES DA SETA DE AÇÃO ##
+        actionArrowPositions.add(new Vector2(128, 25)); // FIGHT
+        actionArrowPositions.add(new Vector2(185, 25)); // BAG
+        actionArrowPositions.add(new Vector2(128, 9));  // POKEMON
+        actionArrowPositions.add(new Vector2(185, 9));  // RUN
 
         Array<TextureRegion> throwFrames = new Array<>();
         for (int i = 1; i <= 5; i++) {
@@ -150,6 +169,11 @@ public class BattleScreen extends ScreenAdapter {
     
     private void startGoMessage() {
         setMessage("Vai " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.GO_MESSAGE_TYPING);
+    }
+    
+    // ## NOVO MÉTODO PARA A MENSAGEM DE AÇÃO ##
+    private void startActionMessage() {
+        setMessage("What will\n" + playerPokemon.getNickname().toUpperCase() + " do?", BattleState.ACTION_SELECTION);
     }
 
     private void setMessage(String message, BattleState nextState) {
@@ -187,27 +211,56 @@ public class BattleScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                    if (currentState == BattleState.WILD_INTRO_TYPING) {
+                // ## LÓGICA DE INPUT ATUALIZADA ##
+                if (currentState == BattleState.WILD_INTRO_TYPING) {
+                    if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                         visibleMessage = fullMessage;
                         charIndex = fullMessage.length();
                         currentState = BattleState.WILD_INTRO_WAIT;
                         return true;
-                    } else if (currentState == BattleState.WILD_INTRO_WAIT) {
+                    }
+                } else if (currentState == BattleState.WILD_INTRO_WAIT) {
+                    if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                         startGoMessage();
                         return true;
-                    } else if (currentState == BattleState.GO_MESSAGE_TYPING) {
+                    }
+                } else if (currentState == BattleState.GO_MESSAGE_TYPING) {
+                     if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                         visibleMessage = fullMessage;
                         charIndex = fullMessage.length();
                         currentState = BattleState.GO_MESSAGE_WAIT;
                         return true;
-                    } else if (currentState == BattleState.GO_MESSAGE_WAIT) {
+                    }
+                } else if (currentState == BattleState.GO_MESSAGE_WAIT) {
+                    if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                         currentState = BattleState.PLAYER_THROWING;
                         playerSpriteTimer = 0f;
                         return true;
-                    } else if (currentState == BattleState.BATTLE_READY) {
-                        game.closeBattleScreen();
-                        return true;
+                    }
+                } else if (currentState == BattleState.ACTION_SELECTION) {
+                    switch (keycode) {
+                        case Input.Keys.UP:
+                            if (selectedActionIndex == 2) selectedActionIndex = 0; // POKEMON -> FIGHT
+                            if (selectedActionIndex == 3) selectedActionIndex = 1; // RUN -> BAG
+                            return true;
+                        case Input.Keys.DOWN:
+                            if (selectedActionIndex == 0) selectedActionIndex = 2; // FIGHT -> POKEMON
+                            if (selectedActionIndex == 1) selectedActionIndex = 3; // BAG -> RUN
+                            return true;
+                        case Input.Keys.LEFT:
+                            if (selectedActionIndex == 1) selectedActionIndex = 0; // BAG -> FIGHT
+                            if (selectedActionIndex == 3) selectedActionIndex = 2; // RUN -> POKEMON
+                            return true;
+                        case Input.Keys.RIGHT:
+                            if (selectedActionIndex == 0) selectedActionIndex = 1; // FIGHT -> BAG
+                            if (selectedActionIndex == 2) selectedActionIndex = 3; // POKEMON -> RUN
+                            return true;
+                        case Input.Keys.Z:
+                            // Aqui você adicionaria a lógica para cada ação (lutar, usar item, etc.)
+                            Gdx.app.log("BattleScreen", "Ação selecionada: " + selectedActionIndex);
+                            // Por enquanto, vamos fechar a tela para teste
+                            game.closeBattleScreen();
+                            return true;
                     }
                 }
                 return false;
@@ -243,24 +296,35 @@ public class BattleScreen extends ScreenAdapter {
                 playerStatusCurrentPos.interpolate(playerStatusOnScreenPos, transitionTimer, Interpolation.sineOut);
                 if(transitionTimer >= 1.0f) {
                     playerStatusCurrentPos.set(playerStatusOnScreenPos);
-                    currentState = BattleState.BATTLE_READY;
+                    // ## TRANSIÇÃO PARA A SELEÇÃO DE AÇÃO ##
+                    startActionMessage();
                 }
+                break;
+            default:
                 break;
         }
     }
 
     private void updateDialogue(float delta) {
-        if (currentState == BattleState.WILD_INTRO_TYPING || currentState == BattleState.GO_MESSAGE_TYPING) {
+        // ## LÓGICA ATUALIZADA PARA INCLUIR O NOVO ESTADO ##
+        if (currentState == BattleState.WILD_INTRO_TYPING || 
+            currentState == BattleState.GO_MESSAGE_TYPING ||
+            currentState == BattleState.ACTION_SELECTION) {
+                
             typewriterTimer += delta;
             if (typewriterTimer >= 1f / charsPerSecond) {
                 typewriterTimer = 0f;
                 if (charIndex < fullMessage.length()) {
                     visibleMessage += fullMessage.charAt(charIndex++);
                 } else {
-                    currentState = (currentState == BattleState.WILD_INTRO_TYPING) ? BattleState.WILD_INTRO_WAIT : BattleState.GO_MESSAGE_WAIT;
+                    if (currentState == BattleState.WILD_INTRO_TYPING) {
+                        currentState = BattleState.WILD_INTRO_WAIT;
+                    } else if (currentState == BattleState.GO_MESSAGE_TYPING) {
+                        currentState = BattleState.GO_MESSAGE_WAIT;
+                    }
                 }
             }
-        } else if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.GO_MESSAGE_WAIT || currentState == BattleState.BATTLE_READY) {
+        } else if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.GO_MESSAGE_WAIT) {
             indicatorTimer += delta;
         }
     }
@@ -334,9 +398,6 @@ public class BattleScreen extends ScreenAdapter {
         uiViewport.apply();
         batch.setProjectionMatrix(uiCamera.combined);
         
-        // ## ORDEM DE RENDERIZAÇÃO AJUSTADA ##
-        
-        // 1. DESENHA A BARRA DE XP PRIMEIRO (COM SHAPERENDERER)
         if (playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal()) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             
@@ -366,7 +427,6 @@ public class BattleScreen extends ScreenAdapter {
             shapeRenderer.end();
         }
 
-        // 2. DESENHA O RESTO DA UI (COM SPRITEBATCH)
         batch.begin();
         
         if (statusEnemy != null) {
@@ -402,10 +462,21 @@ public class BattleScreen extends ScreenAdapter {
             batch.draw(battleTextbox, 0, 0, uiViewport.getWorldWidth(), battleTextbox.getRegionHeight());
         }
 
+        // ## RENDERIZAÇÃO DO MENU DE AÇÃO ##
+        if (currentState == BattleState.ACTION_SELECTION) {
+            // Desenha a caixa de ações
+            float actionBoxX = uiViewport.getWorldWidth() - battleActionUi.getRegionWidth();
+            batch.draw(battleActionUi, actionBoxX, 0);
+
+            // Desenha a seta na posição correta
+            Vector2 arrowPos = actionArrowPositions.get(selectedActionIndex);
+            batch.draw(actionArrow, arrowPos.x, arrowPos.y);
+        }
+
         layout.setText(whiteFont, visibleMessage, whiteFont.getColor(), uiViewport.getWorldWidth() - 20, Align.left, true);
         whiteFont.draw(batch, layout, 10, 34);
         
-        if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.GO_MESSAGE_WAIT || currentState == BattleState.BATTLE_READY) {
+        if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.GO_MESSAGE_WAIT) {
             drawWaitingIndicator();
         }
 
@@ -414,35 +485,21 @@ public class BattleScreen extends ScreenAdapter {
 
     private void drawWaitingIndicator() {
         if (layout.runs.size > 0 && layout.runs.peek().glyphs.size > 0) {
-            // última linha (última run do layout)
             GlyphLayout.GlyphRun lastRun = layout.runs.peek();
-
-            // soma dos avanços em X da run (isso já inclui kerning/escala)
             float runWidth = 0f;
             for (int i = 0; i < lastRun.xAdvances.size; i++) {
                 runWidth += lastRun.xAdvances.get(i);
             }
-
-            // x onde o texto foi desenhado
-            float drawX = 10f;            // mesmo X usado no draw: whiteFont.draw(batch, layout, 10, 34)
-            float drawTopY = 28f;         // Y de desenho do bloco de texto
-
-            // posição X da seta: início + deslocamento da run + largura total da run
+            float drawX = 10f;
+            float drawTopY = 28f;
             float arrowX = drawX + lastRun.x + runWidth + 2f;
-
-            // baseline da última linha (run.y já é o offset vertical da linha no layout)
             float lastLineBaselineY = drawTopY + lastRun.y;
-
-            // tamanho e centralização vertical da seta na linha
             float arrowSize = whiteFont.getCapHeight() * 0.75f;
             float arrowBaseY = lastLineBaselineY - (arrowSize / 2f);
-
-            // animação (mesma lógica que você já tinha)
             float speed = 8f;
             float amplitude = 2f;
             float yOffset = (float) Math.sin(indicatorTimer * speed) * amplitude;
             float arrowY = arrowBaseY + yOffset;
-
             batch.draw(dialogueArrow, arrowX, arrowY, arrowSize, arrowSize);
         }
     }
