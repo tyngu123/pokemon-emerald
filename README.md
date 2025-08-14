@@ -1,5 +1,9 @@
 # ProjectEmerald
 
+<img width="1193" height="832" alt="image" src="https://github.com/user-attachments/assets/89374600-9822-486e-abd7-b6aa7f50836d" />
+<img width="1195" height="830" alt="image" src="https://github.com/user-attachments/assets/d127cb9b-161c-4d33-a047-d7545a2c04bb" />
+
+
 A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
 
 This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension that draws libGDX logo.
@@ -31,3 +35,5 @@ Useful Gradle tasks and flags:
 
 Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should be replaced with the ID of a specific project.
 For example, `core:clean` removes `build` folder only from the `core` project.
+
+
