@@ -3,6 +3,7 @@ package br.com.yago.emerald.view;
 import br.com.yago.emerald.EmeraldGame;
 import br.com.yago.emerald.assets.AssetsLoader;
 import br.com.yago.emerald.model.ExperienceCalculator;
+import br.com.yago.emerald.model.Move;
 import br.com.yago.emerald.model.Party;
 import br.com.yago.emerald.model.Pokemon;
 import br.com.yago.emerald.tools.AnimationAssetLoader.AnimationParameters;
@@ -31,6 +32,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.Comparator;
+
 public class BattleScreen extends ScreenAdapter {
 
     private final EmeraldGame game;
@@ -44,7 +47,9 @@ public class BattleScreen extends ScreenAdapter {
     private final Viewport uiViewport;
 
     private final BitmapFont whiteFont;
-    private final AtlasFont statusFont; 
+    // ## NOVA FONTE CINZA PARA OS GOLPES ##
+    private final BitmapFont grayFont;
+    private final AtlasFont statusFont;
     private final GlyphLayout layout = new GlyphLayout();
     private final AssetManager assetManager;
     private final Texture background;
@@ -57,9 +62,10 @@ public class BattleScreen extends ScreenAdapter {
     private final HealthBar enemyHealthBar;
     private final Animation<TextureRegion> playerThrowAnimation;
 
-    // ## NOVOS RECURSOS DO MENU DE AÇÃO ##
     private final TextureRegion battleActionUi;
     private final TextureRegion actionArrow;
+    private final TextureRegion battleFightUi;
+    private final TextureAtlas typeAtlas;
 
     private final Pokemon wildPokemon;
     private final Pokemon playerPokemon;
@@ -80,7 +86,6 @@ public class BattleScreen extends ScreenAdapter {
     private final Vector2 playerStatusOffScreenPos;
     private final Vector2 playerStatusCurrentPos = new Vector2();
 
-    // ## MÁQUINA DE ESTADO ATUALIZADA ##
     private enum BattleState {
         WILD_INTRO_TYPING,
         WILD_INTRO_WAIT,
@@ -89,7 +94,8 @@ public class BattleScreen extends ScreenAdapter {
         PLAYER_THROWING,
         TRANSITION_OUT,
         STATUS_BAR_ENTERING,
-        ACTION_SELECTION // Novo estado para o menu de ação
+        ACTION_SELECTION,
+        MOVE_SELECTION
     }
     private BattleState currentState;
 
@@ -100,9 +106,13 @@ public class BattleScreen extends ScreenAdapter {
     private final float charsPerSecond = 40f;
     private float indicatorTimer = 0f;
 
-    // ## LÓGICA DO MENU DE AÇÃO ##
     private int selectedActionIndex = 0; // 0:FIGHT, 1:BAG, 2:POKEMON, 3:RUN
     private final Array<Vector2> actionArrowPositions = new Array<>();
+
+    private int selectedMoveIndex = 0;
+    private final Array<Vector2> movePositions = new Array<>();
+    // ## NOVO: Array para guardar os golpes ordenados para exibição ##
+    private final Array<Move> displayedMoves = new Array<>(4);
 
     public BattleScreen(EmeraldGame game, GameScreen gameScreen, SpriteBatch batch, AssetsLoader assetLoader, Party playerParty, Pokemon wildPokemon) {
         this.game = game;
@@ -120,6 +130,8 @@ public class BattleScreen extends ScreenAdapter {
         this.background = assetManager.get(assetLoader.BATTLE_BG, Texture.class);
 
         this.whiteFont = assetManager.get(assetLoader.PARTY_FONT_NAME + ".otf", BitmapFont.class);
+        // ## CARREGANDO A FONTE CINZA ##
+        this.grayFont = assetManager.get(assetLoader.DIALOGUE_FONT_NAME + ".otf", BitmapFont.class);
         this.dialogueArrow = assetManager.get(assetLoader.DIALOGUE_ARROW, Texture.class);
         
         TextureAtlas battleAtlas = assetManager.get(assetLoader.BATTLE_ATLAS, TextureAtlas.class);
@@ -128,15 +140,21 @@ public class BattleScreen extends ScreenAdapter {
         this.statusEnemy = battleAtlas.findRegion("status_enemy");
         this.statusPlayer = battleAtlas.findRegion("status_player");
         
-        // ## CARREGANDO AS TEXTURAS DO MENU ##
         this.battleActionUi = battleAtlas.findRegion("battle_action_ui");
         this.actionArrow = battleAtlas.findRegion("action_arrow");
+        
+        this.battleFightUi = battleAtlas.findRegion("move_action_ui");
+        this.typeAtlas = assetManager.get(assetLoader.TYPE_ATLAS, TextureAtlas.class);
 
-        // ## DEFININDO POSIÇÕES DA SETA DE AÇÃO ##
         actionArrowPositions.add(new Vector2(128, 25)); // FIGHT
         actionArrowPositions.add(new Vector2(185, 25)); // BAG
         actionArrowPositions.add(new Vector2(128, 9));  // POKEMON
         actionArrowPositions.add(new Vector2(185, 9));  // RUN
+        
+        movePositions.add(new Vector2(10, 40)); // Posição 0 (Superior Esquerdo)
+        movePositions.add(new Vector2(95, 40)); // Posição 1 (Superior Direito)
+        movePositions.add(new Vector2(10, 20)); // Posição 2 (Inferior Esquerdo)
+        movePositions.add(new Vector2(95, 20)); // Posição 3 (Inferior Direito)
 
         Array<TextureRegion> throwFrames = new Array<>();
         for (int i = 1; i <= 5; i++) {
@@ -171,7 +189,6 @@ public class BattleScreen extends ScreenAdapter {
         setMessage("Vai " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.GO_MESSAGE_TYPING);
     }
     
-    // ## NOVO MÉTODO PARA A MENSAGEM DE AÇÃO ##
     private void startActionMessage() {
         setMessage("What will\n" + playerPokemon.getNickname().toUpperCase() + " do?", BattleState.ACTION_SELECTION);
     }
@@ -211,7 +228,6 @@ public class BattleScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                // ## LÓGICA DE INPUT ATUALIZADA ##
                 if (currentState == BattleState.WILD_INTRO_TYPING) {
                     if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                         visibleMessage = fullMessage;
@@ -238,34 +254,107 @@ public class BattleScreen extends ScreenAdapter {
                         return true;
                     }
                 } else if (currentState == BattleState.ACTION_SELECTION) {
-                    switch (keycode) {
-                        case Input.Keys.UP:
-                            if (selectedActionIndex == 2) selectedActionIndex = 0; // POKEMON -> FIGHT
-                            if (selectedActionIndex == 3) selectedActionIndex = 1; // RUN -> BAG
-                            return true;
-                        case Input.Keys.DOWN:
-                            if (selectedActionIndex == 0) selectedActionIndex = 2; // FIGHT -> POKEMON
-                            if (selectedActionIndex == 1) selectedActionIndex = 3; // BAG -> RUN
-                            return true;
-                        case Input.Keys.LEFT:
-                            if (selectedActionIndex == 1) selectedActionIndex = 0; // BAG -> FIGHT
-                            if (selectedActionIndex == 3) selectedActionIndex = 2; // RUN -> POKEMON
-                            return true;
-                        case Input.Keys.RIGHT:
-                            if (selectedActionIndex == 0) selectedActionIndex = 1; // FIGHT -> BAG
-                            if (selectedActionIndex == 2) selectedActionIndex = 3; // POKEMON -> RUN
-                            return true;
-                        case Input.Keys.Z:
-                            // Aqui você adicionaria a lógica para cada ação (lutar, usar item, etc.)
-                            Gdx.app.log("BattleScreen", "Ação selecionada: " + selectedActionIndex);
-                            // Por enquanto, vamos fechar a tela para teste
-                            game.closeBattleScreen();
-                            return true;
-                    }
+                    return handleActionSelectionInput(keycode);
+                } else if (currentState == BattleState.MOVE_SELECTION) {
+                    return handleMoveSelectionInput(keycode);
                 }
                 return false;
             }
         });
+    }
+    
+    private boolean handleActionSelectionInput(int keycode) {
+        switch (keycode) {
+            case Input.Keys.UP:
+                if (selectedActionIndex == 2) selectedActionIndex = 0; // POKEMON -> FIGHT
+                if (selectedActionIndex == 3) selectedActionIndex = 1; // RUN -> BAG
+                return true;
+            case Input.Keys.DOWN:
+                if (selectedActionIndex == 0) selectedActionIndex = 2; // FIGHT -> POKEMON
+                if (selectedActionIndex == 1) selectedActionIndex = 3; // BAG -> RUN
+                return true;
+            case Input.Keys.LEFT:
+                if (selectedActionIndex == 1) selectedActionIndex = 0; // BAG -> FIGHT
+                if (selectedActionIndex == 3) selectedActionIndex = 2; // RUN -> POKEMON
+                return true;
+            case Input.Keys.RIGHT:
+                if (selectedActionIndex == 0) selectedActionIndex = 1; // FIGHT -> BAG
+                if (selectedActionIndex == 2) selectedActionIndex = 3; // POKEMON -> RUN
+                return true;
+            case Input.Keys.Z:
+                if (selectedActionIndex == 0) { // FIGHT
+                    // ## CHAMA A LÓGICA DE ORDENAÇÃO ANTES DE MUDAR DE ESTADO ##
+                    sortAndArrangeMoves();
+                    currentState = BattleState.MOVE_SELECTION;
+                    selectedMoveIndex = 0;
+                } else {
+                    Gdx.app.log("BattleScreen", "Ação não implementada: " + selectedActionIndex);
+                }
+                return true;
+        }
+        return false;
+    }
+    
+    private boolean handleMoveSelectionInput(int keycode) {
+        int moveCount = displayedMoves.size;
+        if (moveCount == 0) return false;
+
+        int oldIndex = selectedMoveIndex;
+
+        switch (keycode) {
+            case Input.Keys.UP:
+                if (selectedMoveIndex >= 2) selectedMoveIndex -= 2;
+                break;
+            case Input.Keys.DOWN:
+                if (selectedMoveIndex < 2 && selectedMoveIndex + 2 < moveCount) selectedMoveIndex += 2;
+                break;
+            case Input.Keys.LEFT:
+                if (selectedMoveIndex == 1 || selectedMoveIndex == 3) selectedMoveIndex -= 1;
+                break;
+            case Input.Keys.RIGHT:
+                if ((selectedMoveIndex == 0 || selectedMoveIndex == 2) && selectedMoveIndex + 1 < moveCount) selectedMoveIndex += 1;
+                break;
+            case Input.Keys.X:
+            case Input.Keys.ESCAPE:
+                startActionMessage();
+                return true;
+            case Input.Keys.Z:
+                Gdx.app.log("BattleScreen", "Usar golpe: " + displayedMoves.get(selectedMoveIndex).getName());
+                game.closeBattleScreen(); // Temporário para teste
+                return true;
+        }
+
+        if (selectedMoveIndex >= moveCount) {
+            selectedMoveIndex = oldIndex;
+        }
+
+        return true;
+    }
+
+    // ## NOVO MÉTODO PARA ORDENAR E ORGANIZAR OS GOLPES ##
+    private void sortAndArrangeMoves() {
+        displayedMoves.clear();
+        Array<Move> originalMoves = new Array<>(playerPokemon.getMoves());
+
+        // Ordena os golpes pelo tamanho do nome, do maior para o menor
+        originalMoves.sort(Comparator.comparingInt((Move m) -> m.getName().length()).reversed());
+
+        Move[] arranged = new Move[4]; // Array temporário para organizar
+        
+        // Coloca os 2 mais longos na coluna da esquerda
+        if (originalMoves.size > 0) arranged[0] = originalMoves.get(0);
+        if (originalMoves.size > 1) arranged[2] = originalMoves.get(1);
+        
+        // Coloca os 2 restantes (os mais curtos) na coluna da direita
+        if (originalMoves.size > 2) arranged[1] = originalMoves.get(2);
+        if (originalMoves.size > 3) arranged[3] = originalMoves.get(3);
+
+        // Adiciona ao array de exibição, ignorando os nulos
+        for (Move m : arranged) {
+            if (m != null) {
+                displayedMoves.add(m);
+            }
+        }
     }
 
     private void updateStateTransitions(float delta) {
@@ -296,7 +385,6 @@ public class BattleScreen extends ScreenAdapter {
                 playerStatusCurrentPos.interpolate(playerStatusOnScreenPos, transitionTimer, Interpolation.sineOut);
                 if(transitionTimer >= 1.0f) {
                     playerStatusCurrentPos.set(playerStatusOnScreenPos);
-                    // ## TRANSIÇÃO PARA A SELEÇÃO DE AÇÃO ##
                     startActionMessage();
                 }
                 break;
@@ -306,7 +394,6 @@ public class BattleScreen extends ScreenAdapter {
     }
 
     private void updateDialogue(float delta) {
-        // ## LÓGICA ATUALIZADA PARA INCLUIR O NOVO ESTADO ##
         if (currentState == BattleState.WILD_INTRO_TYPING || 
             currentState == BattleState.GO_MESSAGE_TYPING ||
             currentState == BattleState.ACTION_SELECTION) {
@@ -458,29 +545,60 @@ public class BattleScreen extends ScreenAdapter {
             statusFont.draw(batch, hpText, x + 90 - hpTextWidth, y + 7);
         }
 
-        if (battleTextbox != null) {
-            batch.draw(battleTextbox, 0, 0, uiViewport.getWorldWidth(), battleTextbox.getRegionHeight());
-        }
-
-        // ## RENDERIZAÇÃO DO MENU DE AÇÃO ##
         if (currentState == BattleState.ACTION_SELECTION) {
-            // Desenha a caixa de ações
+            batch.draw(battleTextbox, 0, 0, uiViewport.getWorldWidth(), battleTextbox.getRegionHeight());
+            
             float actionBoxX = uiViewport.getWorldWidth() - battleActionUi.getRegionWidth();
             batch.draw(battleActionUi, actionBoxX, 0);
 
-            // Desenha a seta na posição correta
             Vector2 arrowPos = actionArrowPositions.get(selectedActionIndex);
             batch.draw(actionArrow, arrowPos.x, arrowPos.y);
-        }
+            
+            layout.setText(whiteFont, visibleMessage, whiteFont.getColor(), 110, Align.left, true);
+            whiteFont.draw(batch, layout, 10, 34);
 
-        layout.setText(whiteFont, visibleMessage, whiteFont.getColor(), uiViewport.getWorldWidth() - 20, Align.left, true);
-        whiteFont.draw(batch, layout, 10, 34);
+        } else if (currentState == BattleState.MOVE_SELECTION) {
+            drawMoveSelectionUi();
+        } else {
+            batch.draw(battleTextbox, 0, 0, uiViewport.getWorldWidth(), battleTextbox.getRegionHeight());
+            layout.setText(whiteFont, visibleMessage, whiteFont.getColor(), uiViewport.getWorldWidth() - 20, Align.left, true);
+            whiteFont.draw(batch, layout, 10, 34);
+        }
         
         if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.GO_MESSAGE_WAIT) {
             drawWaitingIndicator();
         }
 
         batch.end();
+    }
+
+    private void drawMoveSelectionUi() {
+        batch.draw(battleFightUi, 0, 0);
+        
+        // ## RENDERIZAÇÃO ATUALIZADA PARA USAR A FONTE CINZA E A LISTA ORDENADA ##
+        for (int i = 0; i < displayedMoves.size; i++) {
+            Vector2 pos = movePositions.get(i);
+            grayFont.draw(batch, displayedMoves.get(i).getName().toUpperCase(), pos.x, pos.y);
+        }
+        //TODO
+        if (displayedMoves.size > 0) {
+            Vector2 selectedPos = movePositions.get(selectedMoveIndex);
+            float arrowX = selectedPos.x - 4; 
+            float arrowY = selectedPos.y - 12;
+            batch.draw(actionArrow, arrowX, arrowY);
+            
+            Move selectedMove = displayedMoves.get(selectedMoveIndex);
+            
+            String ppText = selectedMove.getCurrentPP() + "   " + selectedMove.getMaxPP();
+            whiteFont.draw(batch, "", 180, 35);
+            whiteFont.draw(batch, ppText, 210, 35);
+
+            whiteFont.draw(batch, "", 180, 15);
+            TextureRegion typeRegion = typeAtlas.findRegion(selectedMove.getType().name().toLowerCase());
+            if (typeRegion != null) {
+                batch.draw(typeRegion, 215, 5, 32, 12);
+            }
+        }
     }
 
     private void drawWaitingIndicator() {

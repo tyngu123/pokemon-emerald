@@ -1,5 +1,5 @@
 battle.png
-size: 240, 248
+size: 240, 296
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -10,6 +10,8 @@ battle_action_ui
   bounds: 104, 120, 120, 48
 battle_textbox
   bounds: 0, 200, 240, 48
+move_action_ui
+  bounds: 0, 248, 240, 48
 plataform
   bounds: 0, 168, 126, 32
 player_back1
