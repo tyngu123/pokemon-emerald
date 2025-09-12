@@ -1,1917 +1,7266 @@
-
 [
   {
     "speciesName": "BULBASAUR",
-    "baseStats": { "HP": 45, "ATTACK": 49, "DEFENSE": 49, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 65, "SPEED": 45 },
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 49,
+      "DEFENSE": 49,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 45
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Overgrow",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 7, "moveName": "Leech Seed" },
-      { "level": 13, "moveName": "Vine Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 7,
+        "moveName": "Leech Seed"
+      },
+      {
+        "level": 13,
+        "moveName": "Vine Whip"
+      }
+    ],
+    "baseExperienceYield": 64
   },
   {
     "speciesName": "IVYSAUR",
-    "baseStats": { "HP": 60, "ATTACK": 62, "DEFENSE": 63, "SPECIAL_ATTACK": 80, "SPECIAL_DEFENSE": 80, "SPEED": 60 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 62,
+      "DEFENSE": 63,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 60
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Overgrow",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 7, "moveName": "Leech Seed" },
-      { "level": 13, "moveName": "Vine Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 7,
+        "moveName": "Leech Seed"
+      },
+      {
+        "level": 13,
+        "moveName": "Vine Whip"
+      }
+    ],
+    "baseExperienceYield": 141
   },
   {
     "speciesName": "VENUSAUR",
-    "baseStats": { "HP": 80, "ATTACK": 82, "DEFENSE": 83, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 100, "SPEED": 80 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 82,
+      "DEFENSE": 83,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 80
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Overgrow",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 7, "moveName": "Leech Seed" },
-      { "level": 13, "moveName": "Vine Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 7,
+        "moveName": "Leech Seed"
+      },
+      {
+        "level": 13,
+        "moveName": "Vine Whip"
+      }
+    ],
+    "baseExperienceYield": 208
   },
   {
     "speciesName": "CHARMANDER",
-    "baseStats": { "HP": 39, "ATTACK": 52, "DEFENSE": 43, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 50, "SPEED": 65 },
+    "baseStats": {
+      "HP": 39,
+      "ATTACK": 52,
+      "DEFENSE": 43,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 65
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Blaze",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 9, "moveName": "Ember" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 65
   },
   {
     "speciesName": "CHARMELEON",
-    "baseStats": { "HP": 58, "ATTACK": 64, "DEFENSE": 58, "SPECIAL_ATTACK": 80, "SPECIAL_DEFENSE": 65, "SPEED": 80 },
+    "baseStats": {
+      "HP": 58,
+      "ATTACK": 64,
+      "DEFENSE": 58,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 80
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Blaze",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 9, "moveName": "Ember" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 142
   },
   {
     "speciesName": "CHARIZARD",
-    "baseStats": { "HP": 78, "ATTACK": 84, "DEFENSE": 78, "SPECIAL_ATTACK": 109, "SPECIAL_DEFENSE": 85, "SPEED": 100 },
+    "baseStats": {
+      "HP": 78,
+      "ATTACK": 84,
+      "DEFENSE": 78,
+      "SPECIAL_ATTACK": 109,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 100
+    },
     "type1": "FIRE",
     "type2": "FLYING",
     "ability": "Blaze",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 9, "moveName": "Ember" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 209
   },
   {
     "speciesName": "SQUIRTLE",
-    "baseStats": { "HP": 44, "ATTACK": 48, "DEFENSE": 65, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 64, "SPEED": 43 },
+    "baseStats": {
+      "HP": 44,
+      "ATTACK": 48,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 64,
+      "SPEED": 43
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Torrent",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 8, "moveName": "Bubble" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 8,
+        "moveName": "Bubble"
+      }
+    ],
+    "baseExperienceYield": 66
   },
   {
     "speciesName": "WARTORTLE",
-    "baseStats": { "HP": 59, "ATTACK": 63, "DEFENSE": 80, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 80, "SPEED": 58 },
+    "baseStats": {
+      "HP": 59,
+      "ATTACK": 63,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 58
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Torrent",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 8, "moveName": "Bubble" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 8,
+        "moveName": "Bubble"
+      }
+    ],
+    "baseExperienceYield": 143
   },
   {
     "speciesName": "BLASTOISE",
-    "baseStats": { "HP": 79, "ATTACK": 83, "DEFENSE": 100, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 105, "SPEED": 78 },
+    "baseStats": {
+      "HP": 79,
+      "ATTACK": 83,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 105,
+      "SPEED": 78
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Torrent",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 8, "moveName": "Bubble" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 8,
+        "moveName": "Bubble"
+      }
+    ],
+    "baseExperienceYield": 210
   },
   {
     "speciesName": "CATERPIE",
-    "baseStats": { "HP": 45, "ATTACK": 30, "DEFENSE": 35, "SPECIAL_ATTACK": 20, "SPECIAL_DEFENSE": 20, "SPEED": 45 },
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 30,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 20,
+      "SPECIAL_DEFENSE": 20,
+      "SPEED": 45
+    },
     "type1": "BUG",
     "type2": null,
     "ability": "Shield Dust",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "String Shot" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "String Shot"
+      }
+    ],
+    "baseExperienceYield": 53
   },
   {
     "speciesName": "METAPOD",
-    "baseStats": { "HP": 50, "ATTACK": 20, "DEFENSE": 55, "SPECIAL_ATTACK": 25, "SPECIAL_DEFENSE": 25, "SPEED": 30 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 20,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 25,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 30
+    },
     "type1": "BUG",
     "type2": null,
     "ability": "Shed Skin",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Harden" },
-      { "level": 7, "moveName": "Harden" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Harden"
+      },
+      {
+        "level": 7,
+        "moveName": "Harden"
+      }
+    ],
+    "baseExperienceYield": 72
   },
   {
     "speciesName": "BUTTERFREE",
-    "baseStats": { "HP": 60, "ATTACK": 45, "DEFENSE": 50, "SPECIAL_ATTACK": 90, "SPECIAL_DEFENSE": 80, "SPEED": 70 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 45,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 70
+    },
     "type1": "BUG",
     "type2": "FLYING",
     "ability": "Compound Eyes",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 10, "moveName": "Confusion" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 10,
+        "moveName": "Confusion"
+      }
+    ],
+    "baseExperienceYield": 160
   },
   {
     "speciesName": "WEEDLE",
-    "baseStats": { "HP": 40, "ATTACK": 35, "DEFENSE": 30, "SPECIAL_ATTACK": 20, "SPECIAL_DEFENSE": 20, "SPEED": 50 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 35,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 20,
+      "SPECIAL_DEFENSE": 20,
+      "SPEED": 50
+    },
     "type1": "BUG",
     "type2": "POISON",
     "ability": "Shield Dust",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Poison Sting" },
-      { "level": 1, "moveName": "String Shot" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Poison Sting"
+      },
+      {
+        "level": 1,
+        "moveName": "String Shot"
+      }
+    ],
+    "baseExperienceYield": 52
   },
   {
     "speciesName": "KAKUNA",
-    "baseStats": { "HP": 45, "ATTACK": 25, "DEFENSE": 50, "SPECIAL_ATTACK": 25, "SPECIAL_DEFENSE": 25, "SPEED": 35 },
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 25,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 25,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 35
+    },
     "type1": "BUG",
     "type2": "POISON",
     "ability": "Shed Skin",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Harden" },
-      { "level": 7, "moveName": "Harden" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Harden"
+      },
+      {
+        "level": 7,
+        "moveName": "Harden"
+      }
+    ],
+    "baseExperienceYield": 71
   },
   {
     "speciesName": "BEEDRILL",
-    "baseStats": { "HP": 65, "ATTACK": 90, "DEFENSE": 40, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 80, "SPEED": 75 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 90,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 75
+    },
     "type1": "BUG",
     "type2": "POISON",
     "ability": "Swarm",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Fury Attack" },
-      { "level": 12, "moveName": "Fury Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Fury Attack"
+      },
+      {
+        "level": 12,
+        "moveName": "Fury Attack"
+      }
+    ],
+    "baseExperienceYield": 159
   },
   {
     "speciesName": "PIDGEY",
-    "baseStats": { "HP": 40, "ATTACK": 45, "DEFENSE": 40, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 35, "SPEED": 56 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 45,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 56
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Gust" },
-      { "level": 5, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Gust"
+      },
+      {
+        "level": 5,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 55
   },
   {
     "speciesName": "PIDGEOTTO",
-    "baseStats": { "HP": 63, "ATTACK": 60, "DEFENSE": 55, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 50, "SPEED": 71 },
+    "baseStats": {
+      "HP": 63,
+      "ATTACK": 60,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 71
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Gust" },
-      { "level": 5, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Gust"
+      },
+      {
+        "level": 5,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 113
   },
   {
     "speciesName": "PIDGEOT",
-    "baseStats": { "HP": 83, "ATTACK": 80, "DEFENSE": 75, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 70, "SPEED": 101 },
+    "baseStats": {
+      "HP": 83,
+      "ATTACK": 80,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 101
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Gust" },
-      { "level": 5, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Gust"
+      },
+      {
+        "level": 5,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 172
   },
   {
     "speciesName": "RATTATA",
-    "baseStats": { "HP": 30, "ATTACK": 56, "DEFENSE": 35, "SPECIAL_ATTACK": 25, "SPECIAL_DEFENSE": 35, "SPEED": 72 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 56,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 25,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 72
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 7, "moveName": "Quick Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 7,
+        "moveName": "Quick Attack"
+      }
+    ],
+    "baseExperienceYield": 57
   },
   {
     "speciesName": "RATICATE",
-    "baseStats": { "HP": 55, "ATTACK": 81, "DEFENSE": 60, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 70, "SPEED": 97 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 81,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 97
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 7, "moveName": "Quick Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 7,
+        "moveName": "Quick Attack"
+      }
+    ],
+    "baseExperienceYield": 116
   },
   {
     "speciesName": "SPEAROW",
-    "baseStats": { "HP": 40, "ATTACK": 60, "DEFENSE": 30, "SPECIAL_ATTACK": 31, "SPECIAL_DEFENSE": 31, "SPEED": 70 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 60,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 31,
+      "SPECIAL_DEFENSE": 31,
+      "SPEED": 70
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 9, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 58
   },
   {
     "speciesName": "FEAROW",
-    "baseStats": { "HP": 65, "ATTACK": 90, "DEFENSE": 65, "SPECIAL_ATTACK": 61, "SPECIAL_DEFENSE": 61, "SPEED": 100 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 90,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 61,
+      "SPECIAL_DEFENSE": 61,
+      "SPEED": 100
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 9, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 162
   },
   {
     "speciesName": "EKANS",
-    "baseStats": { "HP": 35, "ATTACK": 60, "DEFENSE": 44, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 54, "SPEED": 55 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 60,
+      "DEFENSE": 44,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 54,
+      "SPEED": 55
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Intimidate",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Wrap" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 10, "moveName": "Poison Sting" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wrap"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Poison Sting"
+      }
+    ],
+    "baseExperienceYield": 62
   },
   {
     "speciesName": "ARBOK",
-    "baseStats": { "HP": 60, "ATTACK": 95, "DEFENSE": 69, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 79, "SPEED": 80 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 95,
+      "DEFENSE": 69,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 79,
+      "SPEED": 80
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Intimidate",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Wrap" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 10, "moveName": "Poison Sting" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wrap"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Poison Sting"
+      }
+    ],
+    "baseExperienceYield": 147
   },
   {
     "speciesName": "PIKACHU",
-    "baseStats": { "HP": 35, "ATTACK": 55, "DEFENSE": 40, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 50, "SPEED": 90 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 55,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 90
+    },
     "type1": "ELECTRIC",
     "type2": null,
     "ability": "Static",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Thunder Shock" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 6, "moveName": "Tail Whip" },
-      { "level": 8, "moveName": "Thunder Wave" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Thunder Shock"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 6,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 8,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 82
   },
   {
     "speciesName": "RAICHU",
-    "baseStats": { "HP": 60, "ATTACK": 90, "DEFENSE": 55, "SPECIAL_ATTACK": 90, "SPECIAL_DEFENSE": 80, "SPEED": 110 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 90,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 110
+    },
     "type1": "ELECTRIC",
     "type2": null,
     "ability": "Static",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Thunder Shock" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 1, "moveName": "Thunder Wave" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Thunder Shock"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 1,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 122
   },
   {
     "speciesName": "SANDSHREW",
-    "baseStats": { "HP": 50, "ATTACK": 75, "DEFENSE": 85, "SPECIAL_ATTACK": 20, "SPECIAL_DEFENSE": 30, "SPEED": 40 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 75,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 20,
+      "SPECIAL_DEFENSE": 30,
+      "SPEED": 40
+    },
     "type1": "GROUND",
     "type2": null,
     "ability": "Sand Veil",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 10, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 10,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 93
   },
   {
     "speciesName": "SANDSLASH",
-    "baseStats": { "HP": 75, "ATTACK": 100, "DEFENSE": 110, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 55, "SPEED": 65 },
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 100,
+      "DEFENSE": 110,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 65
+    },
     "type1": "GROUND",
     "type2": null,
     "ability": "Sand Veil",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 10, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 10,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 163
   },
   {
     "speciesName": "NIDORAN_F",
-    "baseStats": { "HP": 55, "ATTACK": 47, "DEFENSE": 52, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 40, "SPEED": 41 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 47,
+      "DEFENSE": 52,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 41
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Growl" },
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 8, "moveName": "Scratch" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 8,
+        "moveName": "Scratch"
+      }
+    ],
+    "baseExperienceYield": 59
   },
   {
     "speciesName": "NIDORINA",
-    "baseStats": { "HP": 70, "ATTACK": 62, "DEFENSE": 67, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 55, "SPEED": 56 },
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 62,
+      "DEFENSE": 67,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 56
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Growl" },
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 8, "moveName": "Scratch" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 8,
+        "moveName": "Scratch"
+      }
+    ],
+    "baseExperienceYield": 117
   },
   {
     "speciesName": "NIDOQUEEN",
-    "baseStats": { "HP": 90, "ATTACK": 92, "DEFENSE": 87, "SPECIAL_ATTACK": 75, "SPECIAL_DEFENSE": 85, "SPEED": 76 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 92,
+      "DEFENSE": 87,
+      "SPECIAL_ATTACK": 75,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 76
+    },
     "type1": "POISON",
     "type2": "GROUND",
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 1, "moveName": "Body Slam" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 1,
+        "moveName": "Body Slam"
+      }
+    ],
+    "baseExperienceYield": 194
   },
   {
     "speciesName": "NIDORAN_M",
-    "baseStats": { "HP": 46, "ATTACK": 57, "DEFENSE": 40, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 40, "SPEED": 50 },
+    "baseStats": {
+      "HP": 46,
+      "ATTACK": 57,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 50
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Leer" },
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 8, "moveName": "Horn Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 8,
+        "moveName": "Horn Attack"
+      }
+    ],
+    "baseExperienceYield": 60
   },
   {
     "speciesName": "NIDORINO",
-    "baseStats": { "HP": 61, "ATTACK": 72, "DEFENSE": 57, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 55, "SPEED": 65 },
+    "baseStats": {
+      "HP": 61,
+      "ATTACK": 72,
+      "DEFENSE": 57,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 65
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Leer" },
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 8, "moveName": "Horn Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 8,
+        "moveName": "Horn Attack"
+      }
+    ],
+    "baseExperienceYield": 118
   },
   {
     "speciesName": "NIDOKING",
-    "baseStats": { "HP": 81, "ATTACK": 102, "DEFENSE": 77, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 75, "SPEED": 85 },
+    "baseStats": {
+      "HP": 81,
+      "ATTACK": 102,
+      "DEFENSE": 77,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 85
+    },
     "type1": "POISON",
     "type2": "GROUND",
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Horn Attack" },
-      { "level": 1, "moveName": "Poison Sting" },
-      { "level": 1, "moveName": "Thrash" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Horn Attack"
+      },
+      {
+        "level": 1,
+        "moveName": "Poison Sting"
+      },
+      {
+        "level": 1,
+        "moveName": "Thrash"
+      }
+    ],
+    "baseExperienceYield": 195
   },
   {
     "speciesName": "CLEFAIRY",
-    "baseStats": { "HP": 70, "ATTACK": 45, "DEFENSE": 48, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 65, "SPEED": 35 },
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 45,
+      "DEFENSE": 48,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 35
+    },
     "type1": "FAIRY",
     "type2": null,
     "ability": "Cute Charm",
     "experienceGroup": "FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 13, "moveName": "Sing" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 13,
+        "moveName": "Sing"
+      }
+    ],
+    "baseExperienceYield": 68
   },
   {
     "speciesName": "CLEFABLE",
-    "baseStats": { "HP": 95, "ATTACK": 70, "DEFENSE": 73, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 90, "SPEED": 60 },
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 70,
+      "DEFENSE": 73,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 60
+    },
     "type1": "FAIRY",
     "type2": null,
     "ability": "Cute Charm",
     "experienceGroup": "FAST",
     "learnset": [
-      { "level": 1, "moveName": "Sing" },
-      { "level": 1, "moveName": "Double Slap" },
-      { "level": 1, "moveName": "Minimize" },
-      { "level": 1, "moveName": "Metronome" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Sing"
+      },
+      {
+        "level": 1,
+        "moveName": "Double Slap"
+      },
+      {
+        "level": 1,
+        "moveName": "Minimize"
+      },
+      {
+        "level": 1,
+        "moveName": "Metronome"
+      }
+    ],
+    "baseExperienceYield": 129
   },
   {
     "speciesName": "VULPIX",
-    "baseStats": { "HP": 38, "ATTACK": 41, "DEFENSE": 40, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 65, "SPEED": 65 },
+    "baseStats": {
+      "HP": 38,
+      "ATTACK": 41,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 65
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Flash Fire",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Ember" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 16, "moveName": "Quick Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 16,
+        "moveName": "Quick Attack"
+      }
+    ],
+    "baseExperienceYield": 63
   },
   {
     "speciesName": "NINETALES",
-    "baseStats": { "HP": 73, "ATTACK": 76, "DEFENSE": 75, "SPECIAL_ATTACK": 81, "SPECIAL_DEFENSE": 100, "SPEED": 100 },
+    "baseStats": {
+      "HP": 73,
+      "ATTACK": 76,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 81,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 100
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Flash Fire",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Ember" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 1, "moveName": "Quick Attack" },
-      { "level": 1, "moveName": "Confuse Ray" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 1,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 1,
+        "moveName": "Confuse Ray"
+      }
+    ],
+    "baseExperienceYield": 178
   },
   {
     "speciesName": "JIGGLYPUFF",
-    "baseStats": { "HP": 115, "ATTACK": 45, "DEFENSE": 20, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 25, "SPEED": 20 },
+    "baseStats": {
+      "HP": 115,
+      "ATTACK": 45,
+      "DEFENSE": 20,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 20
+    },
     "type1": "NORMAL",
     "type2": "FAIRY",
     "ability": "Cute Charm",
     "experienceGroup": "FAST",
     "learnset": [
-      { "level": 1, "moveName": "Sing" },
-      { "level": 9, "moveName": "Pound" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Sing"
+      },
+      {
+        "level": 9,
+        "moveName": "Pound"
+      }
+    ],
+    "baseExperienceYield": 76
   },
   {
     "speciesName": "WIGGLYTUFF",
-    "baseStats": { "HP": 140, "ATTACK": 70, "DEFENSE": 45, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 50, "SPEED": 45 },
+    "baseStats": {
+      "HP": 140,
+      "ATTACK": 70,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 45
+    },
     "type1": "NORMAL",
     "type2": "FAIRY",
     "ability": "Cute Charm",
     "experienceGroup": "FAST",
     "learnset": [
-      { "level": 1, "moveName": "Sing" },
-      { "level": 1, "moveName": "Disable" },
-      { "level": 1, "moveName": "Defense Curl" },
-      { "level": 1, "moveName": "Double Slap" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Sing"
+      },
+      {
+        "level": 1,
+        "moveName": "Disable"
+      },
+      {
+        "level": 1,
+        "moveName": "Defense Curl"
+      },
+      {
+        "level": 1,
+        "moveName": "Double Slap"
+      }
+    ],
+    "baseExperienceYield": 109
   },
   {
     "speciesName": "ZUBAT",
-    "baseStats": { "HP": 40, "ATTACK": 45, "DEFENSE": 35, "SPECIAL_ATTACK": 30, "SPECIAL_DEFENSE": 40, "SPEED": 55 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 45,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 55
+    },
     "type1": "POISON",
     "type2": "FLYING",
     "ability": "Inner Focus",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Leech Life" },
-      { "level": 10, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Leech Life"
+      },
+      {
+        "level": 10,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 54
   },
   {
     "speciesName": "GOLBAT",
-    "baseStats": { "HP": 75, "ATTACK": 80, "DEFENSE": 70, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 75, "SPEED": 90 },
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 80,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 90
+    },
     "type1": "POISON",
     "type2": "FLYING",
     "ability": "Inner Focus",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Leech Life" },
-      { "level": 10, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Leech Life"
+      },
+      {
+        "level": 10,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 171
   },
   {
     "speciesName": "ODDISH",
-    "baseStats": { "HP": 45, "ATTACK": 50, "DEFENSE": 55, "SPECIAL_ATTACK": 75, "SPECIAL_DEFENSE": 65, "SPEED": 30 },
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 50,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 75,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 30
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Absorb" },
-      { "level": 15, "moveName": "Poison Powder" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Absorb"
+      },
+      {
+        "level": 15,
+        "moveName": "Poison Powder"
+      }
+    ],
+    "baseExperienceYield": 78
   },
   {
     "speciesName": "GLOOM",
-    "baseStats": { "HP": 60, "ATTACK": 65, "DEFENSE": 70, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 75, "SPEED": 40 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 65,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 40
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Absorb" },
-      { "level": 15, "moveName": "Poison Powder" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Absorb"
+      },
+      {
+        "level": 15,
+        "moveName": "Poison Powder"
+      }
+    ],
+    "baseExperienceYield": 132
   },
   {
     "speciesName": "VILEPLUME",
-    "baseStats": { "HP": 75, "ATTACK": 80, "DEFENSE": 85, "SPECIAL_ATTACK": 110, "SPECIAL_DEFENSE": 90, "SPEED": 50 },
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 80,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 110,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 50
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Stun Spore" },
-      { "level": 1, "moveName": "Sleep Powder" },
-      { "level": 1, "moveName": "Acid" },
-      { "level": 1, "moveName": "Petal Dance" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Stun Spore"
+      },
+      {
+        "level": 1,
+        "moveName": "Sleep Powder"
+      },
+      {
+        "level": 1,
+        "moveName": "Acid"
+      },
+      {
+        "level": 1,
+        "moveName": "Petal Dance"
+      }
+    ],
+    "baseExperienceYield": 184
   },
   {
     "speciesName": "PARAS",
-    "baseStats": { "HP": 35, "ATTACK": 70, "DEFENSE": 55, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 55, "SPEED": 25 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 70,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 25
+    },
     "type1": "BUG",
     "type2": "GRASS",
     "ability": "Effect Spore",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 13, "moveName": "Stun Spore" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 13,
+        "moveName": "Stun Spore"
+      }
+    ],
+    "baseExperienceYield": 70
   },
   {
     "speciesName": "PARASECT",
-    "baseStats": { "HP": 60, "ATTACK": 95, "DEFENSE": 80, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 80, "SPEED": 30 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 95,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 30
+    },
     "type1": "BUG",
     "type2": "GRASS",
     "ability": "Effect Spore",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 13, "moveName": "Stun Spore" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 13,
+        "moveName": "Stun Spore"
+      }
+    ],
+    "baseExperienceYield": 128
   },
   {
     "speciesName": "VENONAT",
-    "baseStats": { "HP": 60, "ATTACK": 55, "DEFENSE": 50, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 55, "SPEED": 45 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 55,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 45
+    },
     "type1": "BUG",
     "type2": "POISON",
     "ability": "Compound Eyes",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Disable" },
-      { "level": 24, "moveName": "Poison Powder" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Disable"
+      },
+      {
+        "level": 24,
+        "moveName": "Poison Powder"
+      }
+    ],
+    "baseExperienceYield": 75
   },
   {
     "speciesName": "VENOMOTH",
-    "baseStats": { "HP": 70, "ATTACK": 65, "DEFENSE": 60, "SPECIAL_ATTACK": 90, "SPECIAL_DEFENSE": 75, "SPEED": 90 },
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 65,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 90
+    },
     "type1": "BUG",
     "type2": "POISON",
     "ability": "Shield Dust",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Disable" },
-      { "level": 24, "moveName": "Poison Powder" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Disable"
+      },
+      {
+        "level": 24,
+        "moveName": "Poison Powder"
+      }
+    ],
+    "baseExperienceYield": 138
   },
   {
     "speciesName": "DIGLETT",
-    "baseStats": { "HP": 10, "ATTACK": 55, "DEFENSE": 25, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 45, "SPEED": 95 },
+    "baseStats": {
+      "HP": 10,
+      "ATTACK": 55,
+      "DEFENSE": 25,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 95
+    },
     "type1": "GROUND",
     "type2": null,
     "ability": "Sand Veil",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 15, "moveName": "Growl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 15,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 81
   },
   {
     "speciesName": "DUGTRIO",
-    "baseStats": { "HP": 35, "ATTACK": 100, "DEFENSE": 50, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 70, "SPEED": 120 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 100,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 120
+    },
     "type1": "GROUND",
     "type2": null,
     "ability": "Sand Veil",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 15, "moveName": "Growl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 15,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 153
   },
   {
     "speciesName": "MEOWTH",
-    "baseStats": { "HP": 40, "ATTACK": 45, "DEFENSE": 35, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 40, "SPEED": 90 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 45,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 90
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Pickup",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 12, "moveName": "Bite" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 12,
+        "moveName": "Bite"
+      }
+    ],
+    "baseExperienceYield": 69
   },
   {
     "speciesName": "PERSIAN",
-    "baseStats": { "HP": 65, "ATTACK": 70, "DEFENSE": 60, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 65, "SPEED": 115 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 70,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 115
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Limber",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 12, "moveName": "Bite" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 12,
+        "moveName": "Bite"
+      }
+    ],
+    "baseExperienceYield": 148
   },
   {
     "speciesName": "PSYDUCK",
-    "baseStats": { "HP": 50, "ATTACK": 52, "DEFENSE": 48, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 50, "SPEED": 55 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 52,
+      "DEFENSE": 48,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 55
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Damp",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 28, "moveName": "Tail Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 28,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 80
   },
   {
     "speciesName": "GOLDUCK",
-    "baseStats": { "HP": 80, "ATTACK": 82, "DEFENSE": 78, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 80, "SPEED": 85 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 82,
+      "DEFENSE": 78,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 85
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Damp",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 28, "moveName": "Tail Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 28,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 174
   },
   {
     "speciesName": "MANKEY",
-    "baseStats": { "HP": 40, "ATTACK": 80, "DEFENSE": 35, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 45, "SPEED": 70 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 80,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 70
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Vital Spirit",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 15, "moveName": "Karate Chop" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 15,
+        "moveName": "Karate Chop"
+      }
+    ],
+    "baseExperienceYield": 74
   },
   {
     "speciesName": "PRIMEAPE",
-    "baseStats": { "HP": 65, "ATTACK": 105, "DEFENSE": 60, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 70, "SPEED": 95 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 105,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 95
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Vital Spirit",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 15, "moveName": "Karate Chop" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 15,
+        "moveName": "Karate Chop"
+      }
+    ],
+    "baseExperienceYield": 149
   },
   {
     "speciesName": "GROWLITHE",
-    "baseStats": { "HP": 55, "ATTACK": 70, "DEFENSE": 45, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 50, "SPEED": 60 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 70,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 60
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Intimidate",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Bite" },
-      { "level": 1, "moveName": "Roar" },
-      { "level": 18, "moveName": "Ember" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Roar"
+      },
+      {
+        "level": 18,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 91
   },
   {
     "speciesName": "ARCANINE",
-    "baseStats": { "HP": 90, "ATTACK": 110, "DEFENSE": 80, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 80, "SPEED": 95 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 110,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 95
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Intimidate",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Roar" },
-      { "level": 1, "moveName": "Ember" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 1, "moveName": "Take Down" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Roar"
+      },
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 1,
+        "moveName": "Take Down"
+      }
+    ],
+    "baseExperienceYield": 213
   },
   {
     "speciesName": "POLIWAG",
-    "baseStats": { "HP": 40, "ATTACK": 50, "DEFENSE": 40, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 40, "SPEED": 90 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 50,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 90
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Water Absorb",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Bubble" },
-      { "level": 16, "moveName": "Hypnosis" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 16,
+        "moveName": "Hypnosis"
+      }
+    ],
+    "baseExperienceYield": 77
   },
   {
     "speciesName": "POLIWHIRL",
-    "baseStats": { "HP": 65, "ATTACK": 65, "DEFENSE": 65, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 50, "SPEED": 90 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 65,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 90
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Water Absorb",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Bubble" },
-      { "level": 16, "moveName": "Hypnosis" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 16,
+        "moveName": "Hypnosis"
+      }
+    ],
+    "baseExperienceYield": 131
   },
   {
     "speciesName": "POLIWRATH",
-    "baseStats": { "HP": 90, "ATTACK": 95, "DEFENSE": 95, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 90, "SPEED": 70 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 95,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 70
+    },
     "type1": "WATER",
     "type2": "FIGHTING",
     "ability": "Water Absorb",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Hypnosis" },
-      { "level": 1, "moveName": "Water Gun" },
-      { "level": 1, "moveName": "Double Slap" },
-      { "level": 1, "moveName": "Body Slam" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Double Slap"
+      },
+      {
+        "level": 1,
+        "moveName": "Body Slam"
+      }
+    ],
+    "baseExperienceYield": 185
   },
   {
     "speciesName": "ABRA",
-    "baseStats": { "HP": 25, "ATTACK": 20, "DEFENSE": 15, "SPECIAL_ATTACK": 105, "SPECIAL_DEFENSE": 55, "SPEED": 90 },
+    "baseStats": {
+      "HP": 25,
+      "ATTACK": 20,
+      "DEFENSE": 15,
+      "SPECIAL_ATTACK": 105,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 90
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Synchronize",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Teleport" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Teleport"
+      }
+    ],
+    "baseExperienceYield": 73
   },
   {
     "speciesName": "KADABRA",
-    "baseStats": { "HP": 40, "ATTACK": 35, "DEFENSE": 30, "SPECIAL_ATTACK": 120, "SPECIAL_DEFENSE": 70, "SPEED": 105 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 35,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 120,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 105
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Synchronize",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Teleport" },
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 16, "moveName": "Confusion" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Teleport"
+      },
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 16,
+        "moveName": "Confusion"
+      }
+    ],
+    "baseExperienceYield": 145
   },
   {
     "speciesName": "ALAKAZAM",
-    "baseStats": { "HP": 55, "ATTACK": 50, "DEFENSE": 45, "SPECIAL_ATTACK": 135, "SPECIAL_DEFENSE": 95, "SPEED": 120 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 50,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 135,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 120
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Synchronize",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Teleport" },
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 16, "moveName": "Confusion" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Teleport"
+      },
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 16,
+        "moveName": "Confusion"
+      }
+    ],
+    "baseExperienceYield": 186
   },
   {
     "speciesName": "MACHOP",
-    "baseStats": { "HP": 70, "ATTACK": 80, "DEFENSE": 50, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 35, "SPEED": 35 },
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 80,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 35
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Guts",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Karate Chop" },
-      { "level": 20, "moveName": "Low Kick" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Karate Chop"
+      },
+      {
+        "level": 20,
+        "moveName": "Low Kick"
+      }
+    ],
+    "baseExperienceYield": 88
   },
   {
     "speciesName": "MACHOKE",
-    "baseStats": { "HP": 80, "ATTACK": 100, "DEFENSE": 70, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 60, "SPEED": 45 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 100,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 45
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Guts",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Karate Chop" },
-      { "level": 20, "moveName": "Low Kick" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Karate Chop"
+      },
+      {
+        "level": 20,
+        "moveName": "Low Kick"
+      }
+    ],
+    "baseExperienceYield": 146
   },
   {
     "speciesName": "MACHAMP",
-    "baseStats": { "HP": 90, "ATTACK": 130, "DEFENSE": 80, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 85, "SPEED": 55 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 130,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 55
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Guts",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Karate Chop" },
-      { "level": 20, "moveName": "Low Kick" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Karate Chop"
+      },
+      {
+        "level": 20,
+        "moveName": "Low Kick"
+      }
+    ],
+    "baseExperienceYield": 193
   },
   {
     "speciesName": "BELLSPROUT",
-    "baseStats": { "HP": 50, "ATTACK": 75, "DEFENSE": 35, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 30, "SPEED": 40 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 75,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 30,
+      "SPEED": 40
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Vine Whip" },
-      { "level": 1, "moveName": "Growth" },
-      { "level": 13, "moveName": "Wrap" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Vine Whip"
+      },
+      {
+        "level": 1,
+        "moveName": "Growth"
+      },
+      {
+        "level": 13,
+        "moveName": "Wrap"
+      }
+    ],
+    "baseExperienceYield": 84
   },
   {
     "speciesName": "WEEPINBELL",
-    "baseStats": { "HP": 65, "ATTACK": 90, "DEFENSE": 50, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 45, "SPEED": 55 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 90,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 55
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Vine Whip" },
-      { "level": 1, "moveName": "Growth" },
-      { "level": 13, "moveName": "Wrap" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Vine Whip"
+      },
+      {
+        "level": 1,
+        "moveName": "Growth"
+      },
+      {
+        "level": 13,
+        "moveName": "Wrap"
+      }
+    ],
+    "baseExperienceYield": 151
   },
   {
     "speciesName": "VICTREEBEL",
-    "baseStats": { "HP": 80, "ATTACK": 105, "DEFENSE": 65, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 70, "SPEED": 70 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 105,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 70
+    },
     "type1": "GRASS",
     "type2": "POISON",
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Sleep Powder" },
-      { "level": 1, "moveName": "Stun Spore" },
-      { "level": 1, "moveName": "Acid" },
-      { "level": 13, "moveName": "Wrap" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Sleep Powder"
+      },
+      {
+        "level": 1,
+        "moveName": "Stun Spore"
+      },
+      {
+        "level": 1,
+        "moveName": "Acid"
+      },
+      {
+        "level": 13,
+        "moveName": "Wrap"
+      }
+    ],
+    "baseExperienceYield": 191
   },
   {
     "speciesName": "TENTACOOL",
-    "baseStats": { "HP": 40, "ATTACK": 40, "DEFENSE": 35, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 100, "SPEED": 70 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 40,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 70
+    },
     "type1": "WATER",
     "type2": "POISON",
     "ability": "Clear Body",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Acid" },
-      { "level": 7, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Acid"
+      },
+      {
+        "level": 7,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 105
   },
   {
     "speciesName": "TENTACRUEL",
-    "baseStats": { "HP": 80, "ATTACK": 70, "DEFENSE": 65, "SPECIAL_ATTACK": 80, "SPECIAL_DEFENSE": 120, "SPEED": 100 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 70,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 120,
+      "SPEED": 100
+    },
     "type1": "WATER",
     "type2": "POISON",
     "ability": "Clear Body",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Acid" },
-      { "level": 7, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Acid"
+      },
+      {
+        "level": 7,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 205
   },
   {
     "speciesName": "GEODUDE",
-    "baseStats": { "HP": 40, "ATTACK": 80, "DEFENSE": 100, "SPECIAL_ATTACK": 30, "SPECIAL_DEFENSE": 30, "SPEED": 20 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 80,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 30,
+      "SPEED": 20
+    },
     "type1": "ROCK",
     "type2": "GROUND",
     "ability": "Rock Head",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 11, "moveName": "Defense Curl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 11,
+        "moveName": "Defense Curl"
+      }
+    ],
+    "baseExperienceYield": 86
   },
   {
     "speciesName": "GRAVELER",
-    "baseStats": { "HP": 55, "ATTACK": 95, "DEFENSE": 115, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 45, "SPEED": 35 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 95,
+      "DEFENSE": 115,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 35
+    },
     "type1": "ROCK",
     "type2": "GROUND",
     "ability": "Rock Head",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 11, "moveName": "Defense Curl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 11,
+        "moveName": "Defense Curl"
+      }
+    ],
+    "baseExperienceYield": 134
   },
   {
     "speciesName": "GOLEM",
-    "baseStats": { "HP": 80, "ATTACK": 120, "DEFENSE": 130, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 65, "SPEED": 45 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 120,
+      "DEFENSE": 130,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 45
+    },
     "type1": "ROCK",
     "type2": "GROUND",
     "ability": "Rock Head",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 11, "moveName": "Defense Curl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 11,
+        "moveName": "Defense Curl"
+      }
+    ],
+    "baseExperienceYield": 177
   },
   {
     "speciesName": "PONYTA",
-    "baseStats": { "HP": 50, "ATTACK": 85, "DEFENSE": 55, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 65, "SPEED": 90 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 85,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 90
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Ember" },
-      { "level": 30, "moveName": "Tail Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 30,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 152
   },
   {
     "speciesName": "RAPIDASH",
-    "baseStats": { "HP": 65, "ATTACK": 100, "DEFENSE": 70, "SPECIAL_ATTACK": 80, "SPECIAL_DEFENSE": 80, "SPEED": 105 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 100,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 105
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Ember" },
-      { "level": 30, "moveName": "Tail Whip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 30,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 192
   },
   {
     "speciesName": "SLOWPOKE",
-    "baseStats": { "HP": 90, "ATTACK": 65, "DEFENSE": 65, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 40, "SPEED": 15 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 65,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 15
+    },
     "type1": "WATER",
     "type2": "PSYCHIC",
     "ability": "Oblivious",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 18, "moveName": "Disable" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 18,
+        "moveName": "Disable"
+      }
+    ],
+    "baseExperienceYield": 99
   },
   {
     "speciesName": "SLOWBRO",
-    "baseStats": { "HP": 95, "ATTACK": 75, "DEFENSE": 110, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 80, "SPEED": 30 },
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 75,
+      "DEFENSE": 110,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 30
+    },
     "type1": "WATER",
     "type2": "PSYCHIC",
     "ability": "Oblivious",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 18, "moveName": "Disable" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 18,
+        "moveName": "Disable"
+      }
+    ],
+    "baseExperienceYield": 164
   },
   {
     "speciesName": "MAGNEMITE",
-    "baseStats": { "HP": 25, "ATTACK": 35, "DEFENSE": 70, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 55, "SPEED": 45 },
+    "baseStats": {
+      "HP": 25,
+      "ATTACK": 35,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 45
+    },
     "type1": "ELECTRIC",
     "type2": "STEEL",
     "ability": "Magnet Pull",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 21, "moveName": "Thunder Shock" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 21,
+        "moveName": "Thunder Shock"
+      }
+    ],
+    "baseExperienceYield": 89
   },
   {
     "speciesName": "MAGNETON",
-    "baseStats": { "HP": 50, "ATTACK": 60, "DEFENSE": 95, "SPECIAL_ATTACK": 120, "SPECIAL_DEFENSE": 70, "SPEED": 70 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 60,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 120,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 70
+    },
     "type1": "ELECTRIC",
     "type2": "STEEL",
     "ability": "Magnet Pull",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 21, "moveName": "Thunder Shock" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 21,
+        "moveName": "Thunder Shock"
+      }
+    ],
+    "baseExperienceYield": 169
   },
   {
     "speciesName": "FARFETCHD",
-    "baseStats": { "HP": 52, "ATTACK": 90, "DEFENSE": 55, "SPECIAL_ATTACK": 58, "SPECIAL_DEFENSE": 62, "SPEED": 60 },
+    "baseStats": {
+      "HP": 52,
+      "ATTACK": 90,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 58,
+      "SPECIAL_DEFENSE": 62,
+      "SPEED": 60
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Sand Attack" },
-      { "level": 7, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Sand Attack"
+      },
+      {
+        "level": 7,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 94
   },
   {
     "speciesName": "DODUO",
-    "baseStats": { "HP": 35, "ATTACK": 85, "DEFENSE": 45, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 35, "SPEED": 75 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 85,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 75
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 20, "moveName": "Growl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 20,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 96
   },
   {
     "speciesName": "DODRIO",
-    "baseStats": { "HP": 60, "ATTACK": 110, "DEFENSE": 70, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 60, "SPEED": 110 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 110,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 110
+    },
     "type1": "NORMAL",
     "type2": "FLYING",
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 20, "moveName": "Growl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 20,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 158
   },
   {
     "speciesName": "SEEL",
-    "baseStats": { "HP": 65, "ATTACK": 45, "DEFENSE": 55, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 70, "SPEED": 45 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 45,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 45
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Thick Fat",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Headbutt" },
-      { "level": 30, "moveName": "Growl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Headbutt"
+      },
+      {
+        "level": 30,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 100
   },
   {
     "speciesName": "DEWGONG",
-    "baseStats": { "HP": 90, "ATTACK": 70, "DEFENSE": 80, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 95, "SPEED": 70 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 70,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 70
+    },
     "type1": "WATER",
     "type2": "ICE",
     "ability": "Thick Fat",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Headbutt" },
-      { "level": 30, "moveName": "Growl" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Headbutt"
+      },
+      {
+        "level": 30,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 176
   },
   {
     "speciesName": "GRIMER",
-    "baseStats": { "HP": 80, "ATTACK": 80, "DEFENSE": 50, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 50, "SPEED": 25 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 80,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 25
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Stench",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Disable" },
-      { "level": 30, "moveName": "Poison Gas" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Disable"
+      },
+      {
+        "level": 30,
+        "moveName": "Poison Gas"
+      }
+    ],
+    "baseExperienceYield": 90
   },
   {
     "speciesName": "MUK",
-    "baseStats": { "HP": 105, "ATTACK": 105, "DEFENSE": 75, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 100, "SPEED": 50 },
+    "baseStats": {
+      "HP": 105,
+      "ATTACK": 105,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 50
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Stench",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Disable" },
-      { "level": 30, "moveName": "Poison Gas" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Disable"
+      },
+      {
+        "level": 30,
+        "moveName": "Poison Gas"
+      }
+    ],
+    "baseExperienceYield": 157
   },
   {
     "speciesName": "SHELLDER",
-    "baseStats": { "HP": 30, "ATTACK": 65, "DEFENSE": 100, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 25, "SPEED": 40 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 65,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 40
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Shell Armor",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Withdraw" },
-      { "level": 18, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Withdraw"
+      },
+      {
+        "level": 18,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 97
   },
   {
     "speciesName": "CLOYSTER",
-    "baseStats": { "HP": 50, "ATTACK": 95, "DEFENSE": 180, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 45, "SPEED": 70 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 95,
+      "DEFENSE": 180,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 70
+    },
     "type1": "WATER",
     "type2": "ICE",
     "ability": "Shell Armor",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Withdraw" },
-      { "level": 1, "moveName": "Supersonic" },
-      { "level": 1, "moveName": "Clamp" },
-      { "level": 1, "moveName": "Aurora Beam" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Withdraw"
+      },
+      {
+        "level": 1,
+        "moveName": "Supersonic"
+      },
+      {
+        "level": 1,
+        "moveName": "Clamp"
+      },
+      {
+        "level": 1,
+        "moveName": "Aurora Beam"
+      }
+    ],
+    "baseExperienceYield": 203
   },
   {
     "speciesName": "GASTLY",
-    "baseStats": { "HP": 30, "ATTACK": 35, "DEFENSE": 30, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 35, "SPEED": 80 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 35,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 80
+    },
     "type1": "GHOST",
     "type2": "POISON",
     "ability": "Levitate",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Lick" },
-      { "level": 1, "moveName": "Confuse Ray" },
-      { "level": 1, "moveName": "Night Shade" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Lick"
+      },
+      {
+        "level": 1,
+        "moveName": "Confuse Ray"
+      },
+      {
+        "level": 1,
+        "moveName": "Night Shade"
+      }
+    ],
+    "baseExperienceYield": 95
   },
   {
     "speciesName": "HAUNTER",
-    "baseStats": { "HP": 45, "ATTACK": 50, "DEFENSE": 45, "SPECIAL_ATTACK": 115, "SPECIAL_DEFENSE": 55, "SPEED": 95 },
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 50,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 115,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 95
+    },
     "type1": "GHOST",
     "type2": "POISON",
     "ability": "Levitate",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Lick" },
-      { "level": 1, "moveName": "Confuse Ray" },
-      { "level": 1, "moveName": "Night Shade" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Lick"
+      },
+      {
+        "level": 1,
+        "moveName": "Confuse Ray"
+      },
+      {
+        "level": 1,
+        "moveName": "Night Shade"
+      }
+    ],
+    "baseExperienceYield": 126
   },
   {
     "speciesName": "GENGAR",
-    "baseStats": { "HP": 60, "ATTACK": 65, "DEFENSE": 60, "SPECIAL_ATTACK": 130, "SPECIAL_DEFENSE": 75, "SPEED": 110 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 65,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 130,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 110
+    },
     "type1": "GHOST",
     "type2": "POISON",
     "ability": "Cursed Body",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Lick" },
-      { "level": 1, "moveName": "Confuse Ray" },
-      { "level": 1, "moveName": "Night Shade" },
-      { "level": 29, "moveName": "Hypnosis" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Lick"
+      },
+      {
+        "level": 1,
+        "moveName": "Confuse Ray"
+      },
+      {
+        "level": 1,
+        "moveName": "Night Shade"
+      },
+      {
+        "level": 29,
+        "moveName": "Hypnosis"
+      }
+    ],
+    "baseExperienceYield": 190
   },
   {
     "speciesName": "ONIX",
-    "baseStats": { "HP": 35, "ATTACK": 45, "DEFENSE": 160, "SPECIAL_ATTACK": 30, "SPECIAL_DEFENSE": 45, "SPEED": 70 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 45,
+      "DEFENSE": 160,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 70
+    },
     "type1": "ROCK",
     "type2": "GROUND",
     "ability": "Rock Head",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Screech" },
-      { "level": 15, "moveName": "Bind" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Screech"
+      },
+      {
+        "level": 15,
+        "moveName": "Bind"
+      }
+    ],
+    "baseExperienceYield": 108
   },
   {
     "speciesName": "DROWZEE",
-    "baseStats": { "HP": 60, "ATTACK": 48, "DEFENSE": 45, "SPECIAL_ATTACK": 43, "SPECIAL_DEFENSE": 90, "SPEED": 42 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 48,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 43,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 42
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Insomnia",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Hypnosis" },
-      { "level": 12, "moveName": "Disable" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 12,
+        "moveName": "Disable"
+      }
+    ],
+    "baseExperienceYield": 102
   },
   {
     "speciesName": "HYPNO",
-    "baseStats": { "HP": 85, "ATTACK": 73, "DEFENSE": 70, "SPECIAL_ATTACK": 73, "SPECIAL_DEFENSE": 115, "SPEED": 67 },
+    "baseStats": {
+      "HP": 85,
+      "ATTACK": 73,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 73,
+      "SPECIAL_DEFENSE": 115,
+      "SPEED": 67
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Insomnia",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Hypnosis" },
-      { "level": 12, "moveName": "Disable" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 12,
+        "moveName": "Disable"
+      }
+    ],
+    "baseExperienceYield": 165
   },
   {
     "speciesName": "KRABBY",
-    "baseStats": { "HP": 30, "ATTACK": 105, "DEFENSE": 90, "SPECIAL_ATTACK": 25, "SPECIAL_DEFENSE": 25, "SPEED": 50 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 105,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 25,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 50
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Hyper Cutter",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Bubble" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 20, "moveName": "Vice Grip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 20,
+        "moveName": "Vice Grip"
+      }
+    ],
+    "baseExperienceYield": 115
   },
   {
     "speciesName": "KINGLER",
-    "baseStats": { "HP": 55, "ATTACK": 130, "DEFENSE": 115, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 50, "SPEED": 75 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 130,
+      "DEFENSE": 115,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 75
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Hyper Cutter",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Bubble" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 20, "moveName": "Vice Grip" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 20,
+        "moveName": "Vice Grip"
+      }
+    ],
+    "baseExperienceYield": 206
   },
   {
     "speciesName": "VOLTORB",
-    "baseStats": { "HP": 40, "ATTACK": 30, "DEFENSE": 50, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 55, "SPEED": 100 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 30,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 100
+    },
     "type1": "ELECTRIC",
     "type2": null,
     "ability": "Soundproof",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Screech" },
-      { "level": 17, "moveName": "Sonic Boom" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Screech"
+      },
+      {
+        "level": 17,
+        "moveName": "Sonic Boom"
+      }
+    ],
+    "baseExperienceYield": 103
   },
   {
     "speciesName": "ELECTRODE",
-    "baseStats": { "HP": 60, "ATTACK": 50, "DEFENSE": 70, "SPECIAL_ATTACK": 80, "SPECIAL_DEFENSE": 80, "SPEED": 150 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 50,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 150
+    },
     "type1": "ELECTRIC",
     "type2": null,
     "ability": "Soundproof",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Screech" },
-      { "level": 17, "moveName": "Sonic Boom" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Screech"
+      },
+      {
+        "level": 17,
+        "moveName": "Sonic Boom"
+      }
+    ],
+    "baseExperienceYield": 150
   },
   {
     "speciesName": "EXEGGCUTE",
-    "baseStats": { "HP": 60, "ATTACK": 40, "DEFENSE": 80, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 45, "SPEED": 40 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 40,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 40
+    },
     "type1": "GRASS",
     "type2": "PSYCHIC",
     "ability": "Chlorophyll",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Barrage" },
-      { "level": 1, "moveName": "Hypnosis" },
-      { "level": 25, "moveName": "Reflect" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Barrage"
+      },
+      {
+        "level": 1,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 25,
+        "moveName": "Reflect"
+      }
+    ],
+    "baseExperienceYield": 98
   },
   {
     "speciesName": "EXEGGUTOR",
-    "baseStats": { "HP": 95, "ATTACK": 95, "DEFENSE": 85, "SPECIAL_ATTACK": 125, "SPECIAL_DEFENSE": 75, "SPEED": 55 },
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 95,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 125,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 55
+    },
     "type1": "GRASS",
     "type2": "PSYCHIC",
     "ability": "Chlorophyll",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Barrage" },
-      { "level": 1, "moveName": "Hypnosis" },
-      { "level": 1, "moveName": "Stomp" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Barrage"
+      },
+      {
+        "level": 1,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 1,
+        "moveName": "Stomp"
+      }
+    ],
+    "baseExperienceYield": 212
   },
   {
     "speciesName": "CUBONE",
-    "baseStats": { "HP": 50, "ATTACK": 50, "DEFENSE": 95, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 50, "SPEED": 35 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 50,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 35
+    },
     "type1": "GROUND",
     "type2": null,
     "ability": "Rock Head",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Bone Club" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 25, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bone Club"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 25,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 87
   },
   {
     "speciesName": "MAROWAK",
-    "baseStats": { "HP": 60, "ATTACK": 80, "DEFENSE": 110, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 80, "SPEED": 45 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 80,
+      "DEFENSE": 110,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 45
+    },
     "type1": "GROUND",
     "type2": null,
     "ability": "Rock Head",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Bone Club" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 25, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bone Club"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 25,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 124
   },
   {
     "speciesName": "HITMONLEE",
-    "baseStats": { "HP": 50, "ATTACK": 120, "DEFENSE": 53, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 110, "SPEED": 87 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 120,
+      "DEFENSE": 53,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 87
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Limber",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Double Kick" },
-      { "level": 1, "moveName": "Meditate" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Double Kick"
+      },
+      {
+        "level": 1,
+        "moveName": "Meditate"
+      }
+    ],
+    "baseExperienceYield": 139
   },
   {
     "speciesName": "HITMONCHAN",
-    "baseStats": { "HP": 50, "ATTACK": 105, "DEFENSE": 79, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 110, "SPEED": 76 },
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 105,
+      "DEFENSE": 79,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 76
+    },
     "type1": "FIGHTING",
     "type2": null,
     "ability": "Keen Eye",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Comet Punch" },
-      { "level": 1, "moveName": "Agility" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Comet Punch"
+      },
+      {
+        "level": 1,
+        "moveName": "Agility"
+      }
+    ],
+    "baseExperienceYield": 140
   },
   {
     "speciesName": "LICKITUNG",
-    "baseStats": { "HP": 90, "ATTACK": 55, "DEFENSE": 75, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 75, "SPEED": 30 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 55,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 30
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Own Tempo",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Wrap" },
-      { "level": 1, "moveName": "Supersonic" },
-      { "level": 7, "moveName": "Stomp" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wrap"
+      },
+      {
+        "level": 1,
+        "moveName": "Supersonic"
+      },
+      {
+        "level": 7,
+        "moveName": "Stomp"
+      }
+    ],
+    "baseExperienceYield": 127
   },
   {
     "speciesName": "KOFFING",
-    "baseStats": { "HP": 40, "ATTACK": 65, "DEFENSE": 95, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 45, "SPEED": 35 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 65,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 35
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Levitate",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Smog" },
-      { "level": 32, "moveName": "Sludge" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Smog"
+      },
+      {
+        "level": 32,
+        "moveName": "Sludge"
+      }
+    ],
+    "baseExperienceYield": 114
   },
   {
     "speciesName": "WEEZING",
-    "baseStats": { "HP": 65, "ATTACK": 90, "DEFENSE": 120, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 70, "SPEED": 60 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 90,
+      "DEFENSE": 120,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 60
+    },
     "type1": "POISON",
     "type2": null,
     "ability": "Levitate",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Smog" },
-      { "level": 32, "moveName": "Sludge" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Smog"
+      },
+      {
+        "level": 32,
+        "moveName": "Sludge"
+      }
+    ],
+    "baseExperienceYield": 173
   },
   {
     "speciesName": "RHYHORN",
-    "baseStats": { "HP": 80, "ATTACK": 85, "DEFENSE": 95, "SPECIAL_ATTACK": 30, "SPECIAL_DEFENSE": 30, "SPEED": 25 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 85,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 30,
+      "SPEED": 25
+    },
     "type1": "ROCK",
     "type2": "GROUND",
     "ability": "Lightning Rod",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Horn Attack" },
-      { "level": 30, "moveName": "Stomp" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Horn Attack"
+      },
+      {
+        "level": 30,
+        "moveName": "Stomp"
+      }
+    ],
+    "baseExperienceYield": 135
   },
   {
     "speciesName": "RHYDON",
-    "baseStats": { "HP": 105, "ATTACK": 130, "DEFENSE": 120, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 45, "SPEED": 40 },
+    "baseStats": {
+      "HP": 105,
+      "ATTACK": 130,
+      "DEFENSE": 120,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 40
+    },
     "type1": "ROCK",
     "type2": "GROUND",
     "ability": "Lightning Rod",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Horn Attack" },
-      { "level": 30, "moveName": "Stomp" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Horn Attack"
+      },
+      {
+        "level": 30,
+        "moveName": "Stomp"
+      }
+    ],
+    "baseExperienceYield": 204
   },
   {
     "speciesName": "CHANSEY",
-    "baseStats": { "HP": 250, "ATTACK": 5, "DEFENSE": 5, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 105, "SPEED": 50 },
+    "baseStats": {
+      "HP": 250,
+      "ATTACK": 5,
+      "DEFENSE": 5,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 105,
+      "SPEED": 50
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Natural Cure",
     "experienceGroup": "FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Double Slap" },
-      { "level": 24, "moveName": "Sing" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Double Slap"
+      },
+      {
+        "level": 24,
+        "moveName": "Sing"
+      }
+    ],
+    "baseExperienceYield": 255
   },
   {
     "speciesName": "TANGELA",
-    "baseStats": { "HP": 65, "ATTACK": 55, "DEFENSE": 115, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 40, "SPEED": 60 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 55,
+      "DEFENSE": 115,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 60
+    },
     "type1": "GRASS",
     "type2": null,
     "ability": "Chlorophyll",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Constrict" },
-      { "level": 29, "moveName": "Bind" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Constrict"
+      },
+      {
+        "level": 29,
+        "moveName": "Bind"
+      }
+    ],
+    "baseExperienceYield": 166
   },
   {
     "speciesName": "KANGASKHAN",
-    "baseStats": { "HP": 105, "ATTACK": 95, "DEFENSE": 80, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 80, "SPEED": 90 },
+    "baseStats": {
+      "HP": 105,
+      "ATTACK": 95,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 90
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Early Bird",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Comet Punch" },
-      { "level": 1, "moveName": "Rage" },
-      { "level": 26, "moveName": "Bite" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Comet Punch"
+      },
+      {
+        "level": 1,
+        "moveName": "Rage"
+      },
+      {
+        "level": 26,
+        "moveName": "Bite"
+      }
+    ],
+    "baseExperienceYield": 175
   },
   {
     "speciesName": "HORSEA",
-    "baseStats": { "HP": 30, "ATTACK": 40, "DEFENSE": 70, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 25, "SPEED": 60 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 40,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 60
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Bubble" },
-      { "level": 19, "moveName": "Smokescreen" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 19,
+        "moveName": "Smokescreen"
+      }
+    ],
+    "baseExperienceYield": 83
   },
   {
     "speciesName": "SEADRA",
-    "baseStats": { "HP": 55, "ATTACK": 65, "DEFENSE": 95, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 45, "SPEED": 85 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 65,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 85
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Poison Point",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Bubble" },
-      { "level": 19, "moveName": "Smokescreen" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 19,
+        "moveName": "Smokescreen"
+      }
+    ],
+    "baseExperienceYield": 155
   },
   {
     "speciesName": "GOLDEEN",
-    "baseStats": { "HP": 45, "ATTACK": 67, "DEFENSE": 60, "SPECIAL_ATTACK": 35, "SPECIAL_DEFENSE": 50, "SPEED": 63 },
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 67,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 63
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 19, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 19,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 111
   },
   {
     "speciesName": "SEAKING",
-    "baseStats": { "HP": 80, "ATTACK": 92, "DEFENSE": 65, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 80, "SPEED": 68 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 92,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 68
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 19, "moveName": "Supersonic" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 19,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 170
   },
   {
     "speciesName": "STARYU",
-    "baseStats": { "HP": 30, "ATTACK": 45, "DEFENSE": 55, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 55, "SPEED": 85 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 45,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 85
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Illuminate",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 17, "moveName": "Water Gun" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 17,
+        "moveName": "Water Gun"
+      }
+    ],
+    "baseExperienceYield": 106
   },
   {
     "speciesName": "STARMIE",
-    "baseStats": { "HP": 60, "ATTACK": 75, "DEFENSE": 85, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 85, "SPEED": 115 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 75,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 115
+    },
     "type1": "WATER",
     "type2": "PSYCHIC",
     "ability": "Illuminate",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Water Gun" },
-      { "level": 1, "moveName": "Harden" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Harden"
+      }
+    ],
+    "baseExperienceYield": 207
   },
   {
     "speciesName": "MR_MIME",
-    "baseStats": { "HP": 40, "ATTACK": 45, "DEFENSE": 65, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 120, "SPEED": 90 },
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 45,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 120,
+      "SPEED": 90
+    },
     "type1": "PSYCHIC",
     "type2": "FAIRY",
     "ability": "Soundproof",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 15, "moveName": "Barrier" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 15,
+        "moveName": "Barrier"
+      }
+    ],
+    "baseExperienceYield": 136
   },
   {
     "speciesName": "SCYTHER",
-    "baseStats": { "HP": 70, "ATTACK": 110, "DEFENSE": 80, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 80, "SPEED": 105 },
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 110,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 105
+    },
     "type1": "BUG",
     "type2": "FLYING",
     "ability": "Swarm",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Quick Attack" },
-      { "level": 17, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 17,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 187
   },
   {
     "speciesName": "JYNX",
-    "baseStats": { "HP": 65, "ATTACK": 50, "DEFENSE": 35, "SPECIAL_ATTACK": 115, "SPECIAL_DEFENSE": 95, "SPEED": 95 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 50,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 115,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 95
+    },
     "type1": "ICE",
     "type2": "PSYCHIC",
     "ability": "Oblivious",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 1, "moveName": "Lovely Kiss" },
-      { "level": 18, "moveName": "Lick" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Lovely Kiss"
+      },
+      {
+        "level": 18,
+        "moveName": "Lick"
+      }
+    ],
+    "baseExperienceYield": 137
   },
   {
     "speciesName": "ELECTABUZZ",
-    "baseStats": { "HP": 65, "ATTACK": 83, "DEFENSE": 57, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 85, "SPEED": 105 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 83,
+      "DEFENSE": 57,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 105
+    },
     "type1": "ELECTRIC",
     "type2": null,
     "ability": "Static",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Quick Attack" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 34, "moveName": "Thunder Shock" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 34,
+        "moveName": "Thunder Shock"
+      }
+    ],
+    "baseExperienceYield": 156
   },
   {
     "speciesName": "MAGMAR",
-    "baseStats": { "HP": 65, "ATTACK": 95, "DEFENSE": 57, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 85, "SPEED": 93 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 95,
+      "DEFENSE": 57,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 93
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Flame Body",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Ember" },
-      { "level": 36, "moveName": "Leer" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 36,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 167
   },
   {
     "speciesName": "PINSIR",
-    "baseStats": { "HP": 65, "ATTACK": 125, "DEFENSE": 100, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 70, "SPEED": 85 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 125,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 85
+    },
     "type1": "BUG",
     "type2": null,
     "ability": "Hyper Cutter",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Vice Grip" },
-      { "level": 25, "moveName": "Seismic Toss" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Vice Grip"
+      },
+      {
+        "level": 25,
+        "moveName": "Seismic Toss"
+      }
+    ],
+    "baseExperienceYield": 200
   },
   {
     "speciesName": "TAUROS",
-    "baseStats": { "HP": 75, "ATTACK": 100, "DEFENSE": 95, "SPECIAL_ATTACK": 40, "SPECIAL_DEFENSE": 70, "SPEED": 110 },
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 100,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 110
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Intimidate",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 21, "moveName": "Stomp" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 21,
+        "moveName": "Stomp"
+      }
+    ],
+    "baseExperienceYield": 211
   },
   {
     "speciesName": "MAGIKARP",
-    "baseStats": { "HP": 20, "ATTACK": 10, "DEFENSE": 55, "SPECIAL_ATTACK": 15, "SPECIAL_DEFENSE": 20, "SPEED": 80 },
+    "baseStats": {
+      "HP": 20,
+      "ATTACK": 10,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 15,
+      "SPECIAL_DEFENSE": 20,
+      "SPEED": 80
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Swift Swim",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Splash" },
-      { "level": 15, "moveName": "Tackle" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Splash"
+      },
+      {
+        "level": 15,
+        "moveName": "Tackle"
+      }
+    ],
+    "baseExperienceYield": 20
   },
   {
     "speciesName": "GYARADOS",
-    "baseStats": { "HP": 95, "ATTACK": 125, "DEFENSE": 79, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 100, "SPEED": 81 },
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 125,
+      "DEFENSE": 79,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 81
+    },
     "type1": "WATER",
     "type2": "FLYING",
     "ability": "Intimidate",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 20, "moveName": "Bite" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 20,
+        "moveName": "Bite"
+      }
+    ],
+    "baseExperienceYield": 214
   },
   {
     "speciesName": "LAPRAS",
-    "baseStats": { "HP": 130, "ATTACK": 85, "DEFENSE": 80, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 95, "SPEED": 60 },
+    "baseStats": {
+      "HP": 130,
+      "ATTACK": 85,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 60
+    },
     "type1": "WATER",
     "type2": "ICE",
     "ability": "Water Absorb",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Water Gun" },
-      { "level": 1, "moveName": "Growl" },
-      { "level": 16, "moveName": "Sing" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 16,
+        "moveName": "Sing"
+      }
+    ],
+    "baseExperienceYield": 219
   },
   {
     "speciesName": "DITTO",
-    "baseStats": { "HP": 48, "ATTACK": 48, "DEFENSE": 48, "SPECIAL_ATTACK": 48, "SPECIAL_DEFENSE": 48, "SPEED": 48 },
+    "baseStats": {
+      "HP": 48,
+      "ATTACK": 48,
+      "DEFENSE": 48,
+      "SPECIAL_ATTACK": 48,
+      "SPECIAL_DEFENSE": 48,
+      "SPEED": 48
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Limber",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Transform" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Transform"
+      }
+    ],
+    "baseExperienceYield": 61
   },
   {
     "speciesName": "EEVEE",
-    "baseStats": { "HP": 55, "ATTACK": 55, "DEFENSE": 50, "SPECIAL_ATTACK": 45, "SPECIAL_DEFENSE": 65, "SPEED": 55 },
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 55,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 55
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Run Away",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 27, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 27,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 92
   },
   {
     "speciesName": "VAPOREON",
-    "baseStats": { "HP": 130, "ATTACK": 65, "DEFENSE": 60, "SPECIAL_ATTACK": 110, "SPECIAL_DEFENSE": 95, "SPEED": 65 },
+    "baseStats": {
+      "HP": 130,
+      "ATTACK": 65,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 110,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 65
+    },
     "type1": "WATER",
     "type2": null,
     "ability": "Water Absorb",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 27, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 27,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 196
   },
   {
     "speciesName": "JOLTEON",
-    "baseStats": { "HP": 65, "ATTACK": 65, "DEFENSE": 60, "SPECIAL_ATTACK": 110, "SPECIAL_DEFENSE": 95, "SPEED": 130 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 65,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 110,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 130
+    },
     "type1": "ELECTRIC",
     "type2": null,
     "ability": "Volt Absorb",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 27, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 27,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 197
   },
   {
     "speciesName": "FLAREON",
-    "baseStats": { "HP": 65, "ATTACK": 130, "DEFENSE": 60, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 110, "SPEED": 65 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 130,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 65
+    },
     "type1": "FIRE",
     "type2": null,
     "ability": "Flash Fire",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Tail Whip" },
-      { "level": 27, "moveName": "Sand Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 27,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 198
   },
   {
     "speciesName": "PORYGON",
-    "baseStats": { "HP": 65, "ATTACK": 60, "DEFENSE": 70, "SPECIAL_ATTACK": 85, "SPECIAL_DEFENSE": 75, "SPEED": 40 },
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 60,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 40
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Trace",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Tackle" },
-      { "level": 1, "moveName": "Sharpen" },
-      { "level": 1, "moveName": "Conversion" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Sharpen"
+      },
+      {
+        "level": 1,
+        "moveName": "Conversion"
+      }
+    ],
+    "baseExperienceYield": 130
   },
   {
     "speciesName": "OMANYTE",
-    "baseStats": { "HP": 35, "ATTACK": 40, "DEFENSE": 100, "SPECIAL_ATTACK": 90, "SPECIAL_DEFENSE": 55, "SPEED": 35 },
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 40,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 35
+    },
     "type1": "ROCK",
     "type2": "WATER",
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Water Gun" },
-      { "level": 1, "moveName": "Withdraw" },
-      { "level": 34, "moveName": "Horn Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Withdraw"
+      },
+      {
+        "level": 34,
+        "moveName": "Horn Attack"
+      }
+    ],
+    "baseExperienceYield": 120
   },
   {
     "speciesName": "OMASTAR",
-    "baseStats": { "HP": 70, "ATTACK": 60, "DEFENSE": 125, "SPECIAL_ATTACK": 115, "SPECIAL_DEFENSE": 70, "SPEED": 55 },
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 60,
+      "DEFENSE": 125,
+      "SPECIAL_ATTACK": 115,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 55
+    },
     "type1": "ROCK",
     "type2": "WATER",
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Water Gun" },
-      { "level": 1, "moveName": "Withdraw" },
-      { "level": 34, "moveName": "Horn Attack" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Withdraw"
+      },
+      {
+        "level": 34,
+        "moveName": "Horn Attack"
+      }
+    ],
+    "baseExperienceYield": 199
   },
   {
     "speciesName": "KABUTO",
-    "baseStats": { "HP": 30, "ATTACK": 80, "DEFENSE": 90, "SPECIAL_ATTACK": 55, "SPECIAL_DEFENSE": 45, "SPEED": 55 },
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 80,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 55
+    },
     "type1": "ROCK",
     "type2": "WATER",
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Harden" },
-      { "level": 34, "moveName": "Absorb" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Harden"
+      },
+      {
+        "level": 34,
+        "moveName": "Absorb"
+      }
+    ],
+    "baseExperienceYield": 119
   },
   {
     "speciesName": "KABUTOPS",
-    "baseStats": { "HP": 60, "ATTACK": 115, "DEFENSE": 105, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 70, "SPEED": 80 },
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 115,
+      "DEFENSE": 105,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 80
+    },
     "type1": "ROCK",
     "type2": "WATER",
     "ability": "Swift Swim",
     "experienceGroup": "MEDIUM_FAST",
     "learnset": [
-      { "level": 1, "moveName": "Scratch" },
-      { "level": 1, "moveName": "Harden" },
-      { "level": 34, "moveName": "Absorb" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Harden"
+      },
+      {
+        "level": 34,
+        "moveName": "Absorb"
+      }
+    ],
+    "baseExperienceYield": 201
   },
   {
     "speciesName": "AERODACTYL",
-    "baseStats": { "HP": 80, "ATTACK": 105, "DEFENSE": 65, "SPECIAL_ATTACK": 60, "SPECIAL_DEFENSE": 75, "SPEED": 130 },
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 105,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 130
+    },
     "type1": "ROCK",
     "type2": "FLYING",
     "ability": "Rock Head",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Wing Attack" },
-      { "level": 1, "moveName": "Agility" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wing Attack"
+      },
+      {
+        "level": 1,
+        "moveName": "Agility"
+      }
+    ],
+    "baseExperienceYield": 202
   },
   {
     "speciesName": "SNORLAX",
-    "baseStats": { "HP": 160, "ATTACK": 110, "DEFENSE": 65, "SPECIAL_ATTACK": 65, "SPECIAL_DEFENSE": 110, "SPEED": 30 },
+    "baseStats": {
+      "HP": 160,
+      "ATTACK": 110,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 30
+    },
     "type1": "NORMAL",
     "type2": null,
     "ability": "Immunity",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Headbutt" },
-      { "level": 1, "moveName": "Amnesia" },
-      { "level": 1, "moveName": "Rest" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Headbutt"
+      },
+      {
+        "level": 1,
+        "moveName": "Amnesia"
+      },
+      {
+        "level": 1,
+        "moveName": "Rest"
+      }
+    ],
+    "baseExperienceYield": 154
   },
   {
     "speciesName": "ARTICUNO",
-    "baseStats": { "HP": 90, "ATTACK": 85, "DEFENSE": 100, "SPECIAL_ATTACK": 95, "SPECIAL_DEFENSE": 125, "SPEED": 85 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 85,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 125,
+      "SPEED": 85
+    },
     "type1": "ICE",
     "type2": "FLYING",
     "ability": "Pressure",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Ice Beam" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Ice Beam"
+      }
+    ],
+    "baseExperienceYield": 215
   },
   {
     "speciesName": "ZAPDOS",
-    "baseStats": { "HP": 90, "ATTACK": 90, "DEFENSE": 85, "SPECIAL_ATTACK": 125, "SPECIAL_DEFENSE": 90, "SPEED": 100 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 90,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 125,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 100
+    },
     "type1": "ELECTRIC",
     "type2": "FLYING",
     "ability": "Pressure",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Thunder Shock" },
-      { "level": 1, "moveName": "Drill Peck" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Thunder Shock"
+      },
+      {
+        "level": 1,
+        "moveName": "Drill Peck"
+      }
+    ],
+    "baseExperienceYield": 216
   },
   {
     "speciesName": "MOLTRES",
-    "baseStats": { "HP": 90, "ATTACK": 100, "DEFENSE": 90, "SPECIAL_ATTACK": 125, "SPECIAL_DEFENSE": 85, "SPEED": 90 },
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 100,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 125,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 90
+    },
     "type1": "FIRE",
     "type2": "FLYING",
     "ability": "Pressure",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Peck" },
-      { "level": 1, "moveName": "Fire Spin" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Fire Spin"
+      }
+    ],
+    "baseExperienceYield": 217
   },
   {
     "speciesName": "DRATINI",
-    "baseStats": { "HP": 41, "ATTACK": 64, "DEFENSE": 45, "SPECIAL_ATTACK": 50, "SPECIAL_DEFENSE": 50, "SPEED": 50 },
+    "baseStats": {
+      "HP": 41,
+      "ATTACK": 64,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 50
+    },
     "type1": "DRAGON",
     "type2": null,
     "ability": "Shed Skin",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Wrap" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 10, "moveName": "Thunder Wave" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wrap"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 67
   },
   {
     "speciesName": "DRAGONAIR",
-    "baseStats": { "HP": 61, "ATTACK": 84, "DEFENSE": 65, "SPECIAL_ATTACK": 70, "SPECIAL_DEFENSE": 70, "SPEED": 70 },
+    "baseStats": {
+      "HP": 61,
+      "ATTACK": 84,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 70
+    },
     "type1": "DRAGON",
     "type2": null,
     "ability": "Shed Skin",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Wrap" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 10, "moveName": "Thunder Wave" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wrap"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 144
   },
   {
     "speciesName": "DRAGONITE",
-    "baseStats": { "HP": 91, "ATTACK": 134, "DEFENSE": 95, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 100, "SPEED": 80 },
+    "baseStats": {
+      "HP": 91,
+      "ATTACK": 134,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 80
+    },
     "type1": "DRAGON",
     "type2": "FLYING",
     "ability": "Inner Focus",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Wrap" },
-      { "level": 1, "moveName": "Leer" },
-      { "level": 10, "moveName": "Thunder Wave" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Wrap"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 218
   },
   {
     "speciesName": "MEWTWO",
-    "baseStats": { "HP": 106, "ATTACK": 110, "DEFENSE": 90, "SPECIAL_ATTACK": 154, "SPECIAL_DEFENSE": 90, "SPEED": 130 },
+    "baseStats": {
+      "HP": 106,
+      "ATTACK": 110,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 154,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 130
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Pressure",
     "experienceGroup": "SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Confusion" },
-      { "level": 1, "moveName": "Disable" },
-      { "level": 1, "moveName": "Swift" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 1,
+        "moveName": "Disable"
+      },
+      {
+        "level": 1,
+        "moveName": "Swift"
+      }
+    ],
+    "baseExperienceYield": 220
   },
   {
     "speciesName": "MEW",
-    "baseStats": { "HP": 100, "ATTACK": 100, "DEFENSE": 100, "SPECIAL_ATTACK": 100, "SPECIAL_DEFENSE": 100, "SPEED": 100 },
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 100,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 100
+    },
     "type1": "PSYCHIC",
     "type2": null,
     "ability": "Synchronize",
     "experienceGroup": "MEDIUM_SLOW",
     "learnset": [
-      { "level": 1, "moveName": "Pound" },
-      { "level": 10, "moveName": "Transform" },
-      { "level": 20, "moveName": "Mega Punch" },
-      { "level": 30, "moveName": "Metronome" }
-    ]
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 10,
+        "moveName": "Transform"
+      },
+      {
+        "level": 20,
+        "moveName": "Mega Punch"
+      },
+      {
+        "level": 30,
+        "moveName": "Metronome"
+      }
+    ],
+    "baseExperienceYield": 154
+  },
+  
+  {
+    "speciesName": "CHIKORITA",
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 49,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 49,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 45
+    },
+    "type1": "GRASS",
+    "type2": null,
+    "ability": "Overgrow",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 6,
+        "moveName": "Razor Leaf"
+      }
+    ],
+    "baseExperienceYield": 64
+  },
+  {
+    "speciesName": "BAYLEEF",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 62,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 63,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 60
+    },
+    "type1": "GRASS",
+    "type2": null,
+    "ability": "Overgrow",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 6,
+        "moveName": "Razor Leaf"
+      },
+      {
+        "level": 18,
+        "moveName": "Body Slam"
+      }
+    ],
+    "baseExperienceYield": 142
+  },
+  {
+    "speciesName": "MEGANIUM",
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 82,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 83,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 80
+    },
+    "type1": "GRASS",
+    "type2": null,
+    "ability": "Overgrow",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 6,
+        "moveName": "Razor Leaf"
+      },
+      {
+        "level": 32,
+        "moveName": "Petal Dance"
+      }
+    ],
+    "baseExperienceYield": 236
+  },
+  {
+    "speciesName": "CYNDAQUIL",
+    "baseStats": {
+      "HP": 39,
+      "ATTACK": 52,
+      "DEFENSE": 43,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 65
+    },
+    "type1": "FIRE",
+    "type2": null,
+    "ability": "Blaze",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 6,
+        "moveName": "Smokescreen"
+      },
+      {
+        "level": 10,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 62
+  },
+  {
+    "speciesName": "QUILAVA",
+    "baseStats": {
+      "HP": 58,
+      "ATTACK": 64,
+      "DEFENSE": 58,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 80
+    },
+    "type1": "FIRE",
+    "type2": null,
+    "ability": "Blaze",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Ember"
+      },
+      {
+        "level": 13,
+        "moveName": "Quick Attack"
+      }
+    ],
+    "baseExperienceYield": 142
+  },
+  {
+    "speciesName": "TYPHLOSION",
+    "baseStats": {
+      "HP": 78,
+      "ATTACK": 84,
+      "DEFENSE": 78,
+      "SPECIAL_ATTACK": 109,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 100
+    },
+    "type1": "FIRE",
+    "type2": null,
+    "ability": "Blaze",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Ember"
+      },
+      {
+        "level": 40,
+        "moveName": "Flamethrower"
+      }
+    ],
+    "baseExperienceYield": 240
+  },
+  {
+    "speciesName": "TOTODILE",
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 65,
+      "DEFENSE": 64,
+      "SPECIAL_ATTACK": 44,
+      "SPECIAL_DEFENSE": 48,
+      "SPEED": 43
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Torrent",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 6,
+        "moveName": "Water Gun"
+      }
+    ],
+    "baseExperienceYield": 63
+  },
+  {
+    "speciesName": "CROCONAW",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 80,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 59,
+      "SPECIAL_DEFENSE": 63,
+      "SPEED": 58
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Torrent",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 6,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 13,
+        "moveName": "Bite"
+      }
+    ],
+    "baseExperienceYield": 142
+  },
+  {
+    "speciesName": "FERALIGATR",
+    "baseStats": {
+      "HP": 85,
+      "ATTACK": 105,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 79,
+      "SPECIAL_DEFENSE": 83,
+      "SPEED": 78
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Torrent",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 6,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 38,
+        "moveName": "Hydro Pump"
+      }
+    ],
+    "baseExperienceYield": 239
+  },
+  {
+    "speciesName": "SENTRET",
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 46,
+      "DEFENSE": 34,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 20
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Run Away",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 4,
+        "moveName": "Defense Curl"
+      },
+      {
+        "level": 7,
+        "moveName": "Quick Attack"
+      }
+    ],
+    "baseExperienceYield": 43
+  },
+  {
+    "speciesName": "FURRET",
+    "baseStats": {
+      "HP": 85,
+      "ATTACK": 76,
+      "DEFENSE": 64,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 90
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Run Away",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 4,
+        "moveName": "Defense Curl"
+      },
+      {
+        "level": 7,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 28,
+        "moveName": "Slam"
+      }
+    ],
+    "baseExperienceYield": 145
+  },
+  {
+    "speciesName": "HOOTHOOT",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 30,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 36,
+      "SPECIAL_DEFENSE": 56,
+      "SPEED": 50
+    },
+    "type1": "NORMAL",
+    "type2": "FLYING",
+    "ability": "Insomnia",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 5,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 9,
+        "moveName": "Peck"
+      }
+    ],
+    "baseExperienceYield": 52
+  },
+  {
+    "speciesName": "NOCTOWL",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 50,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 86,
+      "SPECIAL_DEFENSE": 96,
+      "SPEED": 70
+    },
+    "type1": "NORMAL",
+    "type2": "FLYING",
+    "ability": "Insomnia",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 5,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 25,
+        "moveName": "Take Down"
+      }
+    ],
+    "baseExperienceYield": 158
+  },
+  {
+    "speciesName": "LEDYBA",
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 20,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 55
+    },
+    "type1": "BUG",
+    "type2": "FLYING",
+    "ability": "Swarm",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 6,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 53
+  },
+  {
+    "speciesName": "LEDIAN",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 35,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 85
+    },
+    "type1": "BUG",
+    "type2": "FLYING",
+    "ability": "Swarm",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 6,
+        "moveName": "Supersonic"
+      },
+      {
+        "level": 24,
+        "moveName": "Baton Pass"
+      }
+    ],
+    "baseExperienceYield": 137
+  },
+  {
+    "speciesName": "SPINARAK",
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 60,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 30
+    },
+    "type1": "BUG",
+    "type2": "POISON",
+    "ability": "Swarm",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Poison Sting"
+      },
+      {
+        "level": 1,
+        "moveName": "String Shot"
+      },
+      {
+        "level": 6,
+        "moveName": "Scary Face"
+      }
+    ],
+    "baseExperienceYield": 50
+  },
+  {
+    "speciesName": "ARIADOS",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 90,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 40
+    },
+    "type1": "BUG",
+    "type2": "POISON",
+    "ability": "Swarm",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Poison Sting"
+      },
+      {
+        "level": 1,
+        "moveName": "String Shot"
+      },
+      {
+        "level": 25,
+        "moveName": "Spider Web"
+      }
+    ],
+    "baseExperienceYield": 140
+  },
+  {
+    "speciesName": "CROBAT",
+    "baseStats": {
+      "HP": 85,
+      "ATTACK": 90,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 130
+    },
+    "type1": "POISON",
+    "type2": "FLYING",
+    "ability": "Inner Focus",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Leech Life"
+      },
+      {
+        "level": 1,
+        "moveName": "Supersonic"
+      },
+      {
+        "level": 1,
+        "moveName": "Wing Attack"
+      }
+    ],
+    "baseExperienceYield": 241
+  },
+  {
+    "speciesName": "CHINCHOU",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 38,
+      "DEFENSE": 38,
+      "SPECIAL_ATTACK": 56,
+      "SPECIAL_DEFENSE": 56,
+      "SPEED": 67
+    },
+    "type1": "WATER",
+    "type2": "ELECTRIC",
+    "ability": "Volt Absorb",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 1,
+        "moveName": "Supersonic"
+      },
+      {
+        "level": 5,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 66
+  },
+  {
+    "speciesName": "LANTURN",
+    "baseStats": {
+      "HP": 125,
+      "ATTACK": 58,
+      "DEFENSE": 58,
+      "SPECIAL_ATTACK": 76,
+      "SPECIAL_DEFENSE": 76,
+      "SPEED": 67
+    },
+    "type1": "WATER",
+    "type2": "ELECTRIC",
+    "ability": "Volt Absorb",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 1,
+        "moveName": "Supersonic"
+      },
+      {
+        "level": 27,
+        "moveName": "Take Down"
+      }
+    ],
+    "baseExperienceYield": 161
+  },
+  {
+    "speciesName": "PICHU",
+    "baseStats": {
+      "HP": 20,
+      "ATTACK": 40,
+      "DEFENSE": 15,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 60
+    },
+    "type1": "ELECTRIC",
+    "type2": null,
+    "ability": "Static",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Thunder Shock"
+      },
+      {
+        "level": 1,
+        "moveName": "Charm"
+      }
+    ],
+    "baseExperienceYield": 41
+  },
+  {
+    "speciesName": "CLEFFA",
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 25,
+      "DEFENSE": 28,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 15
+    },
+    "type1": "FAIRY",
+    "type2": null,
+    "ability": "Cute Charm",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Charm"
+      }
+    ],
+    "baseExperienceYield": 44
+  },
+  {
+    "speciesName": "IGGLYBUFF",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 30,
+      "DEFENSE": 15,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 20,
+      "SPEED": 15
+    },
+    "type1": "NORMAL",
+    "type2": "FAIRY",
+    "ability": "Cute Charm",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Sing"
+      },
+      {
+        "level": 1,
+        "moveName": "Charm"
+      }
+    ],
+    "baseExperienceYield": 42
+  },
+  {
+    "speciesName": "TOGEPI",
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 20,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 20
+    },
+    "type1": "FAIRY",
+    "type2": null,
+    "ability": "Hustle",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 1,
+        "moveName": "Charm"
+      },
+      {
+        "level": 6,
+        "moveName": "Metronome"
+      }
+    ],
+    "baseExperienceYield": 49
+  },
+  {
+    "speciesName": "TOGETIC",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 40,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 105,
+      "SPEED": 40
+    },
+    "type1": "FAIRY",
+    "type2": "FLYING",
+    "ability": "Hustle",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 1,
+        "moveName": "Charm"
+      },
+      {
+        "level": 6,
+        "moveName": "Metronome"
+      }
+    ],
+    "baseExperienceYield": 142
+  },
+  {
+    "speciesName": "NATU",
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 50,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 70
+    },
+    "type1": "PSYCHIC",
+    "type2": "FLYING",
+    "ability": "Synchronize",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 10,
+        "moveName": "Night Shade"
+      }
+    ],
+    "baseExperienceYield": 64
+  },
+  {
+    "speciesName": "XATU",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 75,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 95
+    },
+    "type1": "PSYCHIC",
+    "type2": "FLYING",
+    "ability": "Synchronize",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 25,
+        "moveName": "Future Sight"
+      }
+    ],
+    "baseExperienceYield": 165
+  },
+  {
+    "speciesName": "MAREEP",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 40,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 35
+    },
+    "type1": "ELECTRIC",
+    "type2": null,
+    "ability": "Static",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Thunder Shock"
+      }
+    ],
+    "baseExperienceYield": 56
+  },
+  {
+    "speciesName": "FLAAFFY",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 55,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 45
+    },
+    "type1": "ELECTRIC",
+    "type2": null,
+    "ability": "Static",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 9,
+        "moveName": "Thunder Shock"
+      },
+      {
+        "level": 18,
+        "moveName": "Thunder Wave"
+      }
+    ],
+    "baseExperienceYield": 128
+  },
+  {
+    "speciesName": "AMPHAROS",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 75,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 115,
+      "SPECIAL_DEFENSE": 90,
+      "SPEED": 55
+    },
+    "type1": "ELECTRIC",
+    "type2": null,
+    "ability": "Static",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 30,
+        "moveName": "Thunder Punch"
+      }
+    ],
+    "baseExperienceYield": 230
+  },
+  {
+    "speciesName": "BELLOSSOM",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 80,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 50
+    },
+    "type1": "GRASS",
+    "type2": null,
+    "ability": "Chlorophyll",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Absorb"
+      },
+      {
+        "level": 1,
+        "moveName": "Sweet Scent"
+      },
+      {
+        "level": 1,
+        "moveName": "Stun Spore"
+      },
+      {
+        "level": 1,
+        "moveName": "Petal Dance"
+      }
+    ],
+    "baseExperienceYield": 221
+  },
+  {
+    "speciesName": "MARILL",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 20,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 20,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 40
+    },
+    "type1": "WATER",
+    "type2": "FAIRY",
+    "ability": "Thick Fat",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 3,
+        "moveName": "Defense Curl"
+      },
+      {
+        "level": 6,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 10,
+        "moveName": "Water Gun"
+      }
+    ],
+    "baseExperienceYield": 88
+  },
+  {
+    "speciesName": "AZUMARILL",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 50,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 50
+    },
+    "type1": "WATER",
+    "type2": "FAIRY",
+    "ability": "Thick Fat",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 3,
+        "moveName": "Defense Curl"
+      },
+      {
+        "level": 10,
+        "moveName": "Water Gun"
+      }
+    ],
+    "baseExperienceYield": 189
+  },
+  {
+    "speciesName": "SUDOWOODO",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 100,
+      "DEFENSE": 115,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 30
+    },
+    "type1": "ROCK",
+    "type2": null,
+    "ability": "Sturdy",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Rock Throw"
+      },
+      {
+        "level": 1,
+        "moveName": "Mimic"
+      }
+    ],
+    "baseExperienceYield": 144
+  },
+  {
+    "speciesName": "POLITOED",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 75,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 70
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Water Absorb",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 1,
+        "moveName": "Hypnosis"
+      },
+      {
+        "level": 1,
+        "moveName": "Double Slap"
+      },
+      {
+        "level": 35,
+        "moveName": "Perish Song"
+      }
+    ],
+    "baseExperienceYield": 225
+  },
+  {
+    "speciesName": "HOPPIP",
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 35,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 50
+    },
+    "type1": "GRASS",
+    "type2": "FLYING",
+    "ability": "Chlorophyll",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Splash"
+      },
+      {
+        "level": 4,
+        "moveName": "Synthesis"
+      },
+      {
+        "level": 6,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 50
+  },
+  {
+    "speciesName": "SKIPLOOM",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 45,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 80
+    },
+    "type1": "GRASS",
+    "type2": "FLYING",
+    "ability": "Chlorophyll",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Splash"
+      },
+      {
+        "level": 4,
+        "moveName": "Synthesis"
+      },
+      {
+        "level": 18,
+        "moveName": "Stun Spore"
+      }
+    ],
+    "baseExperienceYield": 119
+  },
+  {
+    "speciesName": "JUMPLUFF",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 55,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 110
+    },
+    "type1": "GRASS",
+    "type2": "FLYING",
+    "ability": "Chlorophyll",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Splash"
+      },
+      {
+        "level": 4,
+        "moveName": "Synthesis"
+      },
+      {
+        "level": 27,
+        "moveName": "Leech Seed"
+      }
+    ],
+    "baseExperienceYield": 207
+  },
+  {
+    "speciesName": "AIPOM",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 70,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 85
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Run Away",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 6,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 72
+  },
+  {
+    "speciesName": "SUNKERN",
+    "baseStats": {
+      "HP": 30,
+      "ATTACK": 30,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 30,
+      "SPEED": 30
+    },
+    "type1": "GRASS",
+    "type2": null,
+    "ability": "Chlorophyll",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Absorb"
+      },
+      {
+        "level": 4,
+        "moveName": "Growth"
+      }
+    ],
+    "baseExperienceYield": 36
+  },
+  {
+    "speciesName": "SUNFLORA",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 75,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 105,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 30
+    },
+    "type1": "GRASS",
+    "type2": null,
+    "ability": "Chlorophyll",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Absorb"
+      },
+      {
+        "level": 4,
+        "moveName": "Growth"
+      },
+      {
+        "level": 10,
+        "moveName": "Razor Leaf"
+      },
+      {
+        "level": 50,
+        "moveName": "Petal Dance"
+      }
+    ],
+    "baseExperienceYield": 149
+  },
+  {
+    "speciesName": "YANMA",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 65,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 75,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 95
+    },
+    "type1": "BUG",
+    "type2": "FLYING",
+    "ability": "Speed Boost",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 6,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 11,
+        "moveName": "Double Team"
+      }
+    ],
+    "baseExperienceYield": 78
+  },
+  {
+    "speciesName": "WOOPER",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 45,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 25,
+      "SPECIAL_DEFENSE": 25,
+      "SPEED": 15
+    },
+    "type1": "WATER",
+    "type2": "GROUND",
+    "ability": "Damp",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 42
+  },
+  {
+    "speciesName": "QUAGSIRE",
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 85,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 35
+    },
+    "type1": "WATER",
+    "type2": "GROUND",
+    "ability": "Damp",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 23,
+        "moveName": "Slam"
+      }
+    ],
+    "baseExperienceYield": 151
+  },
+  {
+    "speciesName": "ESPEON",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 65,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 130,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 110
+    },
+    "type1": "PSYCHIC",
+    "type2": null,
+    "ability": "Synchronize",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 8,
+        "moveName": "Sand Attack"
+      },
+      {
+        "level": 16,
+        "moveName": "Confusion"
+      }
+    ],
+    "baseExperienceYield": 184
+  },
+  {
+    "speciesName": "UMBREON",
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 65,
+      "DEFENSE": 110,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 130,
+      "SPEED": 65
+    },
+    "type1": "DARK",
+    "type2": null,
+    "ability": "Synchronize",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 8,
+        "moveName": "Sand Attack"
+      },
+      {
+        "level": 16,
+        "moveName": "Pursuit"
+      }
+    ],
+    "baseExperienceYield": 184
+  },
+  {
+    "speciesName": "MURKROW",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 85,
+      "DEFENSE": 42,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 42,
+      "SPEED": 91
+    },
+    "type1": "DARK",
+    "type2": "FLYING",
+    "ability": "Insomnia",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 9,
+        "moveName": "Pursuit"
+      }
+    ],
+    "baseExperienceYield": 81
+  },
+  {
+    "speciesName": "SLOWKING",
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 75,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 30
+    },
+    "type1": "WATER",
+    "type2": "PSYCHIC",
+    "ability": "Oblivious",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 6,
+        "moveName": "Growl"
+      },
+      {
+        "level": 13,
+        "moveName": "Water Gun"
+      }
+    ],
+    "baseExperienceYield": 172
+  },
+  {
+    "speciesName": "MISDREAVUS",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 60,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 85,
+      "SPEED": 85
+    },
+    "type1": "GHOST",
+    "type2": null,
+    "ability": "Levitate",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 1,
+        "moveName": "Psywave"
+      },
+      {
+        "level": 6,
+        "moveName": "Spite"
+      }
+    ],
+    "baseExperienceYield": 87
+  },
+  {
+    "speciesName": "UNOWN",
+    "baseStats": {
+      "HP": 48,
+      "ATTACK": 72,
+      "DEFENSE": 48,
+      "SPECIAL_ATTACK": 72,
+      "SPECIAL_DEFENSE": 48,
+      "SPEED": 48
+    },
+    "type1": "PSYCHIC",
+    "type2": null,
+    "ability": "Levitate",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Hidden Power"
+      }
+    ],
+    "baseExperienceYield": 118
+  },
+  {
+    "speciesName": "WOBBUFFET",
+    "baseStats": {
+      "HP": 190,
+      "ATTACK": 33,
+      "DEFENSE": 58,
+      "SPECIAL_ATTACK": 33,
+      "SPECIAL_DEFENSE": 58,
+      "SPEED": 33
+    },
+    "type1": "PSYCHIC",
+    "type2": null,
+    "ability": "Shadow Tag",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Counter"
+      },
+      {
+        "level": 1,
+        "moveName": "Mirror Coat"
+      },
+      {
+        "level": 1,
+        "moveName": "Safeguard"
+      },
+      {
+        "level": 1,
+        "moveName": "Destiny Bond"
+      }
+    ],
+    "baseExperienceYield": 142
+  },
+  {
+    "speciesName": "GIRAFARIG",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 80,
+      "DEFENSE": 65,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 85
+    },
+    "type1": "NORMAL",
+    "type2": "PSYCHIC",
+    "ability": "Inner Focus",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 5,
+        "moveName": "Confusion"
+      }
+    ],
+    "baseExperienceYield": 159
+  },
+  {
+    "speciesName": "PINECO",
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 65,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 15
+    },
+    "type1": "BUG",
+    "type2": null,
+    "ability": "Sturdy",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Protect"
+      },
+      {
+        "level": 6,
+        "moveName": "Self-Destruct"
+      }
+    ],
+    "baseExperienceYield": 58
+  },
+  {
+    "speciesName": "FORRETRESS",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 90,
+      "DEFENSE": 140,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 40
+    },
+    "type1": "BUG",
+    "type2": "STEEL",
+    "ability": "Sturdy",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Protect"
+      },
+      {
+        "level": 31,
+        "moveName": "Spikes"
+      }
+    ],
+    "baseExperienceYield": 163
+  },
+  {
+    "speciesName": "DUNSPARCE",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 70,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 45
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Serene Grace",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Rage"
+      },
+      {
+        "level": 4,
+        "moveName": "Defense Curl"
+      }
+    ],
+    "baseExperienceYield": 145
+  },
+  {
+    "speciesName": "GLIGAR",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 75,
+      "DEFENSE": 105,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 85
+    },
+    "type1": "GROUND",
+    "type2": "FLYING",
+    "ability": "Hyper Cutter",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Poison Sting"
+      },
+      {
+        "level": 6,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 86
+  },
+  {
+    "speciesName": "STEELIX",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 85,
+      "DEFENSE": 200,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 30
+    },
+    "type1": "STEEL",
+    "type2": "GROUND",
+    "ability": "Rock Head",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Screech"
+      },
+      {
+        "level": 1,
+        "moveName": "Bind"
+      },
+      {
+        "level": 1,
+        "moveName": "Rock Throw"
+      }
+    ],
+    "baseExperienceYield": 179
+  },
+  {
+    "speciesName": "SNUBBULL",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 80,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 30
+    },
+    "type1": "FAIRY",
+    "type2": null,
+    "ability": "Intimidate",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 4,
+        "moveName": "Scary Face"
+      }
+    ],
+    "baseExperienceYield": 60
+  },
+  {
+    "speciesName": "GRANBULL",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 120,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 45
+    },
+    "type1": "FAIRY",
+    "type2": null,
+    "ability": "Intimidate",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Tail Whip"
+      },
+      {
+        "level": 4,
+        "moveName": "Scary Face"
+      }
+    ],
+    "baseExperienceYield": 158
+  },
+  {
+    "speciesName": "QWILFISH",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 95,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 85
+    },
+    "type1": "WATER",
+    "type2": "POISON",
+    "ability": "Poison Point",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Poison Sting"
+      },
+      {
+        "level": 9,
+        "moveName": "Harden"
+      }
+    ],
+    "baseExperienceYield": 88
+  },
+  {
+    "speciesName": "SCIZOR",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 130,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 55,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 65
+    },
+    "type1": "BUG",
+    "type2": "STEEL",
+    "ability": "Swarm",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 6,
+        "moveName": "Focus Energy"
+      }
+    ],
+    "baseExperienceYield": 175
+  },
+  {
+    "speciesName": "SHUCKLE",
+    "baseStats": {
+      "HP": 20,
+      "ATTACK": 10,
+      "DEFENSE": 230,
+      "SPECIAL_ATTACK": 10,
+      "SPECIAL_DEFENSE": 230,
+      "SPEED": 5
+    },
+    "type1": "BUG",
+    "type2": "ROCK",
+    "ability": "Sturdy",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Constrict"
+      },
+      {
+        "level": 1,
+        "moveName": "Withdraw"
+      },
+      {
+        "level": 9,
+        "moveName": "Wrap"
+      }
+    ],
+    "baseExperienceYield": 177
+  },
+  {
+    "speciesName": "HERACROSS",
+    "baseStats": {
+      "HP": 80,
+      "ATTACK": 125,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 85
+    },
+    "type1": "BUG",
+    "type2": "FIGHTING",
+    "ability": "Swarm",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 6,
+        "moveName": "Horn Attack"
+      }
+    ],
+    "baseExperienceYield": 175
+  },
+  {
+    "speciesName": "SNEASEL",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 95,
+      "DEFENSE": 55,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 115
+    },
+    "type1": "DARK",
+    "type2": "ICE",
+    "ability": "Inner Focus",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 8,
+        "moveName": "Quick Attack"
+      }
+    ],
+    "baseExperienceYield": 86
+  },
+  {
+    "speciesName": "TEDDIURSA",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 80,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 50,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 40
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Pickup",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 8,
+        "moveName": "Lick"
+      }
+    ],
+    "baseExperienceYield": 66
+  },
+  {
+    "speciesName": "URSARING",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 130,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 75,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 55
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Guts",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Scratch"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 8,
+        "moveName": "Lick"
+      }
+    ],
+    "baseExperienceYield": 175
+  },
+  {
+    "speciesName": "SLUGMA",
+    "baseStats": {
+      "HP": 40,
+      "ATTACK": 40,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 20
+    },
+    "type1": "FIRE",
+    "type2": null,
+    "ability": "Magma Armor",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Smog"
+      },
+      {
+        "level": 8,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 50
+  },
+  {
+    "speciesName": "MAGCARGO",
+    "baseStats": {
+      "HP": 60,
+      "ATTACK": 50,
+      "DEFENSE": 120,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 30
+    },
+    "type1": "FIRE",
+    "type2": "ROCK",
+    "ability": "Magma Armor",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Smog"
+      },
+      {
+        "level": 8,
+        "moveName": "Ember"
+      },
+      {
+        "level": 38,
+        "moveName": "Rock Slide"
+      }
+    ],
+    "baseExperienceYield": 151
+  },
+  {
+    "speciesName": "SWINUB",
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 50,
+      "DEFENSE": 40,
+      "SPECIAL_ATTACK": 30,
+      "SPECIAL_DEFENSE": 30,
+      "SPEED": 50
+    },
+    "type1": "ICE",
+    "type2": "GROUND",
+    "ability": "Oblivious",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 10,
+        "moveName": "Powder Snow"
+      }
+    ],
+    "baseExperienceYield": 50
+  },
+  {
+    "speciesName": "PILOSWINE",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 100,
+      "DEFENSE": 80,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 50
+    },
+    "type1": "ICE",
+    "type2": "GROUND",
+    "ability": "Oblivious",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 10,
+        "moveName": "Powder Snow"
+      },
+      {
+        "level": 33,
+        "moveName": "Fury Attack"
+      }
+    ],
+    "baseExperienceYield": 158
+  },
+  {
+    "speciesName": "CORSOLA",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 55,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 35
+    },
+    "type1": "WATER",
+    "type2": "ROCK",
+    "ability": "Hustle",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 5,
+        "moveName": "Bubble"
+      }
+    ],
+    "baseExperienceYield": 144
+  },
+  {
+    "speciesName": "REMORAID",
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 65,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 65
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Hustle",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 11,
+        "moveName": "Lock-On"
+      }
+    ],
+    "baseExperienceYield": 60
+  },
+  {
+    "speciesName": "OCTILLERY",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 105,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 105,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 45
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Suction Cups",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Water Gun"
+      },
+      {
+        "level": 11,
+        "moveName": "Lock-On"
+      },
+      {
+        "level": 25,
+        "moveName": "Octazooka"
+      }
+    ],
+    "baseExperienceYield": 168
+  },
+  {
+    "speciesName": "DELIBIRD",
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 55,
+      "DEFENSE": 45,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 75
+    },
+    "type1": "ICE",
+    "type2": "FLYING",
+    "ability": "Vital Spirit",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Present"
+      }
+    ],
+    "baseExperienceYield": 116
+  },
+  {
+    "speciesName": "MANTINE",
+    "baseStats": {
+      "HP": 85,
+      "ATTACK": 40,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 140,
+      "SPEED": 70
+    },
+    "type1": "WATER",
+    "type2": "FLYING",
+    "ability": "Swift Swim",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 10,
+        "moveName": "Supersonic"
+      }
+    ],
+    "baseExperienceYield": 170
+  },
+  {
+    "speciesName": "SKARMORY",
+    "baseStats": {
+      "HP": 65,
+      "ATTACK": 80,
+      "DEFENSE": 140,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 70
+    },
+    "type1": "STEEL",
+    "type2": "FLYING",
+    "ability": "Keen Eye",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 1,
+        "moveName": "Peck"
+      },
+      {
+        "level": 10,
+        "moveName": "Sand Attack"
+      }
+    ],
+    "baseExperienceYield": 163
+  },
+  {
+    "speciesName": "HOUNDOUR",
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 60,
+      "DEFENSE": 30,
+      "SPECIAL_ATTACK": 80,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 65
+    },
+    "type1": "DARK",
+    "type2": "FIRE",
+    "ability": "Early Bird",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 1,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 66
+  },
+  {
+    "speciesName": "HOUNDOOM",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 90,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 110,
+      "SPECIAL_DEFENSE": 80,
+      "SPEED": 95
+    },
+    "type1": "DARK",
+    "type2": "FIRE",
+    "ability": "Early Bird",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 1,
+        "moveName": "Ember"
+      },
+      {
+        "level": 52,
+        "moveName": "Flamethrower"
+      }
+    ],
+    "baseExperienceYield": 175
+  },
+  {
+    "speciesName": "KINGDRA",
+    "baseStats": {
+      "HP": 75,
+      "ATTACK": 95,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 85
+    },
+    "type1": "WATER",
+    "type2": "DRAGON",
+    "ability": "Swift Swim",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bubble"
+      },
+      {
+        "level": 1,
+        "moveName": "Smokescreen"
+      },
+      {
+        "level": 40,
+        "moveName": "Hydro Pump"
+      }
+    ],
+    "baseExperienceYield": 243
+  },
+  {
+    "speciesName": "PHANPY",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 60,
+      "DEFENSE": 60,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 40,
+      "SPEED": 40
+    },
+    "type1": "GROUND",
+    "type2": null,
+    "ability": "Pickup",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      }
+    ],
+    "baseExperienceYield": 66
+  },
+  {
+    "speciesName": "DONPHAN",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 120,
+      "DEFENSE": 120,
+      "SPECIAL_ATTACK": 60,
+      "SPECIAL_DEFENSE": 60,
+      "SPEED": 50
+    },
+    "type1": "GROUND",
+    "type2": null,
+    "ability": "Sturdy",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Growl"
+      },
+      {
+        "level": 25,
+        "moveName": "Fury Attack"
+      }
+    ],
+    "baseExperienceYield": 175
+  },
+  {
+    "speciesName": "PORYGON2",
+    "baseStats": {
+      "HP": 85,
+      "ATTACK": 80,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 105,
+      "SPECIAL_DEFENSE": 95,
+      "SPEED": 60
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Trace",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 1,
+        "moveName": "Conversion"
+      },
+      {
+        "level": 1,
+        "moveName": "Conversion 2"
+      }
+    ],
+    "baseExperienceYield": 180
+  },
+  {
+    "speciesName": "STANTLER",
+    "baseStats": {
+      "HP": 73,
+      "ATTACK": 95,
+      "DEFENSE": 62,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 85
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Intimidate",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 8,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 163
+  },
+  {
+    "speciesName": "SMEARGLE",
+    "baseStats": {
+      "HP": 55,
+      "ATTACK": 20,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 20,
+      "SPECIAL_DEFENSE": 45,
+      "SPEED": 75
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Own Tempo",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Sketch"
+      }
+    ],
+    "baseExperienceYield": 88
+  },
+  {
+    "speciesName": "TYROGUE",
+    "baseStats": {
+      "HP": 35,
+      "ATTACK": 35,
+      "DEFENSE": 35,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 35,
+      "SPEED": 35
+    },
+    "type1": "FIGHTING",
+    "type2": null,
+    "ability": "Guts",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      }
+    ],
+    "baseExperienceYield": 42
+  },
+  {
+    "speciesName": "HITMONTOP",
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 95,
+      "DEFENSE": 95,
+      "SPECIAL_ATTACK": 35,
+      "SPECIAL_DEFENSE": 110,
+      "SPEED": 70
+    },
+    "type1": "FIGHTING",
+    "type2": null,
+    "ability": "Intimidate",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Rolling Kick"
+      },
+      {
+        "level": 6,
+        "moveName": "Focus Energy"
+      }
+    ],
+    "baseExperienceYield": 159
+  },
+  {
+    "speciesName": "SMOOCHUM",
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 30,
+      "DEFENSE": 15,
+      "SPECIAL_ATTACK": 85,
+      "SPECIAL_DEFENSE": 65,
+      "SPEED": 65
+    },
+    "type1": "ICE",
+    "type2": "PSYCHIC",
+    "ability": "Oblivious",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 1,
+        "moveName": "Lick"
+      }
+    ],
+    "baseExperienceYield": 61
+  },
+  {
+    "speciesName": "ELEKID",
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 63,
+      "DEFENSE": 37,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 95
+    },
+    "type1": "ELECTRIC",
+    "type2": null,
+    "ability": "Static",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Quick Attack"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 72
+  },
+  {
+    "speciesName": "MAGBY",
+    "baseStats": {
+      "HP": 45,
+      "ATTACK": 75,
+      "DEFENSE": 37,
+      "SPECIAL_ATTACK": 70,
+      "SPECIAL_DEFENSE": 55,
+      "SPEED": 83
+    },
+    "type1": "FIRE",
+    "type2": null,
+    "ability": "Flame Body",
+    "experienceGroup": "MEDIUM_FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Ember"
+      }
+    ],
+    "baseExperienceYield": 73
+  },
+  {
+    "speciesName": "MILTANK",
+    "baseStats": {
+      "HP": 95,
+      "ATTACK": 80,
+      "DEFENSE": 105,
+      "SPECIAL_ATTACK": 40,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 100
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Thick Fat",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Tackle"
+      },
+      {
+        "level": 4,
+        "moveName": "Growl"
+      },
+      {
+        "level": 8,
+        "moveName": "Defense Curl"
+      }
+    ],
+    "baseExperienceYield": 172
+  },
+  {
+    "speciesName": "BLISSEY",
+    "baseStats": {
+      "HP": 255,
+      "ATTACK": 10,
+      "DEFENSE": 10,
+      "SPECIAL_ATTACK": 75,
+      "SPECIAL_DEFENSE": 135,
+      "SPEED": 55
+    },
+    "type1": "NORMAL",
+    "type2": null,
+    "ability": "Natural Cure",
+    "experienceGroup": "FAST",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Pound"
+      },
+      {
+        "level": 4,
+        "moveName": "Growl"
+      },
+      {
+        "level": 7,
+        "moveName": "Tail Whip"
+      }
+    ],
+    "baseExperienceYield": 608
+  },
+  {
+    "speciesName": "RAIKOU",
+    "baseStats": {
+      "HP": 90,
+      "ATTACK": 85,
+      "DEFENSE": 75,
+      "SPECIAL_ATTACK": 115,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 115
+    },
+    "type1": "ELECTRIC",
+    "type2": null,
+    "ability": "Pressure",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 261
+  },
+  {
+    "speciesName": "ENTEI",
+    "baseStats": {
+      "HP": 115,
+      "ATTACK": 115,
+      "DEFENSE": 85,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 75,
+      "SPEED": 100
+    },
+    "type1": "FIRE",
+    "type2": null,
+    "ability": "Pressure",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 261
+  },
+  {
+    "speciesName": "SUICUNE",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 75,
+      "DEFENSE": 115,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 115,
+      "SPEED": 85
+    },
+    "type1": "WATER",
+    "type2": null,
+    "ability": "Pressure",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 261
+  },
+  {
+    "speciesName": "LARVITAR",
+    "baseStats": {
+      "HP": 50,
+      "ATTACK": 64,
+      "DEFENSE": 50,
+      "SPECIAL_ATTACK": 45,
+      "SPECIAL_DEFENSE": 50,
+      "SPEED": 41
+    },
+    "type1": "ROCK",
+    "type2": "GROUND",
+    "ability": "Guts",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      }
+    ],
+    "baseExperienceYield": 60
+  },
+  {
+    "speciesName": "PUPITAR",
+    "baseStats": {
+      "HP": 70,
+      "ATTACK": 84,
+      "DEFENSE": 70,
+      "SPECIAL_ATTACK": 65,
+      "SPECIAL_DEFENSE": 70,
+      "SPEED": 51
+    },
+    "type1": "ROCK",
+    "type2": "GROUND",
+    "ability": "Shed Skin",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 30,
+        "moveName": "Screech"
+      }
+    ],
+    "baseExperienceYield": 144
+  },
+  {
+    "speciesName": "TYRANITAR",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 134,
+      "DEFENSE": 110,
+      "SPECIAL_ATTACK": 95,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 61
+    },
+    "type1": "ROCK",
+    "type2": "DARK",
+    "ability": "Sand Stream",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Bite"
+      },
+      {
+        "level": 1,
+        "moveName": "Leer"
+      },
+      {
+        "level": 55,
+        "moveName": "Hyper Beam"
+      }
+    ],
+    "baseExperienceYield": 270
+  },
+  {
+    "speciesName": "LUGIA",
+    "baseStats": {
+      "HP": 106,
+      "ATTACK": 90,
+      "DEFENSE": 130,
+      "SPECIAL_ATTACK": 90,
+      "SPECIAL_DEFENSE": 154,
+      "SPEED": 110
+    },
+    "type1": "PSYCHIC",
+    "type2": "FLYING",
+    "ability": "Pressure",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Aeroblast"
+      }
+    ],
+    "baseExperienceYield": 306
+  },
+  {
+    "speciesName": "HO_OH",
+    "baseStats": {
+      "HP": 106,
+      "ATTACK": 130,
+      "DEFENSE": 90,
+      "SPECIAL_ATTACK": 110,
+      "SPECIAL_DEFENSE": 154,
+      "SPEED": 90
+    },
+    "type1": "FIRE",
+    "type2": "FLYING",
+    "ability": "Pressure",
+    "experienceGroup": "SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Sacred Fire"
+      }
+    ],
+    "baseExperienceYield": 306
+  },
+  {
+    "speciesName": "CELEBI",
+    "baseStats": {
+      "HP": 100,
+      "ATTACK": 100,
+      "DEFENSE": 100,
+      "SPECIAL_ATTACK": 100,
+      "SPECIAL_DEFENSE": 100,
+      "SPEED": 100
+    },
+    "type1": "PSYCHIC",
+    "type2": "GRASS",
+    "ability": "Natural Cure",
+    "experienceGroup": "MEDIUM_SLOW",
+    "learnset": [
+      {
+        "level": 1,
+        "moveName": "Leech Seed"
+      },
+      {
+        "level": 1,
+        "moveName": "Confusion"
+      },
+      {
+        "level": 1,
+        "moveName": "Recover"
+      },
+      {
+        "level": 1,
+        "moveName": "Heal Bell"
+      }
+    ],
+    "baseExperienceYield": 270
   }
 ]
+  

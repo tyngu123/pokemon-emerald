@@ -3,6 +3,7 @@
  <properties>
   <property name="encounterFile" value="data/encounters/route1.json"/>
   <property name="isInterior" type="bool" value="false"/>
+  <property name="music" value="littleroot.mp3"/>
   <property name="name" value="ALPHA TOWN"/>
  </properties>
  <tileset firstgid="1" source="exterior.tsx"/>

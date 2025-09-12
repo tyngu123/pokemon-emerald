@@ -68,8 +68,11 @@ public class PartyScreen extends ScreenAdapter {
 
     private enum SwapPhase { OUT, COMMIT, IN, DONE }
     private SwapPhase swapPhase = SwapPhase.DONE;
+    
+    private final BattleScreen battleScreen;
+    private final boolean isMandatorySwitch;
 
-    public PartyScreen(EmeraldGame game, GameScreen gameScreen, SpriteBatch batch, AssetsLoader assetLoader) {
+    public PartyScreen(EmeraldGame game, GameScreen gameScreen, SpriteBatch batch, AssetsLoader assetLoader, BattleScreen battleScreen, boolean isMandatorySwitch) {
         this.game = game;
         this.gameScreen = gameScreen;
         this.batch = batch;
@@ -77,6 +80,8 @@ public class PartyScreen extends ScreenAdapter {
         this.camera = new OrthographicCamera();
         this.viewport = new ExtendViewport(240, 160, camera);
         this.shapeRenderer = new ShapeRenderer();
+        this.battleScreen = battleScreen;
+        this.isMandatorySwitch = isMandatorySwitch;
 
         this.whiteFont = assetLoader.manager.get(assetLoader.PARTY_FONT_NAME + ".otf", BitmapFont.class);
         this.blackFont = assetLoader.manager.get(assetLoader.BAG_FONT_NAME + ".otf", BitmapFont.class);
@@ -86,6 +91,14 @@ public class PartyScreen extends ScreenAdapter {
         this.menuBoxPatch = new NinePatch(assetLoader.manager.get(assetLoader.BOX, Texture.class), 8, 8, 8, 8);
         this.background = new Texture(Gdx.files.internal("ui/party_bg.png"));
         this.playerParty = gameScreen.getPlayer().getParty();
+    }
+
+    public PartyScreen(EmeraldGame game, GameScreen gameScreen, SpriteBatch batch, AssetsLoader assetLoader) {
+        this(game, gameScreen, batch, assetLoader, null, false);
+    }
+    
+    public PartyScreen(EmeraldGame game, GameScreen gameScreen, SpriteBatch batch, AssetsLoader assetLoader, BattleScreen battleScreen) {
+        this(game, gameScreen, batch, assetLoader, battleScreen, false);
     }
 
     @Override
@@ -129,13 +142,31 @@ public class PartyScreen extends ScreenAdapter {
             return true;
         }
         if (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE) {
+            if (isMandatorySwitch) {
+                return true; 
+            }
+            if (battleScreen != null) {
+                game.setScreen(battleScreen);
+                return true;
+            }
             game.closePartyScreen();
             return true;
         }
         if (keycode == Input.Keys.Z) {
             if (selectedIndex == partySize) {
-                game.closePartyScreen();
+                if (isMandatorySwitch) {
+                    return true;
+                }
+                if (battleScreen != null) {
+                    game.setScreen(battleScreen);
+                } else {
+                    game.closePartyScreen();
+                }
             } else {
+                Pokemon selectedMon = playerParty.getPokemon(selectedIndex);
+                if (isMandatorySwitch && selectedMon.getCurrentHP() <= 0) {
+                    return true;
+                }
                 partyState = PartyState.ACTION_MENU;
                 selectedActionIndex = 0;
             }
@@ -161,21 +192,38 @@ public class PartyScreen extends ScreenAdapter {
         }
         if (keycode == Input.Keys.Z) {
             String selectedOption = actionMenuOptions.get(selectedActionIndex);
+            Pokemon selectedMon = playerParty.getPokemon(selectedIndex);
             
             switch (selectedOption) {
                 case "SUMMARY":
-                    // ## CHAMADA ATUALIZADA ##
-                    // Passa a party e o índice selecionado em vez de apenas o Pokémon.
                     game.openSummaryScreen(playerParty, selectedIndex);
                     break;
                 case "SWITCH":
-                    switchInitialIndex = selectedIndex;
-                    partyState = PartyState.SWITCHING;
+                    if (battleScreen != null) {
+                        if (selectedMon.getCurrentHP() <= 0 || selectedMon == battleScreen.getPlayerPokemon()) {
+                            return true;
+                        }
+                        battleScreen.playerSendsNewPokemon(selectedMon, !isMandatorySwitch);
+                        game.setScreen(battleScreen);
+                    } else {
+                        switchInitialIndex = selectedIndex;
+                        partyState = PartyState.SWITCHING;
+                    }
                     break;
                 case "CANCEL":
-                    partyState = PartyState.BROWSE;
+                    if (isMandatorySwitch) {
+                        return true;
+                    }
+                    if (battleScreen != null) {
+                        game.setScreen(battleScreen);
+                    } else {
+                        partyState = PartyState.BROWSE;
+                    }
                     break;
                 default:
+                    if (isMandatorySwitch) {
+                        return true;
+                    }
                     Gdx.app.log("PartyScreen", "Ação '" + selectedOption + "' não implementada.");
                     partyState = PartyState.BROWSE;
                     break;
@@ -473,7 +521,11 @@ public class PartyScreen extends ScreenAdapter {
         float boxX = 4f;
         float boxY = 0f;
         float boxHeight = 28f;
-        if (partyState == PartyState.BROWSE) {
+
+        if(isMandatorySwitch) {
+            text = "Choose a POKEMON.";
+            boxWidth = 160f;
+        } else if (partyState == PartyState.BROWSE) {
             text = "Choose a POKEMON.";
             boxWidth = 160f;
         } else if (partyState == PartyState.ACTION_MENU) {
@@ -493,6 +545,7 @@ public class PartyScreen extends ScreenAdapter {
         float boxHeight = 80f;
         float boxX = 150f;
         float boxY = 0f;
+        Color originalColor = blackFont.getColor().cpy();
 
         menuBoxPatch.draw(batch, boxX, boxY, boxWidth, boxHeight);
 
@@ -501,7 +554,30 @@ public class PartyScreen extends ScreenAdapter {
 
         for (int i = 0; i < actionMenuOptions.size; i++) {
             String optionText = actionMenuOptions.get(i);
+            boolean enabled = true;
+            
+            if (battleScreen != null) {
+                Pokemon selectedMon = playerParty.getPokemon(selectedIndex);
+                if (optionText.equals("SWITCH") && (selectedMon.getCurrentHP() <= 0 || selectedMon == battleScreen.getPlayerPokemon())) {
+                    enabled = false;
+                }
+            }
+            
+            if (isMandatorySwitch) {
+                if (!optionText.equals("SUMMARY") && !optionText.equals("SWITCH")) {
+                    enabled = false;
+                }
+            }
+
+            if (!enabled) {
+                blackFont.setColor(Color.GRAY);
+            }
+
             blackFont.draw(batch, optionText, boxX + 15f, boxY + boxHeight - verticalPadding - (i * itemSpacing));
+
+            if (!enabled) {
+                blackFont.setColor(originalColor);
+            }
         }
 
         layout.setText(blackFont, actionMenuOptions.get(selectedActionIndex));
@@ -516,7 +592,9 @@ public class PartyScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
-        Gdx.input.setInputProcessor(gameScreen.getInputHandler());
+        if(battleScreen == null) {
+            Gdx.input.setInputProcessor(gameScreen.getInputHandler());
+        }
     }
 
     @Override

@@ -1,0 +1,50 @@
+_wip__emerald_brendan_dppt_hgss_gen_4_sprite_sheet_by_hyo_oppa_deammik.png
+size: 20, 426
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+pma: false
+idle_down
+  bounds: 1, 263, 17, 26
+idle_left
+  bounds: 1, 53, 18, 23
+idle_right
+  bounds: 1, 78, 18, 23
+idle_up
+  bounds: 1, 375, 17, 24
+walk_down
+  bounds: 1, 203, 17, 28
+  index: 0
+walk_down
+  bounds: 1, 291, 17, 26
+  index: 1
+walk_down
+  bounds: 1, 233, 17, 28
+  index: 2
+walk_left
+  bounds: 1, 1, 18, 24
+  index: 0
+walk_left
+  bounds: 1, 103, 18, 23
+  index: 1
+walk_left
+  bounds: 1, 128, 18, 23
+  index: 2
+walk_right
+  bounds: 1, 153, 18, 23
+  index: 0
+walk_right
+  bounds: 1, 178, 18, 23
+  index: 1
+walk_right
+  bounds: 1, 27, 18, 24
+  index: 2
+walk_up
+  bounds: 1, 319, 17, 26
+  index: 0
+walk_up
+  bounds: 1, 401, 17, 24
+  index: 1
+walk_up
+  bounds: 1, 347, 17, 26
+  index: 2

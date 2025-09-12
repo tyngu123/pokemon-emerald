@@ -4,10 +4,6 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class BattleCalculator {
 
-    /**
-     * NOVO: Uma classe interna para retornar múltiplos resultados do cálculo de dano,
-     * incluindo o dano, se foi crítico e a efetividade.
-     */
     public static class DamageResult {
         public final int damage;
         public final boolean isCritical;
@@ -20,10 +16,8 @@ public class BattleCalculator {
         }
     }
 
-    /**
-     * MÉTODO ATUALIZADO: Agora retorna um objeto DamageResult completo.
-     */
     public static DamageResult calculateDamage(Pokemon attacker, Pokemon defender, Move move) {
+        // ... (código existente sem alterações)
         if (move.getCategory() == MoveCategory.STATUS) {
             return new DamageResult(0, false, 1.0f);
         }
@@ -61,5 +55,26 @@ public class BattleCalculator {
         }
         
         return new DamageResult(finalDamage, isCritical, typeEffectiveness);
+    }
+
+    /**
+     * NOVO MÉTODO: Calcula a quantidade de experiência ganha ao derrotar um oponente.
+     * Fórmula da Geração III-IV simplificada (a=1, t=1, e=1, p=1, f=1, v=1).
+     * @param victor O Pokémon que venceu.
+     * @param defeated O Pokémon que foi derrotado.
+     * @return A quantidade de pontos de experiência ganhos.
+     */
+    public static int calculateExperienceGained(Pokemon victor, Pokemon defeated) {
+        // a = 1 (batalha selvagem)
+        // t = 1 (não implementado)
+        // b = baseExperienceYield do derrotado
+        // e = 1 (sem Lucky Egg)
+        // L = nível do derrotado
+        // p, f, v = 1 (não implementado)
+        // s = 1 (número de participantes não-desmaiados que não excederam o nível 100)
+
+        // Fórmula: (a * t * b * e * L * p * f * v) / 7s
+        double experience = (1 * defeated.getBaseExperienceYield() * defeated.getLevel()) / 7.0;
+        return (int) Math.floor(experience);
     }
 }

@@ -11,12 +11,15 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import br.com.yago.emerald.tools.SoundManager;
+
 public class DialogueBox {
 
     private final BitmapFont font;
     private final NinePatch background;
     private final Texture arrow;
     private final GlyphLayout layout = new GlyphLayout();
+    private final SoundManager soundManager;
 
     private Array<String> pages = new Array<>();
     private int currentPageIndex = 0;
@@ -31,10 +34,11 @@ public class DialogueBox {
     private State currentState = State.HIDDEN;
     private float indicatorTimer = 0f;
 
-    public DialogueBox(BitmapFont font, Texture bg9, Texture arrow) {
+    public DialogueBox(BitmapFont font, Texture bg9, Texture arrow, SoundManager soundManager) {
         this.font  = font;
         this.arrow = arrow;
         this.background = new NinePatch(bg9, 8, 8, 8, 8);
+        this.soundManager = soundManager;
     }
 
     public void showText(String fullText) {
@@ -55,6 +59,8 @@ public class DialogueBox {
 
     private void handleTyping(float delta) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            // ## SOM REMOVIDO DAQUI ##
+            // O som de clique não toca mais ao adiantar o texto.
             visibleText  = currentPageText;
             charIndex    = currentPageText.length();
             currentState = State.WAITING;
@@ -74,6 +80,9 @@ public class DialogueBox {
     private void handleWaiting(float delta) {
         indicatorTimer += delta;
         if (Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+            // ## SOM MANTIDO AQUI ##
+            // O som de clique toca ao confirmar a leitura e ir para a próxima página.
+            soundManager.playClickSfx();
             advancePage();
         }
     }
@@ -122,15 +131,9 @@ public class DialogueBox {
                 float arrowX = textX + lastRun.width + 3f;
                 float baseY = (textY - layout.height + font.getCapHeight() / 2f) - (arrowSize / 2f);
 
-                // ## LÓGICA DA ANIMAÇÃO SUAVE ##
-                // 1. Define a velocidade e a altura da oscilação.
                 float speed = 8f;
                 float amplitude = 2f;
-                
-                // 2. Calcula o deslocamento vertical usando a função seno.
                 float yOffset = (float) Math.sin(indicatorTimer * speed) * amplitude;
-
-                // 3. Aplica o deslocamento à posição Y base da seta.
                 float arrowY = baseY + yOffset;
 
                 batch.draw(arrow, arrowX, arrowY, arrowSize, arrowSize);

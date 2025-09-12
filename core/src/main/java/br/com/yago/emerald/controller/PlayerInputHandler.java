@@ -50,10 +50,6 @@ public class PlayerInputHandler extends InputAdapter {
         }
     }
     
-    /**
-     * ## NOVO MÉTODO ##
-     * Limpa a lista de direções pressionadas para evitar movimento "preso".
-     */
     public void clearPressedKeys() {
         pressedDirections.clear();
     }
@@ -81,16 +77,19 @@ public class PlayerInputHandler extends InputAdapter {
                     if ("POKEMON".equals(selectedOption)) {
                         game.openPartyScreen();
                     } 
-                    if ("BAG".equals(selectedOption)) {
+                    else if ("BAG".equals(selectedOption)) {
                         game.openBagScreen();
                     } 
                     else if ("EXIT".equals(selectedOption)) {
+						game.getSoundManager().playClickSfx(); // Ação de fechar o menu
                         menu.toggle();
                         player.setLocked(menu.isVisible());
                     }
+                    // Ações não implementadas não tocarão som
                     break;
                 case Input.Keys.ENTER:
                 case Input.Keys.X:
+					game.getSoundManager().playClickSfx(); // Ação de fechar o menu
                     menu.toggle();
                     player.setLocked(menu.isVisible());
                     break;
@@ -103,6 +102,7 @@ public class PlayerInputHandler extends InputAdapter {
 
             if (keycode == Input.Keys.ENTER) {
                 if (!screen.getScriptRunner().isActive() && screen.getDialogueBox().isFinished()) {
+                    game.getSoundManager().playClickSfx(); // Ação de abrir o menu
                     menu.toggle();
                     player.setLocked(menu.isVisible());
                     return true;
@@ -111,6 +111,7 @@ public class PlayerInputHandler extends InputAdapter {
 
             if (keycode == Input.Keys.Z) {
                 if (!screen.getScriptRunner().isActive()) {
+                    // O som agora é tocado pelo ScriptRunner se a interação for válida
                     player.requestInteraction();
                 }
                 return true;

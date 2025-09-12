@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-up" width="37" height="20" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" source="../tilesets/newtile.tsx"/>
+ <layer id="1" name="floor" width="37" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6Grf9OTsQ8krJqqqvryAMhoAuU=
+  </data>
+ </layer>
+ <layer id="3" name="trees" width="37" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt0LENACAQw8BMAkwA7D8dX1K6g8InpY88k6zazj9ardfG4x+3GTsRdmLsxNiJsRNjJ8ZOjJ0YOzEH8OEJJQ==
+  </data>
+ </layer>
+ <layer id="2" name="collision" width="37" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjEBADAMwKAKmn99O2ogZw9QwMx6c49T49Q4NU6NU+PUODVOjVNz6fQBzxwDcQ==
+  </data>
+ </layer>
+</map>

@@ -7,17 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 
-/**
- * Executa uma sequência de comandos de script em ordem. Trava o initiator e o
- * jogador enquanto o script está ativo e libera quando termina. Aplica lógica de
- * encadeamento de script e substituição (nextScript) para scripts run-once.
- */
 public class ScriptRunner {
     private final GameScreen screen;
     private final Queue<ScriptCommand> commandQueue = new Queue<>();
     private ScriptCommand currentCommand;
     private Character initiator;
-    private Runnable onFinish; // callback opcional
+    private Runnable onFinish;
     private ScriptDefinition currentDefinition;
     private final ScriptLoader loader;
 
@@ -26,22 +21,16 @@ public class ScriptRunner {
         this.loader = new ScriptLoader();
     }
 
-    /**
-     * Conveniência: inicia o script simples (sem metadado).
-     */
     public void run(Character initiator, Array<ScriptCommand> commands) {
         runScript(commands, initiator, null);
     }
 
-    /**
-     * Inicia execução de comandos avulsos. Compatível legado.
-     */
     public void runScript(Array<ScriptCommand> commands, Character initiator, Runnable onFinish) {
         if (commands == null || commands.size == 0) {
             Gdx.app.log("ScriptRunner", "runScript chamado com lista vazia de comandos, ignorando.");
             return;
         }
-        this.currentDefinition = null; // não há definição completa aqui
+        this.currentDefinition = null;
         this.initiator = initiator;
         this.onFinish = onFinish;
         commandQueue.clear();
@@ -53,9 +42,6 @@ public class ScriptRunner {
         nextCommand();
     }
 
-    /**
-     * Roda uma definição completa (com runMode/nextScript).
-     */
     public void runDefinition(Character initiator, ScriptDefinition definition, Runnable onFinish) {
         if (definition == null) {
             Gdx.app.log("ScriptRunner", "runDefinition recebeu definition null, abortando.");
@@ -72,7 +58,6 @@ public class ScriptRunner {
             return;
         }
 
-        // se é ONCE e já foi executado, ignora
         if (initiator instanceof NPC
                 && definition.getRunMode() == ScriptDefinition.RunMode.ONCE
                 && ((NPC) initiator).hasConsumedScript(definition.getName())) {
@@ -99,10 +84,6 @@ public class ScriptRunner {
         nextCommand();
     }
 
-    /**
-     * Conveniência para NPC: dispara o script dele corretamente usando definição,
-     * aplicando runMode=ONCE e swap de nextScript.
-     */
     public void triggerNpcScript(NPC npc) {
         triggerNpcScript(npc, null);
     }
@@ -123,6 +104,10 @@ public class ScriptRunner {
             Gdx.app.error("ScriptRunner", "scriptFile do NPC não existe: " + scriptFile + " para NPC " + npc.getId());
             return;
         }
+        
+        // ## ADICIONADO: Toca o som de clique aqui, pois sabemos que a interação foi bem-sucedida ##
+        screen.getGame().getSoundManager().playClickSfx();
+        
         ScriptDefinition def = loader.loadScriptDefinition(scriptFile);
         runDefinition(npc, def, onFinish);
     }
@@ -176,7 +161,6 @@ public class ScriptRunner {
         }
     }
     
- // Em ScriptRunner.java
     public ScriptLoader getLoader() {
         return loader;
     }

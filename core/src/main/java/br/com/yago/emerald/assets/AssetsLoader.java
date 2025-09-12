@@ -4,6 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound; // ## IMPORT ADICIONADO ##
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
@@ -14,7 +16,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.Hinting;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
-
 import br.com.yago.emerald.tools.AnimationAssetLoader;
 
 public class AssetsLoader {
@@ -37,6 +38,12 @@ public class AssetsLoader {
     public final String BAG_UI = "ui/bag_ui.png";
     public final String SUMMARY_UI = "ui/summary_ui.png";
     public final String BATTLE_BG = "ui/battle_bg.png";
+
+    // Sounds
+    public final String WILD_POKEMON_MUSIC = "sounds/battle/wildpokemon.mp3";
+    // ## NOVOS SFX ADICIONADOS ##
+    public final String SFX_CLICK = "sounds/sfx/click.wav";
+    public final String SFX_ENTER_MAP = "sounds/sfx/entering.wav";
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -62,7 +69,6 @@ public class AssetsLoader {
         manager.setLoader(BitmapFont.class, ".otf", new FreetypeFontLoader(resolver));
         manager.setLoader(Animation.class, ".gif", new AnimationAssetLoader(resolver));
         
-        // ## CÓDIGO QUE FALTAVA ADICIONADO AQUI ##
         FreetypeFontLoader.FreeTypeFontLoaderParameter menuFontParams = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         menuFontParams.fontFileName = FONT_FILE;
         menuFontParams.fontParameters.size = 16;
@@ -148,6 +154,12 @@ public class AssetsLoader {
         manager.load(BAG_UI, Texture.class, textureParams);
         manager.load(SUMMARY_UI, Texture.class, textureParams);
         manager.load(BATTLE_BG, Texture.class, textureParams);
+
+        // Music
+        manager.load(WILD_POKEMON_MUSIC, Music.class);
+        // ## CARREGANDO NOVOS SFX ##
+        manager.load(SFX_CLICK, Sound.class);
+        manager.load(SFX_ENTER_MAP, Sound.class);
         
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);

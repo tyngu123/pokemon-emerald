@@ -74,9 +74,10 @@ public class ScriptLoader {
             return new WarpCommand(null);
         case "ANIMATE_DOOR":
             return new AnimateDoorCommand(null);
-        // ## NOVO COMANDO REGISTRADO ##
         case "SET_VISIBILITY":
             return new SetVisibilityCommand();
+		case "PRE_BATTLE_ANIM":
+			return new PreBattleAnimCommand();
 		default:
 			Gdx.app.error("ScriptLoader", "Tipo desconhecido: " + type);
 			return null;

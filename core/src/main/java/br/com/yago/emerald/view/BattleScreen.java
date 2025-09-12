@@ -18,11 +18,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -32,7 +32,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -55,6 +54,7 @@ public class BattleScreen extends ScreenAdapter {
     private final AtlasFont statusFont;
     private final GlyphLayout layout = new GlyphLayout();
     private final AssetManager assetManager;
+    private final AssetsLoader assetLoader;
     private final Texture background;
     private final TextureRegion battleTextbox;
     private final Texture dialogueArrow;
@@ -64,6 +64,7 @@ public class BattleScreen extends ScreenAdapter {
     private final HealthBar playerHealthBar;
     private final HealthBar enemyHealthBar;
     private final Animation<TextureRegion> playerThrowAnimation;
+    private final FadeManager fadeManager; // ## ADICIONADO ##
 
     private final TextureRegion battleActionUi;
     private final TextureRegion actionArrow;
@@ -71,7 +72,8 @@ public class BattleScreen extends ScreenAdapter {
     private final TextureAtlas typeAtlas;
 
     private final Pokemon wildPokemon;
-    private final Pokemon playerPokemon;
+    private Pokemon playerPokemon;
+    private final Party playerParty;
     private Animation<TextureRegion> playerPokemonAnimation;
     private Animation<TextureRegion> wildPokemonAnimation;
     private float animationTimer = 0f;
@@ -98,8 +100,15 @@ public class BattleScreen extends ScreenAdapter {
         ACTION_SELECTION, MOVE_SELECTION,
         TURN_PROCESSING,
         BATTLE_MESSAGE,
-        HP_ANIMATING, // Novo estado para a animação da vida
+        HP_ANIMATING,
         POKEMON_FAINTING,
+        EXP_MESSAGE,
+        EXP_ANIMATING_FILL,
+        LEVEL_UP_MESSAGE,
+        LEVEL_UP_PAUSE,
+        SHOWING_STATS,
+        WAIT_FOR_STATS_DISMISS,
+        PLAYER_SWITCH_OUT, PLAYER_SWITCH_IN,
         WAIT_FOR_END
     }
     private BattleState currentState;
@@ -123,12 +132,26 @@ public class BattleScreen extends ScreenAdapter {
     private final Queue<String> messageQueue = new Queue<>();
     private Pokemon faintedPokemon = null;
 
-    // Variáveis para controlar a animação do HP
     private Pokemon hpAnimTargetPokemon;
     private float hpAnimStart;
     private float hpAnimEnd;
     private float hpAnimTimer;
-    private final float HP_ANIM_DURATION = 0.7f; // Duração da animação em segundos
+    private final float HP_ANIM_DURATION = 0.7f;
+
+    private float expAnimStartPercentage;
+    private float expAnimEndPercentage;
+    private float expAnimTimer;
+    private final float EXP_ANIM_DURATION = 1.2f;
+    private int expGained;
+
+    private final Queue<Pokemon.LevelUpResult> levelUpQueue = new Queue<>();
+    private Pokemon.LevelUpResult currentLevelUpStats;
+    private final NinePatch statBoxPatch;
+    private boolean statsBoxVisible = false;
+
+    private Pokemon pokemonToSwitchIn;
+    private boolean isVoluntarySwitch = false;
+
 
     private static class TurnAction {
         Pokemon attacker;
@@ -148,6 +171,9 @@ public class BattleScreen extends ScreenAdapter {
         this.gameScreen = gameScreen;
         this.batch = batch;
         this.shapeRenderer = new ShapeRenderer();
+        this.playerParty = playerParty;
+        this.assetLoader = assetLoader;
+        this.fadeManager = new FadeManager(); // ## ADICIONADO ##
         
         this.battleCamera = new OrthographicCamera();
         this.battleViewport = new ExtendViewport(240, 160, battleCamera);
@@ -174,10 +200,10 @@ public class BattleScreen extends ScreenAdapter {
         this.battleFightUi = battleAtlas.findRegion("move_action_ui");
         this.typeAtlas = assetManager.get(assetLoader.TYPE_ATLAS, TextureAtlas.class);
 
-        actionArrowPositions.add(new Vector2(128, 25));
-        actionArrowPositions.add(new Vector2(185, 25));
-        actionArrowPositions.add(new Vector2(128, 9));
-        actionArrowPositions.add(new Vector2(185, 9));
+        actionArrowPositions.add(new Vector2(128, 25)); // FIGHT
+        actionArrowPositions.add(new Vector2(185, 25)); // BAG
+        actionArrowPositions.add(new Vector2(128, 9));  // POKEMON
+        actionArrowPositions.add(new Vector2(185, 9));  // RUN
         
         movePositions.add(new Vector2(10, 40));
         movePositions.add(new Vector2(95, 40));
@@ -195,9 +221,10 @@ public class BattleScreen extends ScreenAdapter {
         
         this.playerHealthBar = new HealthBar(48, 3);
         this.enemyHealthBar = new HealthBar(48, 3);
+        this.statBoxPatch = new NinePatch(assetManager.get(assetLoader.BOX, Texture.class), 8, 8, 8, 8);
         
         this.wildPokemon = wildPokemon;
-        this.playerPokemon = playerParty.getPartySize() > 0 ? playerParty.getPokemon(0) : null;
+        this.playerPokemon = playerParty.getFirstAvailablePokemon();
         
         this.playerStatusOffScreenPos = new Vector2(uiViewport.getWorldWidth(), playerStatusOnScreenPos.y);
         this.playerStatusCurrentPos.set(playerStatusOffScreenPos);
@@ -214,7 +241,7 @@ public class BattleScreen extends ScreenAdapter {
     }
     
     private void startGoMessage() {
-        setMessage("Vai! " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.GO_MESSAGE_TYPING);
+        setMessage("Go! " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.GO_MESSAGE_TYPING);
     }
     
     private void startActionMessage() {
@@ -300,12 +327,18 @@ public class BattleScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        // ## ADICIONADO: Inicia o fade in quando a tela é exibida ##
+        fadeManager.fadeIn(0.5f);
+        
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
                 if (keycode != Input.Keys.Z && keycode != Input.Keys.X && keycode != Input.Keys.UP && keycode != Input.Keys.DOWN && keycode != Input.Keys.LEFT && keycode != Input.Keys.RIGHT && keycode != Input.Keys.ESCAPE) return false;
 
-                if (currentState == BattleState.TURN_PROCESSING || currentState == BattleState.POKEMON_FAINTING || currentState == BattleState.HP_ANIMATING) {
+                if (currentState == BattleState.TURN_PROCESSING || currentState == BattleState.POKEMON_FAINTING ||
+                    currentState == BattleState.HP_ANIMATING || currentState == BattleState.EXP_ANIMATING_FILL ||
+                    currentState == BattleState.SHOWING_STATS || currentState == BattleState.PLAYER_SWITCH_OUT ||
+                    currentState == BattleState.PLAYER_SWITCH_IN) {
                     return true;
                 }
                 
@@ -320,7 +353,7 @@ public class BattleScreen extends ScreenAdapter {
                         if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                             visibleMessage = fullMessage;
                             charIndex = fullMessage.length();
-                            currentState = BattleState.values()[currentState.ordinal() + 1];
+                            currentState = BattleState.GO_MESSAGE_WAIT;
                         }
                         return true;
 
@@ -330,34 +363,105 @@ public class BattleScreen extends ScreenAdapter {
                                 visibleMessage = fullMessage;
                                 charIndex = fullMessage.length();
                             } else {
-                                TurnAction action = turnQueue.first();
-                                if (action.result == null) {
-                                    action.result = BattleCalculator.calculateDamage(action.attacker, action.defender, action.move);
-                                    
-                                    hpAnimTargetPokemon = action.defender;
-                                    hpAnimStart = hpAnimTargetPokemon.getCurrentHP();
-                                    action.defender.takeDamage(action.result.damage);
-                                    hpAnimEnd = hpAnimTargetPokemon.getCurrentHP();
-                                    hpAnimTimer = 0f;
-                                    currentState = BattleState.HP_ANIMATING;
-
-                                    if (action.result.isCritical) messageQueue.addLast("A critical hit!");
-                                    if (action.result.effectiveness > 1.5f) messageQueue.addLast("It's super effective!");
-                                    if (action.result.effectiveness < 1.0f && action.result.effectiveness > 0) messageQueue.addLast("It's not very effective...");
-                                } else {
-                                    if (!messageQueue.isEmpty()) {
-                                        setMessage(messageQueue.removeFirst(), BattleState.BATTLE_MESSAGE);
-                                    } else {
-                                        if (action.defender.getCurrentHP() <= 0) {
-                                            faintedPokemon = action.defender;
-                                            currentState = BattleState.POKEMON_FAINTING;
-                                            faintAnimationTimer = 0f;
+                                if (fullMessage.contains("fainted!")) {
+                                    if (faintedPokemon == wildPokemon && playerPokemon.getCurrentHP() > 0) {
+                                        expGained = BattleCalculator.calculateExperienceGained(playerPokemon, wildPokemon);
+                                        String expMessage = playerPokemon.getNickname().toUpperCase() + " gained\n" + expGained + " EXP. Points!";
+                                        setMessage(expMessage, BattleState.EXP_MESSAGE);
+                                    } else if (faintedPokemon == playerPokemon) {
+                                        Pokemon nextPokemon = playerParty.getFirstAvailablePokemon();
+                                        if (nextPokemon != null) {
+                                            game.setScreen(new PartyScreen(game, gameScreen, batch, assetLoader, BattleScreen.this, true));
                                         } else {
-                                            turnQueue.removeFirst();
-                                            processNextTurnAction();
+                                            setMessage("You have no more POKEMON to fight!", BattleState.WAIT_FOR_END);
+                                        }
+                                    } else {
+                                        currentState = BattleState.WAIT_FOR_END;
+                                    }
+                                } else {
+                                    TurnAction action = turnQueue.first();
+                                    if (action.result == null) {
+                                        action.result = BattleCalculator.calculateDamage(action.attacker, action.defender, action.move);
+                                        
+                                        hpAnimTargetPokemon = action.defender;
+                                        hpAnimStart = hpAnimTargetPokemon.getCurrentHP();
+                                        action.defender.takeDamage(action.result.damage);
+                                        hpAnimEnd = hpAnimTargetPokemon.getCurrentHP();
+                                        hpAnimTimer = 0f;
+                                        currentState = BattleState.HP_ANIMATING;
+
+                                        if (action.result.isCritical) messageQueue.addLast("A critical hit!");
+                                        if (action.result.effectiveness > 1.5f) messageQueue.addLast("It's super effective!");
+                                        if (action.result.effectiveness < 1.0f && action.result.effectiveness > 0) messageQueue.addLast("It's not very effective...");
+                                    } else {
+                                        if (!messageQueue.isEmpty()) {
+                                            setMessage(messageQueue.removeFirst(), BattleState.BATTLE_MESSAGE);
+                                        } else {
+                                            if (action.defender.getCurrentHP() <= 0) {
+                                                faintedPokemon = action.defender;
+                                                currentState = BattleState.POKEMON_FAINTING;
+                                                faintAnimationTimer = 0f;
+                                            } else {
+                                                turnQueue.removeFirst();
+                                                processNextTurnAction();
+                                            }
                                         }
                                     }
                                 }
+                            }
+                        }
+                        return true;
+
+                    case EXP_MESSAGE:
+                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
+                            if (charIndex < fullMessage.length()) {
+                                visibleMessage = fullMessage;
+                                charIndex = fullMessage.length();
+                            } else {
+                                int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+                                int expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
+                                int expNeededForNextLevel = ExperienceCalculator.getExpToNextLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+                                expAnimStartPercentage = (expNeededForNextLevel > 0) ? (float)expInCurrentLevel / expNeededForNextLevel : 1f;
+
+                                Array<Pokemon.LevelUpResult> levelUpResults = playerPokemon.gainExperience(expGained);
+                                levelUpQueue.clear();
+                                for(Pokemon.LevelUpResult res : levelUpResults) {
+                                    levelUpQueue.addLast(res);
+                                }
+
+                                if (levelUpQueue.size > 0) {
+                                    expAnimEndPercentage = 1f;
+                                } else {
+                                   totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+                                   expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
+                                   expNeededForNextLevel = playerPokemon.getExperienceToNextLevel();
+                                   expAnimEndPercentage = (expNeededForNextLevel > 0) ? (float)expInCurrentLevel / expNeededForNextLevel : 1f;
+                                }
+                                currentState = BattleState.EXP_ANIMATING_FILL;
+                                expAnimTimer = 0f;
+                            }
+                        }
+                        return true;
+                    
+                    case LEVEL_UP_MESSAGE:
+                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
+                             if (charIndex < fullMessage.length()) {
+                                visibleMessage = fullMessage;
+                                charIndex = fullMessage.length();
+                            } else {
+                                currentState = BattleState.LEVEL_UP_PAUSE;
+                            }
+                        }
+                        return true;
+
+                    case WAIT_FOR_STATS_DISMISS:
+                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
+                            statsBoxVisible = false;
+                            currentLevelUpStats = null;
+                            if (levelUpQueue.size > 0) {
+                                currentState = BattleState.LEVEL_UP_PAUSE;
+                            } else {
+                                currentState = BattleState.WAIT_FOR_END;
                             }
                         }
                         return true;
@@ -368,8 +472,13 @@ public class BattleScreen extends ScreenAdapter {
 
                     case GO_MESSAGE_WAIT:
                         if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                            currentState = BattleState.PLAYER_THROWING;
-                            playerSpriteTimer = 0f;
+                            if (isVoluntarySwitch) {
+                                currentState = BattleState.PLAYER_SWITCH_IN;
+                                transitionTimer = 0f;
+                            } else {
+                                currentState = BattleState.PLAYER_THROWING;
+                                playerSpriteTimer = 0f;
+                            }
                         }
                         return true;
                         
@@ -403,10 +512,12 @@ public class BattleScreen extends ScreenAdapter {
                 if (selectedActionIndex == 2) selectedActionIndex = 3;
                 return true;
             case Input.Keys.Z:
-                if (selectedActionIndex == 0) {
+                if (selectedActionIndex == 0) { // FIGHT
                     sortAndArrangeMoves();
                     currentState = BattleState.MOVE_SELECTION;
                     selectedMoveIndex = lastSelectedMoveIndex;
+                } else if (selectedActionIndex == 2) { // POKEMON
+                    game.openPartyScreen(this);
                 } else {
                     Gdx.app.log("BattleScreen", "Ação não implementada: " + selectedActionIndex);
                 }
@@ -496,8 +607,7 @@ public class BattleScreen extends ScreenAdapter {
             case HP_ANIMATING:
                 hpAnimTimer += delta;
                 if (hpAnimTimer >= HP_ANIM_DURATION) {
-                    currentState = BattleState.BATTLE_MESSAGE;
-                    if (messageQueue.isEmpty()) { // Se não houver mais mensagens, verifique o desmaio ou o próximo turno
+                    if (messageQueue.isEmpty()) {
                         TurnAction action = turnQueue.first();
                         if (action.defender.getCurrentHP() <= 0) {
                             faintedPokemon = action.defender;
@@ -507,7 +617,7 @@ public class BattleScreen extends ScreenAdapter {
                             turnQueue.removeFirst();
                             processNextTurnAction();
                         }
-                    } else { // Se houver mensagens, exiba a próxima
+                    } else {
                         setMessage(messageQueue.removeFirst(), BattleState.BATTLE_MESSAGE);
                     }
                 }
@@ -516,7 +626,68 @@ public class BattleScreen extends ScreenAdapter {
                 faintAnimationTimer += delta;
                 float duration = 0.6f;
                 if (faintAnimationTimer >= duration) {
-                    setMessage(getAttackerName(faintedPokemon) + " fainted!", BattleState.WAIT_FOR_END);
+                    setMessage(getAttackerName(faintedPokemon) + " fainted!", BattleState.BATTLE_MESSAGE);
+                }
+                break;
+            case EXP_ANIMATING_FILL:
+                expAnimTimer += delta;
+                if (expAnimTimer >= EXP_ANIM_DURATION) {
+                    if (levelUpQueue.size > 0) {
+                        Pokemon.LevelUpResult nextLevel = levelUpQueue.first();
+                        setMessage(playerPokemon.getNickname().toUpperCase() + " grew to\nLV. " + nextLevel.newLevel + "!", BattleState.LEVEL_UP_MESSAGE);
+                    } else {
+                        currentState = BattleState.WAIT_FOR_END;
+                    }
+                }
+                break;
+            case LEVEL_UP_MESSAGE:
+                if (charIndex >= fullMessage.length()) {
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.Z) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
+                         currentState = BattleState.LEVEL_UP_PAUSE;
+                    }
+                }
+                break;
+            case LEVEL_UP_PAUSE:
+                currentLevelUpStats = levelUpQueue.removeFirst();
+                expAnimTimer = 0f;
+                if (levelUpQueue.size > 0) {
+                    expAnimStartPercentage = 0f;
+                    expAnimEndPercentage = 1f;
+                    currentState = BattleState.EXP_ANIMATING_FILL;
+                } else {
+                    currentState = BattleState.SHOWING_STATS;
+                }
+                break;
+            case SHOWING_STATS:
+                expAnimTimer += delta;
+                if (expAnimTimer > 0.2f) {
+                    statsBoxVisible = true;
+                    currentState = BattleState.WAIT_FOR_STATS_DISMISS;
+                }
+                break;
+            case PLAYER_SWITCH_OUT:
+                transitionTimer += delta * transitionSpeed * 1.5f;
+                pokemonCurrentPos.interpolate(playerOffScreenPos, transitionTimer, Interpolation.exp5In);
+                if (transitionTimer >= 1f) {
+                    playerPokemon = pokemonToSwitchIn;
+                    loadPlayerPokemonAnimation();
+                    pokemonToSwitchIn = null;
+                    startGoMessage();
+                }
+                break;
+            case PLAYER_SWITCH_IN:
+                transitionTimer += delta * transitionSpeed * 1.5f;
+                pokemonCurrentPos.interpolate(playerOnScreenPos, transitionTimer, Interpolation.exp5Out);
+                if(transitionTimer >= 1f) {
+                    if (isVoluntarySwitch) {
+                        isVoluntarySwitch = false; 
+                        turnQueue.clear();
+                        Move enemyMove = wildPokemon.getMoves().random();
+                        turnQueue.addLast(new TurnAction(wildPokemon, playerPokemon, enemyMove));
+                        processNextTurnAction();
+                    } else {
+                        startActionMessage();
+                    }
                 }
                 break;
             default:
@@ -525,12 +696,13 @@ public class BattleScreen extends ScreenAdapter {
     }
 
     private void updateDialogue(float delta) {
-        // Typing logic
         if (charIndex < fullMessage.length()) {
             boolean isTypingState = currentState == BattleState.WILD_INTRO_TYPING || 
                                     currentState == BattleState.GO_MESSAGE_TYPING ||
                                     currentState == BattleState.ACTION_SELECTION ||
                                     currentState == BattleState.BATTLE_MESSAGE ||
+                                    currentState == BattleState.EXP_MESSAGE ||
+                                    currentState == BattleState.LEVEL_UP_MESSAGE ||
                                     currentState == BattleState.WAIT_FOR_END;
             if (isTypingState) {
                 typewriterTimer += delta;
@@ -540,18 +712,14 @@ public class BattleScreen extends ScreenAdapter {
                 }
             }
         } 
-        // Post-typing logic
         else {
-            // Transition state if needed
             if (currentState == BattleState.WILD_INTRO_TYPING) {
                 currentState = BattleState.WILD_INTRO_WAIT;
             } else if (currentState == BattleState.GO_MESSAGE_TYPING) {
                 currentState = BattleState.GO_MESSAGE_WAIT;
             }
 
-            // Animate indicator in wait states
             if (currentState == BattleState.WILD_INTRO_WAIT || 
-                currentState == BattleState.GO_MESSAGE_WAIT ||
                 currentState == BattleState.WAIT_FOR_END) {
                 indicatorTimer += delta;
             }
@@ -569,6 +737,7 @@ public class BattleScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         animationTimer += delta;
+        fadeManager.update(delta); // ## ADICIONADO ##
         updateDialogue(delta);
         updateCamera(delta);
         updateStateTransitions(delta);
@@ -602,7 +771,7 @@ public class BattleScreen extends ScreenAdapter {
                     TextureRegion frame = wildPokemonAnimation.getKeyFrame(animationTimer, true);
                     wildPokemonRenderPos.set(enemyPlatformPos.x - frame.getRegionWidth() / 2f, enemyPlatformCurrentY + 10);
                     batch.draw(frame, wildPokemonRenderPos.x, wildPokemonRenderPos.y);
-                } else if (currentState == BattleState.POKEMON_FAINTING || currentState == BattleState.WAIT_FOR_END) {
+                } else {
                     TextureRegion frame = wildPokemonAnimation.getKeyFrame(animationTimer, true);
                     float progress = faintAnimationTimer / 0.6f;
                     float y = Interpolation.pow2In.apply(wildPokemonRenderPos.y, -150, progress);
@@ -613,11 +782,13 @@ public class BattleScreen extends ScreenAdapter {
             float playerPlatformCurrentY = playerOnScreenPos.y + playerHoverY;
             batch.draw(platform, playerOnScreenPos.x - platform.getRegionWidth() / 2f, playerPlatformCurrentY);
 
-            if (currentState.ordinal() < BattleState.TRANSITION_OUT.ordinal()) {
-                TextureRegion frame = playerThrowAnimation.getKeyFrame(playerSpriteTimer, false);
-                float trainerX = playerCurrentPos.x - frame.getRegionWidth() / 2f;
-                float trainerY = playerPlatformCurrentY + 4;
-                batch.draw(frame, trainerX, trainerY);
+            if (currentState.ordinal() < BattleState.TRANSITION_OUT.ordinal() || currentState == BattleState.PLAYER_SWITCH_OUT) {
+                 if (currentState != BattleState.PLAYER_SWITCH_OUT) {
+                    TextureRegion frame = playerThrowAnimation.getKeyFrame(playerSpriteTimer, false);
+                    float trainerX = playerCurrentPos.x - frame.getRegionWidth() / 2f;
+                    float trainerY = playerPlatformCurrentY + 4;
+                    batch.draw(frame, trainerX, trainerY);
+                 }
             } else {
                 if (playerPokemonAnimation != null) {
                      if(faintedPokemon != playerPokemon) {
@@ -625,7 +796,7 @@ public class BattleScreen extends ScreenAdapter {
                         float pokeX = pokemonCurrentPos.x - frame.getRegionWidth() / 2f;
                         float pokeY = pokemonCurrentPos.y + playerPlatformCurrentY - playerOnScreenPos.y + 4;
                         batch.draw(frame, pokeX, pokeY);
-                    } else if(currentState == BattleState.POKEMON_FAINTING || currentState == BattleState.WAIT_FOR_END) {
+                    } else {
                          TextureRegion frame = playerPokemonAnimation.getKeyFrame(animationTimer, true);
                          float pokeX = pokemonCurrentPos.x - frame.getRegionWidth() / 2f;
                          float initialY = pokemonCurrentPos.y + playerPlatformCurrentY - playerOnScreenPos.y + 4;
@@ -641,7 +812,7 @@ public class BattleScreen extends ScreenAdapter {
         uiViewport.apply();
         batch.setProjectionMatrix(uiCamera.combined);
         
-        if (playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal() && faintedPokemon != playerPokemon && currentState != BattleState.WAIT_FOR_END) {
+        if (playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal() && faintedPokemon != playerPokemon) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             
             float x = playerStatusCurrentPos.x; float y = playerStatusCurrentPos.y;
@@ -651,10 +822,16 @@ public class BattleScreen extends ScreenAdapter {
             shapeRenderer.setColor(Color.GRAY);
             shapeRenderer.rect(barX, barY, barWidth, barHeight);
             
-            int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
-            int expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
-            int expNeededForNextLevel = playerPokemon.getExperienceToNextLevel();
-            float progressPercentage = (expNeededForNextLevel > 0) ? (float) expInCurrentLevel / expNeededForNextLevel : 0f;
+            float progressPercentage;
+            if(currentState == BattleState.EXP_ANIMATING_FILL) {
+                float progress = Math.min(1f, expAnimTimer / EXP_ANIM_DURATION);
+                progressPercentage = Interpolation.linear.apply(expAnimStartPercentage, expAnimEndPercentage, progress);
+            } else {
+                int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+                int expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
+                int expNeededForNextLevel = playerPokemon.getExperienceToNextLevel();
+                progressPercentage = (expNeededForNextLevel > 0) ? (float) expInCurrentLevel / expNeededForNextLevel : 0f;
+            }
             
             shapeRenderer.setColor(Color.CYAN);
             shapeRenderer.rect(barX, barY, barWidth * progressPercentage, barHeight);
@@ -681,7 +858,7 @@ public class BattleScreen extends ScreenAdapter {
             statusFont.draw(batch, "" + wildPokemon.getLevel(), x + 74, y + 16);
         }
 
-        if (statusPlayer != null && playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal() && faintedPokemon != playerPokemon && currentState != BattleState.WAIT_FOR_END) {
+        if (statusPlayer != null && playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal() && faintedPokemon != playerPokemon) {
             float x = playerStatusCurrentPos.x; float y = playerStatusCurrentPos.y;
             
             if (currentState == BattleState.HP_ANIMATING && hpAnimTargetPokemon == playerPokemon) {
@@ -725,12 +902,15 @@ public class BattleScreen extends ScreenAdapter {
             whiteFont.draw(batch, layout, 10, 34);
         }
         
-        if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.GO_MESSAGE_WAIT || currentState == BattleState.WAIT_FOR_END) {
-            if (charIndex >= fullMessage.length()) {
-                drawWaitingIndicator();
-            }
+        if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.WAIT_FOR_END || (charIndex >= fullMessage.length() && (currentState == BattleState.BATTLE_MESSAGE || currentState == BattleState.EXP_MESSAGE || currentState == BattleState.LEVEL_UP_MESSAGE))) {
+             drawWaitingIndicator();
         }
 
+        drawLevelUpStatBox();
+        
+        // ## ADICIONADO: Renderiza o fade in/out sobre toda a tela ##
+        fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
+        
         batch.end();
     }
 
@@ -784,6 +964,53 @@ public class BattleScreen extends ScreenAdapter {
             batch.draw(dialogueArrow, arrowX, arrowY, arrowSize, arrowSize);
         }
     }
+
+    private void drawLevelUpStatBox() {
+        if (!statsBoxVisible || currentLevelUpStats == null) return;
+
+        float boxWidth = 100f;
+        float boxHeight = 95f;
+        float boxX = uiViewport.getWorldWidth() - boxWidth - 5;
+        float boxY = (uiViewport.getWorldHeight() - boxHeight) / 2;
+
+        statBoxPatch.draw(batch, boxX, boxY, boxWidth, boxHeight);
+
+        BitmapFont font = whiteFont;
+        BitmapFont valueFont = assetManager.get(assetLoader.INCREASED_STAT_FONT_NAME + ".otf", BitmapFont.class);
+
+        float leftPad = boxX + 8;
+        float rightPad = boxX + boxWidth - 8;
+        float currentY = boxY + boxHeight - 12;
+
+        font.draw(batch, "MAX. HP", leftPad, currentY);
+        layout.setText(valueFont, "+" + currentLevelUpStats.hpIncrease);
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
+        currentY -= 14;
+
+        font.draw(batch, "ATTACK", leftPad, currentY);
+        layout.setText(valueFont, "+" + currentLevelUpStats.attackIncrease);
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
+        currentY -= 14;
+
+        font.draw(batch, "DEFENSE", leftPad, currentY);
+        layout.setText(valueFont, "+" + currentLevelUpStats.defenseIncrease);
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
+        currentY -= 14;
+
+        font.draw(batch, "SP. ATK", leftPad, currentY);
+        layout.setText(valueFont, "+" + currentLevelUpStats.spAttackIncrease);
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
+        currentY -= 14;
+        
+        font.draw(batch, "SP. DEF", leftPad, currentY);
+        layout.setText(valueFont, "+" + currentLevelUpStats.spDefenseIncrease);
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
+        currentY -= 14;
+
+        font.draw(batch, "SPEED", leftPad, currentY);
+        layout.setText(valueFont, "+" + currentLevelUpStats.speedIncrease);
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
+    }
     
     @Override
     public void hide() {
@@ -801,6 +1028,7 @@ public class BattleScreen extends ScreenAdapter {
         shapeRenderer.dispose();
         playerHealthBar.dispose();
         enemyHealthBar.dispose();
+        fadeManager.dispose(); // ## ADICIONADO ##
         if (playerPokemon != null) {
             String playerPath = playerPokemon.getBackSpriteGifPath();
             if (assetManager.isLoaded(playerPath)) {
@@ -813,5 +1041,18 @@ public class BattleScreen extends ScreenAdapter {
                 assetManager.unload(wildPath);
             }
         }
+    }
+
+    public void playerSendsNewPokemon(Pokemon newPokemon, boolean isVoluntary) {
+        this.pokemonToSwitchIn = newPokemon;
+        this.isVoluntarySwitch = isVoluntary;
+        
+        this.faintedPokemon = null;
+        this.currentState = BattleState.PLAYER_SWITCH_OUT;
+        this.transitionTimer = 0f;
+    }
+
+    public Pokemon getPlayerPokemon() {
+        return playerPokemon;
     }
 }

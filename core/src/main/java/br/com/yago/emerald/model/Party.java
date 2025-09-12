@@ -43,4 +43,18 @@ public class Party {
     public int getPartySize() {
         return pokemons.size;
     }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Retorna o primeiro Pokémon na party que não está desmaiado.
+     * @return O primeiro Pokémon saudável, ou null se todos estiverem desmaiados.
+     */
+    public Pokemon getFirstAvailablePokemon() {
+        for (Pokemon p : pokemons) {
+            if (p.getCurrentHP() > 0) {
+                return p;
+            }
+        }
+        return null;
+    }
 }

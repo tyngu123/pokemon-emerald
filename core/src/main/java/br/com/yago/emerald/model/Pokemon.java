@@ -2,24 +2,23 @@ package br.com.yago.emerald.model;
 
 import com.badlogic.gdx.utils.Array;
 import br.com.yago.emerald.database.PokemonData;
-import java.util.Map;
 
 public class Pokemon {
 
-    public enum Gender { MALE, FEMALE, GENDERLESS }
-
+	 public enum Gender { MALE, FEMALE, GENDERLESS }
+	 
     private final String speciesName;
-    private final String nickname;
+    private String nickname;
     private final Gender gender;
     private final boolean shiny;
-    private final int level;
+    private int level;
     private int currentHP;
-    private final int maxHP;
-    private final int attack;
-    private final int defense;
-    private final int specialAttack;
-    private final int specialDefense;
-    private final int speed;
+    private int maxHP;
+    private int attack;
+    private int defense;
+    private int specialAttack;
+    private int specialDefense;
+    private int speed;
     private final PokemonType type1;
     private final PokemonType type2;
     private final PokemonNature nature;
@@ -30,14 +29,15 @@ public class Pokemon {
     private final Ability ability;
     private final Item heldItem;
     private final ExperienceGroup experienceGroup;
-    private final int experiencePoints;
-    private final int experienceToNextLevel;
+    private int experiencePoints;
+    private int experienceToNextLevel;
     private final Array<Move> moves;
+    private final PokemonData baseData; // NOVO CAMPO para guardar os dados base
 
     // Construtor original, mantido para compatibilidade
     public Pokemon(
         PokemonData data, int level, String nickname, Gender gender, boolean shiny,
-        PokemonNature nature, int metLevel, String metMap, Pokeball pokeball, 
+        PokemonNature nature, int metLevel, String metMap, Pokeball pokeball,
         String originalTrainerName, Ability ability
     ) {
         this(data, nickname, gender, shiny, nature, metMap, pokeball, originalTrainerName, ability, ExperienceCalculator.getTotalExpForLevel(level, ExperienceGroup.valueOf(data.experienceGroup)));
@@ -46,11 +46,13 @@ public class Pokemon {
     // Novo construtor para criação com pontos de experiência específicos
     public Pokemon(
         PokemonData data, String nickname, Gender gender, boolean shiny,
-        PokemonNature nature, String metMap, Pokeball pokeball, 
+        PokemonNature nature, String metMap, Pokeball pokeball,
         String originalTrainerName, Ability ability, int experiencePoints
     ) {
+        this.baseData = data; // Armazena os dados base
         this.speciesName = data.speciesName;
         this.nickname = nickname;
+        // ... (resto do construtor como estava)
         this.gender = gender;
         this.shiny = shiny;
         this.nature = nature;
@@ -59,46 +61,86 @@ public class Pokemon {
         this.originalTrainerName = originalTrainerName;
         this.ability = ability;
         this.heldItem = null;
-        
         this.type1 = PokemonType.valueOf(data.type1);
         this.type2 = (data.type2 != null) ? PokemonType.valueOf(data.type2) : null;
         this.experienceGroup = ExperienceGroup.valueOf(data.experienceGroup);
-        
         this.experiencePoints = experiencePoints;
         this.level = ExperienceCalculator.calculateLevelFromExp(this.experiencePoints, this.experienceGroup);
         this.metLevel = this.level;
-        
-        this.maxHP = StatCalculator.calculateHP(data.baseStats.get("HP"), this.level);
-        this.attack = StatCalculator.calculateStat(data.baseStats.get("ATTACK"), this.level);
-        this.defense = StatCalculator.calculateStat(data.baseStats.get("DEFENSE"), this.level);
-        this.specialAttack = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_ATTACK"), this.level);
-        this.specialDefense = StatCalculator.calculateStat(data.baseStats.get("SPECIAL_DEFENSE"), this.level);
-        this.speed = StatCalculator.calculateStat(data.baseStats.get("SPEED"), this.level);
-        
+        recalculateStats(); // Usa um novo método para calcular os stats
         this.currentHP = this.maxHP;
         this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(this.level, this.experienceGroup);
-        
         this.moves = new Array<>(4);
     }
-
+    
     public void learnMove(Move move) {
         if (moves.size < 4) {
             moves.add(move);
         }
     }
-    
-    /**
-     * ## NOVO MÉTODO ##
-     * Aplica dano ao Pokémon, garantindo que o HP não fique negativo.
-     * @param damage A quantidade de dano a ser aplicada.
-     */
+
     public void takeDamage(int damage) {
         this.currentHP -= damage;
         if (this.currentHP < 0) {
             this.currentHP = 0;
         }
     }
+    
+    /**
+     * NOVO MÉTODO: Adiciona experiência e verifica se o Pokémon subiu de nível.
+     * @param amount A quantidade de experiência a ser adicionada.
+     * @return Uma lista de resultados de level up, um para cada nível ganho.
+     */
+    public Array<LevelUpResult> gainExperience(int amount) {
+        if (this.level >= 100) return new Array<>();
 
+        this.experiencePoints += amount;
+        Array<LevelUpResult> results = new Array<>();
+
+        int oldLevel = this.level;
+        int newLevel = ExperienceCalculator.calculateLevelFromExp(this.experiencePoints, this.experienceGroup);
+
+        if (newLevel > oldLevel) {
+            for (int i = oldLevel + 1; i <= newLevel; i++) {
+                int oldMaxHP = this.maxHP;
+                int oldAttack = this.attack;
+                int oldDefense = this.defense;
+                int oldSpAttack = this.specialAttack;
+                int oldSpDefense = this.specialDefense;
+                int oldSpeed = this.speed;
+
+                this.level = i;
+                recalculateStats(); // Recalcula os stats para o novo nível 'i'
+
+                LevelUpResult result = new LevelUpResult(
+                    i,
+                    this.maxHP - oldMaxHP,
+                    this.attack - oldAttack,
+                    this.defense - oldDefense,
+                    this.specialAttack - oldSpAttack,
+                    this.specialDefense - oldSpDefense,
+                    this.speed - oldSpeed
+                );
+                results.add(result);
+            }
+
+            // Cura completa ao final de todos os level ups
+            this.currentHP = this.maxHP;
+            this.experienceToNextLevel = ExperienceCalculator.getExpToNextLevel(this.level, this.experienceGroup);
+        }
+        
+        return results;
+    }
+    
+    private void recalculateStats() {
+        this.maxHP = StatCalculator.calculateHP(baseData.baseStats.get("HP"), this.level);
+        this.attack = StatCalculator.calculateStat(baseData.baseStats.get("ATTACK"), this.level);
+        this.defense = StatCalculator.calculateStat(baseData.baseStats.get("DEFENSE"), this.level);
+        this.specialAttack = StatCalculator.calculateStat(baseData.baseStats.get("SPECIAL_ATTACK"), this.level);
+        this.specialDefense = StatCalculator.calculateStat(baseData.baseStats.get("SPECIAL_DEFENSE"), this.level);
+        this.speed = StatCalculator.calculateStat(baseData.baseStats.get("SPEED"), this.level);
+    }
+    
     private int calculateStatWithNature(int baseStat, String statName) {
         float modifier = nature.getModifierForStat(statName);
         return (int) (baseStat * modifier);
@@ -130,20 +172,45 @@ public class Pokemon {
     public int getExperienceToNextLevel() { return experienceToNextLevel; }
     public ExperienceGroup getExperienceGroup() { return experienceGroup; }
     public Array<Move> getMoves() { return moves; }
-
+    
+    public int getBaseExperienceYield() { return baseData.baseExperienceYield; }
+    
     public String getIconSpriteName() {
         return speciesName.toLowerCase().replace(" ", "");
     }
-
     public String getFrontSpriteGifPath() {
         String baseName = speciesName.toLowerCase().replace(" ", "");
         String shinySuffix = shiny ? "_shiny" : "";
         return "sprites/pokemons/frontal/" + baseName + shinySuffix + ".gif";
     }
-    
     public String getBackSpriteGifPath() {
         String baseName = speciesName.toLowerCase().replace(" ", "");
         String shinySuffix = shiny ? "_shiny" : "";
         return "sprites/pokemons/back/" + baseName + shinySuffix + ".gif";
+    }
+    
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    // Classe interna para guardar os resultados do level up
+    public static class LevelUpResult {
+        public final int newLevel;
+        public final int hpIncrease;
+        public final int attackIncrease;
+        public final int defenseIncrease;
+        public final int spAttackIncrease;
+        public final int spDefenseIncrease;
+        public final int speedIncrease;
+
+        public LevelUpResult(int newLevel, int hp, int atk, int def, int spAtk, int spDef, int spd) {
+            this.newLevel = newLevel;
+            this.hpIncrease = hp;
+            this.attackIncrease = atk;
+            this.defenseIncrease = def;
+            this.spAttackIncrease = spAtk;
+            this.spDefenseIncrease = spDef;
+            this.speedIncrease = spd;
+        }
     }
 }

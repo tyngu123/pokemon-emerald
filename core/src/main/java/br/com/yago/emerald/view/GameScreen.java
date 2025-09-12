@@ -49,6 +49,7 @@ import br.com.yago.emerald.model.Warp;
 import br.com.yago.emerald.model.pathfinding.Pathfinder;
 import br.com.yago.emerald.script.FadeOutCommand;
 import br.com.yago.emerald.script.MoveToCommand;
+import br.com.yago.emerald.script.PreBattleAnimCommand;
 import br.com.yago.emerald.script.ScriptCommand;
 import br.com.yago.emerald.script.ScriptRunner;
 import br.com.yago.emerald.script.WaitCommand;
@@ -90,6 +91,7 @@ public class GameScreen extends ScreenAdapter {
 
 	private final String mapName;
 	private final boolean isInterior;
+	private final String musicFile;
 	private TiledMapTileLayer grassLayer;
     private boolean inBattle = false;
 
@@ -112,10 +114,13 @@ public class GameScreen extends ScreenAdapter {
 		gameViewport = new ExtendViewport(240 , 160, gameCamera);
 		uiCamera = new OrthographicCamera();
 		uiViewport = new ExtendViewport(240, 160, uiCamera);
+		
+		resetCamera();
 
 		NinePatch mapNameBoxNinePatch = new NinePatch(menuBoxTexture, 8, 8, 8, 8);
 
-		dialogueBox = new DialogueBox(dialogueFont, menuBoxTexture, dialogueArrowTexture);
+        // ## CONSTRUÇÃO ATUALIZADA ##
+		dialogueBox = new DialogueBox(dialogueFont, menuBoxTexture, dialogueArrowTexture, game.getSoundManager());
 		mapNameBox = new MapNameBox(mapNameBoxNinePatch, uiFont);
 		menuBox = new MenuBox(uiFont, menuBoxTexture, menuArrowTexture);
 
@@ -127,6 +132,7 @@ public class GameScreen extends ScreenAdapter {
 
 		this.mapName = map.getProperties().get("name", "Área Desconhecida", String.class);
 		this.isInterior = map.getProperties().get("isInterior", false, Boolean.class);
+		this.musicFile = map.getProperties().get("music", String.class);
 
 		mapRenderer = new OrthogonalTiledMapRenderer(map, 1f, batch);
 
@@ -191,6 +197,8 @@ public class GameScreen extends ScreenAdapter {
 		if (isWarpIn) {
 			runStepOutAnimation(playerFacing);
 		}
+		
+		game.getMusicManager().playMapMusic(this.musicFile);
 	}
 
     private void loadEncounterData() {
@@ -257,7 +265,9 @@ public class GameScreen extends ScreenAdapter {
 		dialogueBox.update(delta);
 		mapNameBox.update(delta, uiViewport);
 		gameCamera.position.set(player.getWorldPosition().x + GameConfig.PLAYER_WIDTH / 2f, player.getWorldPosition().y + GameConfig.PLAYER_HEIGHT / 2f, 0f);
+		
 		gameCamera.update();
+
 		mapRenderer.setView(gameCamera);
 	}
     
@@ -281,18 +291,16 @@ public class GameScreen extends ScreenAdapter {
             return;
         }
 
-        Array<ScriptCommand> preBattleSequence = new Array<>();
-        WaitCommand wait = new WaitCommand();
-        JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
-        waitData.addChild("duration", new JsonValue(0.4f));
-        wait.initialize(waitData);
-        preBattleSequence.add(wait);
+        game.getMusicManager().playBattleMusic();
 
-        FadeOutCommand fade = new FadeOutCommand();
-        JsonValue fadeData = new JsonValue(JsonValue.ValueType.object);
-        fadeData.addChild("duration", new JsonValue(0.4f));
-        fade.initialize(fadeData);
-        preBattleSequence.add(fade);
+        Array<ScriptCommand> preBattleSequence = new Array<>();
+
+        PreBattleAnimCommand anim = new PreBattleAnimCommand();
+        JsonValue animData = new JsonValue(JsonValue.ValueType.object);
+        animData.addChild("duration", new JsonValue(1.4f));
+        animData.addChild("targetZoom", new JsonValue(0.4f));
+        anim.initialize(animData);
+        preBattleSequence.add(anim);
         
         scriptRunner.runScript(preBattleSequence, player, () -> {
             game.openBattleScreen(wildPokemon);
@@ -327,6 +335,8 @@ public class GameScreen extends ScreenAdapter {
     }
     
     public void onBattleEnd() {
+        resetCamera();
+        
         Array<ScriptCommand> postBattleSequence = new Array<>();
         WaitCommand wait = new WaitCommand();
         JsonValue waitData = new JsonValue(JsonValue.ValueType.object);
@@ -457,6 +467,21 @@ public class GameScreen extends ScreenAdapter {
 
 		occupiedTiles.add(new Vector2(targetX, targetY));
 		return pathfinder.findPath(startTile, adjacentTarget, occupiedTiles);
+	}
+	
+	public OrthographicCamera getGameCamera() {
+		return this.gameCamera;
+	}
+
+	public void resetCamera() {
+		if (gameCamera != null) {
+			gameCamera.zoom = 1.0f;
+			gameCamera.update();
+		}
+	}
+	
+	public EmeraldGame getGame() {
+	    return game;
 	}
 
 	public DialogueBox getDialogueBox() { return dialogueBox; }

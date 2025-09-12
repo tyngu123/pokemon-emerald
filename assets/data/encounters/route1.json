@@ -1,14 +1,14 @@
 [
   {
-    "speciesName": "ARTICUNO",
-    "minLevel": 8,
-    "maxLevel": 10,
+    "speciesName": "JIGGLYPUFF",
+    "minLevel": 2,
+    "maxLevel": 5,
     "chance": 25
   },
   {
-    "speciesName": "CHARIZARD",
-    "minLevel": 8,
-    "maxLevel": 10,
+    "speciesName": "PIKACHU",
+    "minLevel": 2,
+    "maxLevel": 6,
     "chance": 25
   },
   {
@@ -18,7 +18,7 @@
     "chance": 25
   },
   {
-    "speciesName": "GENGAR",
+    "speciesName": "LUGIA",
     "minLevel": 8,
     "maxLevel": 10,
     "chance": 25
