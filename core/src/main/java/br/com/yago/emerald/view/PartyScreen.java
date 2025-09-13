@@ -211,19 +211,9 @@ public class PartyScreen extends ScreenAdapter {
                     }
                     break;
                 case "CANCEL":
-                    if (isMandatorySwitch) {
-                        return true;
-                    }
-                    if (battleScreen != null) {
-                        game.setScreen(battleScreen);
-                    } else {
-                        partyState = PartyState.BROWSE;
-                    }
+                    partyState = PartyState.BROWSE;
                     break;
                 default:
-                    if (isMandatorySwitch) {
-                        return true;
-                    }
                     Gdx.app.log("PartyScreen", "Ação '" + selectedOption + "' não implementada.");
                     partyState = PartyState.BROWSE;
                     break;
@@ -565,6 +555,9 @@ public class PartyScreen extends ScreenAdapter {
             
             if (isMandatorySwitch) {
                 if (!optionText.equals("SUMMARY") && !optionText.equals("SWITCH")) {
+                    enabled = false;
+                }
+                 if (optionText.equals("CANCEL")) { // A opção CANCEL não deve ser utilizável em troca forçada
                     enabled = false;
                 }
             }

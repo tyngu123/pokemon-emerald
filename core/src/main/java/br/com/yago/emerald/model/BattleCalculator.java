@@ -17,7 +17,6 @@ public class BattleCalculator {
     }
 
     public static DamageResult calculateDamage(Pokemon attacker, Pokemon defender, Move move) {
-        // ... (código existente sem alterações)
         if (move.getCategory() == MoveCategory.STATUS) {
             return new DamageResult(0, false, 1.0f);
         }

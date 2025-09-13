@@ -389,24 +389,23 @@ public class SummaryScreen extends ScreenAdapter {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
         float barWidth = 64f;
-        float barHeight = 3f; // Deixando a barra mais fina
-        float barX = (expValueX + 83) - barWidth -1; // Ajuste fino na posição
+        float barHeight = 3f;
+        float barX = (expValueX + 83) - barWidth -1;
         float barY = expY - 23;
 
         shapeRenderer.setColor(new Color(0f,0f,0f,0f));
         shapeRenderer.rect(barX, barY, barWidth, barHeight);
 
-        // ## LÓGICA DE EXPERIÊNCIA CORRIGIDA ##
         int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(currentPokemon.getLevel(), currentPokemon.getExperienceGroup());
         int expInCurrentLevel = currentPokemon.getExperiencePoints() - totalExpForCurrentLevel;
-        int expNeededForNextLevel = currentPokemon.getExperienceToNextLevel();
+        int expForNext = ExperienceCalculator.getExpToNextLevel(currentPokemon.getLevel(), currentPokemon.getExperienceGroup());
 
         float progressPercentage = 0f;
-        if (expNeededForNextLevel > 0) {
-            progressPercentage = (float) expInCurrentLevel / expNeededForNextLevel;
+        if (expForNext > 0) {
+            progressPercentage = (float) expInCurrentLevel / expForNext;
         }
 
-        shapeRenderer.setColor(Color.CYAN); // Cor alterada para um azul mais claro e visível
+        shapeRenderer.setColor(Color.CYAN);
         shapeRenderer.rect(barX, barY, barWidth * progressPercentage, barHeight);
 
         shapeRenderer.end();
@@ -476,7 +475,7 @@ public class SummaryScreen extends ScreenAdapter {
             whiteFont.draw(batch, "ACCURACY", EFFECT_LBL_X, EFFECT_Y0 - EFFECT_DY);
             blackFont.draw(batch, sel.getAccuracyString(),  EFFECT_VAL_X, EFFECT_Y0 - EFFECT_DY);
             
-            layout.setText(blackFont, sel.getDescription(), new Color(96f,96f,96f,1f), DESC_W, Align.left, true);
+            layout.setText(blackFont, sel.getDescription(), new Color(96f/255f,96f/255f,96f/255f,1f), DESC_W, Align.left, true);
             blackFont.draw(batch, layout, DESC_X, DESC_TOP_Y);
         }
     }
@@ -559,7 +558,7 @@ public class SummaryScreen extends ScreenAdapter {
         whiteFont.draw(batch, abilityName, xOffset + startX, nameY);
         String description = ability.getDescription() != null ? ability.getDescription() : "";
         float descY = nameY - 15f;
-        layout.setText(blackFont, description, new Color(96f,96f,96f,1f), 150f, Align.left, true);
+        layout.setText(blackFont, description, new Color(96f/255f,96f/255f,96f/255f,1f), 150f, Align.left, true);
         blackFont.draw(batch, layout, xOffset + startX, descY);
     }
 

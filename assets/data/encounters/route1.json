@@ -6,13 +6,13 @@
     "chance": 25
   },
   {
-    "speciesName": "PIKACHU",
+    "speciesName": "CHARMANDER",
     "minLevel": 2,
     "maxLevel": 6,
     "chance": 25
   },
   {
-    "speciesName": "EEVEE",
+    "speciesName": "BULBASAUR",
     "minLevel": 8,
     "maxLevel": 10,
     "chance": 25

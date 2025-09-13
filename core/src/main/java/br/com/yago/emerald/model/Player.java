@@ -40,7 +40,7 @@ public class Player extends Character {
 	    party.addPokemon(game.db.createPokemon("CHARIZARD", "CHARIZARD", this.name, 300));
         
         // Eevee no nível 100
-        party.addPokemon(game.db.createPokemon("EEVEE", "EEVEE", this.name, 300));
+        party.addPokemon(game.db.createPokemon("CHARMANDER", "CHARMANDER", this.name, 300));
         
         // Blastoise com XP para estar um pouco acima do nível 36
         party.addPokemon(game.db.createPokemon("BLASTOISE", "BLASTOISE", this.name, 300));

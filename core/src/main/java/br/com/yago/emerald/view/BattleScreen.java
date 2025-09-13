@@ -64,7 +64,7 @@ public class BattleScreen extends ScreenAdapter {
     private final HealthBar playerHealthBar;
     private final HealthBar enemyHealthBar;
     private final Animation<TextureRegion> playerThrowAnimation;
-    private final FadeManager fadeManager; // ## ADICIONADO ##
+    private final FadeManager fadeManager;
 
     private final TextureRegion battleActionUi;
     private final TextureRegion actionArrow;
@@ -84,33 +84,37 @@ public class BattleScreen extends ScreenAdapter {
 
     private final Vector2 playerOnScreenPos = new Vector2(-80, -25);
     private final Vector2 playerOffScreenPos = new Vector2(-160, -25);
-    private final Vector2 playerCurrentPos = new Vector2();
-    private final Vector2 pokemonCurrentPos = new Vector2();
+    private final Vector2 playerTrainerCurrentPos = new Vector2();
+    private final Vector2 playerPokemonCurrentPos = new Vector2();
+    private final Vector2 enemyPokemonCurrentPos = new Vector2();
+    
     private final Vector2 enemyPlatformPos = new Vector2(80, 20);
-    private final Vector2 wildPokemonRenderPos = new Vector2();
 
     private final Vector2 playerStatusOnScreenPos = new Vector2(130, 50);
     private final Vector2 playerStatusOffScreenPos;
     private final Vector2 playerStatusCurrentPos = new Vector2();
 
     private enum BattleState {
-        WILD_INTRO_TYPING, WILD_INTRO_WAIT,
-        GO_MESSAGE_TYPING, GO_MESSAGE_WAIT,
-        PLAYER_THROWING, TRANSITION_OUT, STATUS_BAR_ENTERING,
+        BATTLE_START, WILD_INTRO_SLIDE, WILD_INTRO_MESSAGE,
+        SEND_OUT_MESSAGE, PLAYER_THROW_ANIM, PLAYER_POKEMON_ENTER, STATUS_BARS_ENTER,
         ACTION_SELECTION, MOVE_SELECTION,
-        TURN_PROCESSING,
-        BATTLE_MESSAGE,
-        HP_ANIMATING,
-        POKEMON_FAINTING,
-        EXP_MESSAGE,
-        EXP_ANIMATING_FILL,
+        TURN_PROCESSING, BATTLE_MESSAGE_TYPING, BATTLE_MESSAGE_WAIT,
+        HP_BAR_ANIMATING,
+        POKEMON_FAINTING_ANIM, FAINT_MESSAGE_TYPING,
+        EXP_SEQUENCE_START,
+        EXP_GAIN_MESSAGE,
+        EXP_BAR_ANIMATING, 
+        LEVEL_UP_FLASH,
         LEVEL_UP_MESSAGE,
-        LEVEL_UP_PAUSE,
-        SHOWING_STATS,
-        WAIT_FOR_STATS_DISMISS,
+        LEVEL_UP_STAT_SHOW,
+        LEVEL_UP_STAT_WAIT,
+        POST_BATTLE_ACTIONS, 
         PLAYER_SWITCH_OUT, PLAYER_SWITCH_IN,
-        WAIT_FOR_END
+        BATTLE_END_WAIT,
+        SWITCH_MESSAGE_COME_BACK, // NOVO ESTADO
+        SWITCH_MESSAGE_GO         // NOVO ESTADO
     }
+
     private BattleState currentState;
 
     private String fullMessage = "";
@@ -139,19 +143,22 @@ public class BattleScreen extends ScreenAdapter {
     private final float HP_ANIM_DURATION = 0.7f;
 
     private float expAnimStartPercentage;
-    private float expAnimEndPercentage;
+    private float expAnimCurrentPercentage;
+    private float expAnimTargetPercentage;
     private float expAnimTimer;
-    private final float EXP_ANIM_DURATION = 1.2f;
-    private int expGained;
-
+    private float expAnimDuration;
+    private final float EXP_BAR_BASE_DURATION = 1.4f; 
+    private int totalExpGained;
     private final Queue<Pokemon.LevelUpResult> levelUpQueue = new Queue<>();
+    
     private Pokemon.LevelUpResult currentLevelUpStats;
     private final NinePatch statBoxPatch;
     private boolean statsBoxVisible = false;
+    private float levelUpPauseTimer = 0f;
+    private int levelToDisplayInHud;
 
     private Pokemon pokemonToSwitchIn;
     private boolean isVoluntarySwitch = false;
-
 
     private static class TurnAction {
         Pokemon attacker;
@@ -173,7 +180,7 @@ public class BattleScreen extends ScreenAdapter {
         this.shapeRenderer = new ShapeRenderer();
         this.playerParty = playerParty;
         this.assetLoader = assetLoader;
-        this.fadeManager = new FadeManager(); // ## ADICIONADO ##
+        this.fadeManager = new FadeManager();
         
         this.battleCamera = new OrthographicCamera();
         this.battleViewport = new ExtendViewport(240, 160, battleCamera);
@@ -200,10 +207,10 @@ public class BattleScreen extends ScreenAdapter {
         this.battleFightUi = battleAtlas.findRegion("move_action_ui");
         this.typeAtlas = assetManager.get(assetLoader.TYPE_ATLAS, TextureAtlas.class);
 
-        actionArrowPositions.add(new Vector2(128, 25)); // FIGHT
-        actionArrowPositions.add(new Vector2(185, 25)); // BAG
-        actionArrowPositions.add(new Vector2(128, 9));  // POKEMON
-        actionArrowPositions.add(new Vector2(185, 9));  // RUN
+        actionArrowPositions.add(new Vector2(128, 25));
+        actionArrowPositions.add(new Vector2(185, 25));
+        actionArrowPositions.add(new Vector2(128, 9));
+        actionArrowPositions.add(new Vector2(185, 9));
         
         movePositions.add(new Vector2(10, 40));
         movePositions.add(new Vector2(95, 40));
@@ -225,6 +232,7 @@ public class BattleScreen extends ScreenAdapter {
         
         this.wildPokemon = wildPokemon;
         this.playerPokemon = playerParty.getFirstAvailablePokemon();
+        this.levelToDisplayInHud = this.playerPokemon.getLevel();
         
         this.playerStatusOffScreenPos = new Vector2(uiViewport.getWorldWidth(), playerStatusOnScreenPos.y);
         this.playerStatusCurrentPos.set(playerStatusOffScreenPos);
@@ -232,28 +240,25 @@ public class BattleScreen extends ScreenAdapter {
         loadPlayerPokemonAnimation();
         loadWildPokemonAnimation();
 
-        playerCurrentPos.set(playerOnScreenPos);
-        startIntroMessage();
-    }
-    
-    private void startIntroMessage() {
-        setMessage("Wild " + wildPokemon.getNickname().toUpperCase() + "\napareceu!", BattleState.WILD_INTRO_TYPING);
-    }
-    
-    private void startGoMessage() {
-        setMessage("Go! " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.GO_MESSAGE_TYPING);
-    }
-    
-    private void startActionMessage() {
-        setMessage("O que " + playerPokemon.getNickname().toUpperCase() + "\n vai fazer?", BattleState.ACTION_SELECTION);
-    }
+        playerTrainerCurrentPos.set(playerOnScreenPos);
+        
+        this.currentState = BattleState.BATTLE_START;
 
-    private void setMessage(String message, BattleState nextState) {
+        int expInLevel = playerPokemon.getExperiencePoints() - ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+        int expForNext = ExperienceCalculator.getExpToNextLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+        this.expAnimCurrentPercentage = (expForNext > 0) ? (float) expInLevel / expForNext : 0f;
+    }
+    
+    private void setMessage(String message, BattleState typingState, BattleState waitState) {
         this.fullMessage = message;
         this.visibleMessage = "";
         this.charIndex = 0;
         this.typewriterTimer = 0f;
-        this.currentState = nextState;
+        this.currentState = typingState;
+    }
+    
+    private void startActionMessage() {
+        setMessage("What will " + playerPokemon.getNickname().toUpperCase() + "\ndo?", BattleState.ACTION_SELECTION, BattleState.ACTION_SELECTION);
     }
 
     private String getAttackerName(Pokemon pokemon) {
@@ -274,7 +279,7 @@ public class BattleScreen extends ScreenAdapter {
             return;
         }
 
-        setMessage(getAttackerName(currentAction.attacker) + " usou\n" + currentAction.move.getName().toUpperCase() + "!", BattleState.BATTLE_MESSAGE);
+        setMessage(getAttackerName(currentAction.attacker) + " used\n" + currentAction.move.getName().toUpperCase() + "!", BattleState.BATTLE_MESSAGE_TYPING, BattleState.BATTLE_MESSAGE_WAIT);
     }
     
     private void executeTurn(Move playerMove) {
@@ -327,190 +332,160 @@ public class BattleScreen extends ScreenAdapter {
 
     @Override
     public void show() {
-        // ## ADICIONADO: Inicia o fade in quando a tela é exibida ##
         fadeManager.fadeIn(0.5f);
         
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean keyDown(int keycode) {
-                if (keycode != Input.Keys.Z && keycode != Input.Keys.X && keycode != Input.Keys.UP && keycode != Input.Keys.DOWN && keycode != Input.Keys.LEFT && keycode != Input.Keys.RIGHT && keycode != Input.Keys.ESCAPE) return false;
+                if (isStateInputLocked()) return true;
 
-                if (currentState == BattleState.TURN_PROCESSING || currentState == BattleState.POKEMON_FAINTING ||
-                    currentState == BattleState.HP_ANIMATING || currentState == BattleState.EXP_ANIMATING_FILL ||
-                    currentState == BattleState.SHOWING_STATS || currentState == BattleState.PLAYER_SWITCH_OUT ||
-                    currentState == BattleState.PLAYER_SWITCH_IN) {
-                    return true;
-                }
-                
-                if (currentState == BattleState.WAIT_FOR_END && (keycode == Input.Keys.Z || keycode == Input.Keys.X)) {
-                    game.closeBattleScreen();
+                if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
+                    handleConfirmationInput();
                     return true;
                 }
                 
                 switch(currentState) {
-                    case WILD_INTRO_TYPING:
-                    case GO_MESSAGE_TYPING:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                            visibleMessage = fullMessage;
-                            charIndex = fullMessage.length();
-                            currentState = BattleState.GO_MESSAGE_WAIT;
-                        }
-                        return true;
-
-                    case BATTLE_MESSAGE:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                            if (charIndex < fullMessage.length()) {
-                                visibleMessage = fullMessage;
-                                charIndex = fullMessage.length();
-                            } else {
-                                if (fullMessage.contains("fainted!")) {
-                                    if (faintedPokemon == wildPokemon && playerPokemon.getCurrentHP() > 0) {
-                                        expGained = BattleCalculator.calculateExperienceGained(playerPokemon, wildPokemon);
-                                        String expMessage = playerPokemon.getNickname().toUpperCase() + " gained\n" + expGained + " EXP. Points!";
-                                        setMessage(expMessage, BattleState.EXP_MESSAGE);
-                                    } else if (faintedPokemon == playerPokemon) {
-                                        Pokemon nextPokemon = playerParty.getFirstAvailablePokemon();
-                                        if (nextPokemon != null) {
-                                            game.setScreen(new PartyScreen(game, gameScreen, batch, assetLoader, BattleScreen.this, true));
-                                        } else {
-                                            setMessage("You have no more POKEMON to fight!", BattleState.WAIT_FOR_END);
-                                        }
-                                    } else {
-                                        currentState = BattleState.WAIT_FOR_END;
-                                    }
-                                } else {
-                                    TurnAction action = turnQueue.first();
-                                    if (action.result == null) {
-                                        action.result = BattleCalculator.calculateDamage(action.attacker, action.defender, action.move);
-                                        
-                                        hpAnimTargetPokemon = action.defender;
-                                        hpAnimStart = hpAnimTargetPokemon.getCurrentHP();
-                                        action.defender.takeDamage(action.result.damage);
-                                        hpAnimEnd = hpAnimTargetPokemon.getCurrentHP();
-                                        hpAnimTimer = 0f;
-                                        currentState = BattleState.HP_ANIMATING;
-
-                                        if (action.result.isCritical) messageQueue.addLast("A critical hit!");
-                                        if (action.result.effectiveness > 1.5f) messageQueue.addLast("It's super effective!");
-                                        if (action.result.effectiveness < 1.0f && action.result.effectiveness > 0) messageQueue.addLast("It's not very effective...");
-                                    } else {
-                                        if (!messageQueue.isEmpty()) {
-                                            setMessage(messageQueue.removeFirst(), BattleState.BATTLE_MESSAGE);
-                                        } else {
-                                            if (action.defender.getCurrentHP() <= 0) {
-                                                faintedPokemon = action.defender;
-                                                currentState = BattleState.POKEMON_FAINTING;
-                                                faintAnimationTimer = 0f;
-                                            } else {
-                                                turnQueue.removeFirst();
-                                                processNextTurnAction();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        return true;
-
-                    case EXP_MESSAGE:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                            if (charIndex < fullMessage.length()) {
-                                visibleMessage = fullMessage;
-                                charIndex = fullMessage.length();
-                            } else {
-                                int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
-                                int expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
-                                int expNeededForNextLevel = ExperienceCalculator.getExpToNextLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
-                                expAnimStartPercentage = (expNeededForNextLevel > 0) ? (float)expInCurrentLevel / expNeededForNextLevel : 1f;
-
-                                Array<Pokemon.LevelUpResult> levelUpResults = playerPokemon.gainExperience(expGained);
-                                levelUpQueue.clear();
-                                for(Pokemon.LevelUpResult res : levelUpResults) {
-                                    levelUpQueue.addLast(res);
-                                }
-
-                                if (levelUpQueue.size > 0) {
-                                    expAnimEndPercentage = 1f;
-                                } else {
-                                   totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
-                                   expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
-                                   expNeededForNextLevel = playerPokemon.getExperienceToNextLevel();
-                                   expAnimEndPercentage = (expNeededForNextLevel > 0) ? (float)expInCurrentLevel / expNeededForNextLevel : 1f;
-                                }
-                                currentState = BattleState.EXP_ANIMATING_FILL;
-                                expAnimTimer = 0f;
-                            }
-                        }
-                        return true;
-                    
-                    case LEVEL_UP_MESSAGE:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                             if (charIndex < fullMessage.length()) {
-                                visibleMessage = fullMessage;
-                                charIndex = fullMessage.length();
-                            } else {
-                                currentState = BattleState.LEVEL_UP_PAUSE;
-                            }
-                        }
-                        return true;
-
-                    case WAIT_FOR_STATS_DISMISS:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                            statsBoxVisible = false;
-                            currentLevelUpStats = null;
-                            if (levelUpQueue.size > 0) {
-                                currentState = BattleState.LEVEL_UP_PAUSE;
-                            } else {
-                                currentState = BattleState.WAIT_FOR_END;
-                            }
-                        }
-                        return true;
-
-                    case WILD_INTRO_WAIT:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) startGoMessage();
-                        return true;
-
-                    case GO_MESSAGE_WAIT:
-                        if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
-                            if (isVoluntarySwitch) {
-                                currentState = BattleState.PLAYER_SWITCH_IN;
-                                transitionTimer = 0f;
-                            } else {
-                                currentState = BattleState.PLAYER_THROWING;
-                                playerSpriteTimer = 0f;
-                            }
-                        }
-                        return true;
-                        
-                    case ACTION_SELECTION:
-                        return handleActionSelectionInput(keycode);
-                        
-                    case MOVE_SELECTION:
-                        return handleMoveSelectionInput(keycode);
+                    case ACTION_SELECTION: return handleActionSelectionInput(keycode);
+                    case MOVE_SELECTION: return handleMoveSelectionInput(keycode);
                 }
                 return false;
             }
         });
     }
+
+    private boolean isStateInputLocked() {
+        return currentState == BattleState.BATTLE_START ||
+               currentState == BattleState.WILD_INTRO_SLIDE ||
+               currentState == BattleState.PLAYER_THROW_ANIM ||
+               currentState == BattleState.PLAYER_POKEMON_ENTER ||
+               currentState == BattleState.STATUS_BARS_ENTER ||
+               currentState == BattleState.TURN_PROCESSING ||
+               currentState == BattleState.HP_BAR_ANIMATING ||
+               currentState == BattleState.POKEMON_FAINTING_ANIM ||
+               currentState == BattleState.EXP_SEQUENCE_START ||
+               currentState == BattleState.EXP_GAIN_MESSAGE ||
+               currentState == BattleState.EXP_BAR_ANIMATING ||
+               currentState == BattleState.LEVEL_UP_FLASH ||
+               currentState == BattleState.LEVEL_UP_MESSAGE ||
+               currentState == BattleState.LEVEL_UP_STAT_SHOW ||
+               currentState == BattleState.PLAYER_SWITCH_OUT ||
+               currentState == BattleState.PLAYER_SWITCH_IN;
+    }
+    
+    private void handleConfirmationInput() {
+        if (charIndex < fullMessage.length()) {
+            visibleMessage = fullMessage;
+            charIndex = fullMessage.length();
+
+            if (currentState == BattleState.WILD_INTRO_MESSAGE) {
+                currentState = BattleState.SEND_OUT_MESSAGE;
+            } else if (currentState == BattleState.BATTLE_MESSAGE_TYPING) {
+                currentState = BattleState.BATTLE_MESSAGE_WAIT;
+            } else if (currentState == BattleState.FAINT_MESSAGE_TYPING) {
+                currentState = BattleState.POST_BATTLE_ACTIONS;
+            } else if (currentState == BattleState.EXP_GAIN_MESSAGE) {
+                startExpBarAnimation();
+            } else if (currentState == BattleState.LEVEL_UP_MESSAGE) {
+                currentState = BattleState.LEVEL_UP_STAT_SHOW;
+                levelUpPauseTimer = 0f;
+            } else if (currentState == BattleState.SWITCH_MESSAGE_COME_BACK) {
+                currentState = BattleState.PLAYER_SWITCH_OUT;
+                transitionTimer = 0f;
+            } else if (currentState == BattleState.SWITCH_MESSAGE_GO) {
+                currentState = BattleState.PLAYER_SWITCH_IN;
+                transitionTimer = 0f;
+            }
+            return;
+        }
+
+        switch(currentState) {
+            case SEND_OUT_MESSAGE:
+                setMessage("Go! " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.PLAYER_THROW_ANIM, BattleState.PLAYER_THROW_ANIM);
+                break;
+            case BATTLE_MESSAGE_WAIT:
+                handleBattleMessageConfirmation();
+                break;
+            case POST_BATTLE_ACTIONS:
+                handlePostFaintActions();
+                break;
+            case LEVEL_UP_STAT_WAIT:
+                statsBoxVisible = false;
+                currentLevelUpStats = null;
+                startExpBarAnimation();
+                break;
+            case BATTLE_END_WAIT:
+                game.closeBattleScreen();
+                break;
+            case ACTION_SELECTION:
+                handleActionSelectionInput(Input.Keys.Z);
+                break;
+            case MOVE_SELECTION:
+                handleMoveSelectionInput(Input.Keys.Z);
+                break;
+            case SWITCH_MESSAGE_COME_BACK:
+                currentState = BattleState.PLAYER_SWITCH_OUT;
+                transitionTimer = 0f;
+                break;
+            case SWITCH_MESSAGE_GO:
+                currentState = BattleState.PLAYER_SWITCH_IN;
+                transitionTimer = 0f;
+                break;
+        }
+    }
+    
+    private void handleBattleMessageConfirmation() {
+        if (!messageQueue.isEmpty()) {
+            setMessage(messageQueue.removeFirst(), BattleState.BATTLE_MESSAGE_TYPING, BattleState.BATTLE_MESSAGE_WAIT);
+            return;
+        }
+
+        TurnAction action = turnQueue.first();
+        if (action.result == null) {
+            action.result = BattleCalculator.calculateDamage(action.attacker, action.defender, action.move);
+            
+            hpAnimTargetPokemon = action.defender;
+            hpAnimStart = hpAnimTargetPokemon.getCurrentHP();
+            action.defender.takeDamage(action.result.damage);
+            hpAnimEnd = hpAnimTargetPokemon.getCurrentHP();
+            hpAnimTimer = 0f;
+            currentState = BattleState.HP_BAR_ANIMATING;
+
+            if (action.result.isCritical) messageQueue.addLast("A critical hit!");
+            if (action.result.effectiveness > 1.5f) messageQueue.addLast("It's super effective!");
+            if (action.result.effectiveness < 1.0f && action.result.effectiveness > 0) messageQueue.addLast("It's not very effective...");
+        } else {
+            if (action.defender.getCurrentHP() <= 0) {
+                faintedPokemon = action.defender;
+                currentState = BattleState.POKEMON_FAINTING_ANIM;
+                faintAnimationTimer = 0f;
+            } else {
+                turnQueue.removeFirst();
+                processNextTurnAction();
+            }
+        }
+    }
+    
+    private void handlePostFaintActions() {
+        if (faintedPokemon == wildPokemon && playerPokemon.getCurrentHP() > 0) {
+            currentState = BattleState.EXP_SEQUENCE_START;
+        } else if (faintedPokemon == playerPokemon) {
+            Pokemon nextPokemon = playerParty.getFirstAvailablePokemon();
+            if (nextPokemon != null) {
+                game.setScreen(new PartyScreen(game, gameScreen, batch, assetLoader, this, true));
+            } else {
+                setMessage("You have no more POKEMON to fight!", BattleState.BATTLE_END_WAIT, BattleState.BATTLE_END_WAIT);
+            }
+        } else {
+            currentState = BattleState.BATTLE_END_WAIT;
+        }
+    }
     
     private boolean handleActionSelectionInput(int keycode) {
         switch (keycode) {
-            case Input.Keys.UP:
-                if (selectedActionIndex == 2) selectedActionIndex = 0;
-                if (selectedActionIndex == 3) selectedActionIndex = 1;
-                return true;
-            case Input.Keys.DOWN:
-                if (selectedActionIndex == 0) selectedActionIndex = 2;
-                if (selectedActionIndex == 1) selectedActionIndex = 3;
-                return true;
-            case Input.Keys.LEFT:
-                if (selectedActionIndex == 1) selectedActionIndex = 0;
-                if (selectedActionIndex == 3) selectedActionIndex = 2;
-                return true;
-            case Input.Keys.RIGHT:
-                if (selectedActionIndex == 0) selectedActionIndex = 1;
-                if (selectedActionIndex == 2) selectedActionIndex = 3;
-                return true;
+            case Input.Keys.UP: if (selectedActionIndex == 2) selectedActionIndex = 0; if (selectedActionIndex == 3) selectedActionIndex = 1; return true;
+            case Input.Keys.DOWN: if (selectedActionIndex == 0) selectedActionIndex = 2; if (selectedActionIndex == 1) selectedActionIndex = 3; return true;
+            case Input.Keys.LEFT: if (selectedActionIndex == 1) selectedActionIndex = 0; if (selectedActionIndex == 3) selectedActionIndex = 2; return true;
+            case Input.Keys.RIGHT: if (selectedActionIndex == 0) selectedActionIndex = 1; if (selectedActionIndex == 2) selectedActionIndex = 3; return true;
             case Input.Keys.Z:
                 if (selectedActionIndex == 0) { // FIGHT
                     sortAndArrangeMoves();
@@ -529,31 +504,19 @@ public class BattleScreen extends ScreenAdapter {
     private boolean handleMoveSelectionInput(int keycode) {
         int moveCount = displayedMoves.size;
         if (moveCount == 0) return false;
-
         int oldIndex = selectedMoveIndex;
-
         switch (keycode) {
-            case Input.Keys.UP:
-                if (selectedMoveIndex >= 2) selectedMoveIndex -= 2;
-                break;
-            case Input.Keys.DOWN:
-                if (selectedMoveIndex < 2 && selectedMoveIndex + 2 < moveCount) selectedMoveIndex += 2;
-                break;
-            case Input.Keys.LEFT:
-                if (selectedMoveIndex == 1 || selectedMoveIndex == 3) selectedMoveIndex -= 1;
-                break;
-            case Input.Keys.RIGHT:
-                if ((selectedMoveIndex == 0 || selectedMoveIndex == 2) && selectedMoveIndex + 1 < moveCount) selectedMoveIndex += 1;
-                break;
-            case Input.Keys.X:
-            case Input.Keys.ESCAPE:
-                startActionMessage();
+            case Input.Keys.UP: if (selectedMoveIndex >= 2) selectedMoveIndex -= 2; break;
+            case Input.Keys.DOWN: if (selectedMoveIndex < 2 && selectedMoveIndex + 2 < moveCount) selectedMoveIndex += 2; break;
+            case Input.Keys.LEFT: if (selectedMoveIndex == 1 || selectedMoveIndex == 3) selectedMoveIndex -= 1; break;
+            case Input.Keys.RIGHT: if ((selectedMoveIndex == 0 || selectedMoveIndex == 2) && selectedMoveIndex + 1 < moveCount) selectedMoveIndex += 1; break;
+            case Input.Keys.X: case Input.Keys.ESCAPE: 
+                startActionMessage(); 
                 return true;
             case Input.Keys.Z:
                 if(currentState == BattleState.MOVE_SELECTION) {
                     lastSelectedMoveIndex = selectedMoveIndex;
-                    Move selectedMove = displayedMoves.get(selectedMoveIndex);
-                    executeTurn(selectedMove);
+                    executeTurn(displayedMoves.get(selectedMoveIndex));
                 }
                 return true;
         }
@@ -575,28 +538,39 @@ public class BattleScreen extends ScreenAdapter {
 
     private void updateStateTransitions(float delta) {
         float transitionSpeed = 2.0f;
-        
         switch (currentState) {
-            case PLAYER_THROWING:
+            case BATTLE_START: 
+                currentState = BattleState.WILD_INTRO_SLIDE; 
+                transitionTimer = 0f; 
+                enemyPokemonCurrentPos.set(uiViewport.getWorldWidth() + 40, enemyPlatformPos.y + 10); 
+                break;
+            case WILD_INTRO_SLIDE:
+                transitionTimer += delta * 1.5f;
+                enemyPokemonCurrentPos.interpolate(new Vector2(enemyPlatformPos.x - wildPokemonAnimation.getKeyFrame(0).getRegionWidth() / 2f, enemyPlatformPos.y + 10), transitionTimer, Interpolation.sineOut);
+                if (transitionTimer >= 1.0f) {
+                    setMessage("Wild " + wildPokemon.getNickname().toUpperCase() + " appeared!", BattleState.WILD_INTRO_MESSAGE, BattleState.WILD_INTRO_MESSAGE);
+                }
+                break;
+            case PLAYER_THROW_ANIM:
                 playerSpriteTimer += delta;
                 if (playerThrowAnimation.isAnimationFinished(playerSpriteTimer)) {
-                    currentState = BattleState.TRANSITION_OUT;
+                    currentState = BattleState.PLAYER_POKEMON_ENTER;
                     transitionTimer = 0f;
-                    pokemonCurrentPos.set(playerOffScreenPos);
+                    playerPokemonCurrentPos.set(playerOffScreenPos);
                 }
                 break;
-            case TRANSITION_OUT:
+            case PLAYER_POKEMON_ENTER:
                 transitionTimer += delta * transitionSpeed;
-                playerCurrentPos.interpolate(playerOffScreenPos, transitionTimer, Interpolation.exp5In);
-                pokemonCurrentPos.interpolate(playerOnScreenPos, transitionTimer, Interpolation.exp5Out);
+                playerTrainerCurrentPos.interpolate(playerOffScreenPos, transitionTimer, Interpolation.exp5In);
+                playerPokemonCurrentPos.interpolate(playerOnScreenPos, transitionTimer, Interpolation.exp5Out);
                 if (transitionTimer >= 1.0f) {
-                    playerCurrentPos.set(playerOffScreenPos);
-                    pokemonCurrentPos.set(playerOnScreenPos);
-                    currentState = BattleState.STATUS_BAR_ENTERING;
+                    playerTrainerCurrentPos.set(playerOffScreenPos);
+                    playerPokemonCurrentPos.set(playerOnScreenPos);
+                    currentState = BattleState.STATUS_BARS_ENTER;
                     transitionTimer = 0f;
                 }
                 break;
-            case STATUS_BAR_ENTERING:
+            case STATUS_BARS_ENTER:
                 transitionTimer += delta * transitionSpeed;
                 playerStatusCurrentPos.interpolate(playerStatusOnScreenPos, transitionTimer, Interpolation.sineOut);
                 if(transitionTimer >= 1.0f) {
@@ -604,127 +578,162 @@ public class BattleScreen extends ScreenAdapter {
                     startActionMessage();
                 }
                 break;
-            case HP_ANIMATING:
+            case HP_BAR_ANIMATING:
                 hpAnimTimer += delta;
                 if (hpAnimTimer >= HP_ANIM_DURATION) {
-                    if (messageQueue.isEmpty()) {
-                        TurnAction action = turnQueue.first();
-                        if (action.defender.getCurrentHP() <= 0) {
-                            faintedPokemon = action.defender;
-                            currentState = BattleState.POKEMON_FAINTING;
-                            faintAnimationTimer = 0f;
-                        } else {
-                            turnQueue.removeFirst();
-                            processNextTurnAction();
-                        }
-                    } else {
-                        setMessage(messageQueue.removeFirst(), BattleState.BATTLE_MESSAGE);
-                    }
+                    currentState = BattleState.BATTLE_MESSAGE_WAIT;
+                    handleBattleMessageConfirmation();
                 }
                 break;
-            case POKEMON_FAINTING:
+            case POKEMON_FAINTING_ANIM:
                 faintAnimationTimer += delta;
-                float duration = 0.6f;
-                if (faintAnimationTimer >= duration) {
-                    setMessage(getAttackerName(faintedPokemon) + " fainted!", BattleState.BATTLE_MESSAGE);
+                if (faintAnimationTimer >= 0.6f) {
+                    setMessage(getAttackerName(faintedPokemon) + " fainted!", BattleState.FAINT_MESSAGE_TYPING, BattleState.FAINT_MESSAGE_TYPING);
                 }
                 break;
-            case EXP_ANIMATING_FILL:
-                expAnimTimer += delta;
-                if (expAnimTimer >= EXP_ANIM_DURATION) {
-                    if (levelUpQueue.size > 0) {
-                        Pokemon.LevelUpResult nextLevel = levelUpQueue.first();
-                        setMessage(playerPokemon.getNickname().toUpperCase() + " grew to\nLV. " + nextLevel.newLevel + "!", BattleState.LEVEL_UP_MESSAGE);
-                    } else {
-                        currentState = BattleState.WAIT_FOR_END;
+            case EXP_SEQUENCE_START:
+                totalExpGained = BattleCalculator.calculateExperienceGained(playerPokemon, wildPokemon);
+                if (totalExpGained > 0) {
+                    Array<Pokemon.LevelUpResult> levelUps = playerPokemon.gainExperience(totalExpGained);
+                    levelUpQueue.clear();
+                    for (Pokemon.LevelUpResult res : levelUps) {
+                        levelUpQueue.addLast(res);
                     }
+                    setMessage(playerPokemon.getNickname().toUpperCase() + " gained\n" + totalExpGained + " EXP. Points!", BattleState.EXP_GAIN_MESSAGE, BattleState.EXP_GAIN_MESSAGE);
+                    levelUpPauseTimer = 0f;
+                } else {
+                    currentState = BattleState.BATTLE_END_WAIT;
+                }
+                break;
+            case EXP_GAIN_MESSAGE:
+                levelUpPauseTimer += delta;
+                if (levelUpPauseTimer >= 0.35f) {
+                    startExpBarAnimation();
+                }
+                break;
+            case EXP_BAR_ANIMATING:
+                updateExpAnimation(delta);
+                break;
+            case LEVEL_UP_FLASH:
+                levelUpPauseTimer += delta;
+                if (levelUpPauseTimer > 0.25f) {
+                    this.levelToDisplayInHud = currentLevelUpStats.newLevel;
+                    this.expAnimCurrentPercentage = 0f;
+                    setMessage(playerPokemon.getNickname().toUpperCase() + " grew to\nLV. " + currentLevelUpStats.newLevel + "!", BattleState.LEVEL_UP_MESSAGE, BattleState.LEVEL_UP_MESSAGE);
+                    levelUpPauseTimer = 0f;
                 }
                 break;
             case LEVEL_UP_MESSAGE:
-                if (charIndex >= fullMessage.length()) {
-                    if (Gdx.input.isKeyJustPressed(Input.Keys.Z) || Gdx.input.isKeyJustPressed(Input.Keys.X)) {
-                         currentState = BattleState.LEVEL_UP_PAUSE;
-                    }
+                levelUpPauseTimer += delta;
+                if (levelUpPauseTimer >= 0.30f) {
+                    currentState = BattleState.LEVEL_UP_STAT_SHOW;
+                    levelUpPauseTimer = 0f;
                 }
                 break;
-            case LEVEL_UP_PAUSE:
-                currentLevelUpStats = levelUpQueue.removeFirst();
-                expAnimTimer = 0f;
-                if (levelUpQueue.size > 0) {
-                    expAnimStartPercentage = 0f;
-                    expAnimEndPercentage = 1f;
-                    currentState = BattleState.EXP_ANIMATING_FILL;
-                } else {
-                    currentState = BattleState.SHOWING_STATS;
-                }
-                break;
-            case SHOWING_STATS:
-                expAnimTimer += delta;
-                if (expAnimTimer > 0.2f) {
+            case LEVEL_UP_STAT_SHOW:
+                levelUpPauseTimer += delta;
+                if (levelUpPauseTimer > 0.2f) {
                     statsBoxVisible = true;
-                    currentState = BattleState.WAIT_FOR_STATS_DISMISS;
+                    currentState = BattleState.LEVEL_UP_STAT_WAIT;
                 }
                 break;
             case PLAYER_SWITCH_OUT:
                 transitionTimer += delta * transitionSpeed * 1.5f;
-                pokemonCurrentPos.interpolate(playerOffScreenPos, transitionTimer, Interpolation.exp5In);
+                playerPokemonCurrentPos.interpolate(playerOffScreenPos, transitionTimer, Interpolation.exp5In);
                 if (transitionTimer >= 1f) {
                     playerPokemon = pokemonToSwitchIn;
+                    this.levelToDisplayInHud = playerPokemon.getLevel();
                     loadPlayerPokemonAnimation();
                     pokemonToSwitchIn = null;
-                    startGoMessage();
+                    setMessage("VAI " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.SWITCH_MESSAGE_GO, BattleState.SWITCH_MESSAGE_GO);
                 }
                 break;
             case PLAYER_SWITCH_IN:
                 transitionTimer += delta * transitionSpeed * 1.5f;
-                pokemonCurrentPos.interpolate(playerOnScreenPos, transitionTimer, Interpolation.exp5Out);
+                playerPokemonCurrentPos.interpolate(playerOnScreenPos, transitionTimer, Interpolation.exp5Out);
                 if(transitionTimer >= 1f) {
+                    currentState = BattleState.STATUS_BARS_ENTER;
+                    transitionTimer = 0f;
                     if (isVoluntarySwitch) {
                         isVoluntarySwitch = false; 
                         turnQueue.clear();
                         Move enemyMove = wildPokemon.getMoves().random();
                         turnQueue.addLast(new TurnAction(wildPokemon, playerPokemon, enemyMove));
                         processNextTurnAction();
-                    } else {
-                        startActionMessage();
                     }
                 }
                 break;
-            default:
-                break;
+        }
+    }
+
+    private void startExpBarAnimation() {
+        expAnimTimer = 0f;
+        
+        if (levelUpQueue.size > 0 || (currentLevelUpStats != null && expAnimCurrentPercentage < 1f) ) {
+            expAnimTargetPercentage = 1f;
+        } else {
+            int expInLevel = playerPokemon.getExperiencePoints() - ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+            int expForNext = ExperienceCalculator.getExpToNextLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+            expAnimTargetPercentage = (expForNext > 0) ? (float) expInLevel / expForNext : 0f;
+        }
+    
+        expAnimStartPercentage = expAnimCurrentPercentage;
+    
+        float percentageToFill = expAnimTargetPercentage - expAnimStartPercentage;
+        expAnimDuration = Math.max(EXP_BAR_BASE_DURATION * percentageToFill, 0.45f);
+    
+        if (expAnimDuration > 0.01f) {
+            currentState = BattleState.EXP_BAR_ANIMATING;
+        } else if (levelUpQueue.size > 0) {
+            levelUpPauseTimer = 0f;
+            currentLevelUpStats = levelUpQueue.removeFirst();
+            currentState = BattleState.LEVEL_UP_FLASH;
+        } else {
+            currentState = BattleState.BATTLE_END_WAIT;
+        }
+    }
+
+    private void updateExpAnimation(float delta) {
+        expAnimTimer += delta;
+        float progress = Math.min(1f, expAnimTimer / expAnimDuration);
+        
+        expAnimCurrentPercentage = Interpolation.pow2Out.apply(expAnimStartPercentage, expAnimTargetPercentage, progress);
+        
+        if (progress >= 1f) {
+            expAnimCurrentPercentage = expAnimTargetPercentage; 
+            
+            if (expAnimCurrentPercentage >= 1f && (levelUpQueue.size > 0 || currentLevelUpStats != null)) {
+                if(currentLevelUpStats == null) currentLevelUpStats = levelUpQueue.removeFirst();
+                levelUpPauseTimer = 0f;
+                currentState = BattleState.LEVEL_UP_FLASH;
+            } else {
+                currentState = BattleState.BATTLE_END_WAIT;
+            }
         }
     }
 
     private void updateDialogue(float delta) {
         if (charIndex < fullMessage.length()) {
-            boolean isTypingState = currentState == BattleState.WILD_INTRO_TYPING || 
-                                    currentState == BattleState.GO_MESSAGE_TYPING ||
-                                    currentState == BattleState.ACTION_SELECTION ||
-                                    currentState == BattleState.BATTLE_MESSAGE ||
-                                    currentState == BattleState.EXP_MESSAGE ||
-                                    currentState == BattleState.LEVEL_UP_MESSAGE ||
-                                    currentState == BattleState.WAIT_FOR_END;
-            if (isTypingState) {
-                typewriterTimer += delta;
-                if (typewriterTimer >= 1f / charsPerSecond) {
-                    typewriterTimer = 0f;
-                    visibleMessage += fullMessage.charAt(charIndex++);
+            typewriterTimer += delta;
+            if (typewriterTimer >= 1f / charsPerSecond) {
+                typewriterTimer = 0f;
+                visibleMessage += fullMessage.charAt(charIndex++);
+
+                if (charIndex == fullMessage.length()) {
+                    if (currentState == BattleState.WILD_INTRO_MESSAGE) {
+                        currentState = BattleState.SEND_OUT_MESSAGE;
+                    } else if (currentState == BattleState.BATTLE_MESSAGE_TYPING) {
+                        currentState = BattleState.BATTLE_MESSAGE_WAIT;
+                    } else if (currentState == BattleState.FAINT_MESSAGE_TYPING) {
+                        currentState = BattleState.POST_BATTLE_ACTIONS;
+                    }
                 }
             }
-        } 
-        else {
-            if (currentState == BattleState.WILD_INTRO_TYPING) {
-                currentState = BattleState.WILD_INTRO_WAIT;
-            } else if (currentState == BattleState.GO_MESSAGE_TYPING) {
-                currentState = BattleState.GO_MESSAGE_WAIT;
-            }
-
-            if (currentState == BattleState.WILD_INTRO_WAIT || 
-                currentState == BattleState.WAIT_FOR_END) {
-                indicatorTimer += delta;
-            }
+        } else {
+            indicatorTimer += delta;
         }
     }
+
 
     private void updateCamera(float delta) {
         cameraPanTimer += delta * 0.2f;
@@ -737,10 +746,10 @@ public class BattleScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         animationTimer += delta;
-        fadeManager.update(delta); // ## ADICIONADO ##
+        fadeManager.update(delta);
+        updateStateTransitions(delta);
         updateDialogue(delta);
         updateCamera(delta);
-        updateStateTransitions(delta);
 
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -758,8 +767,7 @@ public class BattleScreen extends ScreenAdapter {
         batch.enableBlending();
         
         if (platform != null) {
-            float hoverSpeed = 1.05f;
-            float hoverAmplitude = 1.1f;
+            float hoverSpeed = 1.05f, hoverAmplitude = 1.1f;
             float enemyHoverY = (float) Math.sin(animationTimer * hoverSpeed) * hoverAmplitude;
             float playerHoverY = (float) Math.sin((animationTimer * hoverSpeed) + 0.5f) * hoverAmplitude;
             float enemyPlatformCurrentY = enemyPlatformPos.y + enemyHoverY;
@@ -767,44 +775,31 @@ public class BattleScreen extends ScreenAdapter {
             batch.draw(platform, enemyPlatformPos.x - platform.getRegionWidth() / 2f, enemyPlatformCurrentY);
             
             if (wildPokemonAnimation != null) {
-                if (faintedPokemon != wildPokemon) {
-                    TextureRegion frame = wildPokemonAnimation.getKeyFrame(animationTimer, true);
-                    wildPokemonRenderPos.set(enemyPlatformPos.x - frame.getRegionWidth() / 2f, enemyPlatformCurrentY + 10);
-                    batch.draw(frame, wildPokemonRenderPos.x, wildPokemonRenderPos.y);
-                } else {
-                    TextureRegion frame = wildPokemonAnimation.getKeyFrame(animationTimer, true);
+                TextureRegion frame = wildPokemonAnimation.getKeyFrame(animationTimer, true);
+                Vector2 renderPos = enemyPokemonCurrentPos; 
+                if (faintedPokemon == wildPokemon) {
                     float progress = faintAnimationTimer / 0.6f;
-                    float y = Interpolation.pow2In.apply(wildPokemonRenderPos.y, -150, progress);
-                    batch.draw(frame, wildPokemonRenderPos.x, y);
+                    renderPos.y = Interpolation.pow2In.apply(renderPos.y, -150, progress);
                 }
+                batch.draw(frame, renderPos.x, renderPos.y);
             }
             
             float playerPlatformCurrentY = playerOnScreenPos.y + playerHoverY;
             batch.draw(platform, playerOnScreenPos.x - platform.getRegionWidth() / 2f, playerPlatformCurrentY);
 
-            if (currentState.ordinal() < BattleState.TRANSITION_OUT.ordinal() || currentState == BattleState.PLAYER_SWITCH_OUT) {
-                 if (currentState != BattleState.PLAYER_SWITCH_OUT) {
-                    TextureRegion frame = playerThrowAnimation.getKeyFrame(playerSpriteTimer, false);
-                    float trainerX = playerCurrentPos.x - frame.getRegionWidth() / 2f;
-                    float trainerY = playerPlatformCurrentY + 4;
-                    batch.draw(frame, trainerX, trainerY);
-                 }
-            } else {
-                if (playerPokemonAnimation != null) {
-                     if(faintedPokemon != playerPokemon) {
-                        TextureRegion frame = playerPokemonAnimation.getKeyFrame(animationTimer, true);
-                        float pokeX = pokemonCurrentPos.x - frame.getRegionWidth() / 2f;
-                        float pokeY = pokemonCurrentPos.y + playerPlatformCurrentY - playerOnScreenPos.y + 4;
-                        batch.draw(frame, pokeX, pokeY);
-                    } else {
-                         TextureRegion frame = playerPokemonAnimation.getKeyFrame(animationTimer, true);
-                         float pokeX = pokemonCurrentPos.x - frame.getRegionWidth() / 2f;
-                         float initialY = pokemonCurrentPos.y + playerPlatformCurrentY - playerOnScreenPos.y + 4;
-                         float progress = faintAnimationTimer / 0.6f;
-                         float y = Interpolation.pow2In.apply(initialY, -150, progress);
-                         batch.draw(frame, pokeX, y);
-                    }
+            if (currentState.ordinal() < BattleState.PLAYER_POKEMON_ENTER.ordinal() || currentState == BattleState.PLAYER_SWITCH_OUT) {
+                TextureRegion frame = playerThrowAnimation.getKeyFrame(playerSpriteTimer, false);
+                float trainerX = playerTrainerCurrentPos.x - frame.getRegionWidth() / 2f;
+                float trainerY = playerPlatformCurrentY + 4;
+                batch.draw(frame, trainerX, trainerY);
+            } else if (playerPokemonAnimation != null) {
+                TextureRegion frame = playerPokemonAnimation.getKeyFrame(animationTimer, true);
+                float pokeX = playerPokemonCurrentPos.x - frame.getRegionWidth() / 2f;
+                float pokeY = playerPokemonCurrentPos.y + playerPlatformCurrentY - playerOnScreenPos.y + 4;
+                if(faintedPokemon == playerPokemon) {
+                     pokeY = Interpolation.pow2In.apply(pokeY, -150, faintAnimationTimer / 0.6f);
                 }
+                batch.draw(frame, pokeX, pokeY);
             }
         }
         batch.end();
@@ -812,44 +807,27 @@ public class BattleScreen extends ScreenAdapter {
         uiViewport.apply();
         batch.setProjectionMatrix(uiCamera.combined);
         
-        if (playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal() && faintedPokemon != playerPokemon) {
+        if (playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BARS_ENTER.ordinal() && faintedPokemon != playerPokemon) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            
-            float x = playerStatusCurrentPos.x; float y = playerStatusCurrentPos.y;
-            float barWidth = 64f; float barHeight = 2f;
-            float barX = x + 32; float barY = y + 2;
-            
+            float x = playerStatusCurrentPos.x, y = playerStatusCurrentPos.y;
+            float barWidth = 64f, barHeight = 2f, barX = x + 32, barY = y + 2;
             shapeRenderer.setColor(Color.GRAY);
             shapeRenderer.rect(barX, barY, barWidth, barHeight);
-            
-            float progressPercentage;
-            if(currentState == BattleState.EXP_ANIMATING_FILL) {
-                float progress = Math.min(1f, expAnimTimer / EXP_ANIM_DURATION);
-                progressPercentage = Interpolation.linear.apply(expAnimStartPercentage, expAnimEndPercentage, progress);
-            } else {
-                int totalExpForCurrentLevel = ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
-                int expInCurrentLevel = playerPokemon.getExperiencePoints() - totalExpForCurrentLevel;
-                int expNeededForNextLevel = playerPokemon.getExperienceToNextLevel();
-                progressPercentage = (expNeededForNextLevel > 0) ? (float) expInCurrentLevel / expNeededForNextLevel : 0f;
-            }
-            
             shapeRenderer.setColor(Color.CYAN);
-            shapeRenderer.rect(barX, barY, barWidth * progressPercentage, barHeight);
-            
+            shapeRenderer.rect(barX, barY, barWidth * expAnimCurrentPercentage, barHeight); 
             shapeRenderer.end();
         }
+
 
         batch.begin();
         
         if (statusEnemy != null && faintedPokemon != wildPokemon) {
-            float x = 10; float y = 120;
-            if (currentState == BattleState.HP_ANIMATING && hpAnimTargetPokemon == wildPokemon) {
-                float progress = hpAnimTimer / HP_ANIM_DURATION;
-                float animatedHp = Interpolation.linear.apply(hpAnimStart, hpAnimEnd, progress);
-                enemyHealthBar.draw(batch, animatedHp / wildPokemon.getMaxHP(), x + 39, y + 9);
-            } else {
-                enemyHealthBar.draw(batch, wildPokemon, x + 39, y + 9);
-            }
+            float x = 10, y = 120;
+            float hpPercentage = (currentState == BattleState.HP_BAR_ANIMATING && hpAnimTargetPokemon == wildPokemon) ? 
+                Interpolation.linear.apply(hpAnimStart, hpAnimEnd, hpAnimTimer / HP_ANIM_DURATION) / wildPokemon.getMaxHP() :
+                (float)wildPokemon.getCurrentHP() / wildPokemon.getMaxHP();
+            enemyHealthBar.draw(batch, hpPercentage, x + 39, y + 9);
+            
             batch.draw(statusEnemy, x, y);
             String wildName = wildPokemon.getNickname().toUpperCase();
             if (wildPokemon.getGender() == Pokemon.Gender.MALE) wildName += "♂";
@@ -858,33 +836,31 @@ public class BattleScreen extends ScreenAdapter {
             statusFont.draw(batch, "" + wildPokemon.getLevel(), x + 74, y + 16);
         }
 
-        if (statusPlayer != null && playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BAR_ENTERING.ordinal() && faintedPokemon != playerPokemon) {
-            float x = playerStatusCurrentPos.x; float y = playerStatusCurrentPos.y;
+        if (statusPlayer != null && playerPokemon != null && currentState.ordinal() >= BattleState.STATUS_BARS_ENTER.ordinal() && faintedPokemon != playerPokemon) {
+            float x = playerStatusCurrentPos.x, y = playerStatusCurrentPos.y;
             
-            if (currentState == BattleState.HP_ANIMATING && hpAnimTargetPokemon == playerPokemon) {
-                float progress = hpAnimTimer / HP_ANIM_DURATION;
-                float animatedHp = Interpolation.linear.apply(hpAnimStart, hpAnimEnd, progress);
-                playerHealthBar.draw(batch, animatedHp / playerPokemon.getMaxHP(), x + 48, y + 16);
-            } else {
-                playerHealthBar.draw(batch, playerPokemon, x + 48, y + 16);
-            }
+            float hpPercentage = (currentState == BattleState.HP_BAR_ANIMATING && hpAnimTargetPokemon == playerPokemon) ?
+                Interpolation.linear.apply(hpAnimStart, hpAnimEnd, hpAnimTimer / HP_ANIM_DURATION) / playerPokemon.getMaxHP() :
+                (float)playerPokemon.getCurrentHP() / playerPokemon.getMaxHP();
+            playerHealthBar.draw(batch, hpPercentage, x + 48, y + 16);
+            
             batch.draw(statusPlayer, x, y);
             
             String playerName = playerPokemon.getNickname().toUpperCase();
             if (playerPokemon.getGender() == Pokemon.Gender.MALE) playerName += "♂";
             else if (playerPokemon.getGender() == Pokemon.Gender.FEMALE) playerName += "♀";
             statusFont.draw(batch, playerName, x + 15, y + 22);
-            statusFont.draw(batch, "" + playerPokemon.getLevel(), x + 22, y + 8);
             
-            String hpText = (currentState == BattleState.HP_ANIMATING && hpAnimTargetPokemon == playerPokemon) ? 
-                            (int)Interpolation.linear.apply(hpAnimStart, hpAnimEnd, hpAnimTimer / HP_ANIM_DURATION) + "/" + playerPokemon.getMaxHP() :
-                            playerPokemon.getCurrentHP() + "/" + playerPokemon.getMaxHP();
+            statusFont.draw(batch, "" + levelToDisplayInHud, x + 22, y + 8);
+
+            String hpText = (currentState == BattleState.HP_BAR_ANIMATING && hpAnimTargetPokemon == playerPokemon) ? 
+                (int)Interpolation.linear.apply(hpAnimStart, hpAnimEnd, hpAnimTimer / HP_ANIM_DURATION) + "/" + playerPokemon.getMaxHP() :
+                playerPokemon.getCurrentHP() + "/" + playerPokemon.getMaxHP();
             float hpTextWidth = statusFont.getWidth(hpText);
             statusFont.draw(batch, hpText, x + 90 - hpTextWidth, y + 7);
         }
 
-        boolean showTextbox = currentState != BattleState.ACTION_SELECTION && 
-                              currentState != BattleState.MOVE_SELECTION;
+        boolean showTextbox = currentState != BattleState.ACTION_SELECTION && currentState != BattleState.MOVE_SELECTION && currentState != BattleState.BATTLE_START;
 
         if (currentState == BattleState.ACTION_SELECTION) {
             batch.draw(battleTextbox, 0, 0, uiViewport.getWorldWidth(), battleTextbox.getRegionHeight());
@@ -902,45 +878,37 @@ public class BattleScreen extends ScreenAdapter {
             whiteFont.draw(batch, layout, 10, 34);
         }
         
-        if (currentState == BattleState.WILD_INTRO_WAIT || currentState == BattleState.WAIT_FOR_END || (charIndex >= fullMessage.length() && (currentState == BattleState.BATTLE_MESSAGE || currentState == BattleState.EXP_MESSAGE || currentState == BattleState.LEVEL_UP_MESSAGE))) {
+        boolean showWaitingIndicator = (charIndex >= fullMessage.length() && 
+                                       (currentState == BattleState.BATTLE_MESSAGE_WAIT ||
+                                        currentState == BattleState.SEND_OUT_MESSAGE ||
+                                        currentState == BattleState.BATTLE_END_WAIT ||
+                                        currentState == BattleState.SWITCH_MESSAGE_COME_BACK ||
+                                        currentState == BattleState.SWITCH_MESSAGE_GO));
+        if (showWaitingIndicator) {
              drawWaitingIndicator();
         }
 
         drawLevelUpStatBox();
-        
-        // ## ADICIONADO: Renderiza o fade in/out sobre toda a tela ##
         fadeManager.render(batch, uiViewport.getWorldWidth(), uiViewport.getWorldHeight());
-        
         batch.end();
     }
 
     private void drawMoveSelectionUi() {
         batch.draw(battleFightUi, 0, 0);
-        
         for (int i = 0; i < displayedMoves.size; i++) {
             Vector2 pos = movePositions.get(i);
             grayFont.draw(batch, displayedMoves.get(i).getName().toUpperCase(), pos.x, pos.y);
         }
-
         if (displayedMoves.size > 0) {
             Vector2 selectedPos = movePositions.get(selectedMoveIndex);
-            float arrowX = selectedPos.x - 4; 
-            float arrowY = selectedPos.y - 12;
-            batch.draw(actionArrow, arrowX, arrowY);
-            
+            batch.draw(actionArrow, selectedPos.x - 4, selectedPos.y - 12);
             Move selectedMove = displayedMoves.get(selectedMoveIndex);
-            
             String ppText = selectedMove.getCurrentPP() + "/" + selectedMove.getMaxPP();
-            layout.setText(grayFont, "PP");
             grayFont.draw(batch, "PP", 185, 35);
             whiteFont.draw(batch, ppText, 205, 35);
-
-            layout.setText(grayFont, "TIPO/");
-            grayFont.draw(batch, "TIPO/", 185, 15);
+            grayFont.draw(batch, "TYPE/", 185, 15);
             TextureRegion typeRegion = typeAtlas.findRegion(selectedMove.getType().name().toLowerCase());
-            if (typeRegion != null) {
-                batch.draw(typeRegion, 215, 5, 32, 12);
-            }
+            if (typeRegion != null) batch.draw(typeRegion, 215, 5, 32, 12);
         }
     }
 
@@ -948,65 +916,43 @@ public class BattleScreen extends ScreenAdapter {
         if (layout.runs.size > 0 && layout.runs.peek().glyphs.size > 0) {
             GlyphLayout.GlyphRun lastRun = layout.runs.peek();
             float runWidth = 0f;
-            for (int i = 0; i < lastRun.xAdvances.size; i++) {
-                runWidth += lastRun.xAdvances.get(i);
-            }
-            float drawX = 10f;
-            float drawTopY = 34f;
+            for (int i = 0; i < lastRun.xAdvances.size; i++) runWidth += lastRun.xAdvances.get(i);
+            float drawX = 10f, drawTopY = 34f;
             float arrowX = drawX + lastRun.x + runWidth + 2f;
             float lastLineBaselineY = drawTopY - layout.height + lastRun.y + grayFont.getCapHeight();
             float arrowSize = whiteFont.getCapHeight() * 0.75f;
             float arrowBaseY = lastLineBaselineY - (arrowSize / 2f);
-            float speed = 8f;
-            float amplitude = 2f;
-            float yOffset = (float) Math.sin(indicatorTimer * speed) * amplitude;
-            float arrowY = arrowBaseY + yOffset;
-            batch.draw(dialogueArrow, arrowX, arrowY, arrowSize, arrowSize);
+            float yOffset = (float) Math.sin(indicatorTimer * 8f) * 2f;
+            batch.draw(dialogueArrow, arrowX, arrowBaseY + yOffset, arrowSize, arrowSize);
         }
     }
 
     private void drawLevelUpStatBox() {
         if (!statsBoxVisible || currentLevelUpStats == null) return;
 
-        float boxWidth = 100f;
-        float boxHeight = 95f;
+        float boxWidth = 100f, boxHeight = 95f;
         float boxX = uiViewport.getWorldWidth() - boxWidth - 5;
         float boxY = (uiViewport.getWorldHeight() - boxHeight) / 2;
-
         statBoxPatch.draw(batch, boxX, boxY, boxWidth, boxHeight);
-
         BitmapFont font = whiteFont;
         BitmapFont valueFont = assetManager.get(assetLoader.INCREASED_STAT_FONT_NAME + ".otf", BitmapFont.class);
-
-        float leftPad = boxX + 8;
-        float rightPad = boxX + boxWidth - 8;
-        float currentY = boxY + boxHeight - 12;
+        float leftPad = boxX + 8, rightPad = boxX + boxWidth - 8, currentY = boxY + boxHeight - 12;
 
         font.draw(batch, "MAX. HP", leftPad, currentY);
         layout.setText(valueFont, "+" + currentLevelUpStats.hpIncrease);
-        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
-        currentY -= 14;
-
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY); currentY -= 14;
         font.draw(batch, "ATTACK", leftPad, currentY);
         layout.setText(valueFont, "+" + currentLevelUpStats.attackIncrease);
-        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
-        currentY -= 14;
-
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY); currentY -= 14;
         font.draw(batch, "DEFENSE", leftPad, currentY);
         layout.setText(valueFont, "+" + currentLevelUpStats.defenseIncrease);
-        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
-        currentY -= 14;
-
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY); currentY -= 14;
         font.draw(batch, "SP. ATK", leftPad, currentY);
         layout.setText(valueFont, "+" + currentLevelUpStats.spAttackIncrease);
-        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
-        currentY -= 14;
-        
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY); currentY -= 14;
         font.draw(batch, "SP. DEF", leftPad, currentY);
         layout.setText(valueFont, "+" + currentLevelUpStats.spDefenseIncrease);
-        valueFont.draw(batch, layout, rightPad - layout.width, currentY);
-        currentY -= 14;
-
+        valueFont.draw(batch, layout, rightPad - layout.width, currentY); currentY -= 14;
         font.draw(batch, "SPEED", leftPad, currentY);
         layout.setText(valueFont, "+" + currentLevelUpStats.speedIncrease);
         valueFont.draw(batch, layout, rightPad - layout.width, currentY);
@@ -1028,28 +974,22 @@ public class BattleScreen extends ScreenAdapter {
         shapeRenderer.dispose();
         playerHealthBar.dispose();
         enemyHealthBar.dispose();
-        fadeManager.dispose(); // ## ADICIONADO ##
+        fadeManager.dispose();
         if (playerPokemon != null) {
             String playerPath = playerPokemon.getBackSpriteGifPath();
-            if (assetManager.isLoaded(playerPath)) {
-                assetManager.unload(playerPath);
-            }
+            if (assetManager.isLoaded(playerPath)) assetManager.unload(playerPath);
         }
         if (wildPokemon != null) {
             String wildPath = wildPokemon.getFrontSpriteGifPath();
-            if (assetManager.isLoaded(wildPath)) {
-                assetManager.unload(wildPath);
-            }
+            if (assetManager.isLoaded(wildPath)) assetManager.unload(wildPath);
         }
     }
 
     public void playerSendsNewPokemon(Pokemon newPokemon, boolean isVoluntary) {
         this.pokemonToSwitchIn = newPokemon;
         this.isVoluntarySwitch = isVoluntary;
-        
         this.faintedPokemon = null;
-        this.currentState = BattleState.PLAYER_SWITCH_OUT;
-        this.transitionTimer = 0f;
+        setMessage("Muito bem, volte " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.SWITCH_MESSAGE_COME_BACK, BattleState.SWITCH_MESSAGE_COME_BACK);
     }
 
     public Pokemon getPlayerPokemon() {

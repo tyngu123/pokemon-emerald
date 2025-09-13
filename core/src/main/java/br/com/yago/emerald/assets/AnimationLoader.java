@@ -37,7 +37,7 @@ public class AnimationLoader {
                     // ## ALTERAÇÃO AQUI ##
                     // A duração original (delayMs / 1000f) é dividida por 2 para
                     // deixar a animação 2x mais rápida.
-                    frameDuration = (delayMs / 1000f) / 3f;
+                    frameDuration = (delayMs / 1000f) / 2f;
                 }
             }
 
