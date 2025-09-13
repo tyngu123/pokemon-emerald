@@ -141,6 +141,7 @@ public class BattleScreen extends ScreenAdapter {
     private float hpAnimEnd;
     private float hpAnimTimer;
     private final float HP_ANIM_DURATION = 0.7f;
+    private boolean playCriticalHitSound = false;
 
     private float expAnimStartPercentage;
     private float expAnimCurrentPercentage;
@@ -453,6 +454,10 @@ public class BattleScreen extends ScreenAdapter {
         if (action.result == null) {
             action.result = BattleCalculator.calculateDamage(action.attacker, action.defender, action.move);
             
+            if (action.result.isCritical) {
+                playCriticalHitSound = true;
+            }
+
             hpAnimTargetPokemon = action.defender;
             hpAnimStart = hpAnimTargetPokemon.getCurrentHP();
             action.defender.takeDamage(action.result.damage);
@@ -589,6 +594,10 @@ public class BattleScreen extends ScreenAdapter {
                 }
                 break;
             case HP_BAR_ANIMATING:
+                if (playCriticalHitSound) {
+                    game.getSoundManager().playCriticalHitSfx();
+                    playCriticalHitSound = false;
+                }
                 hpAnimTimer += delta;
                 if (hpAnimTimer >= HP_ANIM_DURATION) {
                     currentState = BattleState.BATTLE_MESSAGE_WAIT;

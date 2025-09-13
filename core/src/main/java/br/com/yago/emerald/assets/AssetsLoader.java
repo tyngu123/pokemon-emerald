@@ -44,6 +44,8 @@ public class AssetsLoader {
     // ## NOVOS SFX ADICIONADOS ##
     public final String SFX_CLICK = "sounds/sfx/click.wav";
     public final String SFX_ENTER_MAP = "sounds/sfx/entering.wav";
+    public final String SFX_DOOR_OPENING = "sounds/sfx/door_opening.wav";
+    public final String SFX_CRITICAL_HIT = "sounds/sfx/critical.wav";
 
     // Atlases
     public final String PLAYER_ATLAS      = "sprites_overworld/player.atlas";
@@ -160,6 +162,8 @@ public class AssetsLoader {
         // ## CARREGANDO NOVOS SFX ##
         manager.load(SFX_CLICK, Sound.class);
         manager.load(SFX_ENTER_MAP, Sound.class);
+        manager.load(SFX_DOOR_OPENING, Sound.class);
+        manager.load(SFX_CRITICAL_HIT, Sound.class);
         
         // Atlases
         manager.load(PLAYER_ATLAS,     TextureAtlas.class);

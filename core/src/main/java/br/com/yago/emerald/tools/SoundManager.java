@@ -14,6 +14,8 @@ public class SoundManager {
 
     private Sound sfxClick;
     private Sound sfxEnterMap;
+    private Sound sfxDoorOpening;
+    private Sound sfxCriticalHit;
 
     public SoundManager(AssetManager assetManager, AssetsLoader assets) {
         this.assetManager = assetManager;
@@ -25,6 +27,8 @@ public class SoundManager {
         // Pega os sons que já foram carregados pelo AssetsLoader
         this.sfxClick = assetManager.get(assets.SFX_CLICK, Sound.class);
         this.sfxEnterMap = assetManager.get(assets.SFX_ENTER_MAP, Sound.class);
+        this.sfxDoorOpening = assetManager.get(assets.SFX_DOOR_OPENING, Sound.class);
+        this.sfxCriticalHit = assetManager.get(assets.SFX_CRITICAL_HIT, Sound.class);
     }
 
     /**
@@ -42,6 +46,24 @@ public class SoundManager {
     public void playEnterMapSfx() {
         if (sfxEnterMap != null) {
             sfxEnterMap.play(0.8f);
+        }
+    }
+    
+    /**
+     * Toca o som de abertura de porta.
+     */
+    public void playDoorOpeningSfx() {
+        if (sfxDoorOpening != null) {
+            sfxDoorOpening.play(0.8f);
+        }
+    }
+
+    /**
+     * Toca o som de acerto crítico.
+     */
+    public void playCriticalHitSfx() {
+        if (sfxCriticalHit != null) {
+            sfxCriticalHit.play(0.9f);
         }
     }
 

@@ -27,8 +27,8 @@ public class AnimateDoorCommand implements ScriptCommand {
             // Procura pela entidade Door existente nas coordenadas especificadas pelo warp.
             this.doorEntity = screen.getDoorAt(warpData.getDoorX(), warpData.getDoorY());
             if (this.doorEntity != null) {
-                // Se encontrou a porta, manda ela abrir.
-                this.doorEntity.open();
+                // Se encontrou a porta, manda ela abrir, passando o SoundManager.
+                this.doorEntity.open(screen.getGame().getSoundManager());
             }
         }
     }

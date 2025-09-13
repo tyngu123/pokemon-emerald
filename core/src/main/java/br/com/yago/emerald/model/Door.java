@@ -1,6 +1,7 @@
 package br.com.yago.emerald.model;
 
 import br.com.yago.emerald.config.GameConfig;
+import br.com.yago.emerald.tools.SoundManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,8 @@ public class Door extends Entity {
 
     private final Animation<TextureRegion> openAnimation;
     private float stateTimer = 0f;
+    private SoundManager soundManager;
+    private boolean soundPlayed = false;
 
     public Door(TextureAtlas atlas, String doorType, int gridX, int gridY) {
         // ## CORREÇÃO DE TAMANHO ##
@@ -28,15 +31,23 @@ public class Door extends Entity {
     /**
      * Inicia a animação de abertura da porta.
      */
-    public void open() {
+    public void open(SoundManager soundManager) {
         this.stateTimer = 0f;
         this.currentState = DoorState.OPENING;
+        this.soundManager = soundManager;
+        this.soundPlayed = false;
     }
 
     @Override
     public void update(float delta) {
         if (currentState == DoorState.OPENING) {
             stateTimer += delta;
+            
+            // Verifica se está no segundo frame (índice 1) e se o som ainda não foi tocado
+            if (openAnimation.getKeyFrameIndex(stateTimer) == 1 && !soundPlayed && soundManager != null) {
+                soundManager.playDoorOpeningSfx();
+                soundPlayed = true; // Garante que o som toque apenas uma vez
+            }
         }
     }
 
