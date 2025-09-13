@@ -1,0 +1,54 @@
+charmander.png
+size: 325, 24
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+pma: false
+walk-down
+  bounds: 1, 1, 19, 22
+  index: 0
+walk-down
+  bounds: 216, 1, 18, 21
+  index: 1
+walk-down
+  bounds: 22, 1, 19, 22
+  index: 2
+walk-down
+  bounds: 43, 1, 17, 22
+  index: 3
+walk-left
+  bounds: 128, 1, 20, 21
+  index: 0
+walk-left
+  bounds: 282, 1, 20, 20
+  index: 1
+walk-left
+  bounds: 150, 1, 20, 21
+  index: 2
+walk-left
+  bounds: 236, 1, 21, 20
+  index: 3
+walk-right
+  bounds: 172, 1, 20, 21
+  index: 0
+walk-right
+  bounds: 304, 1, 20, 20
+  index: 1
+walk-right
+  bounds: 194, 1, 20, 21
+  index: 2
+walk-right
+  bounds: 259, 1, 21, 20
+  index: 3
+walk-up
+  bounds: 62, 1, 15, 22
+  index: 0
+walk-up
+  bounds: 96, 1, 14, 22
+  index: 1
+walk-up
+  bounds: 79, 1, 15, 22
+  index: 2
+walk-up
+  bounds: 112, 1, 14, 22
+  index: 3

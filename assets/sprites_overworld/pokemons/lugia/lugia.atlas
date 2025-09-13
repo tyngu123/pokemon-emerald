@@ -1,0 +1,54 @@
+lugia.png
+size: 81, 782
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+pma: false
+walk-down
+  bounds: 1, 1, 79, 41
+  index: 0
+walk-down
+  bounds: 1, 44, 79, 41
+  index: 1
+walk-down
+  bounds: 1, 87, 79, 41
+  index: 2
+walk-down
+  bounds: 1, 130, 79, 41
+  index: 3
+walk-left
+  bounds: 1, 431, 71, 42
+  index: 0
+walk-left
+  bounds: 1, 475, 71, 42
+  index: 1
+walk-left
+  bounds: 1, 519, 71, 42
+  index: 2
+walk-left
+  bounds: 1, 563, 71, 42
+  index: 3
+walk-right
+  bounds: 1, 607, 71, 42
+  index: 0
+walk-right
+  bounds: 1, 651, 71, 42
+  index: 1
+walk-right
+  bounds: 1, 695, 71, 42
+  index: 2
+walk-right
+  bounds: 1, 739, 71, 42
+  index: 3
+walk-up
+  bounds: 1, 173, 73, 63
+  index: 0
+walk-up
+  bounds: 1, 303, 73, 62
+  index: 1
+walk-up
+  bounds: 1, 238, 73, 63
+  index: 2
+walk-up
+  bounds: 1, 367, 73, 62
+  index: 3

@@ -66,7 +66,7 @@ public class MusicManager {
             nextMusic = null;
             currentMusic.setVolume(0);
             currentMusic.setLooping(true);
-            currentMusic.play();
+            //currentMusic.play();
             state = State.FADING_IN;
             fadeTimer = 0f;
         }
@@ -103,7 +103,7 @@ public class MusicManager {
                     fadeTimer = 0f;
                     currentMusic.setVolume(0);
                     currentMusic.setLooping(true);
-                    currentMusic.play();
+                   // currentMusic.play();
                 } else {
                     state = State.IDLE;
                 }

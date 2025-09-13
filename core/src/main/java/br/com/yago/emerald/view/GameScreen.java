@@ -41,6 +41,7 @@ import br.com.yago.emerald.model.Direction;
 import br.com.yago.emerald.model.Door;
 import br.com.yago.emerald.model.EncounterData;
 import br.com.yago.emerald.model.Entity;
+import br.com.yago.emerald.model.Follower;
 import br.com.yago.emerald.model.NPC;
 import br.com.yago.emerald.model.Player;
 import br.com.yago.emerald.model.Pokemon;
@@ -76,6 +77,7 @@ public class GameScreen extends ScreenAdapter {
 	private final int[] mapBackgroundLayers, mapForegroundLayers;
 	private final AssetsLoader assetLoader;
 	private final Player player;
+	private Follower follower;
 	private final PlayerInputHandler playerInputHandler;
 	private final Array<Entity> entities;
 	private final Array<NPC> npcs = new Array<>();
@@ -119,7 +121,6 @@ public class GameScreen extends ScreenAdapter {
 
 		NinePatch mapNameBoxNinePatch = new NinePatch(menuBoxTexture, 8, 8, 8, 8);
 
-        // ## CONSTRUÇÃO ATUALIZADA ##
 		dialogueBox = new DialogueBox(dialogueFont, menuBoxTexture, dialogueArrowTexture, game.getSoundManager());
 		mapNameBox = new MapNameBox(mapNameBoxNinePatch, uiFont);
 		menuBox = new MenuBox(uiFont, menuBoxTexture, menuArrowTexture);
@@ -169,6 +170,8 @@ public class GameScreen extends ScreenAdapter {
         player.setFacingDirection(playerFacing);
         player.setVisible(true);
         entities.add(player);
+        
+        initializeFollower(collisionLayer);
 
 		NpcLoader.loadNpcs(map, collisionLayer, assetLoader, entities);
 		for (Entity e : entities) {
@@ -200,6 +203,21 @@ public class GameScreen extends ScreenAdapter {
 		
 		game.getMusicManager().playMapMusic(this.musicFile);
 	}
+    
+    private void initializeFollower(TiledMapTileLayer collisionLayer) {
+        Pokemon firstPokemon = player.getParty().getFirstAvailablePokemon();
+        if (firstPokemon != null) {
+            String atlasPath = "sprites_overworld/pokemons/" + firstPokemon.getSpeciesName().toLowerCase() + "/" + firstPokemon.getSpeciesName().toLowerCase() + ".atlas";
+            if (Gdx.files.internal(atlasPath).exists()) {
+                assetLoader.manager.load(atlasPath, TextureAtlas.class);
+                assetLoader.manager.finishLoading();
+                TextureAtlas followerAtlas = assetLoader.manager.get(atlasPath, TextureAtlas.class);
+                follower = new Follower(followerAtlas, collisionLayer, entities, player);
+                entities.add(follower);
+                player.setFollower(follower);
+            }
+        }
+    }
 
     private void loadEncounterData() {
         String encounterFilePath = map.getProperties().get("encounterFile", String.class);
@@ -373,7 +391,17 @@ public class GameScreen extends ScreenAdapter {
 		for (Entity e : entities) {
 			TextureRegion frame = e.getCurrentFrame();
 			if (frame == null) continue;
-			batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
+			
+            // ## CORREÇÃO AQUI: Desenha o seguidor em seu tamanho original ##
+			if (e instanceof Follower) {
+                // Centraliza o sprite horizontalmente na posição lógica da entidade
+                float drawX = e.getWorldPosition().x + (e.getWidth() / 2) - (frame.getRegionWidth() / 2);
+                float drawY = e.getWorldPosition().y;
+                batch.draw(frame, drawX, drawY, frame.getRegionWidth(), frame.getRegionHeight());
+            } else {
+                // Desenha as outras entidades (Player, NPC) com o tamanho padrão
+                batch.draw(frame, e.getWorldPosition().x, e.getWorldPosition().y, e.getWidth(), e.getHeight());
+            }
 		}
 		batch.end();
 		mapRenderer.render(mapForegroundLayers);

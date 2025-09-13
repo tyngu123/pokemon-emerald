@@ -18,21 +18,21 @@ public abstract class Character extends Entity {
     public enum State { IDLE, WALKING, FREEZE_WALK }
 
     protected State currentState;
-    protected Direction facingDirection;
+    public Direction facingDirection;
     protected float stateTimer;
     protected final Map<String, Animation<TextureRegion>> animations;
 
     protected final Vector2 startPosition;
     protected final Vector2 targetPosition;
     protected float movementProgress;
-    private boolean movementJustFinished = false; // ## NOVA FLAG ##
+    private boolean movementJustFinished = false;
 
     protected TiledMapTileLayer collisionLayer;
     protected Array<Entity> allEntities;
 
     private boolean controlEnabled = true;
     protected boolean isLocked = false;
-    private boolean visible = true;
+    protected boolean visible = true;
 
     private final Queue<Direction> currentPath = new Queue<>();
 
@@ -41,7 +41,6 @@ public abstract class Character extends Entity {
     private final Vector2 continuousTargetPosition = new Vector2();
     private float continuousProgress = 0f;
     private float continuousDuration = 0f;
-
 
     public Character(TextureAtlas atlas, TiledMapTileLayer collisionLayer, Array<Entity> allEntities, float startX, float startY) {
         super(startX, startY, GameConfig.PLAYER_WIDTH, GameConfig.PLAYER_HEIGHT);
@@ -56,17 +55,75 @@ public abstract class Character extends Entity {
 
         animations = new HashMap<>();
         if (atlas != null) {
-            float frameDuration = 0.15f;
-            animations.put("walk_down", new Animation<>(frameDuration, atlas.findRegions("walkdown"), Animation.PlayMode.LOOP));
-            animations.put("walk_up", new Animation<>(frameDuration, atlas.findRegions("walkup"), Animation.PlayMode.LOOP));
-            animations.put("walk_left", new Animation<>(frameDuration, atlas.findRegions("walkleft"), Animation.PlayMode.LOOP));
-            animations.put("walk_right", new Animation<>(frameDuration, atlas.findRegions("walkright"), Animation.PlayMode.LOOP));
-            animations.put("idle_down", new Animation<>(frameDuration, atlas.findRegion("idledown")));
-            animations.put("idle_up", new Animation<>(frameDuration, atlas.findRegion("idleup")));
-            animations.put("idle_left", new Animation<>(frameDuration, atlas.findRegion("idleleft")));
-            animations.put("idle_right", new Animation<>(frameDuration, atlas.findRegion("idleright")));
+            loadAnimations(atlas);
         }
     }
+
+    /**
+     * ## NOVO MÉTODO ##
+     * Carrega as animações de forma flexível, testando diferentes padrões de nomes.
+     */
+    private void loadAnimations(TextureAtlas atlas) {
+        float frameDuration = 0.15f;
+        String[] directions = {"down", "up", "left", "right"};
+
+        for (String dir : directions) {
+            // Carrega animações de caminhada (múltiplos frames)
+            Array<TextureAtlas.AtlasRegion> walkRegions = findAnimationRegions(atlas, "walk", dir);
+            if (walkRegions.size > 0) {
+                animations.put("walk-" + dir, new Animation<>(frameDuration, walkRegions, Animation.PlayMode.LOOP));
+            }
+
+            // Carrega animações paradas (frame único)
+            TextureRegion idleRegion = findAnimationRegion(atlas, "idle", dir);
+            if (idleRegion != null) {
+                animations.put("idle-" + dir, new Animation<>(frameDuration, idleRegion));
+            }
+        }
+    }
+
+    /**
+     * ## NOVO MÉTODO ##
+     * Procura por regiões de animação usando múltiplos padrões de nome.
+     * Padrões testados: "base-dir", "base_dir", "basedir".
+     * @return A primeira lista de regiões encontrada que não esteja vazia.
+     */
+    private Array<TextureAtlas.AtlasRegion> findAnimationRegions(TextureAtlas atlas, String base, String direction) {
+        Array<TextureAtlas.AtlasRegion> regions;
+
+        regions = atlas.findRegions(base + "-" + direction);
+        if (regions.size > 0) return regions;
+
+        regions = atlas.findRegions(base + "_" + direction);
+        if (regions.size > 0) return regions;
+
+        regions = atlas.findRegions(base + direction);
+        if (regions.size > 0) return regions;
+
+        return new Array<>(); // Retorna vazio se nada for encontrado
+    }
+    
+    /**
+     * ## NOVO MÉTODO ##
+     * Procura por uma única região de animação usando múltiplos padrões de nome.
+     * Padrões testados: "base-dir", "base_dir", "basedir".
+     * @return A primeira região encontrada.
+     */
+    private TextureRegion findAnimationRegion(TextureAtlas atlas, String base, String direction) {
+        TextureRegion region;
+
+        region = atlas.findRegion(base + "-" + direction);
+        if (region != null) return region;
+        
+        region = atlas.findRegion(base + "_" + direction);
+        if (region != null) return region;
+
+        region = atlas.findRegion(base + direction);
+        if (region != null) return region;
+
+        return null; // Retorna nulo se nada for encontrado
+    }
+
 
     @Override
     public void update(float delta) {
@@ -114,7 +171,7 @@ public abstract class Character extends Entity {
         if (movementProgress >= 1f) {
             worldPosition.set(targetPosition);
             currentState = State.IDLE;
-            movementJustFinished = true; // ## SINALIZA QUE O MOVIMENTO ACABOU DE TERMINAR ##
+            movementJustFinished = true;
 
             if (isFollowingPath()) {
                 currentPath.removeFirst();
@@ -126,7 +183,6 @@ public abstract class Character extends Entity {
         }
     }
     
-    // ## NOVOS MÉTODOS PARA CONTROLAR A FLAG ##
     public boolean isMovementJustFinished() {
         return movementJustFinished;
     }
@@ -166,13 +222,18 @@ public abstract class Character extends Entity {
     public TextureRegion getCurrentFrame() {
         if (!visible || animations.isEmpty()) return null;
 
+        String statePrefix = (currentState == State.WALKING || currentState == State.FREEZE_WALK) ? "walk-" : "idle-";
+        String directionSuffix = facingDirection.name().toLowerCase();
+        String animationKey = statePrefix + directionSuffix;
+
+        Animation<TextureRegion> anim = animations.get(animationKey);
+        if (anim == null) return null; // Retorna nulo se a animação não foi carregada
+
         if (currentState == State.FREEZE_WALK) {
-            String animationKey = "walk_" + facingDirection.name().toLowerCase();
-            return animations.get(animationKey).getKeyFrames()[0];
+            return anim.getKeyFrames()[0];
         }
 
-        String animationKey = (currentState == State.WALKING ? "walk_" : "idle_") + facingDirection.name().toLowerCase();
-        return animations.get(animationKey).getKeyFrame(stateTimer, true);
+        return anim.getKeyFrame(stateTimer, true);
     }
     
     public void followPath(Queue<Direction> path) {
