@@ -339,11 +339,21 @@ public class BattleScreen extends ScreenAdapter {
             public boolean keyDown(int keycode) {
                 if (isStateInputLocked()) return true;
 
+                // ## CORREÇÃO APLICADA AQUI ##
+                // Isola o comportamento da tecla X quando na seleção de movimento.
+                if (currentState == BattleState.MOVE_SELECTION && (keycode == Input.Keys.X || keycode == Input.Keys.ESCAPE)) {
+                    // Chama o handler específico, que sabe como tratar o X como "cancelar".
+                    handleMoveSelectionInput(keycode);
+                    return true;
+                }
+
+                // Para os outros casos, Z e X podem ter a mesma função (avançar texto/confirmar).
                 if (keycode == Input.Keys.Z || keycode == Input.Keys.X) {
                     handleConfirmationInput();
                     return true;
                 }
                 
+                // Trata as teclas direcionais para a navegação nos menus.
                 switch(currentState) {
                     case ACTION_SELECTION: return handleActionSelectionInput(keycode);
                     case MOVE_SELECTION: return handleMoveSelectionInput(keycode);
@@ -644,6 +654,13 @@ public class BattleScreen extends ScreenAdapter {
                     playerPokemon = pokemonToSwitchIn;
                     this.levelToDisplayInHud = playerPokemon.getLevel();
                     loadPlayerPokemonAnimation();
+
+                    // ## CORREÇÃO DA BARRA DE XP ##
+                    // Recalcula a porcentagem de XP para o novo Pokémon que entrou.
+                    int expInLevel = playerPokemon.getExperiencePoints() - ExperienceCalculator.getTotalExpForLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+                    int expForNext = ExperienceCalculator.getExpToNextLevel(playerPokemon.getLevel(), playerPokemon.getExperienceGroup());
+                    this.expAnimCurrentPercentage = (expForNext > 0) ? (float) expInLevel / expForNext : 0f;
+                    
                     pokemonToSwitchIn = null;
                     setMessage("VAI " + playerPokemon.getNickname().toUpperCase() + "!", BattleState.SWITCH_MESSAGE_GO, BattleState.SWITCH_MESSAGE_GO);
                 }
